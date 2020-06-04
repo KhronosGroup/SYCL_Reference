@@ -1,0 +1,8 @@
+Platform: Intel(R) FPGA Emulation Platform for OpenCL(TM)
+  Device: Intel(R) FPGA Emulation Device
+Platform: Intel(R) OpenCL
+  Device: Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz
+Platform: Intel(R) CPU Runtime for OpenCL(TM) Applications
+  Device: Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz
+Platform: SYCL host platform
+  Device: SYCL host device
