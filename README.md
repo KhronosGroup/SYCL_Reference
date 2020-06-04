@@ -1,2 +1,0 @@
-# dpcpp-lang-guide
-
