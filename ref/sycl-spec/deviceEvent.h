@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 class device_event {
 
   device_event(__unspecified__);
 
  public:
-  void wait();
+  void wait() noexcept;
 };
 }  // namespace sycl
-}  // namespace cl

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <int dimensions = 1>
 class id {
@@ -51,5 +50,9 @@ public:
 
 };
 
+// Deduction guides
+id(size_t) -> id<1>;
+id(size_t, size_t) -> id<2>;
+id(size_t, size_t, size_t) -> id<3>;
+
 }  // namespace sycl
-}  // namespace cl

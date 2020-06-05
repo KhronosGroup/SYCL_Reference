@@ -12,31 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 class platform {
  public:
   platform();
 
-  explicit platform(cl_platform_id platformID);
-
-  explicit platform(const device_selector &deviceSelector);
+  template <typename DeviceSelector>
+  explicit platform(const DeviceSelector &deviceSelector);
 
   /* -- common interface members -- */
 
-  cl_platform_id get() const;
+  backend get_backend() const;
 
-  vector_class<device> get_devices(
+  std::vector<device> get_devices(
     info::device_type = info::device_type::all) const;
 
   template <info::platform param>
   typename info::param_traits<info::platform, param>::return_type get_info() const;
 
-  bool has_extension(const string_class &extension) const;
+  template <typename BackendEnum, BackendEnum param>
+  typename info::param_traits<BackendEnum, param>::return_type
+  get_backend_info() const;
+
+  bool has(aspect asp) const;
+
+  bool has_extension(const std::string &extension) const; // Deprecated
 
   bool is_host() const;
 
-  static vector_class<platform> get_platforms();
+  static std::vector<platform> get_platforms();
 };
 }  // namespace sycl
-}  // namespace cl

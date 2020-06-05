@@ -12,37 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 
 class event {
  public:
   event();
 
-  event(cl_event clEvent, const context& syclContext);
-
   /* -- common interface members -- */
 
-  cl_event get();
+  backend get_backend() const;
 
   bool is_host() const;
 
-  vector_class<event> get_wait_list();
+  std::vector<event> get_wait_list();
 
   void wait();
 
-  static void wait(const vector_class<event> &eventList);
+  static void wait(const std::vector<event> &eventList);
 
   void wait_and_throw();
 
-  static void wait_and_throw(const vector_class<event> &eventList);
+  static void wait_and_throw(const std::vector<event> &eventList);
 
   template <info::event param>
-  typename info::param_traits<info::event, param>::return_type get_info() const;
+  typename info::param_traits<info::event, param>::return_type
+  get_info() const;
+
+  template <typename BackendEnum, BackendEnum param>
+  typename info::param_traits<BackendEnum, param>::return_type
+  get_backend_info() const;
 
   template <info::event_profiling param>
-  typename info::param_traits<info::event_profiling, param>::return_type get_profiling_info() const;
+  typename info::param_traits<info::event_profiling, param>::return_type
+  get_profiling_info() const;
 };
 
 }  // namespace sycl
-}  // namespace cl

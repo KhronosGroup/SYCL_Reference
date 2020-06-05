@@ -12,15 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace info {
 enum class kernel: int {
   function_name,
   num_args,
   context,
-  program,
-  reference_count,
+  module,
   attributes
 };
 
@@ -32,6 +30,17 @@ enum class kernel_work_group: int {
  private_mem_size
 };
 
+enum class kernel_device_specific: int {
+ global_work_size,
+ work_group_size,
+ compile_work_group_size,
+ preferred_work_group_size_multiple,
+ private_mem_size,
+ max_num_sub_groups,
+ compile_num_sub_groups,
+ max_sub_group_size,
+ compile_sub_group_size
+};
+
 }  // namespace info
 }  // namespace sycl
-}  // namespace cl

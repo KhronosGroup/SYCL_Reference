@@ -12,89 +12,130 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-template <typename dataT, int dimensions, access::mode accessmode,
-          access::target accessTarget = access::target::global_buffer,
-          access::placeholder isPlaceholder = access::placeholder::false_t>
+template <typename dataT,
+          int dimensions,
+          access::mode accessmode,
+          access::target accessTarget,
+          access::placeholder isPlaceholder>
 class accessor {
  public:
-  using value_type = dataT;
-  using reference = dataT &;
+  template <access::decorated IsDecorated>
+  using accessor_ptr =   // Corresponds to the target address space,
+      __pointer_class__; // is pointer-to-const
+                         // when (accessmode == access::mode::read);
+  using value_type =  // const dataT when (accessmode == access::mode::read),
+      __value_type__; // dataT otherwise
+  using reference =       // const dataT& when (accessmode == access::mode::read),
+      __reference_type__; // dataT& otherwise
   using const_reference = const dataT &;
+  using iterator =      // Corresponds to the target address space,
+      __pointer_type__; // is pointer-to-const
+                        // when (accessmode == access::mode::read)
+  using const_iterator =
+      __pointer_to_const_type__; // Corresponds to the target address space
+  using reverse_iterator = std::reverse_iterator<iterator>;
+  using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+  using difference_type =
+      typename std::iterator_traits<iterator>::difference_type;
+  using size_type = size_t;
 
-  /* Available only when: ((isPlaceholder == access::placeholder::false_t &&
-  accessTarget == access::target::host_buffer) || (isPlaceholder ==
-  access::placeholder::true_t && (accessTarget == access::target::global_buffer
-  || accessTarget == access::target::constant_buffer))) && dimensions == 0 */
+  accessor();
+
+  /* Available only when: (dimensions == 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, 1, AllocatorT> &bufferRef,
            const property_list &propList = {});
 
-  /* Available only when: (isPlaceholder == access::placeholder::false_t &&
-  (accessTarget == access::target::global_buffer || accessTarget ==
-  access::target::constant_buffer)) && dimensions == 0 */
+  /* Available only when: (dimensions == 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, 1, AllocatorT> &bufferRef,
            handler &commandGroupHandlerRef, const property_list &propList = {});
 
-  /* Available only when: ((isPlaceholder == access::placeholder::false_t &&
-  accessTarget == access::target::host_buffer) || (isPlaceholder ==
-  access::placeholder::true_t && (accessTarget == access::target::global_buffer
-  || accessTarget == access::target::constant_buffer))) && dimensions > 0 */
+  /* Available only when: (dimensions > 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
            const property_list &propList = {});
 
-  /* Available only when: (isPlaceholder == access::placeholder::false_t &&
-  (accessTarget == access::target::global_buffer || accessTarget ==
-  access::target::constant_buffer)) && dimensions > 0 */
+  /* Available only when: (dimensions > 0) */
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef, TagT tag,
+           const property_list &propList = {});
+
+  /* Available only when: (dimensions > 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
            handler &commandGroupHandlerRef, const property_list &propList = {});
 
-  /* Available only when: (isPlaceholder == access::placeholder::false_t &&
-  accessTarget == access::target::host_buffer) || (isPlaceholder ==
-  access::placeholder::true_t && (accessTarget == access::target::global_buffer
-  || accessTarget == access::target::constant_buffer)) && dimensions > 0 */
+  /* Available only when: (dimensions > 0) */
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           handler &commandGroupHandlerRef, TagT tag,
+           const property_list &propList = {});
+
+  /* Available only when: (dimensions > 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
            range<dimensions> accessRange, const property_list &propList = {});
 
-  /* Available only when: (isPlaceholder == access::placeholder::false_t &&
-  accessTarget == access::target::host_buffer) || (isPlaceholder ==
-  access::placeholder::true_t && (accessTarget == access::target::global_buffer
-  || accessTarget == access::target::constant_buffer)) && dimensions > 0 */
+  /* Available only when: (dimensions > 0) */
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           range<dimensions> accessRange, TagT tag,
+           const property_list &propList = {});
+
+  /* Available only when: (dimensions > 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
            range<dimensions> accessRange, id<dimensions> accessOffset,
            const property_list &propList = {});
 
-  /* Available only when: (isPlaceholder == access::placeholder::false_t &&
-  (accessTarget == access::target::global_buffer || accessTarget ==
-  access::target::constant_buffer)) && dimensions > 0 */
+  /* Available only when: (dimensions > 0) */
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           range<dimensions> accessRange, id<dimensions> accessOffset,
+           TagT tag, const property_list &propList = {});
+
+  /* Available only when: (dimensions > 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
            handler &commandGroupHandlerRef, range<dimensions> accessRange,
            const property_list &propList = {});
 
-  /* Available only when: (isPlaceholder == access::placeholder::false_t &&
-  (accessTarget == access::target::global_buffer || accessTarget ==
-  access::target::constant_buffer)) && dimensions > 0 */
+  /* Available only when: (dimensions > 0) */
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           handler &commandGroupHandlerRef, range<dimensions> accessRange,
+           TagT tag, const property_list &propList = {});
+
+  /* Available only when: (dimensions > 0) */
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
            handler &commandGroupHandlerRef, range<dimensions> accessRange,
            id<dimensions> accessOffset, const property_list &propList = {});
 
+  /* Available only when: (dimensions > 0) */
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           handler &commandGroupHandlerRef, range<dimensions> accessRange,
+           id<dimensions> accessOffset, TagT tag,
+           const property_list &propList = {});
+
   /* -- common interface members -- */
 
-  /* -- property interface members -- */
+  void swap(accessor &other);
 
-  constexpr bool is_placeholder() const;
+  bool is_placeholder() const;
 
-  size_t get_size() const;
+  size_type byte_size() const noexcept;
 
-  size_t get_count() const;
+  size_type size() const noexcept;
+
+  size_type max_size() const noexcept;
+
+  size_type get_count() const noexcept;
+
+  bool empty() const noexcept;
 
   /* Available only when: dimensions > 0 */
   range<dimensions> get_range() const;
@@ -102,55 +143,38 @@ class accessor {
   /* Available only when: dimensions > 0 */
   id<dimensions> get_offset() const;
 
-  /* Available only when: (accessMode == access::mode::write || accessMode ==
-  access::mode::read_write || accessMode == access::mode::discard_write ||
-  accessMode == access::mode::discard_read_write) && dimensions == 0) */
-  operator dataT &() const;
+  /* Available only when: (dimensions == 0) */
+  operator reference() const;
 
-  /* Available only when: (accessMode == access::mode::write || accessMode ==
-  access::mode::read_write || accessMode == access::mode::discard_write ||
-  accessMode == access::mode::discard_read_write) && dimensions > 0) */
-  dataT &operator[](id<dimensions> index) const;
+  /* Available only when: (dimensions > 0) */
+  reference operator[](id<dimensions> index) const;
 
-  /* Available only when: (accessMode == access::mode::write || accessMode ==
-  access::mode::read_write || accessMode == access::mode::discard_write ||
-  accessMode == access::mode::discard_read_write) && dimensions == 1) */
-  dataT &operator[](size_t index) const;
+  /* Deprecated in SYCL 2020
+  Available only when: accessMode == access::mode::atomic && dimensions ==  0 */
+  operator cl::sycl::atomic<dataT, access::address_space::global_space> () const;
 
-  /* Available only when: accessMode == access::mode::read && dimensions == 0 */
-  operator dataT() const;
-
-  /* Available only when: accessMode == access::mode::read && dimensions > 0 */
-  dataT operator[](id<dimensions> index) const;
-
-  /* Available only when: accessMode == access::mode::read && dimensions == 1 */
-  dataT operator[](size_t index) const;
-
-  /* Available only when: accessMode == access::mode::atomic && dimensions ==
-  0 */
-  operator atomic<dataT, access::address_space::global_space> () const;
-
-  /* Available only when: accessMode == access::mode::atomic && dimensions >
-  0 */
-  atomic<dataT, access::address_space::global_space> operator[](
+  /* Deprecated in SYCL 2020
+  Available only when: accessMode == access::mode::atomic && dimensions > 0 */
+  cl::sycl::atomic<dataT, access::address_space::global_space> operator[](
     id<dimensions> index) const;
-
-  /* Available only when: accessMode == access::mode::atomic && dimensions ==
-  1 */
-  atomic<dataT, access::address_space::global_space> operator[](
-    size_t index) const;
 
   /* Available only when: dimensions > 1 */
   __unspecified__ &operator[](size_t index) const;
 
-  /* Available only when: accessTarget == access::target::host_buffer */
-  dataT *get_pointer() const;
+  std::add_pointer_t<value_type> get_pointer() const noexcept;
 
-  /* Available only when: accessTarget == access::target::global_buffer */
-  global_ptr<dataT> get_pointer() const;
+  template <access::decorated IsDecorated>
+  accessor_ptr<IsDecorated> get_multi_ptr() const noexcept;
 
-  /* Available only when: accessTarget == access::target::constant_buffer */
-  constant_ptr<dataT> get_pointer() const;
+  iterator data() const noexcept;
+
+  iterator begin() const noexcept;
+
+  iterator end() const noexcept;
+
+  const_iterator cbegin() const noexcept;
+
+  const_iterator cend() const noexcept;
 };
+
 }  // namespace sycl
-}  // namespace cl

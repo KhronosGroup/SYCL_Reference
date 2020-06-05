@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 
 template <typename propertyT>
@@ -39,4 +38,3 @@ class property_list {
    property_list(propertyTN... props);
 };
 }  // namespace sycl
-}  // namespace cl

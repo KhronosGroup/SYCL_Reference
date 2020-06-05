@@ -12,19 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
+
 class device {
  public:
   device();
 
-  explicit device(cl_device_id deviceId);
-
-  explicit device(const device_selector &deviceSelector);
+  template <typename DeviceSelector>
+  explicit device(const DeviceSelector &deviceSelector);
 
   /* -- common interface members -- */
 
-  cl_device_id get() const;
+  backend get_backend() const;
 
   bool is_host() const;
 
@@ -40,22 +39,27 @@ class device {
   typename info::param_traits<info::device, param>::return_type
   get_info() const;
 
-  bool has_extension(const string_class &extension) const;
+  template <typename BackendEnum, BackendEnum param>
+  typename info::param_traits<BackendEnum, param>::return_type
+  get_backend_info() const;
+
+  bool has(aspect asp) const;
+
+  bool has_extension(const std::string &extension) const; // Deprecated
 
   // Available only when prop == info::partition_property::partition_equally
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(size_t nbSubDev) const;
+  std::vector<device> create_sub_devices(size_t nbSubDev) const;
 
   // Available only when prop == info::partition_property::partition_by_counts
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(const vector_class<size_t> &counts) const;
+  std::vector<device> create_sub_devices(const std::vector<size_t> &counts) const;
 
   // Available only when prop == info::partition_property::partition_by_affinity_domain
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(info::affinity_domain affinityDomain) const;
+  std::vector<device> create_sub_devices(info::affinity_domain affinityDomain) const;
 
-  static vector_class<device> get_devices(
+  static std::vector<device> get_devices(
       info::device_type deviceType = info::device_type::all);
 };
-}  // namespace sycl
-}  // namespace cl
+} // namespace sycl

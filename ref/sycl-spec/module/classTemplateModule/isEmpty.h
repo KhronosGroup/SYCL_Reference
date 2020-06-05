@@ -1,0 +1,1 @@
+bool is_empty() const noexcept; // (1)

@@ -12,5 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-extern "C" cl::sycl::global_ptr<cl::sycl::cl_int>::pointer_t my_func(
-  cl::sycl::cl_float4::vector_t x, cl::sycl::cl_double y);
+extern "C" typename sycl::decorated_global_ptr<std::int32_t>::pointer my_func(
+    sycl::float4::vector_t x, double y);

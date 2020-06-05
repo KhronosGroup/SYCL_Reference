@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <int dimensions = 1>
 class nd_item {
@@ -55,31 +54,23 @@ public:
 
   nd_range<dimensions> get_nd_range() const;
 
-  void barrier(access::fence_space accessSpace =
-    access::fence_space::global_and_local) const;
-
-  template <access::mode accessMode = access::mode::read_write>
-  void mem_fence(access::fence_space accessSpace =
-    access::fence_space::global_and_local) const;
+  template <typename dataT>
+  device_event async_work_group_copy(decorated_local_ptr<dataT> dest,
+    decorated_global_ptr<dataT> src, size_t numElements) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(local_ptr<dataT> dest,
-    global_ptr<dataT> src, size_t numElements) const;
+  device_event async_work_group_copy(decorated_global_ptr<dataT> dest,
+    decorated_local_ptr<dataT> src, size_t numElements) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(global_ptr<dataT> dest,
-    local_ptr<dataT> src, size_t numElements) const;
+  device_event async_work_group_copy(decorated_local_ptr<dataT> dest,
+    decorated_global_ptr<dataT> src, size_t numElements, size_t srcStride) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(local_ptr<dataT> dest,
-    global_ptr<dataT> src, size_t numElements, size_t srcStride) const;
-
-  template <typename dataT>
-  device_event async_work_group_copy(global_ptr<dataT> dest,
-    local_ptr<dataT> src, size_t numElements, size_t destStride) const;
+  device_event async_work_group_copy(decorated_global_ptr<dataT> dest,
+    decorated_local_ptr<dataT> src, size_t numElements, size_t destStride) const;
 
   template <typename... eventTN>
   void wait_for(eventTN... events) const;
 };
 }  // namespace sycl
-}  // namespace cl

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <typename T, int Dimensions = 1>
 class private_memory {
@@ -23,5 +22,4 @@ class private_memory {
   // Access the instance for the current work-item
   T &operator()(const h_item<Dimensions> &id);
 };
-}
 }

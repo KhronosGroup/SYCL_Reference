@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace info {
 enum class event: int {
-  command_execution_status,
-  reference_count
+  command_execution_status
 };
 
 enum class event_command_status : int {
@@ -33,4 +31,3 @@ enum class event_profiling : int {
 };
 }  // namespace info
 }  // namespace sycl
-}  // namespace cl

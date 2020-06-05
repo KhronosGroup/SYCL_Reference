@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace info {
 enum class context : int {
-  reference_count,
   platform,
-  devices
+  devices,
+  atomic_memory_order_capabilities,
+  atomic_fence_order_capabilities
+  atomic_memory_scope_capabilities,
+  atomic_fence_scope_capabilities
 };
 }  // info
 }  // sycl
-}  // cl

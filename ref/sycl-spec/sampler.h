@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-
 enum class addressing_mode: unsigned int {
   mirrored_repeat,
   repeat,
@@ -33,23 +31,9 @@ enum class coordinate_normalization_mode : unsigned int {
   unnormalized
 };
 
-class sampler {
- public:
-  sampler(coordinate_normalization_mode normalizationMode,
-          addressing_mode addressingMode, filtering_mode filteringMode,
-          const property_list &propList = {});
-
-  sampler(cl_sampler clSampler, const context &syclContext);
-
-  /* -- common interface members -- */
-
-  /* -- property interface members -- */
-
-  addressing_mode get_addressing_mode() const;
-
-  filtering_mode get_filtering_mode() const;
-
-  coordinate_normalization_mode get_coordinate_normalization_mode() const;
+struct image_sampler {
+  addressing_mode addressing;
+  coordinate_mode coordinate;
+  filtering_mode filtering;
 };
 }  // namespace sycl
-}  // namespace cl

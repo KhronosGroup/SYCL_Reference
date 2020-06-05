@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 
 class T {
@@ -28,7 +27,7 @@ class T {
   T &operator=(T &&rhs);
 
   ~T();
-    
+
   ...
 
   friend bool operator==(const T &lhs, const T &rhs) { /* ... */ }
@@ -38,4 +37,3 @@ class T {
   ...
 };
 }  // namespace sycl
-}  // namespace cl

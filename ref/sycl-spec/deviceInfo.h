@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace info {
 
@@ -40,7 +39,7 @@ enum class device : int {
   max_clock_frequency,
   address_bits,
   max_mem_alloc_size,
-  image_support,
+  image_support, // Deprecated
   max_read_image_args,
   max_write_image_args,
   image2d_max_height,
@@ -66,13 +65,17 @@ enum class device : int {
   local_mem_size,
   error_correction_support,
   host_unified_memory,
+  atomic_memory_order_capabilities,
+  atomic_fence_order_capabilities,
+  atomic_memory_scope_capabilities,
+  atomic_fence_scope_capabilities,
   profiling_timer_resolution,
   is_endian_little,
   is_available,
-  is_compiler_available,
-  is_linker_available,
+  is_compiler_available, // Deprecated
+  is_linker_available, // Deprecated
   execution_capabilities,
-  queue_profiling,
+  queue_profiling, // Deprecated
   built_in_kernels,
   platform,
   name,
@@ -80,8 +83,9 @@ enum class device : int {
   driver_version,
   profile,
   version,
-  opencl_c_version,
-  extensions,
+  backend_version,
+  aspects,
+  extensions, // Deprecated
   printf_buffer_size,
   preferred_interop_user_sync,
   parent_device,
@@ -142,4 +146,3 @@ enum class execution_capability : unsigned int {
 
 }  // namespace info
 }  // namespace sycl
-}  // namespace cl

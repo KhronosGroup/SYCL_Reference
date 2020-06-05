@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-namespace access {
 enum class target {
   global_buffer = 2014,
   constant_buffer,
   local,
-  image,
+  unsampled_image,
+  sampled_image,
   host_buffer,
-  host_image,
-  image_array
+  host_unsampled_image,
+  host_sampled_image
 };
 
+namespace access {
+  using sycl::target;
 }  // namespace access
 }  // namespace sycl
-}  // namespace cl
