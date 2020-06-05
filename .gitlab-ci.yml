@@ -3,7 +3,7 @@ image: rscohn2/oneapi-spec:latest
 before_script:
   - python3 -m venv venv
   - . venv/bin/activate
-  - pip install --quiet -r requirements.txt
+  - pip install --upgrade --quiet -r requirements.txt
 
 test:
   stage: test

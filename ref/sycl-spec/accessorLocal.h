@@ -12,16 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-template <typename dataT, int dimensions, access::mode accessmode,
-          access::target accessTarget = access::target::global_buffer,
-          access::placeholder isPlaceholder = access::placeholder::false_t>
+template <typename dataT,
+          int dimensions,
+          access::mode accessmode,
+          access::target accessTarget,
+          access::placeholder isPlaceholder>
 class accessor {
  public:
+  template <typename value_type, access::decorated IsDecorated>
+  using accessor_ptr = multi_ptr<value_type, access::address_space::local_space, IsDecorated>;
   using value_type = dataT;
   using reference = dataT &;
   using const_reference = const dataT &;
+  using iterator = accessor_ptr<dataT, access::decorated::no>;
+  using const_iterator = accessor_ptr<const dataT, access::decorated::no>;
+  using reverse_iterator = std::reverse_iterator<iterator>;
+  using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+  using difference_type =
+      typename std::iterator_traits<iterator>::difference_type;
+  using size_type = size_t;
+
+  accessor();
 
   /* Available only when: dimensions == 0 */
   accessor(handler &commandGroupHandlerRef,
@@ -33,42 +45,59 @@ class accessor {
 
   /* -- common interface members -- */
 
-  /* -- property interface members -- */
+  void swap(accessor &other);
 
-  size_t get_size() const;
+  size_type byte_size() const noexcept;
 
-  size_t get_count() const;
+  size_type size() const noexcept;
+
+  size_type max_size() const noexcept;
+
+  size_type get_count() const noexcept;
+
+  bool empty() const noexcept;
 
   range<dimensions> get_range() const;
 
-  /* Available only when: accessMode == access::mode::read_write && dimensions == 0) */
-  operator dataT &() const;
+  /* Available only when: (dimensions == 0) */
+  operator reference() const;
 
-  /* Available only when: accessMode == access::mode::read_write && dimensions > 0) */
-  dataT &operator[](id<dimensions> index) const;
+  /* Available only when: (dimensions > 0) */
+  reference operator[](id<dimensions> index) const;
 
-  /* Available only when: accessMode == access::mode::read_write && dimensions == 1) */
-  dataT &operator[](size_t index) const;
+  /* Deprecated in SYCL 2020
+  Available only when: accessMode == access::mode::atomic && dimensions ==  0 */
+  operator cl::sycl::atomic<dataT,access::address_space::local_space> () const;
 
-  /* Available only when: accessMode == access::mode::atomic && dimensions ==
-  0 */
-  operator atomic<dataT,access::address_space::local_space> () const;
-
-  /* Available only when: accessMode == access::mode::atomic && dimensions >
-  0 */
-  atomic<dataT, access::address_space::local_space> operator[](
+  /* Deprecated in SYCL 2020
+  Available only when: accessMode == access::mode::atomic && dimensions > 0 */
+  cl::sycl::atomic<dataT, access::address_space::local_space> operator[](
     id<dimensions> index) const;
-
-  /* Available only when: accessMode == access::mode::atomic && dimensions ==
-  1 */
-  atomic<dataT, access::address_space::local_space> operator[](
-    size_t index) const;
 
   /* Available only when: dimensions > 1 */
   __unspecified__ &operator[](size_t index) const;
 
-  /* Available only when: accessTarget == access::target::local */
-  local_ptr<dataT> get_pointer() const;
+  std::add_pointer_t<value_type> get_pointer() const noexcept;
+
+  template <access::decorated IsDecorated>
+  accessor_ptr<value_type, IsDecorated> get_multi_ptr() const noexcept;
+
+  iterator data() const noexcept;
+
+  iterator begin() const noexcept;
+
+  iterator end() const noexcept;
+
+  const_iterator cbegin() const noexcept;
+
+  const_iterator cend() const noexcept;
+
+  reverse_iterator rbegin() const noexcept;
+
+  reverse_iterator rend() const noexcept;
+
+  const_reverse_iterator crbegin() const noexcept;
+
+  const_reverse_iterator crend() const noexcept;
 };
 }  // namespace sycl
-}  // namespace cl

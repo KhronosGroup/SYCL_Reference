@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <int dimensions = 1>
 class nd_range {
@@ -29,4 +28,3 @@ public:
   id<dimensions> get_offset() const;
 };
 }  // namespace sycl
-}  // namespace cl

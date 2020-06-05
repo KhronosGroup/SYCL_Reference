@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-namespace access {
-enum class mode {
+enum class access_mode {
   read = 1024,
   write,
   read_write,
-  discard_write,
-  discard_read_write,
-  atomic
+  discard_write,      // Deprecated in SYCL 2020
+  discard_read_write, // Deprecated in SYCL 2020
+  atomic              // Deprecated in SYCL 2020
 };
-}  // namespace access
+
+namespace access {
+  using sycl::access_mode;
+}
 }  // namespace sycl
-}  // namespace cl

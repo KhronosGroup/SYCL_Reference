@@ -1,0 +1,1 @@
+bool has_kernel(std::string kernelName) const noexcept; // (1)

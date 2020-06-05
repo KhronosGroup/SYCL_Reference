@@ -12,63 +12,72 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-template <int dimensions = 1>
+template <int Dimensions = 1>
 class group {
 public:
 
+  using id_type = id<Dimensions>;
+  using range_type = range<Dimensions>;
+  using linear_id_type = size_t;
+  static constexpr int dimensions = Dimensions;
+
    /* -- common interface members -- */
 
-  id<dimensions> get_id() const;
+  id<Dimensions> get_group_id() const;
 
-  size_t get_id(int dimension) const;
+  size_t get_group_id(int dimension) const;
 
-  range<dimensions> get_global_range() const;
+  id<Dimensions> get_local_id() const;
 
-  size_t get_global_range(int dimension) const;
+  size_t get_local_id(int dimension) const;
 
-  range<dimensions> get_local_range() const;
+  range<Dimensions> get_local_range() const;
 
   size_t get_local_range(int dimension) const;
 
-  range<dimensions> get_group_range() const;
+  range<Dimensions> get_group_range() const;
 
   size_t get_group_range(int dimension) const;
 
+  range<Dimensions> get_max_local_range() const;
+
+  range<Dimensions> get_uniform_group_range() const;
+
   size_t operator[](int dimension) const;
 
-  size_t get_linear_id() const;
+  size_t get_group_linear_id() const;
+
+  size_t get_local_linear_id() const;
+
+  size_t get_group_linear_range() const;
+
+  size_t get_local_linear_range() const;
 
   template<typename workItemFunctionT>
-  void parallel_for_work_item(workItemFunctionT func) const;
+  void parallel_for_work_item(const workItemFunctionT &func) const;
 
   template<typename workItemFunctionT>
   void parallel_for_work_item(range<dimensions> logicalRange,
-    workItemFunctionT func) const;
-
-  template <access::mode accessMode = access::mode::read_write>
-  void mem_fence(access::fence_space accessSpace =
-    access::fence_space::global_and_local) const;
+    const workItemFunctionT &func) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(local_ptr<dataT> dest,
-    global_ptr<dataT> src, size_t numElements) const;
+  device_event async_work_group_copy(decorated_local_ptr<dataT> dest,
+    decorated_global_ptr<dataT> src, size_t numElements) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(global_ptr<dataT> dest,
-    local_ptr<dataT> src, size_t numElements) const;
+  device_event async_work_group_copy(decorated_global_ptr<dataT> dest,
+    decorated_local_ptr<dataT> src, size_t numElements) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(local_ptr<dataT> dest,
-    global_ptr<dataT> src, size_t numElements, size_t srcStride) const;
+  device_event async_work_group_copy(decorated_local_ptr<dataT> dest,
+    decorated_global_ptr<dataT> src, size_t numElements, size_t srcStride) const;
 
   template <typename dataT>
-  device_event async_work_group_copy(global_ptr<dataT> dest,
-    local_ptr<dataT> src, size_t numElements, size_t destStride) const;
+  device_event async_work_group_copy(decorated_global_ptr<dataT> dest,
+    decorated_local_ptr<dataT> src, size_t numElements, size_t destStride) const;
 
   template <typename... eventTN>
   void wait_for(eventTN... events) const;
 };
 }  // sycl
-}  // cl

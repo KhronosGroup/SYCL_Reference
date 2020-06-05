@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <int dimensions>
 class h_item {
@@ -63,4 +62,3 @@ public:
 
 };
 }  // namespace sycl
-}  // namespace cl

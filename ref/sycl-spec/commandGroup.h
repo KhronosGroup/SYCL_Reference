@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 class command_group {
  public:
@@ -32,4 +31,3 @@ class command_group {
   event complete_event();
 };
 }  // namespace sycl
-}  // namespace cl

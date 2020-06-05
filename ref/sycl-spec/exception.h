@@ -12,26 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 
-using async_handler = function_class<void(cl::sycl::exception_list)>;
+using async_handler = std::function<void(sycl::exception_list)>;
 
-class exception {
+class exception : public virtual std::exception {
  public:
-  const char *what() const;
+    exception(std::error_code ec, const std::string& what_arg);
+    exception(std::error_code ec, const char * what_arg);
+    exception(std::error_code ec);
+    exception(int ev, const std::error_category& ecat, const std::string& what_arg);
+    exception(int ev, const std::error_category& ecat, const char* what_arg);
+    exception(int ev, const std::error_category& ecat);
 
-  bool has_context() const;
+    exception(context ctx, std::error_code ec, const std::string& what_arg);
+    exception(context ctx, std::error_code ec, const char* what_arg);
+    exception(context ctx, std::error_code ec);
+    exception(context ctx, int ev, const std::error_category& ecat, const std::string& what_arg);
+    exception(context ctx, int ev, const std::error_category& ecat, const char* what_arg);
+    exception(context ctx, int ev, const std::error_category& ecat);
 
-  context get_context() const;
+    const std::error_code& code() const noexcept;
+    const std::error_category& category() const noexcept;
 
-  cl_int get_cl_code() const;
+    bool has_context() const noexcept;
+    context get_context() const;
 };
 
 class exception_list {
   // Used as a container for a list of asynchronous exceptions
  public:
-  using value_type = exception_ptr_class;
+  using value_type = std::exception_ptr;
   using reference = value_type&;
   using const_reference = const value_type&;
   using size_type = std::size_t;
@@ -43,33 +54,41 @@ class exception_list {
   iterator end() const;    // refer to past-the-end last asynchronous exception
 };
 
-class runtime_error : public exception;
+enum class errc {
+  runtime_error = /* implementation-defined */,
+  kernel = /* implementation-defined */,
+  accessor = /* implementation-defined */,
+  nd_range = /* implementation-defined */,
+  event = /* implementation-defined */,
+  invalid_parameter = /* implementation-defined */,
+  compile_program = /* implementation-defined */,
+  link_program = /* implementation-defined */,
+  invalid_object = /* implementation-defined */,
+  memory_allocation = /* implementation-defined */,
+  platform = /* implementation-defined */,
+  profiling = /* implementation-defined */,
+  feature_not_supported = /* implementation-defined */
+};
 
-class kernel_error : public runtime_error;
+template<backend b>
+using errc_for = typename backend_traits<b>::errc;
 
-class accessor_error : public runtime_error;
+std::error_condition make_error_condition(errc e) noexcept;
+std::error_code make_error_code(errc e) noexcept;
 
-class nd_range_error : public runtime_error;
+const std::error_category& sycl_category() noexcept;
 
-class event_error : public runtime_error;
-
-class invalid_parameter_error : public runtime_error;
-
-class device_error : public exception;
-
-class compile_program_error : public device_error;
-
-class link_program_error : public device_error;
-
-class invalid_object_error : public device_error;
-
-class memory_allocation_error : public device_error;
-
-class platform_error : public device_error;
-
-class profiling_error : public device_error;
-
-class feature_not_supported : public device_error;
+template<backend b>
+const std::error_category& error_category_for() noexcept;
 
 }  // namespace sycl
-}  // namespace cl
+
+namespace std {
+
+  template <>
+  struct is_error_condition_enum<sycl::errc> : true_type {};
+
+  template <>
+  struct is_error_code_enum<see-below> : true_type {};
+
+}  // namespace std

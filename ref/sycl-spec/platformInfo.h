@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace info {
 enum class platform : unsigned int {
@@ -20,8 +19,7 @@ enum class platform : unsigned int {
   version,
   name,
   vendor,
-  extensions
+  extensions // Deprecated
 };
 }  // namespace info
 }  // namespace sycl
-}  // namespace cl

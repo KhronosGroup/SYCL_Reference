@@ -12,46 +12,51 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 class queue {
  public:
   explicit queue(const property_list &propList = {});
 
   explicit queue(const async_handler &asyncHandler,
-    const property_list &propList = {});
+                 const property_list &propList = {});
 
-  explicit queue(const device_selector &deviceSelector,
-    const property_list &propList = {});
+  template <typename DeviceSelector>
+  explicit queue(const DeviceSelector &deviceSelector,
+                 const property_list &propList = {});
 
-  explicit queue(const device_selector &deviceSelector,
-      const async_handler &asyncHandler, const property_list &propList = {});
+  template <typename DeviceSelector>
+  explicit queue(const DeviceSelector &deviceSelector,
+                 const async_handler &asyncHandler,
+                 const property_list &propList = {});
 
   explicit queue(const device &syclDevice, const property_list &propList = {});
 
   explicit queue(const device &syclDevice, const async_handler &asyncHandler,
-    const property_list &propList = {});
+                 const property_list &propList = {});
 
-  explicit queue(const context &syclContext, const device_selector &deviceSelector,
-    const property_list &propList = {});
+  template <typename DeviceSelector>
+  explicit queue(const context &syclContext,
+                 const DeviceSelector &deviceSelector,
+                 const property_list &propList = {});
 
-  explicit queue(const context &syclContext, const device_selector &deviceSelector,
-    const async_handler &asyncHandler, const property_list &propList = {});
+  template <typename DeviceSelector>
+  explicit queue(const context &syclContext,
+                 const DeviceSelector &deviceSelector,
+                 const async_handler &asyncHandler,
+                 const property_list &propList = {});
 
   explicit queue(const context &syclContext, const device &syclDevice,
-    const property_list &propList = {});
+                 const property_list &propList = {});
 
   explicit queue(const context &syclContext, const device &syclDevice,
-    const async_handler &asyncHandler, const property_list &propList = {});
-
-  explicit queue(cl_command_queue clQueue, const context& syclContext,
-    const async_handler &asyncHandler = {});
+                 const async_handler &asyncHandler,
+                 const property_list &propList = {});
 
   /* -- common interface members -- */
 
   /* -- property interface members -- */
 
-  cl_command_queue get() const;
+  backend get_backend() const;
 
   context get_context() const;
 
@@ -59,8 +64,14 @@ class queue {
 
   bool is_host() const;
 
+  bool is_in_order() const;
+
   template <info::queue param>
   typename info::param_traits<info::queue, param>::return_type get_info() const;
+
+  template <typename BackendEnum, BackendEnum param>
+  typename info::param_traits<BackendEnum, param>::return_type
+  get_backend_info() const;
 
   template <typename T>
   event submit(T cgf);
@@ -73,6 +84,54 @@ class queue {
   void wait_and_throw();
 
   void throw_asynchronous();
+
+  /* -- convenience shortcuts -- */
+
+  template <typename KernelName, typename KernelType>
+  event single_task(const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType>
+  event single_task(event DepEvent, const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType>
+  event single_task(const std::vector<event> &DepEvents,
+                    const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(range<Dims> NumWorkItems, const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(range<Dims> NumWorkItems, event DepEvent,
+                     const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(range<Dims> NumWorkItems,
+                     const std::vector<event> &DepEvents,
+                     const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(range<Dims> NumWorkItems, id<Dims> WorkItemOffset,
+                     const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(range<Dims> NumWorkItems, id<Dims> WorkItemOffset,
+                     event DepEvent, const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(range<Dims> NumWorkItems, id<Dims> WorkItemOffset,
+                     const std::vector<event> &DepEvents,
+                     const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(nd_range<Dims> ExecutionRange, const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(nd_range<Dims> ExecutionRange, event DepEvent,
+                     const KernelType &KernelFunc);
+
+  template <typename KernelName, typename KernelType, int Dims>
+  event parallel_for(nd_range<Dims> ExecutionRange,
+                     const std::vector<event> &DepEvents,
+                     const KernelType &KernelFunc);
 };
 }  // namespace sycl
-}  // namespace cl

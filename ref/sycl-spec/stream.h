@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 
 enum class stream_manipulator {
@@ -83,4 +82,3 @@ template <typename T>
 const stream& operator<<(const stream& os, const T &rhs);
 
 }  // namespace sycl
-}  // namespace cl

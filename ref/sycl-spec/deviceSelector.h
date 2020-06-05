@@ -12,52 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-class default_selector : public device_selector {
- public:
-  default_selector();
 
-  virtual ~default_selector();
+// Predefined device selectors
+__unspecified__ default_selector_v;
+__unspecified__ host_selector_v;
+__unspecified__ cpu_selector_v;
+__unspecified__ gpu_selector_v;
+__unspecified__ accelerator_selector_v;
 
-  virtual int operator()(const device &device) const;
-};
+// Predefined types for compatibility with old SYCL 1.2.1 device selectors
+using default_selector = __unspecified__;
+using host_selector = __unspecified__;
+using cpu_selector = __unspecified__;
+using gpu_selector = __unspecified__;
+using accelerator_selector = __unspecified__;
 
-class opencl_selector : public device_selector {
- public:
-  opencl_selector();
-
-  virtual ~opencl_selector();
-
-  virtual int operator()(const device &device) const;
-};
-
-class cpu_selector : public device_selector {
- public:
-  cpu_selector();
-
-  virtual ~cpu_selector();
-
-  virtual int operator()(const device &device) const;
-};
-
-class gpu_selector : public device_selector {
- public:
-  gpu_selector();
-
-  virtual ~gpu_selector();
-
-  virtual int operator()(const device &device) const;
-};
-
-class host_selector : public device_selector {
- public:
-  host_selector();
-
-  virtual ~host_selector();
-
-  virtual int operator()(const device &device) const;
-};
-
-}  // namespace sycl
-}  // namespace cl
+} // namespace sycl

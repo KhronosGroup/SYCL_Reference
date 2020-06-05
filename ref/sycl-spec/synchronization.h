@@ -12,14 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-namespace access {
-enum class fence_space : char {
-  local_space,
-  global_space,
-  global_and_local
-};  // enum class fence_space
-}  // namepaces access
+
+void atomic_fence(memory_order order, memory_scope scope);
+
 }  // namespace sycl
-}  // namespace cl

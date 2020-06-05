@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <int dimensions = 1, bool with_offset = true>
 class item {
@@ -37,7 +36,9 @@ public:
   // only available if with_offset is false
   operator item<dimensions, true>() const;
 
+  // only available if dimensions == 1
+  operator size_t() const;
+
   size_t get_linear_id() const;
 };
 }  // namespace sycl
-}  // namespace cl

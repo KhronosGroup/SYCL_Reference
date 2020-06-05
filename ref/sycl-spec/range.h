@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 template <int dimensions = 1>
 class range {
@@ -37,13 +36,17 @@ public:
   friend range operatorOP(const range &lhs, const size_t &rhs) { /* ... */ }
 
   // OP is: +=, -=, *=, /=, %=, <<=, >>=, &=, |=, ^=
-  friend range & operatorOP(const range &lhs, const range &rhs) { /* ... */ }
-  friend range & operatorOP(const range &lhs, const size_t &rhs) { /* ... */ }
+  friend range & operatorOP(range &lhs, const range &rhs) { /* ... */ }
+  friend range & operatorOP(range &lhs, const size_t &rhs) { /* ... */ }
 
   // OP is: +, -, *, /, %, <<, >>, &, |, ^, &&, ||, <, >, <=, >=
   friend range operatorOP(const size_t &lhs, const range &rhs) { /* ... */ }
 
 };
 
+// Deduction guides
+range(size_t) -> range<1>;
+range(size_t, size_t) -> range<2>;
+range(size_t, size_t, size_t) -> range<3>;
+
 }  // sycl
-}  // cl

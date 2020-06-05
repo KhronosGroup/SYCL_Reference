@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace property {
 namespace buffer {
@@ -23,9 +22,9 @@ class use_host_ptr {
 
 class use_mutex {
   public:
-    use_mutex(mutex_class &mutexRef);
+    use_mutex(std::mutex &mutexRef);
 
-    mutex_class *get_mutex_ptr() const;
+    std::mutex *get_mutex_ptr() const;
 };
 
 class context_bound {
@@ -38,7 +37,7 @@ class context_bound {
 }  // namespace property
 
 template <typename T, int dimensions = 1,
-          typename AllocatorT = cl::sycl::buffer_allocator>
+          typename AllocatorT = sycl::buffer_allocator>
 class buffer {
  public:
   using value_type = T;
@@ -64,11 +63,11 @@ class buffer {
   buffer(const T *hostData, const range<dimensions> &bufferRange,
          AllocatorT allocator, const property_list &propList = {});
 
-  buffer(const shared_ptr_class<T> &hostData,
+  buffer(const std::shared_ptr<T> &hostData,
          const range<dimensions> &bufferRange, AllocatorT allocator,
          const property_list &propList = {});
 
-  buffer(const shared_ptr_class<T> &hostData,
+  buffer(const std::shared_ptr<T> &hostData,
          const range<dimensions> &bufferRange,
          const property_list &propList = {});
 
@@ -82,10 +81,6 @@ class buffer {
 
   buffer(buffer<T, dimensions, AllocatorT> b, const id<dimensions> &baseIndex,
          const range<dimensions> &subRange);
-
-  /* Available only when: dimensions == 1. */
-  buffer(cl_mem clMemObject, const context &syclContext,
-         event availableEvent = {});
 
   /* -- common interface members -- */
 
@@ -115,6 +110,12 @@ class buffer {
   accessor<T, dimensions, mode, access::target::host_buffer> get_access(
     range<dimensions> accessRange, id<dimensions> accessOffset = {});
 
+  template<typename... Ts>
+  auto get_access(Ts...);
+
+  template<typename... Ts>
+  auto get_host_access(Ts...);
+
   template <typename Destination = std::nullptr_t>
   void set_final_data(Destination finalData = nullptr);
 
@@ -126,6 +127,28 @@ class buffer {
   buffer<ReinterpretT, ReinterpretDim, AllocatorT>
   reinterpret(range<ReinterpretDim> reinterpretRange) const;
 
+  // Only available when ReinterpretDim == 1
+  // or when (ReinterpretDim == dimensions) &&
+  //         (sizeof(ReinterpretT) == sizeof(T))
+  template <typename ReinterpretT, int ReinterpretDim = dimensions>
+  buffer<ReinterpretT, ReinterpretDim, AllocatorT>
+  reinterpret() const;
 };
+
+// Deduction guides
+template <class InputIterator, class AllocatorT>
+buffer(InputIterator, InputIterator, AllocatorT, const property_list & = {})
+    -> buffer<typename std::iterator_traits<InputIterator>::value_type, 1,
+             AllocatorT>;
+template <class InputIterator>
+buffer(InputIterator, InputIterator, const property_list & = {})
+    -> buffer<typename std::iterator_traits<InputIterator>::value_type, 1>;
+template <class T, int dimensions, class AllocatorT>
+buffer(const T *, const range<dimensions> &, AllocatorT,
+       const property_list & = {})
+    -> buffer<T, dimensions, AllocatorT>;
+template <class T, int dimensions>
+buffer(const T *, const range<dimensions> &, const property_list & = {})
+    -> buffer<T, dimensions>;
+
 }  // namespace sycl
-}  // namespace cl

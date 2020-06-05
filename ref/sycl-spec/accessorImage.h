@@ -12,32 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
-template <typename dataT, int dimensions, access::mode accessmode,
-          access::target accessTarget = access::target::global_buffer,
-          access::placeholder isPlaceholder = access::placeholder::false_t>
+
+template <typename dataT,
+          int dimensions,
+          access::mode accessMode,
+          access::target accessTarget>
 class accessor {
  public:
   using value_type = dataT;
   using reference = dataT &;
   using const_reference = const dataT &;
 
-  /* Available only when: accessTarget == access::target::host_image */
+  /* Available only when: accessTarget == access::target::host_unsampled_image */
   template <typename AllocatorT>
-  accessor(image<dimensions, AllocatorT> &imageRef,
-           const property_list &propList = {});
+  accessor(unsampled_image<dimensions, AllocatorT> &imageRef);
 
-  /* Available only when: accessTarget == access::target::image */
+  /* Available only when: accessTarget == access::target::host_sampled_image */
   template <typename AllocatorT>
-  accessor(image<dimensions, AllocatorT> &imageRef,
-           handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(sampled_image<dimensions, AllocatorT> &imageRef);
 
-  /* Available only when: accessTarget == access::target::image_array &&
-  dimensions < 3 */
+  /* Available only when: accessTarget == access::target::unsampled_image */
   template <typename AllocatorT>
-  accessor(image<dimensions + 1, AllocatorT> &imageRef,
-           handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(unsampled_image<dimensions, AllocatorT> &imageRef,
+    handler &commandGroupHandlerRef);
+
+  /* Available only when: accessTarget == access::target::sampled_image */
+  template <typename AllocatorT>
+  accessor(sampled_image<dimensions, AllocatorT> &imageRef,
+    handler &commandGroupHandlerRef);
 
   /* -- common interface members -- */
 
@@ -45,38 +48,32 @@ class accessor {
 
   size_t get_count() const;
 
-  /* Available only when: (accessTarget !=
-  access::target::image_array) */
-  range<dimensions> get_range() const;
-
-  /* Available only when: (accessTarget ==
-  access::target::image_array) */
-  range<dimensions+1> get_range() const;
-
-  /* Available only when: (accessTarget == access::target::image && 
+  /* Available only when: (accessTarget == access::target::unsampled_image &&
   accessMode == access::mode::read) || (accessTarget ==
-  access::target::host_image && (accessMode == access::mode::read ||
-  accessMode == access::mode::read_write)) */
+  access::target::host_unsampled_image && accessMode == access::mode::read)
+  if dimensions == 1, coordT = int
+  if dimensions == 2, coordT = int2
+  if dimensions == 4, coordT = int4 */
   template <typename coordT>
-  dataT read(const coordT &coords) const;
+  dataT read(const coordT &coords) const noexcept;
 
-  /* Available only when: (accessTarget == access::target::image && 
+  /* Available only when: (accessTarget == access::target::sampled_image &&
   accessMode == access::mode::read) || (accessTarget ==
-  access::target::host_image && (accessMode == access::mode::read ||
-  accessMode == access::mode::read_write)) */
+  access::target::host_sampled_image && accessMode == access::mode::read)
+  if dimensions == 1, coordT = float
+  if dimensions == 2, coordT = float2
+  if dimensions == 3, coordT = float4 */
   template <typename coordT>
-  dataT read(const coordT &coords, const sampler &smpl) const;
+  dataT read(const coordT &coords) const noexcept;
 
-  /* Available only when: (accessTarget == access::target::image &&
+  /* Available only when: (accessTarget == access::target::unsampled_image &&
   (accessMode == access::mode::write || accessMode == access::mode::discard_write)) ||
-  (accessTarget == access::target::host_image && (accessMode == access::mode::write ||
-  accessMode == access::mode::discard_write || accessMode == access::mode::read_write)) */
+  (accessTarget == access::target::host_unsampled_image && (accessMode == access::mode::write ||
+  accessMode == access::mode::discard_write))
+  if dimensions == 1, coordT = int
+  if dimensions == 2, coordT = int2
+  if dimensions == 3, coordT = int4 */
   template <typename coordT>
   void write(const coordT &coords, const dataT &color) const;
-
-  /* Available only when: accessTarget == access::target::image_array &&
-  dimensions < 3 */
-  __image_array_slice__ operator[](size_t index) const
 };
 }  // namespace sycl
-}  // namespace cl

@@ -14,16 +14,18 @@
 
 namespace cl {
 namespace sycl {
+/* Deprecated in SYCL 2020 */
 enum class memory_order : int {
   relaxed
 };
 
+/* Deprecated in SYCL 2020 */
 template <typename T, access::address_space addressSpace =
   access::address_space::global_space>
 class atomic {
  public:
-  template <typename pointerT>
-  atomic(multi_ptr<pointerT, addressSpace> ptr);
+  template <typename pointerT, access::decorated IsDecorated>
+  atomic(multi_ptr<pointerT, addressSpace, IsDecorated> ptr);
 
   void store(T operand, memory_order memoryOrder =
     memory_order::relaxed);

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace cl {
 namespace sycl {
 namespace info {
 template <typename T, T param>
@@ -24,4 +23,3 @@ class param_traits {
 };
 }  // namespace info
 }  // namespace sycl
-}  // namespace cl
