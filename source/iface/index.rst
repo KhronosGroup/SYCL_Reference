@@ -41,12 +41,12 @@ Runtime classes
 .. toctree::
    :maxdepth: 1
 
-   runtime/device-selectors
-   runtime/platform
-   runtime/context
-   runtime/device
-   runtime/queue
-   runtime/event
+   device-selectors
+   platform
+   context
+   device
+   queue
+   event
 
 .. _data-access:
 
@@ -56,11 +56,11 @@ Data access
 .. toctree::
    :maxdepth: 2
 
-   data/buffer
-   data/image
-   data/accessors
-   data/address-space
-   data/sampler
+   buffer
+   image
+   accessors
+   address-space
+   sampler
 
 
 .. _expressing-parallelism:
@@ -70,11 +70,11 @@ Expressing parallelism
 
 .. toctree::
 
-   parallelism/range
-   parallelism/command-group
-   parallelism/command-group-handler
-   parallelism/kernel
-   parallelism/program
+   range
+   command-group
+   command-group-handler
+   kernel
+   program
    
 .. _error-handling:
 
@@ -83,43 +83,43 @@ Error handling
 
 .. toctree::
 
-   error/exception
+   exception
 
 Data types
 ==========
 
 .. toctree::
 
-   types/scalar
-   types/vector
+   scalar-types
+   vector-types
 
 Synchronization and atomics
 ===========================
 
 .. toctree::
 
-   synchronization/types
+   types
 
 Stream class
 ============
 
 .. toctree::
 
-   stream/stream
+   stream
 
 Built-in functions
 ==================
 
 .. toctree::
 
-   built-in/math
-   built-in/integer
-   built-in/common
-   built-in/geometric
-   built-in/relational
-   built-in/vector
-   built-in/synchronization
-   built-in/printf
+   math
+   integer
+   common
+   geometric
+   relational
+   vector
+   synchronization
+   printf
 
 
 
