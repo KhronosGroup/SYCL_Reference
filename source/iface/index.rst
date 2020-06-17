@@ -71,6 +71,8 @@ Expressing parallelism
 .. toctree::
 
    range
+   group
+   device-event
    command-group
    command-group-handler
    kernel

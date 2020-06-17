@@ -13,11 +13,19 @@ Invoking kernels
 .. rubric:: Kernel dispatch
 
 =================  ===
+require_
+set_arg_
+set_args_
+single_task_
+parallel_for_
 =================  ===
 
 .. rubric:: Memory operations	    
 
 =================  ===
+copy_
+update_host_
+fill_
 =================  ===
 
 
@@ -42,6 +50,8 @@ set_arg
 set_args
 ========
 
+::
+   
   template <typename... Ts>
   void set_args(Ts &&... args);
 

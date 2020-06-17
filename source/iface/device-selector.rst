@@ -13,51 +13,46 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
-************************
- Device selection class
-************************
+****************
+Device selectors
+****************
 
-=========================
-Device selector interface
-=========================
+===============
+device_selector
+===============
 
 ::
    
   class device_selector();
 
-``device_selector`` is an abstract class that cann
-
 .. rubric:: Member functions
    
 ====================  =======================
-`(constructor)`_      constructs a device_selector
-(destructor)          destroys the device_selector
+`(constructors)`_     constructs a device_selector
 select_device_     
 ====================  =======================
 
 .. rubric:: Nonmember functions
 
-=================  =======================
+=================  ===
 operator()
-=================  =======================
+=================  ===
 
 
-(constructor)
-=============
+(constructors)
+==============
 
 ::
    
   device_selector(const device_selector &rhs);
-
-::
-   
   device_selector &operator=(const device_selector &rhs);
 
-Constructs a ``device_selector`` from another ``device_selector``
 
 .. rubric:: Parameters
 
-| ``rhs`` - device 
+=================  ===
+rhs                device 
+=================  ===
 
 select_device
 =============
@@ -66,7 +61,6 @@ select_device
    
   device select_device() const;
 
-.. rubric:: Returns
    
 operator()
 ==========
@@ -77,16 +71,14 @@ operator()
 
 .. rubric:: Parameters
 
-| ``device`` -
+=================  ===
+device
+=================  ===
 
-.. rubric:: Returns
 
-=======================
-Derived device selector
-=======================
-
+================
 default_selector
-=================
+================
 
 ::
    
@@ -96,6 +88,7 @@ Selects a SYCL device based on a implementation-defined
 heuristic. Selects a :term:`host device` if no other device can be
 found.
    
+============
 gpu_selector
 ============
 
@@ -104,10 +97,6 @@ gpu_selector
    class gpu_selector;
 
 Selects a GPU.   
-
-.. rubric:: Exceptions
-
-Throws a ``runtime_error`` if a GPU device cannot be found
 
 .. _gpu-selector-example:
 
@@ -119,6 +108,7 @@ Output on a system without a GPU
 
 .. literalinclude:: /examples/gpu-selector.out
 		    
+====================
 accelerator_selector
 ====================
 
@@ -128,14 +118,11 @@ accelerator_selector
 
 Selects an accelerator.
 
-.. rubric:: Exceptions
-
-Throws a ``runtime_error`` if an accelerator device cannot be found.
-
 .. rubric:: Example
 
 See :ref:`gpu-selector-example` for the use of a pre-defined selector.
 
+============
 cpu_selector
 ============
 
@@ -145,15 +132,12 @@ cpu_selector
 
 Select a CPU device.
 
-.. rubric:: Exceptions
-
-Throws a ``runtime_error`` if a CPU device cannot be found.
-
 .. rubric:: Example
 
 See :ref:`gpu-selector-example` for the use of a pre-defined selector.
 
 
+=============
 host_selector
 =============
 

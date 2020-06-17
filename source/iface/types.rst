@@ -70,76 +70,93 @@ exchange
 compare_exchange_strong
 =======================
 
-::
+.. parsed-literal::
 
+   *Available only when:
+    T != float*
+    
    bool compare_exchange_strong(T &expected, T desired,
                                 memory_order successMemoryOrder = memory_order::relaxed,
                                 memory_order failMemoryOrder = memory_order::relaxed);
 
-Available only when: T != float
 
 fetch_add
 =========
 
-::
+.. parsed-literal::
 
+   *Available only when:
+    T != float*
+    
    T fetch_add(T operand, memory_order memoryOrder = memory_order::relaxed);
 
-Available only when: T != float
 
 fetch_sub
 =========
 
-::
+.. parsed-literal::
 
+   *Available only when:
+    T != float*
+    
    T fetch_sub(T operand, memory_order memoryOrder = memory_order::relaxed);
 
-Available only when: T != float
 
 fetch_and
 =========
 
-::
+.. parsed-literal::
    
+   *Available only when:
+    T != float*
+    
    T fetch_and(T operand, memory_order memoryOrder = memory_order::relaxed);
    
-Available only when: T != float
+
 
 fetch_or
 ========
 
-::
+.. parsed-literal::
    
+   *Available only when:
+    T != float*
+
    T fetch_or(T operand, memory_order memoryOrder = memory_order::relaxed);
 
-Available only when: T != float
 
 fetch_xor
 =========
 
-::
+.. parsed-literal::
    
+   *Available only when:
+    T != float*
+    
    T fetch_xor(T operand, memory_order memoryOrder = memory_order::relaxed);
 
-Available only when: T != float
 
 fetch_min
 =========
 
-::
+.. parsed-literal::
    
+   *Available only when:
+    T != float*
+    
    T fetch_min(T operand, memory_order memoryOrder = memory_order::relaxed);
    
-Available only when: T != float
 
 fetch_max
 =========
 
-::
+.. parsed-literal::
 
+   *Available only when:
+    T != float*
+    
    T fetch_max(T operand, memory_order memoryOrder = memory_order::relaxed);
 
-Available only when: T != float
 
 
 

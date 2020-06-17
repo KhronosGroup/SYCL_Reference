@@ -24,7 +24,7 @@ event
 .. rubric:: Member functions
 
 =====================  =======================
-`(constructor)`_
+`(constructors)`_
 (destructor)    
 `cl_event_get`_ 
 `is_host`_     
@@ -35,15 +35,12 @@ event
 `get_profiling_info`_
 =====================  =======================
 
-(constructor)
-=============
+(constructors)
+==============
 
 ::
    
   event();
-
-::
-   
   event(cl_event clEvent, const context& syclContext);
 
 cl_event_get
@@ -53,7 +50,6 @@ cl_event_get
    
   cl_event get();
 
-.. rubric:: Returns
 
 is_host
 =======
@@ -62,7 +58,6 @@ is_host
    
   bool is_host() const;
 
-.. rubric:: Returns
 
 get_wait_list
 =============
@@ -71,7 +66,6 @@ get_wait_list
    
   vector_class<event> get_wait_list();
 
-.. rubric:: Returns
 
 wait
 ========
@@ -79,9 +73,6 @@ wait
 ::
    
   void wait();
-
-::
-   
   static void wait(const vector_class<event> &eventList);
 
 wait_and_throw
@@ -90,9 +81,6 @@ wait_and_throw
 ::
    
   void wait_and_throw();
-
-::
-   
   static void wait_and_throw(const vector_class<event> &eventList);
 
 get_info
@@ -103,7 +91,6 @@ get_info
   template <info::event param>
   typename info::param_traits<info::event, param>::return_type get_info() const;
 
-.. rubric:: Returns
 
 get_profiling_info
 ==================
@@ -112,6 +99,4 @@ get_profiling_info
    
   template <info::event_profiling param>
   typename info::param_traits<info::event_profiling, param>::return_type get_profiling_info() const;
-
-.. rubric:: Returns
 
