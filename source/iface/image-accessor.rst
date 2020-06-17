@@ -1,3 +1,5 @@
+.. rst-class:: api-class
+	       
 ===============
 Image accessor
 ===============
@@ -13,11 +15,13 @@ Description
 
 .. rubric:: Template parameters
 
-| ``dataT`` -
-| ``dimensions`` -
-| ``accessmode`` -
-| ``accessTarget`` -
-| ``isPlaceholder`` -
+================  ===
+dataT
+dimensions
+accessmode
+accessTarget
+isPlaceholder
+================  ===
 
 .. rubric:: Member types
 
@@ -47,26 +51,27 @@ read_
 
 .. parsed-literal::
    
-  template <typename AllocatorT>                            [#host_image]_
+  *Available only when:
+   accessTarget == access::target::host_image*
+
+  template <typename AllocatorT>
   accessor(image<dimensions, AllocatorT> &imageRef,
            const property_list &propList = {});
 
-.. parsed-literal::
-  
-  template <typename AllocatorT>                            [#image]_
+  *Available only when:
+   accessTarget == access::target::image*
+
+  template <typename AllocatorT>
   accessor(image<dimensions, AllocatorT> &imageRef,
            handler &commandGroupHandlerRef, const property_list &propList = {});
 
-.. parsed-literal::
+  *Available only when:
+   accessTarget == access::target::image_array && dimensions < 3*
    
-  template <typename AllocatorT>                            [#image_arraydlt3]_
+  template <typename AllocatorT>
   accessor(image<dimensions + 1, AllocatorT> &imageRef,
            handler &commandGroupHandlerRef, const property_list &propList = {});
 
-.. [#host_image] Available only when: accessTarget == access::target::host_image
-.. [#image] Available only when: accessTarget == access::target::image
-.. [#image_arraydlt3] Available only when: accessTarget ==
-                      access::target::image_array && dimensions < 3
 
 get_count
 =========
@@ -80,53 +85,61 @@ get_range
 
 .. parsed-literal::
    
-  range<dimensions> get_range() const;                      [#not_image_array]_
+   *Available only when:
+    (accessTarget != access::target::image_array)*
+    
+   range<dimensions> get_range() const;
 
-.. parsed-literal::
-   
-  range<dimensions+1> get_range() const;                    [#image_array]_
-
-.. [#not_image_array] Available only when: (accessTarget != access::target::image_array)
-.. [#image_array] Available only when: (accessTarget == access::target::image_array)
+   *Available only when:
+    (accessTarget == access::target::image_array)*
+    
+   range<dimensions+1> get_range() const;
 
 .. rubric:: Template parameters
 
-| ``dimensions`` -
-
-.. rubric:: Returns
+================  ===
+dimensions
+================  ===
 
 read
 ====
 
 .. parsed-literal::
    
-  template <typename coordT>                                [#a]_
+  *Available only when:
+   (accessTarget == access::target::image && accessMode == access::mode::read)
+   || (accessTarget ==
+        access::target::host_image && (accessMode ==
+        access::mode::read || accessMode == access::mode::read_write))*
+
+  template <typename coordT>
   dataT read(const coordT &coords) const;
 
-  template <typename coordT>                                [#b]_
+  *Available only when:
+   (accessTarget == access::target::image && accessMode == access::mode::read)
+   || (accessTarget ==
+        access::target::host_image && (accessMode ==
+        access::mode::read || accessMode == access::mode::read_write))*
+
+  template <typename coordT>
   dataT read(const coordT &coords, const sampler &smpl) const;
 
-.. [#a] Available only when: (accessTarget == access::target::image &&
-        accessMode == access::mode::read) || (accessTarget ==
-        access::target::host_image && (accessMode ==
-        access::mode::read || accessMode == access::mode::read_write))
-.. [#b] Available only when: (accessTarget == access::target::image &&
-        accessMode == access::mode::read) || (accessTarget ==
-        access::target::host_image && (accessMode ==
-        access::mode::read || accessMode == access::mode::read_write))
 
 .. rubric:: Template parameters
 
-| `coordT` -
+================  ===
+coordT
+================  ===
 
-.. rubric:: Returns
 
 operator[]
 ==========
 
 ::
    
+  *Available only when:
+   accessTarget == access::target::image_array && dimensions < 3*
+   
   __image_array_slice__ operator[](size_t index) const;
 
-Available only when: accessTarget == access::target::image_array && dimensions < 3 
   

@@ -26,6 +26,8 @@ Synchronization types
        relaxed
    };
 
+.. rst-class:: api-class
+	       
 ========
  atomic
 ========

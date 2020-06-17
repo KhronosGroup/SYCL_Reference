@@ -47,6 +47,8 @@ Streams
    __precision_manipulator__ setprecision(int precision);
    __width_manipulator__ setw(int width);
 
+.. rst-class:: api-class
+	       
 ========
  stream
 ========

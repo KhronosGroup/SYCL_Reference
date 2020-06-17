@@ -121,6 +121,8 @@ logger = logging.getLogger(__name__)
 class_layout_pattern = (':title'
                         '(:rubric Template parameters:table)?'
                         '(:rubric Parameters:table)?'
+                        '(:rubric Kernel dispatch:table)?'
+                        '(:rubric Memory operations:table)?'
                         '(:rubric Member types:table)?'
                         '(:rubric Nonmember data:table)?'
                         '(:rubric Member functions:table)?'
@@ -128,16 +130,19 @@ class_layout_pattern = (':title'
                         '(:rubric Example)?'
                         '(:section)*')
                           
-class_ignore = ['target', 'paragraph', 'literal_block']
+class_ignore = ['target',
+                'paragraph',
+                'literal_block',
+                'system_message']
 class_layout = re.compile(class_layout_pattern)
 
 def check_class(section):
     enc = ''
     for n in section:
         name = type(n).__name__
-        enc += ':' + name
         if name in class_ignore:
             continue
+        enc += ':' + name
         if name == 'rubric':
             enc += ' ' + n[0]
     if not class_layout.fullmatch(enc):

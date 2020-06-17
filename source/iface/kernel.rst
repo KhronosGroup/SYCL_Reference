@@ -31,6 +31,8 @@ Kernel
        private_mem_size
    };
 
+.. rst-class:: api-class
+	       
 ========
  kernel
 ========
@@ -39,8 +41,21 @@ Kernel
 
    class kernel;
 
-(constructors
-=============
+.. rubric:: Member functions
+
+=====================  ===	    
+`(constructors)`_
+get_
+is_host_
+get_context_
+get_program_
+get_info_
+get_work_group_info_
+=====================  ===	    
+
+
+(constructors)
+==============
 
 ::
 

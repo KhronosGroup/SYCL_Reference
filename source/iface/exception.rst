@@ -4,6 +4,8 @@
 Exceptions
 **********
 
+.. rst-class:: api-class
+	       
 =========
 exception
 =========

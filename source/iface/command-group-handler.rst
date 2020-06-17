@@ -2,6 +2,8 @@
 Invoking kernels
 ****************
 
+.. rst-class:: api-class
+	       
 =========
  handler
 =========

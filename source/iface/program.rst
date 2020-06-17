@@ -27,6 +27,8 @@ Program
        linked
    };
 
+.. rst-class:: api-class
+	       
 =========
  program
 =========
@@ -42,16 +44,12 @@ Program
    
   explicit program(const context &context,
                    const property_list &propList = {});
-
   program(const context &context, vector_class<device> deviceList,
           const property_list &propList = {});
-
   program(vector_class<program> &programList,
           const property_list &propList = {});
-
   program(vector_class<program> &programList, string_class linkOptions,
           const property_list &propList = {});
-
   program(const context &context, cl_program clProgram);
 
 get
@@ -170,7 +168,7 @@ get_build_options
 
 get_state
 =========
-
+ 
 ::
 
    program_state get_state() const;

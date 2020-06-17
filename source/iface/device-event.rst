@@ -1,3 +1,5 @@
+.. rst-class:: api-class
+	       
 ==============
  device_event
 ==============

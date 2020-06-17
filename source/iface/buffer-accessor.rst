@@ -1,3 +1,5 @@
+.. rst-class:: api-class
+	       
 ===============
 Buffer accessor
 ===============
@@ -13,11 +15,13 @@ Description
 
 .. rubric:: Template parameters
 
-| ``dataT`` -
-| ``dimensions`` -
-| ``accessmode`` -
-| ``accessTarget`` -
-| ``isPlaceholder`` -
+===============  =======
+dataT
+dimensions
+accessmode
+accessTarget
+isPlaceholder
+===============  =======
 
 .. rubric:: Member types
 

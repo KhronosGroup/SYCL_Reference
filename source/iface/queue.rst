@@ -15,6 +15,8 @@
 
 .. _queue:
 
+.. rst-class:: api-class
+	       
 =====
 queue
 =====
@@ -26,7 +28,7 @@ queue
 .. rubric:: Member functions
 
 =====================  =======================
-`(constructor)`_   
+`(constructors)`_   
 (destructor)       
 `get`_             
 `get_context`_     
@@ -39,65 +41,35 @@ queue
 `throw_asynchronous`_
 =====================  =======================
 
-(constructor)
-=============
+(constructors)
+==============
 
 ::
    
   explicit queue(const property_list &propList = {});
-
-::
-   
   explicit queue(const async_handler &asyncHandler,
                  const property_list &propList = {});
-
-::
-
   explicit queue(const device_selector &deviceSelector,
                  const property_list &propList = {});
-
-::
-
   explicit queue(const device_selector &deviceSelector,
                  const async_handler &asyncHandler,
 		 const property_list &propList = {});
-
-::
-   
   explicit queue(const device &syclDevice, const property_list &propList = {});
-
-::
-   
   explicit queue(const device &syclDevice, const async_handler &asyncHandler,
                  const property_list &propList = {});
-
-::
-   
   explicit queue(const context &syclContext,
                  const device_selector &deviceSelector,
 		 const property_list &propList = {});
-
-::
-   
   explicit queue(const context &syclContext,
                  const device_selector &deviceSelector,
                  const async_handler &asyncHandler,
 		 const property_list &propList = {});
-
-::
-   
   explicit queue(const context &syclContext,
                  const device &syclDevice,
 		 const property_list &propList = {});
-
-::
-   
   explicit queue(const context &syclContext, const device &syclDevice,
                  const async_handler &asyncHandler,
 		 const property_list &propList = {});
-
-::
-
   explicit queue(cl_command_queue clQueue, const context& syclContext,
                  const async_handler &asyncHandler = {});
 
@@ -165,10 +137,11 @@ submit
 
 .. rubric:: Parameters
 
-| ``cgf`` -
-| ``secondaryQueue`` -
+=================  ===
+cgf
+secondaryQueue
+=================  ===
 
-.. rubric:: Returns
 
 
 wait

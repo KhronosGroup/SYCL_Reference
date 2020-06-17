@@ -15,9 +15,11 @@
 
 .. _platform-class:
 
-==============
-Platform class
-==============
+.. rst-class:: api-class
+	       
+========
+platform
+========
 
 ::
    
