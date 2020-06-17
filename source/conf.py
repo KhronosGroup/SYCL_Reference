@@ -109,9 +109,47 @@ notfound_default_version = ''
 
 # -- Add some directives for structure------------------------------------
 
+
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst.directives.body import ParsedLiteral
 from docutils import nodes
+import re
+from sphinx.util import logging
+
+logger = logging.getLogger(__name__)
+
+class_layout_pattern = (':title'
+                        '(:rubric Template parameters:table)?'
+                        '(:rubric Parameters:table)?'
+                        '(:rubric Member types:table)?'
+                        '(:rubric Nonmember data:table)?'
+                        '(:rubric Member functions:table)?'
+                        '(:rubric Nonmember functions:table)?'
+                        '(:rubric Example)?'
+                        '(:section)*')
+                          
+class_ignore = ['target', 'paragraph', 'literal_block']
+class_layout = re.compile(class_layout_pattern)
+
+def check_class(section):
+    enc = ''
+    for n in section:
+        name = type(n).__name__
+        enc += ':' + name
+        if name in class_ignore:
+            continue
+        if name == 'rubric':
+            enc += ' ' + n[0]
+    if not class_layout.fullmatch(enc):
+        logger.warning('Class structure mismatch', location=n)
+        logger.warning('  got: %s' % enc)
+        logger.warning('  expected: %s' % class_layout_pattern)
+
+def check_doc(app, doctree):
+    for section in doctree.traverse(nodes.section):
+        classes = section['classes']
+        if 'api-class' in classes:
+            check_class(section)
 
 class TParamsDirective(Directive):
 
@@ -154,6 +192,7 @@ class ExampleDirective(Directive):
         return [nodes.rubric(text='Example')]
     
 def setup(app):
+    app.connect('doctree-read', check_doc)
     if False:
         app.add_directive('tparams', TParamsDirective)
         app.add_directive('params', ParamsDirective)
