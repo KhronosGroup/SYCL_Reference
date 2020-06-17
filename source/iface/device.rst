@@ -13,13 +13,9 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
-************
-Device class
-************
-
-================
-Device interface
-================
+======
+device
+======
 
 ::
    
@@ -30,7 +26,7 @@ An abstract class representing various models of SYCL devices
 .. rubric:: Member functions
 
 =====================  =======================
-`(constructor)`_
+`(constructors)`_
 (destructor)    
 get_          
 is_host_      
@@ -45,36 +41,35 @@ create_sub_devices_
 
 .. rubric:: Nonmember functions
 
-=================  =======================
+=================  ===
 get_devices_
-=================  =======================
+=================  ===
 
-(constructor)
-=============
-
-.. parsed-literal::
-   
-  device();                                                [#default]_
+(constructors)
+==============
 
 .. parsed-literal::
    
-  explicit device(cl_device_id deviceId);                  [#opencl]_
+  *Default Constructor. Constructs a device object in host mode*
+  device();
 
-.. parsed-literal::
-   
-  explicit device(const device_selector &deviceSelector);  [#select]_
+  *Constructs a device object from another device object and
+   retains the cl_device_id object if the device is not in
+   host mode.*
 
-.. [#default] Default Constructor. Constructs a device object in host
-              mode.
-.. [#opencl] Constructs a device object from another device object and
-             retains the cl_device_id object if the device is not in
-             host mode.
-.. [#select] Use deviceSelector to choose device
+  explicit device(cl_device_id deviceId);
+
+  *Use deviceSelector to choose device*
+
+  explicit device(const device_selector &deviceSelector);
+
 	     
 .. rubric:: Parameters
 
-| ``deviceID`` - OpenCL device id
-| ``deviceSelector`` - Device selector
+=================  =======================
+deviceID           OpenCL device id
+deviceSelector     Device selector
+=================  =======================
 
 get
 ===
@@ -167,7 +162,9 @@ Queries the device for information specific to ``param``.
 
 .. rubric:: Template parameters
 
-``param`` - refer to info::device table 
+=================  ===
+param              refer to info::device table 
+=================  ===
 
 .. rubric:: Returns
 
@@ -184,43 +181,46 @@ has_extension
    
   bool has_extension(const string_class &extension) const;
 
-Check
 
 .. rubric:: Parameters
 
-``extension`` - name of extension
+=================  ===
+extension          name of extension
+=================  ===
 
-.. rubric:: Returns
 
 create_sub_devices
 ==================
 
 .. parsed-literal::
    
-  template <info::partition_property prop>
-  vector_class<device> create_sub_devices(size_t nbSubDev) const; [#1]_
+  *Available only when:
+   prop == info::partition_property::partition_equally*
 
-.. parsed-literal::
+  template <info::partition_property prop>
+  vector_class<device> create_sub_devices(size_t nbSubDev) const;
+
+  *Available only when:
+   prop == info::partition_property::partition_by_counts*
    
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(const vector_class<size_t> &counts) const; [#2]_
+  vector_class<device> create_sub_devices(const vector_class<size_t> &counts) const;
 
-.. parsed-literal::
+  *Available only when:
+   prop == info::partition_property::partition_by_affinity_domain*
    
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(info::affinity_domain affinityDomain) const; [#3]_
+  vector_class<device> create_sub_devices(info::affinity_domain affinityDomain) const;
 
-.. [#1] Available only when prop == info::partition_property::partition_equally
-.. [#2] Available only when prop == info::partition_property::partition_by_counts
-.. [#3]	Available only when prop == info::partition_property::partition_by_affinity_domain
 
 .. rubric:: Parameters
 
-nbSubDev -
-counts -
-affinityDomain -
+=================  ===
+nbSubDev
+counts
+affinityDomain
+=================  ===
 
-.. rubric:: Returns
 
 get_devices
 ===========
@@ -230,4 +230,3 @@ get_devices
   static vector_class<device> get_devices(
       info::device_type deviceType = info::device_type::all);
 
-.. rubric:: Returns
