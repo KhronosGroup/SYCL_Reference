@@ -4,9 +4,12 @@
  Buffers
 *********
 
-==================
- Buffer class
-==================
+
+.. rst-class:: api-class
+	       
+======
+buffer
+======
 
 ::
    
@@ -248,6 +251,8 @@ ReinterpretRange
 `property::buffer::context_bound`_
 ==================================  ======
 
+.. rst-class:: api-class
+	       
 property::buffer::use_host_ptr
 ==============================
 
@@ -273,6 +278,8 @@ Description
    use_host_ptr();
 
 
+.. rst-class:: api-class
+	       
 property::buffer::use_mutex
 ===========================
 

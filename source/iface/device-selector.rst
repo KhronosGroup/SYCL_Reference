@@ -17,6 +17,8 @@
 Device selectors
 ****************
 
+.. rst-class:: api-class
+	       
 ===============
 device_selector
 ===============
@@ -76,6 +78,8 @@ device
 =================  ===
 
 
+.. rst-class:: api-class
+	       
 ================
 default_selector
 ================
@@ -88,6 +92,8 @@ Selects a SYCL device based on a implementation-defined
 heuristic. Selects a :term:`host device` if no other device can be
 found.
    
+.. rst-class:: api-class
+	       
 ============
 gpu_selector
 ============
@@ -108,6 +114,8 @@ Output on a system without a GPU
 
 .. literalinclude:: /examples/gpu-selector.out
 		    
+.. rst-class:: api-class
+	       
 ====================
 accelerator_selector
 ====================
@@ -122,6 +130,8 @@ Selects an accelerator.
 
 See :ref:`gpu-selector-example` for the use of a pre-defined selector.
 
+.. rst-class:: api-class
+	       
 ============
 cpu_selector
 ============
@@ -137,6 +147,8 @@ Select a CPU device.
 See :ref:`gpu-selector-example` for the use of a pre-defined selector.
 
 
+.. rst-class:: api-class
+	       
 =============
 host_selector
 =============

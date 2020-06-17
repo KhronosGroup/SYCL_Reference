@@ -51,6 +51,8 @@
    };
 
 
+.. rst-class:: api-class
+	       
 =====
  vec
 =====

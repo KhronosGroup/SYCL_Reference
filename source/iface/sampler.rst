@@ -39,6 +39,8 @@ Samplers
      unnormalized
   };
 
+.. rst-class:: api-class
+	       
 =========
  sampler
 =========

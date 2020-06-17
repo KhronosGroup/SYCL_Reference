@@ -1,3 +1,5 @@
+.. rst-class:: api-class
+	       
 ===============
  command_group
 ===============

@@ -4,9 +4,11 @@
 Images
 ******
 
-==================
- Image interface
-==================
+.. rst-class:: api-class
+	       
+=====
+image
+=====
 
 ::
    
@@ -16,8 +18,10 @@ Images
 
 .. rubric:: Template parameters
 
-| ``dimensions`` -
-| ``AllocatorT`` -
+========================  ==========
+dimensions
+AllocatorT
+========================  ==========
 
 .. rubric:: Member functions
 	    
@@ -38,110 +42,73 @@ set_write_back_
 (constructors)
 ==============
 
-::
+.. parsed-literal::
    
   image(image_channel_order order, image_channel_type type,
         const range<dimensions> &range, const property_list &propList = {});
-
-::
-   
   image(image_channel_order order, image_channel_type type,
         const range<dimensions> &range, AllocatorT allocator,
         const property_list &propList = {});
-
-.. parsed-literal::
-   
-  image(image_channel_order order, image_channel_type type,                 [#dimgtr1]_
-        const range<dimensions> &range, const range<dimensions - 1> &pitch,
-        const property_list &propList = {});
-
-.. parsed-literal::
-   
-  image(image_channel_order order, image_channel_type type,                 [#dimgtr1]_
-        const range<dimensions> &range, const range<dimensions - 1> &pitch,
-        AllocatorT allocator, const property_list &propList = {});
-
-::
-   
   image(void *hostPointer, image_channel_order order,
         image_channel_type type, const range<dimensions> &range,
         const property_list &propList = {});
-
-::
-   
   image(void *hostPointer, image_channel_order order,
         image_channel_type type, const range<dimensions> &range,
         AllocatorT allocator, const property_list &propList = {});
-
-::
-   
   image(const void *hostPointer, image_channel_order order,
         image_channel_type type, const range<dimensions> &range,
         const property_list &propList = {});
-
-::
-   
   image(const void *hostPointer, image_channel_order order,
         image_channel_type type, const range<dimensions> &range,
         AllocatorT allocator, const property_list &propList = {});
+  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
+        image_channel_type type, const range<dimensions> &range,
+        const property_list &propList = {});
+  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
+        image_channel_type type, const range<dimensions> &range,
+        AllocatorT allocator, const property_list &propList = {});
+  image(cl_mem clMemObject, const context &syclContext,
+        event availableEvent = {});
 
-.. parsed-literal::
-   
-  image(void \*hostPointer, image_channel_order order,                       [#dimgtr1]_
+  *Available only when:
+   dimensions > 1*
+	      
+  image(image_channel_order order, image_channel_type type,
+        const range<dimensions> &range, const range<dimensions - 1> &pitch,
+        const property_list &propList = {});
+  image(image_channel_order order, image_channel_type type,
+        const range<dimensions> &range, const range<dimensions - 1> &pitch,
+        AllocatorT allocator, const property_list &propList = {});
+  image(void \*hostPointer, image_channel_order order,     
         image_channel_type type, const range<dimensions> &range,
         range<dimensions - 1> &pitch, const property_list &propList = {});   
-
-.. parsed-literal::
-   
-  image(void \*hostPointer, image_channel_order order,                       [#dimgtr1]_
+  image(void \*hostPointer, image_channel_order order,     
         image_channel_type type, const range<dimensions> &range,
         range<dimensions - 1> &pitch, AllocatorT allocator,
         const property_list &propList = {});
-
-::
-   
   image(shared_ptr_class<void> &hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        const property_list &propList = {});
-
-::
-   
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        AllocatorT allocator, const property_list &propList = {});
-
-.. parsed-literal::
-   
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,     [#dimgtr1]_
         image_channel_type type, const range<dimensions> &range,
         const range<dimensions - 1> &pitch, const property_list &propList = {});
-
-.. parsed-literal::
-   
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,     [#dimgtr1]_
+  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
         image_channel_type type, const range<dimensions> &range,
         const range<dimensions - 1> &pitch, AllocatorT allocator,
         const property_list &propList = {});
 
-::
-   
-  image(cl_mem clMemObject, const context &syclContext,
-        event availableEvent = {});
-
-.. [#dimgtr1] Available only when: dimensions > 1
 
 .. rubric:: Parameters
 
-| ``order`` -
-| ``type`` -
-| ``range`` -
-| ``propList`` - See `Image properties`_
-| ``allocator`` -
-| ``pitch`` -
-| ``hostPointer`` -
-| ``syclContext`` -
-| ``clMemObject`` -
-| ``availableEvent`` -
+================  ===
+order
+type
+range
+propList          See `Image properties`_
+allocator
+pitch
+hostPointer
+syclContext
+clMemObject
+availableEvent
+================  ===
 
 get_range
 =========
@@ -149,8 +116,6 @@ get_range
 ::
    
   range<dimensions> get_range() const;
-
-.. rubric:: Returns
 
 get_pitch
 =========
@@ -161,16 +126,12 @@ get_pitch
 
 Available only when dimensions > 1
 
-.. rubric:: Returns
-
 get_count
 =========
 
 ::
 
   size_t get_count() const;
-
-.. rubric:: Returns
 
 get_size
 ========
@@ -179,16 +140,12 @@ get_size
 
   size_t get_size() const;
 
-.. rubric:: Returns
-
 get_allocator
 =============
 
 ::
 
   AllocatorT get_allocator() const;
-
-.. rubric:: Returns
 
 get_access
 ==========
@@ -198,23 +155,23 @@ get_access
   template <typename dataT, access::mode accessMode>
   accessor<dataT, dimensions, accessMode, access::target::image>
   get_access(handler & commandGroupHandler);
-
-::
-
   template <typename dataT, access::mode accessMode>
   accessor<dataT, dimensions, accessMode, access::target::host_image>
   get_access();
 
 .. rubric:: Template parameters
 
-| ``dataT`` -
-| ``accessMode`` -
+===================  ===
+dataT
+accessMode
+===================  ===
 
 .. rubric:: Parameters
 
-| ``commandGroupHandler`` -
+===================  ===
+commandGroupHandler
+===================  ===
 
-.. rubric:: Returns
 	    
 set_final_data
 ==============
@@ -228,11 +185,15 @@ Description
 
 .. rubric:: Template parameters
 
-| ``Destination`` -
+================  ===
+Destination
+================  ===
 
 .. rubric:: Parameters
 
-| ``finalData`` -
+================  ===
+finalData
+================  ===
 
 
 set_write_back
@@ -256,6 +217,8 @@ set_write_back
 `property::image::context_bound`_
 ===================================  ======
 
+.. rst-class:: api-class
+	       
 property::image::use_host_ptr
 ==============================
 
@@ -282,6 +245,8 @@ Description
 
 Description
 
+.. rst-class:: api-class
+	       
 property::image::use_mutex
 ==========================
 

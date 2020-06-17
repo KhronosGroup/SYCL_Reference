@@ -2,6 +2,8 @@
 Ranges and index space identifiers
 **********************************
 
+.. rst-class:: api-class
+	       
 =======
  range
 =======
@@ -13,7 +15,9 @@ Ranges and index space identifiers
 
 .. rubric:: Template parameters
 
-| `dimensions` -
+================  ===
+dimensions
+================  ===
 
 .. rubric:: Member functions
 
@@ -57,17 +61,16 @@ Arithmetic Operators
 
 .. parsed-literal::
 
-  friend range operatorOP(const range &lhs, const range &rhs)  [#arith]_
+  *OP is: +, -, \*, /, %, <<, >>, &, \|, ^, &&, \|\|, <, >, <=, >=*
+  
+  friend range operatorOP(const range &lhs, const range &rhs)
+  friend range operatorOP(const range &lhs, const size_t &rhs)
+  friend range operatorOP(const size_t &lhs, const range &rhs)
 
-  friend range operatorOP(const range &lhs, const size_t &rhs) [#arith]_
+  *OP is: +=, -=, \*=, /=, %=, <<=, >>=, &=, \|=, ^=*
 
-  friend range operatorOP(const size_t &lhs, const range &rhs) [#arith]_
+  friend range & operatorOP(const range &lhs, const range &rhs)
+  friend range & operatorOP(const range &lhs, const size_t &rhs)
 
-  friend range & operatorOP(const range &lhs, const range &rhs) [#assign]_
-
-  friend range & operatorOP(const range &lhs, const size_t &rhs) [#assign]_
-
-.. [#arith] OP is: +, -, \*, /, %, <<, >>, &, \|, ^, &&, \|\|, <, >, <=, >=
-.. [#assign] OP is: +=, -=, \*=, /=, %=, <<=, >>=, &=, \|=, ^=	    
 
  

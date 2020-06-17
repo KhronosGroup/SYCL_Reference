@@ -18,6 +18,8 @@
    };
 
 
+.. rst-class:: api-class
+	       
 ===========
  multi_ptr
 ===========
@@ -30,8 +32,10 @@
 
 .. rubric:: Template parameters
 
-| `ElementType` -
-| `Space` -
+===============  ===
+ElementType
+Space
+===============  ===
 
 .. rubric:: Member types
 
@@ -178,19 +182,12 @@ Arithmetic operators
 ::
 
   friend multi_ptr& operator++(multi_ptr& mp);
-
   friend multi_ptr operator++(multi_ptr& mp, int);
-
   friend multi_ptr& operator--(multi_ptr& mp);
-
   friend multi_ptr operator--(multi_ptr& mp, int);
-
   friend multi_ptr& operator+=(multi_ptr& lhs, difference_type r);
-
   friend multi_ptr& operator-=(multi_ptr& lhs, difference_type r);
-
   friend multi_ptr operator+(const multi_ptr& lhs, difference_type r);
-
   friend multi_ptr operator-(const multi_ptr& lhs, difference_type r);
 
 prefetch
