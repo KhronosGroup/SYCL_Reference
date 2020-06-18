@@ -7,10 +7,10 @@ Memory Objects
 Memory objects are either buffers or images.
 
 
-- Buffer object - a one, two, or three dimensional array of elements.
+- :ref:`buffer` object - a one, two, or three dimensional array of elements.
   Buffers can be accessed via lower level C++ pointer types. For
   further information on buffers, see the `SYCL Specification`_.
-- Image object - a formatted opaque memory object stored in a type
+- :ref:`image` object - a formatted opaque memory object stored in a type
   specific and optimized fashion. Access occurs through built-in
   functions. Image objects typically pertain to pictures comprised of
   pixels stored in a format such as RGB (red, green, blue intensity).

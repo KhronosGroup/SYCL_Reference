@@ -19,8 +19,8 @@ Target               Description
 ``constant_buffer``  | Access the buffer from constant memory on the device.
                      | This may enable some optimization.    
 ``local``            Access the buffer from local memory on the device.          
-``image``            Access the image     
-``image_array``      Access an array of images     
+``image``            Access the image.     
+``image_array``      Access an array of images.     
 ``host_image``       Access the image on the host.     
 ===================  =================
 
@@ -33,8 +33,8 @@ Memory Access Mode      Description
 ``read``                Read-only     
 ``write``               Write-only     
 ``read_write``          Read and write     
-``discard_write``       Write-only access. Previous value is discarded          
-``discard_read_write``  Read and write. Previous value is discarded     
+``discard_write``       Write-only access. Previous value is discarded.          
+``discard_read_write``  Read and write. Previous value is discarded.     
 ``atomic``              Provide atomic, one at a time, access.     
 ======================  =================
 

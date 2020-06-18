@@ -8,8 +8,8 @@ The following example uses the oneAPI programming model to add 2
 vectors. When compiled and executed, the sample program computes the
 1024 element vector add in parallel on the accelerator. This assumes
 the accelerator has multiple compute elements capable of executing in
-parallel.  This sample illustrates the models that the software
-developer will need to employ in their program. We identify sections
+parallel.  This sample illustrates the models that software
+developers need to employ in their program. We identify sections
 of code by line number and discuss their role, highlighting their
 relation to the programming and execution models.
 
@@ -55,11 +55,11 @@ the ``a`` and ``b`` vectors.
 Command group scope can be found on lines 34-43. A command group
 contains a single kernel function and code to coordinate the passing
 of data and control between the host and the device. Lines 35-37
-create accessors which enable the kernel to access the data in the
+create accessors, which enable the kernel to access the data in the
 buffers created on lines 28-30. The ``parallel_for`` on line 39
 launches an instance of the kernel on every element of an index space
 and passes the coordinates of the point in the index space to the
-function. The index space is defined on line 26. It is a 1 dimensional
+function. The index space is defined on line 26. It is a one-dimensional
 space that ranges from 0 to 1023.
 
 .. literalinclude:: /examples/vector-add.cpp
@@ -75,10 +75,10 @@ the platforms available on the system and the devices contained in the
 platform.
 
 Lines 28-30 and 35-37 show the role of the **memory model**. Device
-and host do not by default access the same memory. The memory model
+and host do not access the same memory by default. The memory model
 defines the rules for access. Lines 47 allocates memory on the host
 for the vectors. Lines 28-30 wrap buffers around that memory. Kernels
-read/write buffer data via the accessors created on lines 35-37. The
+read/write buffer data via the accessors that are created on lines 35-37. The
 accessor on line 35 gives the kernel write access to buffer names as
 `c_device`, and the accessors on lines 36 & 37 give the kernel read
 access to the other buffers.
@@ -103,7 +103,7 @@ Lines 40-42 illustrate the function of **kernel execution model**. The
 point in the index space denoted by ``a_size``. The instances are
 distributed among the processing elements of the device.
 
-Finally, we note that DPC++ uses C++ scopes and object model to
+DPC++ uses C++ scopes and object models to
 concisely express synchronization. The vectors start in host
 memory. When the host memory for the vector is passed to the buffer
 constructor on lines 28-30, the buffers take *ownership* of the host
@@ -112,8 +112,7 @@ destructor for the buffer runs because the containing scope ends, the
 runtime ensures that kernel accessing the buffer has ended and syncs
 the data back to the original host memory.
 
-The next sections discuss in more details those four models: the
-Platform model, the Execution model, the Memory model, and the Kernel
-model.
+The next sections discuss in more details those four models:
+Platform model, Execution model, Memory model, and Kernel model.
 
 
