@@ -48,9 +48,9 @@ parallelism with the size of the data.
 
 A developer can either use DPC++ to explicitly parallelize an
 algorithm, or use a parallel implementation from a oneAPI
-library. oneAPI makes it possible to target CPU, GPU, FPGA, with a
+library. oneAPI makes it possible to target CPU, GPU, or FPGA with a
 single implementation by providing consistent interfaces. However,
-some devices may not implemenent all features and achieving best
+some devices may not implement all features. Achieving best
 performance often requires the programmer to tune the code for the
 target architecture. oneAPI libraries are written to achieve best
 performance on all supported architectures without end user tuning.
@@ -66,37 +66,39 @@ Data Parallel C++ (DPC++)
 =========================
 
 DPC++ is the heart of oneAPI. DPC++ programs are written in ISO C++
-and use the Khronos `SYCL`_ parallel programming model to distribute
+and use the Khronos* `SYCL`_* parallel programming model to distribute
 computation across processing elements in a device. DPC++ extends SYCL
 with features for performance and productivity.
 
-DPC++ is :term:`single source`--device and host code can be included
+DPC++ is :term:`single source` -- device and host code can be included
 in the same source file. A DPC++ compiler generates code for both the
 host and device. Any C++ compiler can compile programs that only use
 the host subset of DPC++.
 
 
-Structure of this document
+Structure of This Document
 ==========================
 
-This documents consist of 2 sections. The first section,
-:ref:`oneapi-programming-model`, describes the high-level concepts for
+This document consists of the following sections: 
+
+* :ref:`oneapi-programming-model` describes the high-level concepts for
 the DPC++ programming model and the execution model that it depends
-upon. The second section, :ref:`programming-interface`, provides a
+upon. 
+* :ref:`programming-interface` provides a
 detailed explanation of the classes that make up the programming
 model.
 
-How to use this document
+How to Use This Document
 ========================
 
 This document is a reference manual for DPC++. It is intended to be
 the document to consult when you are coding an algorithm in DPC++ and
-need to understand the detailed functionality or usage of an API or
+need to understand the detailed functionality, usage of an API, or
 some other aspect of DPC++.
 
-If you want to learn DPC++, the `DPC++ book`_ or the `oneAPI online
-training`_ are more appropriate. The ultimate sources for DPC++
-information is the `oneAPI Specification`_ and the `SYCL
+If you want to learn DPC++, the `oneAPI online
+training`_ is more appropriate. The ultimate sources for DPC++
+information are the `oneAPI Specification`_ and the `SYCL
 Specification`_. The specifications are written for implementors of
 oneAPI elements and SYCL compilers/runtimes. The descriptions are more
 precise, but may be difficult to understand if you are not already an
@@ -109,7 +111,6 @@ The following documents are useful starting points for developers
 getting started with oneAPI projects. This document assumes you already
 have a basic understanding of the oneAPI programming model concepts.
 
-* `DPC++ book`_
 * `oneAPI`_
 * `SYCL`_
 * `SYCL Specification`_

@@ -23,7 +23,7 @@ subset of the available hardware resources on a system. However, a
 system typically includes one platform comprised of one or more supported
 devices, and the compute resources made available by those devices.
 
-The following figure illustrates the relationships of the componetns
+The following figure illustrates the relationships of the components
 in the platform model. One host communicates with one or more
 devices. Each device can contain one or more compute units. Each
 compute unit can contain one or more processing elements.

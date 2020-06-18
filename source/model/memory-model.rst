@@ -41,7 +41,7 @@ summarized as:
    write. It represents dependencies between uses of memory objects.
 
 The following code sample exercises different memory objects and
-accessors.
+accessors. The highlighted lines are discussed below.
 
 .. literalinclude:: /examples/memory-model.cpp
    :linenos:

@@ -4,7 +4,7 @@ Kernel Programming Model
 ========================
 
 
-The Device code can specify the amount of parallelism to request
+The device code can specify the amount of parallelism to request
 through several mechanisms.
 
 -  ``single_task`` – execute a single instance of the kernel with a

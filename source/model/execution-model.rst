@@ -10,7 +10,7 @@ and the devices. We explain the execution model in 2 parts,
 *application execution model* and *kernel execution model*.
 
 
-Application execution model
+Application Execution Model
 ---------------------------
 
 
@@ -20,11 +20,11 @@ command groups, which are groupings of commands like kernel invocation
 and accessors, are submitted to queues for execution. Accessors, which
 are formally part of the memory model, also communicate ordering
 requirements of execution. A program employing the execution model
-declares and instantiates queues. Queues can execute with an in-order
+declares and instantiates :ref:`queue`\s. Queues can execute with an in-order
 or out-of-order policy controllable by the program.
 
 
-Kernel execution model
+Kernel Execution Model
 ----------------------
 
 
