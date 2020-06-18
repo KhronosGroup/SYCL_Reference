@@ -69,22 +69,17 @@ Output:
 
 .. parsed-literal::
    
-  explicit platform(cl_platform_id platformID);             [#opencl]_
-
-.. parsed-literal::
-   
-  explicit platform(const device_selector &deviceSelector); [#selector]_
+  explicit platform(cl_platform_id platformID);
+  explicit platform(const device_selector &deviceSelector);
 
 Constructs a platform handle.
 
-.. [#opencl] Constructs a SYCL platform that retains an OpenCL id
-.. [#selector] Selects a platform that contains the desired device
-	     
-
 .. rubric:: Parameters
 
-| ``platformID`` - OpenCL platform ID
-| ``deviceSelector`` -  Platform must contain the selected device
+================  =======================
+platformID
+deviceSelector
+================  =======================
 
 get
 ===
@@ -111,7 +106,9 @@ Returns vector of devices of the requested type
 
 .. rubric:: Parameters
 
-| ``device_type`` - limits type of device returned
+================  ===
+device_type       limits type of device returned
+================  ===
 
 .. rubric:: Returns
 
@@ -156,7 +153,9 @@ Checks if the platform has the requested extension.
 
 .. rubric:: Parameters
 
-| ``extension`` -
+================  ===
+extension
+================  ===
 
 .. rubric:: Returns
 

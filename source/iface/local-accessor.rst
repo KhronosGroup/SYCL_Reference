@@ -53,17 +53,19 @@ get_pointer_
 
 .. parsed-literal::
    
-  accessor(handler &commandGroupHandlerRef,                                    [#dim0]_
-           const property_list &propList = {});
-
-.. parsed-literal::
+  *Available only when:
+   dimensions == 0*
    
-  accessor(range<dimensions> allocationSize, handler &commandGroupHandlerRef,  [#dimgtr0]_
+  accessor(handler &commandGroupHandlerRef, const property_list &propList = {});
+
+   
+  *Available only when:
+   dimensions > 0*
+   
+  accessor(range<dimensions> allocationSize, handler &commandGroupHandlerRef,
            const property_list &propList = {});
 
-.. [#dim0] Available only when: dimensions == 0
 
-.. [#dimgtr0] Available only when: dimensions > 0
 
 get_size
 ========
@@ -92,7 +94,9 @@ get_range
 
 .. rubric:: Template parameters
 
-| ``dimensions`` -
+===============  =======
+dimensions
+===============  =======
 
 .. rubric:: Returns
 
@@ -108,28 +112,34 @@ Available only when: accessTarget == access::target::local
 operator[]
 ==========
 
-  dataT &operator[](id<dimensions> index) const;            [#a1]_
+.. parsed-literal::
+   
+  *Available only when:
+   accessMode == access::mode::read_write && dimensions > 0*
+    
+  dataT &operator[](id<dimensions> index) const;
 
-  dataT &operator[](size_t index) const;                    [#a2]_
+  *Available only when:
+   accessMode == access::mode::read_write && dimensions == 1*
+   
+  dataT &operator[](size_t index) const
 
+  *Available only when:
+   accessMode == access::mode::atomic && dimensions > 0*
+   
   atomic<dataT, access::address_space::local_space> operator[](
-    id<dimensions> index) const;                            [#a3]_
+    id<dimensions> index) const;
 
+  *Available only when:
+   accessMode == access::mode::atomic && dimensions == 1*
+   
   atomic<dataT, access::address_space::local_space> operator[](
-    size_t index) const;                                    [#a4]_
+    size_t index) const;
 
-  __unspecified__ &operator[](size_t index) const;          [#a5]_
-
-.. [#a1] Available only when: accessMode == access::mode::read_write && dimensions > 0)
-
-.. [#a2] Available only when: accessMode == access::mode::read_write && dimensions == 1)
-
-.. [#a3] Available only when: accessMode == access::mode::atomic && dimensions > 0
-
-.. [#a4] Available only when: accessMode == access::mode::atomic && dimensions == 1
-
-.. [#a5] Available only when: dimensions > 1
-
+  *Available only when:
+   dimensions > 1*
+   
+  __unspecified__ &operator[](size_t index) const;
 	 
 
 operator ()
@@ -137,13 +147,15 @@ operator ()
 
 .. parsed-literal::
    
-  operator dataT &() const;                                            [#b1]_
+  *Available only when:
+   accessMode == access::mode::read_write && dimensions == 0*
 
-.. parsed-literal::
+  operator dataT &() const;
    
-  operator atomic<dataT,access::address_space::local_space> () const;  [#b2]_
+  *Available only when:
+   accessMode == access::mode::atomic && dimensions == 0*
+   
+  operator atomic<dataT,access::address_space::local_space> () const;
   
-.. [#b1] Available only when: accessMode == access::mode::read_write && dimensions == 0)
-.. [#b2] Available only when: accessMode == access::mode::atomic && dimensions == 0
 
   
