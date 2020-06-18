@@ -54,80 +54,75 @@ const_reference_t
 address_space
 =================  ====
    
+.. rubric:: Member functions
+
+=========================  ====
+`(constructors)`_
+get_
+prefetch_
+=========================  ====
+
+.. rubric:: Nonmember functions
+
+=========================  ====
+`operator=`_
+`operator*`_
+`operator->`_
+`(Implicit conversions)`_
+`(Arithmetic operators)`_
+`(Relational operators)`_
+=========================  ====
+
 (constructors)
 ==============
 	    
 ::
 
   multi_ptr();
-
-::
-
   multi_ptr(const multi_ptr&);
-
-::
-
   multi_ptr(multi_ptr&&);
-
-::
-
   multi_ptr(pointer_t);
-
-::
-
   multi_ptr(ElementType*);
-
-::
-
   multi_ptr(std::nullptr_t);
 
 operator=
 =========
 
-::
+.. parsed-literal::
    
   multi_ptr &operator=(const multi_ptr&);
-
-::
-   
   multi_ptr &operator=(multi_ptr&&);
-
-::
-   
   multi_ptr &operator=(pointer_t);
-
-::
-   
   multi_ptr &operator=(ElementType*);
-
-::
-   
   multi_ptr &operator=(std::nullptr_t);
 
-.. parsed-literal::
    
-  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>  [#global]_
+  *Available only when:
+   Space == global_space*
+
+  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>
   multi_ptr(accessor<ElementType, dimensions, Mode, access::target::global_buffer, isPlaceholder>);
 
-.. parsed-literal::
+  *Available only when:
+   Space == local_space*
    
-  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>  [#local]_
+  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>
   multi_ptr(accessor<ElementType, dimensions, Mode, access::target::local, isPlaceholder>);
 
-.. parsed-literal::
+  *Available only when:   
+   Space == constant_space*
    
-  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>  [#constant]_
+  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder> 
   multi_ptr(accessor<ElementType, dimensions, Mode, access::target::constant_buffer, isPlaceholder>);
 
-.. [#global] Only if Space == global_space
-.. [#local] Only if Space == local_space
-.. [#constant] Only if Space == constant_space
 
 .. rubric:: Template parameters
 
-| `dimensions` -
-| `Mode` -
-| `isPlaceholder` -
+===============  ===
+dimensions
+Mode
+isPlaceholder
+===============  ===
 
 
 operator*
@@ -148,36 +143,40 @@ get
 ===
 
 ::
+
   pointer_t get() const;
 
 .. rubric:: Returns
 	    
 Returns the underlying OpenCL C pointer
 
-Implicit conversions
-====================
+(Implicit conversions)
+======================
 
 .. parsed-literal::
    
-  operator ElementType*() const;                         [#pointer]_
+  *Implicit conversion to the underlying pointer type*
 
-  operator multi_ptr<void, Space>() const;               [#void]_
+  operator ElementType*() const;
 
-  operator multi_ptr<const void, Space>() const;         [#const-void]_
+  *Implicit conversion to a multi_ptr<void>.  Only available
+   when ElementType is not const-qualified*
 
-  operator multi_ptr<const ElementType, Space>() const;  [#const-elementtype]_
+  operator multi_ptr<void, Space>() const;
 
-.. [#pointer] Implicit conversion to the underlying pointer type
-.. [#void] Implicit conversion to a multi_ptr<void>.  Only available
-           when ElementType is not const-qualified
-.. [#const-void] Implicit conversion to a multi_ptr<const void>. Only
-                 available when ElementType is const-qualified
-.. [#const-elementtype] Implicit conversion to multi_ptr<const
-                        ElementType, Space>
+  *Implicit conversion to a multi_ptr<const void>. Only
+   available when ElementType is const-qualified*
+   
+  operator multi_ptr<const void, Space>() const;
+
+  *Implicit conversion to multi_ptr<const ElementType, Space>*
+  
+  operator multi_ptr<const ElementType, Space>() const;
 
 
-Arithmetic operators
-====================
+
+(Arithmetic operators)
+======================
 
 ::
 
@@ -197,8 +196,8 @@ prefetch
  
  void prefetch(size_t numElements) const;
   
-Relational operators
-====================
+(Relational operators)
+======================
 
 ::
    

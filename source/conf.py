@@ -136,6 +136,15 @@ class_ignore = ['target',
                 'system_message']
 class_layout = re.compile(class_layout_pattern)
 
+class_section_layout_pattern = (':title'
+                                '(:rubric Template parameters:table)?'
+                                '(:rubric Parameters:table)?'
+                                '(:rubric Returns)?'
+                                '(:rubric Example)?'
+)
+
+class_section_layout = re.compile(class_section_layout_pattern)
+
 def check_class(section):
     enc = ''
     for n in section:
@@ -149,9 +158,25 @@ def check_class(section):
         logger.warning('Class structure mismatch', location=n)
         logger.warning('  got: %s' % enc)
         logger.warning('  expected: %s' % class_layout_pattern)
+    for subsection in section.traverse(nodes.section, include_self=False):
+        check_class_section(subsection)
+
+def check_class_section(section):
+    enc = ''
+    for n in section:
+        name = type(n).__name__
+        if name in class_ignore:
+            continue
+        enc += ':' + name
+        if name == 'rubric':
+            enc += ' ' + n[0]
+    if not class_section_layout.fullmatch(enc):
+        logger.warning('Class section structure mismatch', location=n)
+        logger.warning('  got: %s' % enc)
+        logger.warning('  expected: %s' % class_section_layout_pattern)
 
 def check_doc(app, doctree):
-    for section in doctree.traverse(nodes.section):
+    for section in doctree.traverse(nodes.section, descend=True):
         classes = section['classes']
         if 'api-class' in classes:
             check_class(section)

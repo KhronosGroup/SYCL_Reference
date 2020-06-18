@@ -75,14 +75,10 @@ vector_t
 ::
 
    vec();
-
    explicit vec(const dataT &arg);
-
    template <typename... argTN>
    vec(const argTN&... args);
-
    vec(const vec<dataT, numElements> &rhs);
-
    vec(vector_t openclVector);
 
 
@@ -93,9 +89,12 @@ Conversion functions
 
    operator vector_t() const;
 
-   operator dataT() const;                     [#numelem1]_
+  *Available when:
+   numElements == 1*
+   
+  operator dataT() const;
 
-.. [#numelem1] Only available when numElements == 1
+
 
 get_count
 =========
@@ -141,57 +140,34 @@ swizzle access
 ::
 
      __swizzled_vec__ x() const;
-
      __swizzled_vec__ y() const;
-
      __swizzled_vec__ z() const;
 
      __swizzled_vec__ w() const;
-
      __swizzled_vec__ r() const;
-
      __swizzled_vec__ g() const;
-
      __swizzled_vec__ b() const;
-
      __swizzled_vec__ a() const;
 
      __swizzled_vec__ s0() const;
-
      __swizzled_vec__ s1() const;
-
      __swizzled_vec__ s2() const;
-
      __swizzled_vec__ s3() const;
-
      __swizzled_vec__ s4() const;
-
      __swizzled_vec__ s5() const;
-
      __swizzled_vec__ s6() const;
-
      __swizzled_vec__ s7() const;
-
      __swizzled_vec__ s8() const;
-
      __swizzled_vec__ s9() const;
-
      __swizzled_vec__ sA() const;
-
      __swizzled_vec__ sC() const;
-
      __swizzled_vec__ sD() const;
-
      __swizzled_vec__ sE() const;
-
      __swizzled_vec__ sF() const;
 
      __swizzled_vec__ lo() const;
-
      __swizzled_vec__ hi() const;
-
      __swizzled_vec__ odd() const;
-
      __swizzled_vec__ even() const;
 
 load
@@ -231,9 +207,6 @@ Arithmetic operators
   friend vec operator/(const vec &lhs, const dataT &rhs);
   friend vec operator/(const dataT &lhs, const vec &rhs);
 
-  friend vec operator%(const vec &lhs, const vec &rhs);     [#int]_
-  friend vec operator%(const vec &lhs, const dataT &rhs);   [#int]_
-  friend vec operator%(const dataT &lhs, const vec &rhs);   [#int]_
   
   friend vec &operator+=(vec &lhs, const vec &rhs);
   friend vec &operator+=(vec &lhs, const dataT &rhs);
@@ -247,8 +220,6 @@ Arithmetic operators
   friend vec &operator/=(vec &lhs, const vec &rhs);
   friend vec &operator/=(vec &lhs, const dataT &rhs);
 
-  friend vec &operator%=(vec &lhs, const vec &rhs);         [#int]_
-  friend vec &operator%=(vec &lhs, const dataT &rhs);       [#int]_
 
   friend vec &operator++(vec &lhs);
   friend vec operator++(vec& lhs, int);
@@ -256,43 +227,12 @@ Arithmetic operators
   friend vec &operator--(vec &lhs);
   friend vec operator--(vec& lhs, int);
 
-  friend vec operator&(const vec &lhs, const vec &rhs);     [#int]_
-  friend vec operator&(const vec &lhs, const dataT &rhs);   [#int]_
-
-  friend vec operator|(const vec &lhs, const vec &rhs);     [#int]_
-  friend vec operator|(const vec &lhs, const dataT &rhs);   [#int]_
-
-  friend vec operator^(const vec &lhs, const vec &rhs);     [#int]_
-  friend vec operator^(const vec &lhs, const dataT &rhs);   [#int]_
-
-  friend vec &operator&=(vec &lhs, const vec &rhs);         [#int]_
-  friend vec &operator&=(vec &lhs, const dataT &rhs);       [#int]_
-
-  friend vec &operator|=(vec &lhs, const vec &rhs);         [#int]_
-  friend vec &operator|=(vec &lhs, const dataT &rhs);       [#int]_
-
-  friend vec &operator^=(vec &lhs, const vec &rhs);         [#int]_
-  friend vec &operator^=(vec &lhs, const dataT &rhs);       [#int]_
-
   friend vec<RET, numElements> operator&&(const vec &lhs, const vec &rhs);
   friend vec<RET, numElements> operator&&(const vec& lhs, const dataT &rhs);
 
   friend vec<RET, numElements> operator||(const vec &lhs, const vec &rhs);
   friend vec<RET, numElements> operator||(const vec& lhs, const dataT &rhs);
 
-  friend vec operator<<(const vec &lhs, const vec &rhs);    [#int]_
-  friend vec operator<<(const vec &lhs, const dataT &rhs);  [#int]_
-  friend vec operator<<(const dataT &lhs, const vec &rhs);  [#int]_
-
-  friend vec operator>>(const vec &lhs, const vec &rhs);    [#int]_
-  friend vec operator>>(const vec &lhs, const dataT &rhs);  [#int]_
-  friend vec operator>>(const dataT &lhs, const vec &rhs);  [#int]_
-
-  friend vec &operator>>=(vec &lhs, const vec &rhs);        [#int]_
-  friend vec &operator>>=(vec &lhs, const dataT &rhs);      [#int]_
-
-  friend vec &operator<<=(vec &lhs, const vec &rhs);        [#int]_
-  friend vec &operator<<=(vec &lhs, const dataT &rhs);      [#int]_
 
   friend vec<RET, numElements> operator==(const vec &lhs, const vec &rhs);
   friend vec<RET, numElements> operator==(const vec &lhs, const dataT &rhs);
@@ -321,19 +261,45 @@ Arithmetic operators
   vec<dataT, numElements> &operator=(const vec<dataT, numElements> &rhs);
   vec<dataT, numElements> &operator=(const dataT &rhs);
 
-  friend vec operator~(const vec &v);                       [#int]_
-
-  friend vec<RET, numElements> operator!(const vec &v);     [#int]_
-
-  friend vec operator&(const dataT &lhs, const vec &rhs);   [#int]_
-
-  friend vec operator|(const dataT &lhs, const vec &rhs);   [#int]_
-
-  friend vec operator^(const dataT &lhs, const vec &rhs);   [#int]_
-
   friend vec<RET, numElements> operator&&(const dataT &lhs, const vec &rhs);
 
   friend vec<RET, numElements> operator||(const dataT &lhs, const vec &rhs);
 
+  *Available only when:
+   dataT != cl_float && dataT != cl_double && dataT != cl_half*
+
+  friend vec operator<<(const vec &lhs, const vec &rhs);
+  friend vec operator<<(const vec &lhs, const dataT &rhs);
+  friend vec operator<<(const dataT &lhs, const vec &rhs);
+  friend vec operator>>(const vec &lhs, const vec &rhs);
+  friend vec operator>>(const vec &lhs, const dataT &rhs);
+  friend vec operator>>(const dataT &lhs, const vec &rhs);
+  friend vec &operator>>=(vec &lhs, const vec &rhs);
+  friend vec &operator>>=(vec &lhs, const dataT &rhs);
+  friend vec &operator<<=(vec &lhs, const vec &rhs);
+  friend vec &operator<<=(vec &lhs, const dataT &rhs);
+  friend vec operator&(const vec &lhs, const vec &rhs);
+  friend vec operator&(const vec &lhs, const dataT &rhs);
+  friend vec operator|(const vec &lhs, const vec &rhs);
+  friend vec operator|(const vec &lhs, const dataT &rhs);
+  friend vec operator^(const vec &lhs, const vec &rhs);
+  friend vec operator^(const vec &lhs, const dataT &rhs);
+  friend vec &operator&=(vec &lhs, const vec &rhs);
+  friend vec &operator&=(vec &lhs, const dataT &rhs);
+  friend vec &operator|=(vec &lhs, const vec &rhs);
+  friend vec &operator|=(vec &lhs, const dataT &rhs);
+  friend vec &operator^=(vec &lhs, const vec &rhs);
+  friend vec &operator^=(vec &lhs, const dataT &rhs);
+  friend vec &operator%=(vec &lhs, const vec &rhs);
+  friend vec &operator%=(vec &lhs, const dataT &rhs);
+  friend vec operator%(const vec &lhs, const vec &rhs);
+  friend vec operator%(const vec &lhs, const dataT &rhs);
+  friend vec operator%(const dataT &lhs, const vec &rhs);
+  friend vec operator~(const vec &v);
+  friend vec<RET, numElements> operator!(const vec &v);
+  friend vec operator&(const dataT &lhs, const vec &rhs);
+  friend vec operator|(const dataT &lhs, const vec &rhs);
+  friend vec operator^(const dataT &lhs, const vec &rhs);
+
+
   
-.. [#int] Available only when: dataT != cl_float && dataT != cl_double && dataT != cl_half

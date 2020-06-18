@@ -205,7 +205,9 @@ set_write_back
 
 .. rubric:: Parameters
 
-| ``flag`` -
+=================  =======
+flag
+=================  =======
 
 ==================
  Image properties

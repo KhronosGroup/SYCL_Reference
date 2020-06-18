@@ -8,7 +8,7 @@ import os.path
 import shutil
 import subprocess
 
-sphinx_opts    = '-n -q -N -j auto'
+sphinx_opts    = '-n -N -j auto'
 sphinx_build   = 'sphinx-build'
 source_dir     = 'source'
 build_dir      = 'build'
@@ -79,7 +79,7 @@ def makedirs(path):
 def sphinx(target):
     os.environ['LATEXMKOPTS'] = '--silent'
     os.environ['LATEXOPTS'] = '-interaction=nonstopmode -halt-on-error'
-    opts = sphinx_opts + (' -W' if args.W else '') + (' -a' if args.all else '')
+    opts = sphinx_opts + (' -q' if not args.verbose else '') + (' -W' if args.W else '') + (' -a' if args.all else '')
     shell('%s -M %s %s %s %s' % (sphinx_build,
                                  target,
                                  source_dir,
@@ -164,6 +164,7 @@ commands = {'ci': ci,
             'html': build,
             'latexpdf': build,
             'prep': prep,
+            'pseudoxml': build,
             'site': site,
             'spelling': build
 }
