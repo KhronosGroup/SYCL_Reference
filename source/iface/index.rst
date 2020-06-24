@@ -47,6 +47,7 @@ Runtime classes
    device
    queue
    event
+   param_traits
 
 .. _data-access:
 
@@ -60,6 +61,7 @@ Data access
    image
    accessors
    address-space
+   private_memory
    sampler
 
 
@@ -72,6 +74,11 @@ Expressing parallelism
 
    range
    group
+   id
+   item
+   h_item
+   nd_item
+   nd_range
    device-event
    command-group
    command-group-handler

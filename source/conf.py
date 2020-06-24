@@ -1,4 +1,10 @@
+import os
+from os.path import join
 import string
+import sys
+
+sys.path.append(os.path.abspath("./_ext"))
+
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -33,7 +39,8 @@ extensions = [
 #    'notfound.extension',
     'sphinx_rtd_theme',
     'sphinx.ext.todo',
-    'sphinxcontrib.spelling',
+    'sphinxcontrib.spelling'
+#    'summary'
 ]
 
 html_context = {
@@ -119,6 +126,7 @@ from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
 class_layout_pattern = (':title'
+                        '(:rubric Namespace)?'
                         '(:rubric Template parameters:table)?'
                         '(:rubric Parameters:table)?'
                         '(:rubric Kernel dispatch:table)?'
@@ -145,10 +153,14 @@ class_section_layout_pattern = (':title'
 
 class_section_layout = re.compile(class_section_layout_pattern)
 
-def check_class(section):
+
+def check_class(object_file, section):
     enc = ''
     for n in section:
         name = type(n).__name__
+        if name == 'title':
+            class_name = n[0]
+            print('class:', class_name, file=object_file)
         if name in class_ignore:
             continue
         enc += ':' + name
@@ -159,12 +171,15 @@ def check_class(section):
         logger.warning('  got: %s' % enc)
         logger.warning('  expected: %s' % class_layout_pattern)
     for subsection in section.traverse(nodes.section, include_self=False):
-        check_class_section(subsection)
+        check_class_section(object_file, class_name, subsection)
 
-def check_class_section(section):
+def check_class_section(object_file, class_name, section):
     enc = ''
     for n in section:
         name = type(n).__name__
+        if name == 'title':
+            member_name = n[0]
+            print('  member:', member_name, file=object_file)
         if name in class_ignore:
             continue
         enc += ':' + name
@@ -175,11 +190,14 @@ def check_class_section(section):
         logger.warning('  got: %s' % enc)
         logger.warning('  expected: %s' % class_section_layout_pattern)
 
-def check_doc(app, doctree):
-    for section in doctree.traverse(nodes.section, descend=True):
-        classes = section['classes']
-        if 'api-class' in classes:
-            check_class(section)
+def check_doc(app, doctree, docname):
+    obj_path = join('build', 'objects', '%s.txt' % docname)
+    os.makedirs(os.path.dirname(obj_path), exist_ok=True)
+    with open(obj_path, 'w') as object_file:
+        for section in doctree.traverse(nodes.section, descend=True):
+            classes = section['classes']
+            if 'api-class' in classes:
+                check_class(object_file, section)
 
 class TParamsDirective(Directive):
 
@@ -222,7 +240,7 @@ class ExampleDirective(Directive):
         return [nodes.rubric(text='Example')]
     
 def setup(app):
-    app.connect('doctree-read', check_doc)
+    app.connect('doctree-resolved', check_doc)
     if False:
         app.add_directive('tparams', TParamsDirective)
         app.add_directive('params', ParamsDirective)

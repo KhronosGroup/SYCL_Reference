@@ -245,30 +245,30 @@ ReinterpretRange
  Buffer properties
 ==================
 
-==================================  ======
-`property::buffer::use_host_ptr`_
-`property::buffer::use_mutex`_
-`property::buffer::context_bound`_
-==================================  ======
-
 .. rst-class:: api-class
 	       
-property::buffer::use_host_ptr
-==============================
+use_host_ptr
+============
 
 ::
 
-   class property::buffer::use_host_ptr;
+   class use_host_ptr;
 
+.. rubric:: Namespace
+
+::
+
+   property::buffer
+   
 Description
 
 .. rubric:: Member functions
 
-==========================  =======
-:ref:`buffer-use_host_ptr`
-==========================  =======
+================================  =======
+:ref:`use_host_ptr-constructors`
+================================  =======
 
-.. _buffer-use_host_ptr:
+.. _use_host_ptr-constructors:
 
 (constructors)
 --------------
@@ -280,21 +280,28 @@ Description
 
 .. rst-class:: api-class
 	       
-property::buffer::use_mutex
-===========================
+use_mutex
+=========
 
 ::
 
-   class property::buffer::use_mutex;
+   class use_mutex;
 
+.. rubric:: Namespace
+
+::
+
+   property::buffer
+   
 .. rubric:: Member functions
 
-===============  =======
-(constructors)_
+==============================  =======
+:ref:`use_mutex-constructors`
 get_mutex_ptr_
-===============  =======
+==============================  =======
 
-   
+.. _use_mutex-constructors:
+
 (constructors)
 --------------
 
@@ -311,21 +318,29 @@ get_mutex_ptr
    mutex_class *get_mutex_ptr() const;
 
 
-property::buffer::context_bound
-===============================
+context_bound
+=============
 
 
 ::
 
-   property::buffer::context_bound;
+   context_bound;
 
 
+.. rubric:: Namespace
+
+::
+
+   property::buffer
+   
 .. rubric:: Member functions
 
-===============  =======
-(constructors)_
+==================================  =======
+:ref:`context_bound-constructors`
 get_context_
-===============  =======
+==================================  =======
+
+.. _context_bound-constructors:
 
 (constructors)
 --------------

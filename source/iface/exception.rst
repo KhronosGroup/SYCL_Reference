@@ -55,6 +55,8 @@ get_cl_code
    cl_int get_cl_code() const;
 
 
+.. rst-class:: api_class
+	       
 ==============
 exception_list
 ==============
