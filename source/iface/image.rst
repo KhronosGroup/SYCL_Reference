@@ -213,21 +213,21 @@ flag
  Image properties
 ==================
 
-===================================  ======
-`property::image::use_host_ptr`_
-`property::image::use_mutex`_
-`property::image::context_bound`_
-===================================  ======
-
 .. rst-class:: api-class
 	       
-property::image::use_host_ptr
-==============================
+use_host_ptr
+============
 
 ::
 
-   class property::image::use_host_ptr;
+   class use_host_ptr;
 
+.. rubric:: Namespace
+
+::
+
+   property::image
+   
 Description
 
 .. rubric:: Member functions
@@ -249,12 +249,18 @@ Description
 
 .. rst-class:: api-class
 	       
-property::image::use_mutex
-==========================
+use_mutex
+=========
 
 ::
 
-   class property::image::use_mutex;
+   class use_mutex;
+
+.. rubric:: Namespace
+
+::
+
+   property::image
 
 Description
 
@@ -286,13 +292,19 @@ get_mutex_ptr
 
 Description
 
-property::image::context_bound
+context_bound
 ==============================
 
 
 ::
 
-   property::image::context_bound;
+   context_bound;
+
+.. rubric:: Namespace
+
+::
+
+   property::image
 
 Description
 
@@ -326,8 +338,6 @@ get_context
 
 Description
 
-.. rubric:: Returns
-	    
 ===================
 Image_channel_order
 ===================
