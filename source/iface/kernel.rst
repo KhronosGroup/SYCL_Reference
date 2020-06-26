@@ -41,17 +41,7 @@ Kernel
 
    class kernel;
 
-.. rubric:: Member functions
-
-=====================  ===	    
-`(constructors)`_
-get_
-is_host_
-get_context_
-get_program_
-get_info_
-get_work_group_info_
-=====================  ===	    
+.. member-toc::
 
 
 (constructors)

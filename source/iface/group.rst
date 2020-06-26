@@ -15,15 +15,7 @@
 dimensions
 ===========  ===
 
-.. rubric:: Member functions
-
-===========  ===
-===========  ===
-
-.. rubric:: Nonmember functions
-
-===========  ===
-===========  ===
+.. member-toc::
 
 get_id
 ======

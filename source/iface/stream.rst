@@ -49,9 +49,9 @@ Streams
 
 .. rst-class:: api-class
 	       
-========
- stream
-========
+============
+Stream Class
+============
 
 ::
 

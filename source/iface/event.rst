@@ -13,29 +13,21 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
+******
+Events
+******
+
 .. rst-class:: api-class
 	       
-=====
-event
-=====
+=========
+``event``
+=========
 
 ::
    
    class event;
 
-.. rubric:: Member functions
-
-=====================  =======================
-`(constructors)`_
-(destructor)    
-`cl_event_get`_ 
-`is_host`_     
-`get_wait_list`_
-`wait`_   
-`wait_and_throw`_ 
-`get_info`_       
-`get_profiling_info`_
-=====================  =======================
+.. member-toc::
 
 (constructors)
 ==============
@@ -101,4 +93,10 @@ get_profiling_info
    
   template <info::event_profiling param>
   typename info::param_traits<info::event_profiling, param>::return_type get_profiling_info() const;
+
+
+==========
+Event Info
+==========
+
 

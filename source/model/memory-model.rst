@@ -69,7 +69,6 @@ access targets and access modes are compatible. For details, see the
 `SYCL Specification`_.
 
 .. toctree::
-   :maxdepth: 4
 
    
    memory-objects

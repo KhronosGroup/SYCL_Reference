@@ -34,20 +34,7 @@ const_reference
 allocator_type 
 ================  ==========
 
-.. rubric:: Member functions
-	    
-====================  ==========
-:ref:`buffer-buffer`
-get_range_
-get_count_
-get_size_
-get_allocator_
-get_access_
-set_final_data_
-set_write_back_
-is_sub_buffer_
-reinterpret_
-====================  ==========
+.. member-toc::
 
 
 .. _buffer-buffer:
@@ -262,11 +249,7 @@ use_host_ptr
    
 Description
 
-.. rubric:: Member functions
-
-================================  =======
-:ref:`use_host_ptr-constructors`
-================================  =======
+.. member-toc::
 
 .. _use_host_ptr-constructors:
 
@@ -293,12 +276,7 @@ use_mutex
 
    property::buffer
    
-.. rubric:: Member functions
-
-==============================  =======
-:ref:`use_mutex-constructors`
-get_mutex_ptr_
-==============================  =======
+.. member-toc::
 
 .. _use_mutex-constructors:
 
@@ -333,12 +311,7 @@ context_bound
 
    property::buffer
    
-.. rubric:: Member functions
-
-==================================  =======
-:ref:`context_bound-constructors`
-get_context_
-==================================  =======
+.. member-toc::
 
 .. _context_bound-constructors:
 

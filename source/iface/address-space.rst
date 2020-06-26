@@ -54,24 +54,7 @@ const_reference_t
 address_space
 =================  ====
    
-.. rubric:: Member functions
-
-=========================  ====
-`(constructors)`_
-get_
-prefetch_
-=========================  ====
-
-.. rubric:: Nonmember functions
-
-=========================  ====
-`operator=`_
-`operator*`_
-`operator->`_
-`(Implicit conversions)`_
-`(Arithmetic operators)`_
-`(Relational operators)`_
-=========================  ====
+.. member-toc::
 
 (constructors)
 ==============

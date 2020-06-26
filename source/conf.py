@@ -128,17 +128,19 @@ logger = logging.getLogger(__name__)
 class_layout_pattern = (':title'
                         '(:rubric Namespace)?'
                         '(:rubric Template parameters:table)?'
+                        '(:rubric Example)?'
                         '(:rubric Parameters:table)?'
                         '(:rubric Kernel dispatch:table)?'
                         '(:rubric Memory operations:table)?'
                         '(:rubric Member types:table)?'
                         '(:rubric Nonmember data:table)?'
-                        '(:rubric Member functions:table)?'
-                        '(:rubric Nonmember functions:table)?'
+                        '(:rubric Member and nonmember functions)?'
                         '(:rubric Example)?'
                         '(:section)*')
                           
 class_ignore = ['target',
+                'transition',
+                'todo_node',
                 'paragraph',
                 'literal_block',
                 'system_message']
@@ -199,6 +201,11 @@ def check_doc(app, doctree, docname):
             if 'api-class' in classes:
                 check_class(object_file, section)
 
+class MemberTocDirective(Directive):
+
+    def run(self):
+        return [nodes.rubric(text='Member and nonmember functions')]
+
 class TParamsDirective(Directive):
 
     def run(self):
@@ -240,7 +247,10 @@ class ExampleDirective(Directive):
         return [nodes.rubric(text='Example')]
     
 def setup(app):
+    add_custom_css = getattr(app,'add_css_file',getattr(app,'add_stylesheet'))
+    add_custom_css('custom.css')
     app.connect('doctree-resolved', check_doc)
+    app.add_directive('member-toc', MemberTocDirective)
     if False:
         app.add_directive('tparams', TParamsDirective)
         app.add_directive('params', ParamsDirective)

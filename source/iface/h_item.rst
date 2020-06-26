@@ -7,22 +7,7 @@
    template <int dimensions>
    class h_item;
 
-.. rubric:: Member functions
-	    
-========================  ===
-get_global
-get_local
-get_logical_local
-get_physical_local
-get_global_range
-get_global_id
-get_local_range
-get_local_id
-get_logical_local_range
-get_logical_local_id
-get_physical_local_range
-get_physical_local_id
-========================  ===
+.. member-toc::
 
    
 get_global

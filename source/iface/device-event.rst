@@ -8,11 +8,7 @@
 
    class device_event;
 
-.. rubric:: Member functions
-
-==============  ===
-wait_
-==============  ===
+.. member-toc::
 
 wait
 ====

@@ -33,21 +33,34 @@ Standard Library Classes
 ========================
 
 
+.. _common-interface:
+
+
+Common Interface
+================
+
+In this section, we define methods that are common to multiple classes.
+
+.. toctree::
+
+   common-byval
+   common-reference
+   properties
+   param_traits
+   
 .. _runtime-classes:
 
-Runtime classes
+Runtime Classes
 ===============
 
 .. toctree::
-   :maxdepth: 1
-
-   device-selectors
+     
+   device-selector
    platform
    context
    device
    queue
    event
-   param_traits
 
 .. _data-access:
 
@@ -55,7 +68,6 @@ Data access
 ===========
 
 .. toctree::
-   :maxdepth: 2
 
    buffer
    image
@@ -109,8 +121,8 @@ Synchronization and atomics
 
    types
 
-Stream class
-============
+IO
+==
 
 .. toctree::
 

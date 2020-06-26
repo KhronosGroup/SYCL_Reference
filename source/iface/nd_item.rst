@@ -7,25 +7,7 @@
    template <int dimensions = 1>
    class nd_item;
    
-.. rubric:: Member functions
-
-===================================  ==	    
-get_global_id_
-get_global_linear_id_
-get_local_id_
-get_local_linear_id_
-get_group_
-get_group_linear_id_
-get_group_range_
-get_global_range_
-get_local_range_
-get_offset_
-get_nd_range_
-barrier_
-mem_fence_
-async_work_group_copy_
-wait_for_
-===================================  ==	    
+.. member-toc::
 
 get_global_id
 =============

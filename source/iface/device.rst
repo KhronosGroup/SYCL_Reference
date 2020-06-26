@@ -13,11 +13,15 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
+*******
+Devices
+*******
+
 .. rst-class:: api-class
 	       
-======
-device
-======
+==========
+``device``
+==========
 
 ::
    
@@ -25,28 +29,9 @@ device
 
 An abstract class representing various models of SYCL devices
 
-.. rubric:: Member functions
+.. member-toc::
 
-=====================  =======================
-`(constructors)`_
-(destructor)    
-get_          
-is_host_      
-is_cpu_      
-is_gpu_      
-is_accelerator_      
-get_platform_  
-get_info_     
-has_extension_
-create_sub_devices_
-=====================  =======================
-
-.. rubric:: Nonmember functions
-
-=================  ===
-get_devices_
-=================  ===
-
+   
 (constructors)
 ==============
 
@@ -160,17 +145,8 @@ get_info
   typename info::param_traits<info::device, param>::return_type
   get_info() const;
 
-Queries the device for information specific to ``param``.
-
-.. rubric:: Template parameters
-
-=================  ===
-param              refer to info::device table 
-=================  ===
-
-.. rubric:: Returns
-
-Device information
+Returns information about the device as determined by ``param``. See
+`Device Info`_ for details.
 
 .. rubric:: Example
 
@@ -232,3 +208,175 @@ get_devices
   static vector_class<device> get_devices(
       info::device_type deviceType = info::device_type::all);
 
+.. _device-info:
+   
+===========
+Device Info
+===========
+
+::
+
+  enum class device : int {
+    device_type,
+    vendor_id,
+    max_compute_units,
+    max_work_item_dimensions,
+    max_work_item_sizes,
+    max_work_group_size,
+    preferred_vector_width_char,
+    preferred_vector_width_short,
+    preferred_vector_width_int,
+    preferred_vector_width_long,
+    preferred_vector_width_float,
+    preferred_vector_width_double,
+    preferred_vector_width_half,
+    native_vector_width_char,
+    native_vector_width_short,
+    native_vector_width_int,
+    native_vector_width_long,
+    native_vector_width_float,
+    native_vector_width_double,
+    native_vector_width_half,
+    max_clock_frequency,
+    address_bits,
+    max_mem_alloc_size,
+    image_support,
+    max_read_image_args,
+    max_write_image_args,
+    image2d_max_height,
+    image2d_max_width,
+    image3d_max_height,
+    image3d_max_width,
+    image3d_max_depth,
+    image_max_buffer_size,
+    image_max_array_size,
+    max_samplers,
+    max_parameter_size,
+    mem_base_addr_align,
+    half_fp_config,
+    single_fp_config,
+    double_fp_config,
+    global_mem_cache_type,
+    global_mem_cache_line_size,
+    global_mem_cache_size,
+    global_mem_size,
+    max_constant_buffer_size,
+    max_constant_args,
+    local_mem_type,
+    local_mem_size,
+    error_correction_support,
+    host_unified_memory,
+    profiling_timer_resolution,
+    is_endian_little,
+    is_available,
+    is_compiler_available,
+    is_linker_available,
+    execution_capabilities,
+    queue_profiling,
+    built_in_kernels,
+    platform,
+    name,
+    vendor,
+    driver_version,
+    profile,
+    version,
+    opencl_c_version,
+    extensions,
+    printf_buffer_size,
+    preferred_interop_user_sync,
+    parent_device,
+    partition_max_sub_devices,
+    partition_properties,
+    partition_affinity_domains,
+    partition_type_property,
+    partition_type_affinity_domain,
+    reference_count
+  }
+  
+.. rubric:: Namespace
+
+::
+
+   info
+
+Used as a template parameter for get_info_ to determine the type of
+information.
+
+==================================  ==========================  ===
+Descriptor                          Return type                 Description
+==================================  ==========================  ===
+device_type
+vendor_id
+max_compute_units
+max_work_item_dimensions
+max_work_item_sizes
+max_work_group_size
+preferred_vector_width_char
+preferred_vector_width_short
+preferred_vector_width_int
+preferred_vector_width_long
+preferred_vector_width_float
+preferred_vector_width_double
+preferred_vector_width_half
+native_vector_width_char
+native_vector_width_short
+native_vector_width_int
+native_vector_width_long
+native_vector_width_float
+native_vector_width_double
+native_vector_width_half
+max_clock_frequency
+address_bits
+max_mem_alloc_size
+image_support
+max_read_image_args
+max_write_image_args
+image2d_max_height
+image2d_max_width
+image3d_max_height
+image3d_max_width
+image3d_max_depth
+image_max_buffer_size
+image_max_array_size
+max_samplers
+max_parameter_size
+mem_base_addr_align
+half_fp_config
+single_fp_config
+double_fp_config
+global_mem_cache_type
+global_mem_cache_line_size
+global_mem_cache_size
+global_mem_size
+max_constant_buffer_size
+max_constant_args
+local_mem_type
+local_mem_size
+error_correction_support
+host_unified_memory
+profiling_timer_resolution
+is_endian_little
+is_available
+is_compiler_available
+is_linker_available
+execution_capabilities
+queue_profiling
+built_in_kernels
+platform
+name
+vendor
+driver_version
+profile
+version
+opencl_c_version
+extensions
+printf_buffer_size
+preferred_interop_user_sync
+parent_device
+partition_max_sub_devices
+partition_properties
+partition_affinity_domains
+partition_type_property
+partition_type_affinity_domain
+reference_count
+==================================  ==========================  ===

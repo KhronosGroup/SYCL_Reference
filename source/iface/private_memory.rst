@@ -7,17 +7,7 @@
    template <typename T, int Dimensions = 1>
    class private_memory;
    
-.. rubric:: Member functions
-
-===================  ===
-`(constructors)`_
-===================  ===
-
-.. rubric:: Nonmember functions
-
-===================  ===
-`(operators)`_
-===================  ===
+.. member-toc::
 
 (constructors)
 ==============

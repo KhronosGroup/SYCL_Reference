@@ -19,19 +19,8 @@ Ranges and index space identifiers
 dimensions
 ================  ===
 
-.. rubric:: Member functions
+.. member-toc::
 
-================  ===
-get_
-size_
-================  ===
-
-.. rubric:: Nonmember functions
-
-=======================  ===
-`operator[]`_
-`Arithmetic Operators`_
-=======================  ===
 
 get
 ===
