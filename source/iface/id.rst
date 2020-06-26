@@ -7,18 +7,8 @@
    template <int dimensions = 1>
    class id;
 
-.. rubric:: Member functions
-	    
-=================  ===
-`(constructors)`_
-get
-=================  ===
+.. member-toc::
 
-.. rubric:: Nonmember functions
-	    
-=================  ===
-(operators)
-=================  ===
 
 (constructors)
 ==============

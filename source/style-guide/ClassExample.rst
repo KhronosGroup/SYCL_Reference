@@ -34,7 +34,7 @@ the member functions, one section each.
 | ``T1`` - description of parameter
 | ``T2`` - description of parameter
 
-.. rubric:: Member functions
+.. member-toc::
 
 
 .. The _ suffix on the function name makes it into a link to a
@@ -50,13 +50,7 @@ fun1              checks ...
 
 .. Non-member functions are static functions and operator overloads
 
-.. rubric:: Non-member functions
-
-   
-=============  =============
-`operator+`_   Adds ...
-fun3_          Queries ...
-=============  =============
+.. member-toc::
 
 .. rubric:: Example
 

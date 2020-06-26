@@ -14,14 +14,7 @@ exception
    
    class exception;
 
-.. rubric:: Member functions
-
-============  ===	    
-what_
-has_context_
-get_context_
-get_cl_code_
-============  ===	    
+.. member-toc::
 
    
 what
@@ -76,13 +69,7 @@ iterator
 const_iterator
 ===============  ===
 
-.. rubric:: Member functions
-
-============  ===	    
-size_
-begin_
-end_
-============  ===	    
+.. member-toc::
 
 size
 ====

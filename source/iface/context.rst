@@ -13,28 +13,26 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
+********
+Contexts
+********
+
+.. _context:
 
 .. rst-class:: api-class
 	       
-=======
-Context
-=======
+===========
+``context``
+===========
 
 ::
    
   class context;
   
-.. rubric:: Member functions
+A context encapsulates s SYCL platform and a collection of SYCL
+devices.
 
-==================  =======================
-`(constructors)`_   constructs a context
-get_                returns OpenCL conext ID
-is_host_            checks if contains a SYCL host device
-get_platform_
-get_devices_        returns devices bound to the context
-get_info_           queries properties
-==================  =======================
-
+.. member-toc::
 
 (constructors)
 ==============
@@ -59,12 +57,15 @@ get_info_           queries properties
 .. rubric:: Parameters
 
 =================  ===	    
-propList
-asyncHandler
-dev
-plt
-deviceList
+propList           See :ref:`property_list`
+asyncHandler       Called to report asynchronous SYCL exceptions
+dev                Constructed context contains device
+deviceList         Constructed context contains devices
+plt                Constructed context contains platform
+clContext          Constructed context contains cl_context
 =================  ===	    
+
+Constructs a context
 
 get
 ===
@@ -74,6 +75,8 @@ get
   cl_context get() const;
 
 	    
+Returns cl_context that was passed in constructor.
+
 is_host
 =======
 
@@ -81,7 +84,8 @@ is_host
    
   bool is_host() const;
 
-	    
+Returns true if this context is a host context.
+
 get_platform
 ============
 
@@ -89,6 +93,7 @@ get_platform
    
   platform get_platform() const;
 
+Return platform associated with this context.
 	    
 get_devices
 ===========
@@ -98,6 +103,8 @@ get_devices
   vector_class<device> get_devices() const;
 
 	    
+Returns vector of devices associated with this context.
+
 get_info
 ========
 
@@ -106,9 +113,38 @@ get_info
   template <info::context param>
   typename info::param_traits<info::context, param>::return_type get_info() const;
 
-.. rubric:: Template parameters
-
-=================  ===	    
-param
-=================  ===	    
+Returns information about the context as determined by ``param``. See
+`Context Info`_ for details.
 	    
+.. include:: property_methods.inc.rst
+	     
+============
+Context Info
+============
+
+::
+
+  enum class context : int {
+    reference_count,
+    platform,
+    devices
+  };
+
+.. rubric:: Namespace
+
+::
+
+   info
+
+Used as a template parameter for get_info_ to determine the type of
+information.
+
+===============  ==========================  ===
+Descriptor       Return type                 Description
+===============  ==========================  ===
+reference_count  cl_uint                     reference count of the underlying cl_context
+platform         platform                    SYCL platform for the context
+devices          vector_class<device>        SYCL devices associated with this platform
+===============  ==========================  ===
+
+

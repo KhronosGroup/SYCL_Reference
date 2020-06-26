@@ -28,9 +28,6 @@ for developers to maintain separate code bases, languages, tools, and
 workflows for each architecture.
 
 
-.. toctree::
-   :maxdepth: 4
-
 .. _oneapi-programming-model-overview:
 
 
@@ -66,7 +63,7 @@ Data Parallel C++ (DPC++)
 =========================
 
 DPC++ is the heart of oneAPI. DPC++ programs are written in ISO C++
-and use the Khronos* `SYCL`_* parallel programming model to distribute
+and use the Khronos\* `SYCL`_\* parallel programming model to distribute
 computation across processing elements in a device. DPC++ extends SYCL
 with features for performance and productivity.
 
@@ -81,12 +78,11 @@ Structure of This Document
 
 This document consists of the following sections: 
 
-* :ref:`oneapi-programming-model` describes the high-level concepts for
-the DPC++ programming model and the execution model that it depends
-upon. 
-* :ref:`programming-interface` provides a
-detailed explanation of the classes that make up the programming
-model.
+* :ref:`oneapi-programming-model` describes the high-level concepts
+  for the DPC++ programming model and the execution model that it
+  depends upon.
+* :ref:`programming-interface` provides a detailed explanation of the
+  classes that make up the programming model.
 
 How to Use This Document
 ========================

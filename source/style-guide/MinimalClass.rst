@@ -19,18 +19,7 @@ typea
 typeb
 ========  =======
 
-.. rubric:: Member functions
-
-===============  =======
-(constructors)_
-functiona_
-===============  =======
-
-.. rubric:: Nonmember functions
-
-===============  =======
-functionb_
-===============  =======
+.. member-toc::
 
 (constructors)
 ==============

@@ -13,33 +13,26 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
+.. _queues:
+
+	       
+******
+Queues
+******
+
 .. _queue:
 
 .. rst-class:: api-class
-	       
-=====
-queue
-=====
+
+=========
+``queue``
+=========
 
 ::
    
    class queue;
 
-.. rubric:: Member functions
-
-=====================  =======================
-`(constructors)`_   
-(destructor)       
-`get`_             
-`get_context`_     
-`get_device`_      
-`get_info`_        
-`is_host`_      
-`submit`_       
-`wait`_         
-`wait_and_throw`_    
-`throw_asynchronous`_
-=====================  =======================
+.. member-toc::
 
 (constructors)
 ==============
@@ -73,6 +66,18 @@ queue
   explicit queue(cl_command_queue clQueue, const context& syclContext,
                  const async_handler &asyncHandler = {});
 
+.. rubric:: Parameters
+
+======================  ===
+propList                See `Queue Properties`_
+asyncHandler            Called for asynchronous exceptions
+deviceSelector          Select device for queue
+syclDevice              Select device for queue
+syclContext             Associate queue with the context
+clQueue                 Encapsulate OpenCL queue
+======================  ===
+  
+
 get
 ===
 
@@ -81,7 +86,7 @@ get
    
   cl_command_queue get() const;
 
-.. rubric:: Returns
+Return OpenCL queue associated with SYCL queue.
 
 get_context
 ===========
@@ -90,7 +95,7 @@ get_context
    
   context get_context() const;
 
-.. rubric:: Returns
+Returns context associated with queue.
 
 get_device
 ==========
@@ -99,7 +104,7 @@ get_device
    
   device get_device() const;
 
-.. rubric:: Returns
+Returns device associated with queue
 
 
 is_host
@@ -109,7 +114,7 @@ is_host
    
   bool is_host() const;
 
-.. rubric:: Returns
+Returns True if queue executes on host device.
 
 
 get_info
@@ -120,7 +125,8 @@ get_info
   template <info::queue param>
   typename info::param_traits<info::queue, param>::return_type get_info() const;
 
-.. rubric:: Returns
+Returns information about the queue as determined by ``param``. See
+queue_ for details.
 
 submit
 ======
@@ -129,9 +135,6 @@ submit
    
   template <typename T>
   event submit(T cgf);
-
-::
-   
   template <typename T>
   event submit(T cgf, const queue &secondaryQueue);
 
@@ -142,7 +145,7 @@ cgf
 secondaryQueue
 =================  ===
 
-
+Submit a task to the queue.
 
 wait
 ====
@@ -151,6 +154,8 @@ wait
    
   void wait();
 
+Wait for all enqueued tasks to complete.
+
 wait_and_throw
 ==============
 
@@ -158,9 +163,57 @@ wait_and_throw
    
   void wait_and_throw();
 
+Wait for all enqueued tasks and pass asynchronous errors to handler.
+
 throw_asynchronous
 ==================
 
 ::
    
   void throw_asynchronous();
+
+Pass asynchronous errors to handler.
+
+==========
+Queue Info
+==========
+
+::
+
+  enum class queue : int {
+    context,
+    device,
+    reference_count,
+  };
+
+.. rubric:: Namespace
+
+::
+
+   info
+
+Used as a template parameter for get_info_ to determine the type of
+information.
+
+===============  ==========================  ===
+Descriptor       Return type                 Description
+===============  ==========================  ===
+context          context                     SYCL context associated with the queue
+device           device                      SYCL device associated with the queue
+reference_count  cl_uint                     reference count of the queue
+===============  ==========================  ===
+
+
+================
+Queue Properties
+================
+
+.. rubric:: Namespace
+
+::
+
+   property::queue
+	    
+enable_profiling
+  When passed to a constructor for a queue, SYCL runtime captures
+  profiling information for command groups submitted to the queue.

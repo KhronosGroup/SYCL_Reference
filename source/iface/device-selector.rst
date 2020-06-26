@@ -13,9 +13,20 @@
   // See the License for the specific language governing permissions and
   // limitations under the License.
 
+.. _device-selectors:
+
 ****************
 Device selectors
 ****************
+
+Devices selectors allow the SYCL runtime to choose the device.
+
+A device selector can be passed to :ref:`queue`, :ref:`platform`, and
+other constructors to control the selection of a device. A program may
+use `Built-in Device Selectors`_ or define its own device_selector_
+for full control.
+
+.. _device_selector:
 
 .. rst-class:: api-class
 	       
@@ -25,20 +36,19 @@ device_selector
 
 ::
    
-  class device_selector();
+  class device_selector;
 
-.. rubric:: Member functions
-   
-====================  =======================
-`(constructors)`_     constructs a device_selector
-select_device_     
-====================  =======================
+Abstract class for device selectors.
 
-.. rubric:: Nonmember functions
+This is the base class for the `Built-in Device Selectors`_. To define
+a custom device selector, create a derived class that defines the ()
+operator.
 
-=================  ===
-operator()
-=================  ===
+.. rubric:: Example
+
+.. todo:: Custom device selector	    
+
+.. member-toc::
 
 
 (constructors)
@@ -46,15 +56,13 @@ operator()
 
 ::
    
+  device_selector();
   device_selector(const device_selector &rhs);
-  device_selector &operator=(const device_selector &rhs);
 
+Construct a device_selector.
 
-.. rubric:: Parameters
+A device selector can be created from another by passing ``rhs``.
 
-=================  ===
-rhs                device 
-=================  ===
 
 select_device
 =============
@@ -64,6 +72,21 @@ select_device
   device select_device() const;
 
    
+Returns the device with the highest score as determined by calling
+`operator()`_.
+
+Throws a runtime error if all devices have a negative score.
+
+operator=
+=========
+
+::
+   
+  device_selector &operator=(const device_selector &rhs);
+
+Create a device selector by copying another one.
+
+
 operator()
 ==========
 
@@ -71,40 +94,28 @@ operator()
    
   virtual int operator()(const device &device) const = 0;
 
-.. rubric:: Parameters
+Scoring function for devices.
 
-=================  ===
-device
-=================  ===
+All derived device selectors must define this
+operator. `select_device` calls this operator for every device, and
+selects the device with highest score. Return a negative score if a
+device should not be selected.
 
 
-.. rst-class:: api-class
-	       
-================
-default_selector
-================
+===========================
+Built-in Device Selectors
+===========================
 
-::
-   
-   class default_selector;
+SYCL provides built-in device selectors for convenience. They use
+device_selector_ as a base class.
 
-Selects a SYCL device based on a implementation-defined
-heuristic. Selects a :term:`host device` if no other device can be
-found.
-   
-.. rst-class:: api-class
-	       
-============
-gpu_selector
-============
-
-::
-   
-   class gpu_selector;
-
-Selects a GPU.   
-
-.. _gpu-selector-example:
+=====================  ===
+default_selector       Selects device according to implementation-defined heuristic or :term:`host device` if no device can be found.
+gpu_selector           Select a GPU
+accelerator_selector   Select an accelerator
+cpu_selector           Select a CPU device
+host_selector          Select the host device
+=====================  ===
 
 .. rubric:: Example
 
@@ -114,50 +125,3 @@ Output on a system without a GPU
 
 .. literalinclude:: /examples/gpu-selector.out
 		    
-.. rst-class:: api-class
-	       
-====================
-accelerator_selector
-====================
-
-::
-   
-   class accelerator_selector;
-
-Selects an accelerator.
-
-.. rubric:: Example
-
-See :ref:`gpu-selector-example` for the use of a pre-defined selector.
-
-.. rst-class:: api-class
-	       
-============
-cpu_selector
-============
-
-::
-   
-   class cpu_selector;
-
-Select a CPU device.
-
-.. rubric:: Example
-
-See :ref:`gpu-selector-example` for the use of a pre-defined selector.
-
-
-.. rst-class:: api-class
-	       
-=============
-host_selector
-=============
-
-::
-   
-   class host_selector;
-
-.. rubric:: Example
-
-See :ref:`gpu-selector-example` for the use of a pre-defined selector.
-	    

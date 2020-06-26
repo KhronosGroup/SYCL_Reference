@@ -31,22 +31,7 @@ reference
 const_reference
 ===============  =======
 
-.. rubric:: Member functions
-
-=================  =======
-`(constructors)`_
-get_size_
-get_count_
-get_range_
-get_pointer_
-=================  =======
-
-.. rubric:: Nonmember functions
-
-=================  =======
-`operator[]`_
-`operator ()`_
-=================  =======
+.. member-toc::
 
 (constructors)
 ==============

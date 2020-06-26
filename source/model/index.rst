@@ -19,7 +19,6 @@ We start with a DPC++ example application to illustrate basic DPC++ concepts. We
 
 
 .. toctree::
-   :maxdepth: 4
 
    
    sample-program

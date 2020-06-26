@@ -23,19 +23,7 @@ dimensions
 AllocatorT
 ========================  ==========
 
-.. rubric:: Member functions
-	    
-========================  ==========
-:ref:`image-image`
-get_range_
-get_pitch_
-get_count_
-get_size_
-get_allocator_
-get_access_
-set_final_data_
-set_write_back_
-========================  ==========
+.. member-toc::
 
 .. _image-image:
 
@@ -230,11 +218,7 @@ use_host_ptr
    
 Description
 
-.. rubric:: Member functions
-
-======================================  =======
-:ref:`image-use_host_ptr-use_host_ptr`
-======================================  =======
+.. member-toc::
 
 .. _image-use_host_ptr-use_host_ptr:
 
@@ -264,12 +248,7 @@ use_mutex
 
 Description
 
-.. rubric:: Member functions
-
-========================================  =======
-:ref:`image-get_mutex_ptr-get_mutex_ptr`
-get_mutex_ptr_
-========================================  =======
+.. member-toc::
    
 .. _image-get_mutex_ptr-get_mutex_ptr:
    
@@ -308,12 +287,7 @@ context_bound
 
 Description
 
-.. rubric:: Member functions
-
-========================================  =======
-:ref:`image-context_bound-context_bound`
-get_context_
-========================================  =======
+.. member-toc::
 
 .. _image-context_bound-context_bound:
 

@@ -8,12 +8,7 @@
 
    class command_group;
 
-.. rubric:: Member functions
-
-=================  ===	    
-`(constructors)`_
-events_
-=================  ===	    
+.. member-toc::
 
 (constructors)
 ==============

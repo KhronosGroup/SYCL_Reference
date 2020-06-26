@@ -7,20 +7,7 @@
    template <int dimensions = 1, bool with_offset = true>
    class item;
 
-.. rubric:: Member functions
-
-=================  ===
-get_id_
-get_range_
-get_offset_
-get_linear_id_
-=================  ===
-
-.. rubric:: Nonmmber functions
-
-=================  ===
-`(operators)`_
-=================  ===
+.. member-toc::
 
 get_id
 ======

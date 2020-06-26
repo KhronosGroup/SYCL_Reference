@@ -7,7 +7,6 @@ We try to follow the style of `cppreference
 <https://en.cppreference.com/w/Help:Manual_of_style>`__.
 
 .. toctree::
-   :maxdepth: 1
 
    ClassExample
    MinimalClass
