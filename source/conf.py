@@ -142,6 +142,7 @@ class_ignore = ['target',
                 'transition',
                 'todo_node',
                 'paragraph',
+                'definition_list',
                 'literal_block',
                 'system_message']
 class_layout = re.compile(class_layout_pattern)
@@ -150,6 +151,7 @@ class_section_layout_pattern = (':title'
                                 '(:rubric Template parameters:table)?'
                                 '(:rubric Parameters:table)?'
                                 '(:rubric Returns)?'
+                                '(:rubric Exceptions)?'
                                 '(:rubric Example)?'
 )
 
