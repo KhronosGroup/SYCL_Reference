@@ -27,7 +27,9 @@ Devices
    
    class device;
 
-An abstract class representing various models of SYCL devices
+An abstract class representing various models of SYCL devices. A
+device could be a GPU, CPU, or other type of accelerator. Devices
+execute kernel functions.
 
 .. member-toc::
 
@@ -37,19 +39,15 @@ An abstract class representing various models of SYCL devices
 
 .. parsed-literal::
    
-  *Default Constructor. Constructs a device object in host mode*
   device();
-
-  *Constructs a device object from another device object and
-   retains the cl_device_id object if the device is not in
-   host mode.*
-
   explicit device(cl_device_id deviceId);
-
-  *Use deviceSelector to choose device*
-
   explicit device(const device_selector &deviceSelector);
 
+Construct a device.
+
+The default constructor creates a host device. A device can also be
+constructed from an openCL device or may be chosen by a
+:ref:device-selectors.
 	     
 .. rubric:: Parameters
 
@@ -65,11 +63,7 @@ get
    
   cl_device_id get() const;
 
-Return the cl_device_id of the underlying OpenCL platform
-
-.. rubric:: Returns
-
-cl_device_id of underlying OpenCL platform
+Return the cl_device_id of the underlying OpenCL platform.
 
 is_host
 =======
@@ -78,11 +72,7 @@ is_host
    
   bool is_host() const;
 
-Checks if the device is a SYCL host device
-
-.. rubric:: Returns
-
-True if the device is a :term:`host device`, false otherwise.
+Returns true if the device is a :term:`host device`, false otherwise.
 
 is_cpu
 ======
@@ -91,11 +81,7 @@ is_cpu
    
   bool is_cpu() const;
 
-Checks if the device is a CPU
-
-.. rubric:: Returns
-
-True if the device is a CPU, false otherwise
+Returns true if the device is a CPU, false otherwise.
 
 is_gpu
 ======
@@ -104,11 +90,7 @@ is_gpu
    
   bool is_gpu() const;
 
-Checks if the device is a GPU
-
-.. rubric:: Returns
-
-True if the device is a GPU, false otherwise
+Returns true if the device is a GPU, false otherwise.
 
 is_accelerator
 ==============
@@ -117,11 +99,7 @@ is_accelerator
    
   bool is_accelerator() const;
 
-Checks if the device is a GPU
-
-.. rubric:: Returns
-
-True if the device is a GPU, false otherwise
+Returns true if the device is an accelerator, false otherwise.
 
 get_platform
 ============
@@ -130,11 +108,7 @@ get_platform
    
   platform get_platform() const;
 
-Returns the platform that contains the device
-
-.. rubric:: Returns
-
-Platform object
+Returns the platform that contains the device.
 
 get_info
 ========
@@ -159,12 +133,7 @@ has_extension
    
   bool has_extension(const string_class &extension) const;
 
-
-.. rubric:: Parameters
-
-=================  ===
-extension          name of extension
-=================  ===
+Returns true if device supports the extension.
 
 
 create_sub_devices
@@ -190,14 +159,29 @@ create_sub_devices
   template <info::partition_property prop>
   vector_class<device> create_sub_devices(info::affinity_domain affinityDomain) const;
 
+Divide into sub-devices, according to the requested partition
+property.
+
+.. rubric:: Template parameters
+
+=================  ===
+prop               See partition_property_
+=================  ===
+	    
 
 .. rubric:: Parameters
 
 =================  ===
-nbSubDev
-counts
-affinityDomain
+nbSubDev           Number of subdevices
+counts             Vector of sizes for the subdevices
+affinityDomain     See partition_affinity_domain_
 =================  ===
+
+.. rubric:: Exceptions
+
+feature_not_supported
+  when device does not support the partition_property_ specified by
+  the ``prop`` template argument.
 
 
 get_devices
@@ -208,11 +192,16 @@ get_devices
   static vector_class<device> get_devices(
       info::device_type deviceType = info::device_type::all);
 
-.. _device-info:
-   
+Returns vector of devices associated with deviceType.
+
+See device_type_
+
 ===========
 Device Info
 ===========
+
+device
+======
 
 ::
 
@@ -341,16 +330,16 @@ image_max_array_size
 max_samplers
 max_parameter_size
 mem_base_addr_align
-half_fp_config
-single_fp_config
-double_fp_config
-global_mem_cache_type
+half_fp_config                      fp_config_
+single_fp_config                    fp_config_
+double_fp_config                    fp_config_
+global_mem_cache_type               global_mem_cache_type_
 global_mem_cache_line_size
 global_mem_cache_size
 global_mem_size
 max_constant_buffer_size
 max_constant_args
-local_mem_type
+local_mem_type                      local_mem_type_
 local_mem_size
 error_correction_support
 host_unified_memory
@@ -359,7 +348,7 @@ is_endian_little
 is_available
 is_compiler_available
 is_linker_available
-execution_capabilities
+execution_capabilities              execution_capability_
 queue_profiling
 built_in_kernels
 platform
@@ -380,3 +369,99 @@ partition_type_property
 partition_type_affinity_domain
 reference_count
 ==================================  ==========================  ===
+
+device_type
+===========
+
+::
+
+  enum class device_type : unsigned int {
+    cpu,         // Maps to OpenCL CL_DEVICE_TYPE_CPU
+    gpu,         // Maps to OpenCL CL_DEVICE_TYPE_GPU
+    accelerator, // Maps to OpenCL CL_DEVICE_TYPE_ACCELERATOR
+    custom,      // Maps to OpenCL CL_DEVICE_TYPE_CUSTOM
+    automatic,   // Maps to OpenCL CL_DEVICE_TYPE_DEFAULT
+    host,
+    all          // Maps to OpenCL CL_DEVICE_TYPE_ALL
+  };
+
+See get_devices_
+
+partition_property
+==================
+
+::
+
+  enum class partition_property : int {
+    no_partition,
+    partition_equally,
+    partition_by_counts,
+    partition_by_affinity_domain
+  };
+
+See create_sub_devices_
+
+partition_affinity_domain
+=========================
+
+::
+
+  enum class partition_affinity_domain : int {
+    not_applicable,
+    numa,
+    L4_cache,
+    L3_cache,
+    L2_cache,
+    L1_cache,
+    next_partitionable
+  };
+
+See create_sub_devices_
+
+local_mem_type
+==============
+
+::
+
+  enum class local_mem_type : int { none, local, global };
+
+See get_info_
+
+fp_config
+=========
+
+::
+
+  enum class fp_config : int {
+    denorm,
+    inf_nan,
+    round_to_nearest,
+    round_to_zero,
+    round_to_inf,
+    fma,
+    correctly_rounded_divide_sqrt,
+    soft_float
+  };
+
+See get_info_
+
+global_mem_cache_type
+=====================
+
+::
+
+  enum class global_mem_cache_type : int { none, read_only, read_write };
+
+See get_info_
+
+execution_capability
+====================
+
+::
+   
+  enum class execution_capability : unsigned int {
+    exec_kernel,
+    exec_native_kernel
+  };
+
+See get_info_  

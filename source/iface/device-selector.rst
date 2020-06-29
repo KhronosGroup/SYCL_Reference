@@ -75,6 +75,8 @@ select_device
 Returns the device with the highest score as determined by calling
 `operator()`_.
 
+.. rubric:: Exceptions
+   
 Throws a runtime error if all devices have a negative score.
 
 operator=
@@ -102,6 +104,8 @@ selects the device with highest score. Return a negative score if a
 device should not be selected.
 
 
+.. _built-in-device-selectors:
+   
 ===========================
 Built-in Device Selectors
 ===========================
@@ -117,11 +121,13 @@ cpu_selector           Select a CPU device
 host_selector          Select the host device
 =====================  ===
 
-.. rubric:: Example
+
+Create a device selector by copying another one.
+		   
+ .. rubric:: Example
 
 .. literalinclude:: /examples/gpu-selector.cpp
 
-Output on a system without a GPU
+Output on a system without a GPU:
 
-.. literalinclude:: /examples/gpu-selector.out
-		    
+.. literalinclude:: /examples/gpu-selector.out		    

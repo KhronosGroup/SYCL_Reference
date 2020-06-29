@@ -21,16 +21,20 @@ Contexts
 
 .. rst-class:: api-class
 	       
-===========
-``context``
-===========
+=======
+context
+=======
 
 ::
    
   class context;
   
-A context encapsulates s SYCL platform and a collection of SYCL
-devices.
+A context encapsulates a single SYCL platform and a collection of SYCL
+devices associated with the platform.
+
+A context may include a subset of the devices provided by the
+platform. The same platform may be associated with more than one
+context, but a device can only be part of a single context.
 
 .. member-toc::
 
@@ -54,16 +58,33 @@ devices.
           async_handler asyncHandler, const property_list &propList = {});
   context(cl_context clContext, async_handler asyncHandler = {});
 
+Construct a context.
+
+The parameters to the constructor allow control of the devices and
+platforms associated with the context. The constructor uses the
+:ref:`default selector <built-in-device-selectors>` when no platforms
+or devices are supplied.
+
+
 .. rubric:: Parameters
 
-=================  ===	    
-propList           See :ref:`property_list`
-asyncHandler       Called to report asynchronous SYCL exceptions
-dev                Constructed context contains device
-deviceList         Constructed context contains devices
-plt                Constructed context contains platform
-clContext          Constructed context contains cl_context
-=================  ===	    
+propList
+  See `Context Properties`_.
+asyncHandler
+  Called to report asynchronous SYCL exceptions for this context.
+dev
+  Constructed context contains device
+deviceList
+  Constructed context contains devices
+plt
+  Constructed context contains platform
+clContext
+  Constructed context contains cl_context
+
+
+.. todo:: Examples that combines the functions
+
+	  
 
 Constructs a context
 
@@ -147,4 +168,10 @@ platform         platform                    SYCL platform for the context
 devices          vector_class<device>        SYCL devices associated with this platform
 ===============  ==========================  ===
 
+
+==================
+Context Properties
+==================
+
+SYCL does not define any properties for context_.
 
