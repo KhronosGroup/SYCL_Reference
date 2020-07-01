@@ -87,7 +87,7 @@ get_devices
      info::device_type = info::device_type::all) const;
 
 Return vector of SYCL devices associated with the platform and
-filtered by the :ref:`device_type <device-info>`.
+filtered by the :ref:`device_type <info-device>`.
 
 .. rubric:: Example
 

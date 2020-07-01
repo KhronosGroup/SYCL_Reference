@@ -17,6 +17,8 @@
 Events
 ******
 
+.. _event:
+
 .. rst-class:: api-class
 	       
 =========
