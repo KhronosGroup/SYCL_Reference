@@ -165,6 +165,8 @@ get_info
 Returns information about the queue as determined by ``param``. See
 queue_ for details.
 
+.. _queue-submit:
+
 submit
 ======
 
