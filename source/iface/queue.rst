@@ -24,13 +24,29 @@ Queues
 
 .. rst-class:: api-class
 
-=========
-``queue``
-=========
+=====
+queue
+=====
 
 ::
    
    class queue;
+
+Queues connect a host program to a single device. Programs submit
+tasks to a device via the queue and may monitor the queue for
+completion. A program initiates the task by submitting a
+:ref:`command_group-function-object` to a queue. The command group
+defines a kernel function, the prerequisites to execute the kernel
+function, and an invocation of the kernel function on an index
+space. After submitting the command group, a program may use the queue
+to monitor the completion of the task for completion and errors.
+
+.. rubric:: Example
+
+.. todo::
+
+   Example uses basic constructor and demonstrates the commonly uses
+   member functions.
 
 .. member-toc::
 
@@ -66,17 +82,40 @@ Queues
   explicit queue(cl_command_queue clQueue, const context& syclContext,
                  const async_handler &asyncHandler = {});
 
+Construct a queue.
+
+Constructing a queue selects the device attached to the queue. The
+program may control the device by passing a cl_command_queue,
+:ref:`device`, or a :ref:`device_selector <device-selectors>`. If none
+are provided, the constructor uses the :ref:`default_selector
+<built-in-device-selectors>` to select a device. The constructor
+implicitly creates the :ref:`context`, :ref:`platform`, and
+:ref:`device` as needed.
+
+The SYCL runtime executes the tasks asynchronously. Programs may catch
+asynchronous errors that occur during execution by constructing the
+queue with an ``asyncHandler`` and calling wait_and_throw_.
+
 .. rubric:: Parameters
 
 ======================  ===
 propList                See `Queue Properties`_
 asyncHandler            Called for asynchronous exceptions
-deviceSelector          Select device for queue
-syclDevice              Select device for queue
+deviceSelector          Selects device for queue
+syclDevice              Device for queue
 syclContext             Associate queue with the context
-clQueue                 Encapsulate OpenCL queue
+clQueue                 Assocate queue with OpenCL queue
 ======================  ===
   
+.. rubric:: Exceptions
+
+invalid_object_error
+  If ``syclContext`` does not encapsulate ``syclDevice``.
+
+.. rubric:: Example
+
+.. todo:: exercise various constructors
+
 
 get
 ===
@@ -106,7 +145,6 @@ get_device
 
 Returns device associated with queue
 
-
 is_host
 =======
 
@@ -114,8 +152,7 @@ is_host
    
   bool is_host() const;
 
-Returns True if queue executes on host device.
-
+Returns true if queue executes on host device.
 
 get_info
 ========
@@ -138,14 +175,34 @@ submit
   template <typename T>
   event submit(T cgf, const queue &secondaryQueue);
 
+.. rubric:: Template parameters
+
+=================  ===
+T
+=================  ===
+
 .. rubric:: Parameters
 
 =================  ===
-cgf
-secondaryQueue
+cgf                Command group function object
+secondaryQueue     On error, runtime resubmits command group to the secondary queue.
 =================  ===
 
-Submit a task to the queue.
+Submit a command group function object to the queue for asynchronous
+execution.
+
+Returns an :ref:`event`, which may be used for synchronizing enqueued
+tasks. See :ref:`command_group-function-object` for more
+information on the ``cgf`` parameter.
+
+In most cases, the ``T`` template parameter is not provided because it
+is inferred from the type of ``cgf``.
+
+.. rubric:: Exceptions
+	    
+The runtime resubmits the command group to the secondary queue
+if an error occurs executing on the primary queue.
+
 
 wait
 ====
@@ -163,7 +220,8 @@ wait_and_throw
    
   void wait_and_throw();
 
-Wait for all enqueued tasks and pass asynchronous errors to handler.
+Wait for all enqueued tasks and pass asynchronous errors to handler
+provided in `(constructors)`_.
 
 throw_asynchronous
 ==================
@@ -172,7 +230,8 @@ throw_asynchronous
    
   void throw_asynchronous();
 
-Pass asynchronous errors to handler.
+Passes any asynchronous errors to handler provided in
+`(constructors)`_.
 
 ==========
 Queue Info
@@ -214,6 +273,8 @@ Queue Properties
 
    property::queue
 	    
+Queue properties are specified in the queue constructor.
+
 enable_profiling
-  When passed to a constructor for a queue, SYCL runtime captures
-  profiling information for command groups submitted to the queue.
+  SYCL runtime captures profiling information for command groups
+  submitted to the queue.

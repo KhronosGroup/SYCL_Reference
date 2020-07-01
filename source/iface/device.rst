@@ -17,11 +17,13 @@
 Devices
 *******
 
+.. _device:
+
 .. rst-class:: api-class
 	       
-==========
-``device``
-==========
+======
+device
+======
 
 ::
    
@@ -199,6 +201,8 @@ See device_type_
 ===========
 Device Info
 ===========
+
+.. _info-device:
 
 device
 ======

@@ -1,7 +1,7 @@
 #include <vector>
 
 #include <CL/sycl.hpp>
-using namespace cl::sycl;
+using namespace sycl;
 
 #define SIZE 10
 
