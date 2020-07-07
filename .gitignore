@@ -1,4 +1,5 @@
 *~
+*.log
 *.diff
 /build
 /source/examples/*.bin
