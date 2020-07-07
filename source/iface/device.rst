@@ -48,8 +48,8 @@ execute kernel functions.
 Construct a device.
 
 The default constructor creates a host device. A device can also be
-constructed from an openCL device or may be chosen by a
-:ref:device-selectors.
+constructed from an OpenCL|trade| device or may be chosen by a
+:ref:`device-selectors`.
 	     
 .. rubric:: Parameters
 
@@ -74,7 +74,7 @@ is_host
    
   bool is_host() const;
 
-Returns true if the device is a :term:`host device`, false otherwise.
+Returns True if the device is a :term:`host device`, False otherwise.
 
 is_cpu
 ======
@@ -83,7 +83,7 @@ is_cpu
    
   bool is_cpu() const;
 
-Returns true if the device is a CPU, false otherwise.
+Returns True if the device is a CPU, False otherwise.
 
 is_gpu
 ======
@@ -92,7 +92,7 @@ is_gpu
    
   bool is_gpu() const;
 
-Returns true if the device is a GPU, false otherwise.
+Returns True if the device is a GPU, False otherwise.
 
 is_accelerator
 ==============
@@ -101,7 +101,7 @@ is_accelerator
    
   bool is_accelerator() const;
 
-Returns true if the device is an accelerator, false otherwise.
+Returns True if the device is an accelerator, False otherwise.
 
 get_platform
 ============
@@ -135,7 +135,7 @@ has_extension
    
   bool has_extension(const string_class &extension) const;
 
-Returns true if device supports the extension.
+Returns True if device supports the extension.
 
 
 create_sub_devices
@@ -182,7 +182,7 @@ affinityDomain     See partition_affinity_domain_
 .. rubric:: Exceptions
 
 feature_not_supported
-  when device does not support the partition_property_ specified by
+  When device does not support the partition_property_ specified by
   the ``prop`` template argument.
 
 

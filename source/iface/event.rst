@@ -46,7 +46,7 @@ kernel.
   event();
   event(cl_event clEvent, const context& syclContext);
 
-Construct an event
+Construct an event.
 
 cl_event_get
 ============
@@ -56,7 +56,7 @@ cl_event_get
   cl_event get();
 
 
-Returns OpenCL event associated with this event.
+Returns OpenCL|trade| event associated with this event.
 
 is_host
 =======
@@ -66,7 +66,7 @@ is_host
   bool is_host() const;
 
 
-Returns true if this a host event
+Returns True if this a host event
 
 get_wait_list
 =============
@@ -163,7 +163,7 @@ information.
 Descriptor                Return type                 Description
 ========================  ==========================  ===
 command_execution_status  info::event_command_status  See event_command_status_
-reference_count           cl_uint                     reference count of the event
+reference_count           cl_uint                     Reference count of the event
 ========================  ==========================  ===
 	    
 ====================
