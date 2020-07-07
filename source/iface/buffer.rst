@@ -20,24 +20,54 @@ buffer
 .. rubric:: Template parameters
 
 ================  ==========
-T
-dimensions
-AllocatorT
+T                 Type of data in buffer
+dimensions        Dimensionality of data: 1, 2, or 3
+AllocatorT        Allocator for buffer data
 ================  ==========
+
+Buffers are containers for data that can be read/written by both
+kernel and host via an :ref:`accessor`.  The data in a buffer cannot
+be directly accessed. Instead, a program creates an :ref:`accessor`
+that references the buffer. The accessor provides array-like
+interfaces to read/write actual data.  The SYCL runtime uses the
+creation and destruction of accessors as a declaration of intent of
+the program so that it can control the movement of data between device
+and host, and to track data dependencies between host and kernels so
+that kernels and data movements can execute asynchronously when their
+operands are available without requiring the program to explicitly
+schedule all operations.
+
+Initialization
+
+  Buffers can be automatically initialized via host data, iterator, or
+  as a slice of another buffer. The constructor determines the
+  initialization method.
+
+Write back
+
+  The destructor for a buffer can optionally write the data back to
+  host memory, either by pointer or iterator. set_final_data_ and
+  set_write_back_ control the write back of data.
+
+Memory allocation
+
+  The SYCL runtimes uses the default allocator for buffer memory
+  allocation, unless the constructor provides an allocator.
+
 
 .. rubric:: Member types
 	    
 ================  ==========
-value_type      
-reference       
-const_reference 
-allocator_type 
+value_type        type of buffer element
+reference         reference type of buffer element
+const_reference   const reference type of buffer element
+allocator_type    type of allocator for buffer data
 ================  ==========
 
 .. member-toc::
 
 
-.. _buffer-buffer:
+.. _buffer-constructors:
 
 (constructors)
 ==============
@@ -77,24 +107,37 @@ allocator_type
   buffer(cl_mem clMemObject, const context &syclContext,
          event availableEvent = {});
 
+Construct a buffer.
+
+Buffers can be initialized by a host data pointer. While the buffer
+exists, it *owns* the host data and direct access of the host data
+pointer during that time is undefined. The SYCL runtime performs a
+write back of the buffer data back to the host data pointer when the
+buffer is destroyed.  Buffers can also be initialized as a slice of
+another buffer, by specifying the origin of the data and the
+dimensions.
+
+A constructor can also accept cl_mem or iterators to initialize a
+buffer.
+
 .. rubric:: Template parameters
 
 ================  ==========
-InputIterator
+InputIterator     type of iterator used to initialize the buffer
 ================  ==========
 
 .. rubric:: Parameters
 
 ================  ==========
-bufferRange
-allocator
+bufferRange       :ref:`range` specifies the dimensions of the buffer
+allocator         Allocator for buffer data
 propList          See `Buffer properties`_
-hostData
-first
-last
-b
-baseIndx
-subRange
+hostData          Pointer to host memory to hold data
+first             Iterator to initialize buffer
+last              Iterator to initialize buffer
+b                 Buffer used to initialize this buffer
+baseIndx          Origin of sub-buffer
+subRange          Dimensions of sub-buffer
 ================  ==========
 
 
@@ -106,12 +149,16 @@ get_range
   range<dimensions> get_range() const;
 
 
+Returns the dimensions of the buffer.
+
 get_count
 =========
 
 ::
 
   size_t get_count() const;
+
+Returns the total number of elements in the buffer.  
 
 
 get_size
@@ -122,6 +169,9 @@ get_size
   size_t get_size() const;
 
 
+Returns the size of the buffer storage in bytes.
+
+
 get_allocator
 =============
 
@@ -129,6 +179,8 @@ get_allocator
 
   AllocatorT get_allocator() const;
 
+
+Returns the allocator provided to the buffer.
 
 get_access
 ==========
@@ -148,19 +200,21 @@ get_access
   accessor<T, dimensions, mode, access::target::host_buffer> get_access(
     range<dimensions> accessRange, id<dimensions> accessOffset = {});
 
+Returns a accessor to the buffer.
+
 .. rubric:: Template parameters
 
 ================  ==========
-mode
-target
+mode              See :ref:`access-mode`
+target            See :ref:`access-target`
 ================  ==========
 
 .. rubric:: Parameters
 
 ===================  ==========
-commandGroupHandler
-accessRange
-accessOffset
+commandGroupHandler  Command group that uses the accessor
+accessRange          Dimensions of the sub-buffer that is accessed
+accessOffset         Origin of the sub-buffer that is accessed
 ===================  ==========
 
 	    
@@ -175,14 +229,17 @@ set_final_data
 .. rubric:: Template parameters
 
 ===================  ==========
-Destination
+Destination          std::weak_ptr<T> or output iterator
 ===================  ==========
 
 .. rubric:: Parameters
 
 ===================  ==========
-finalData
+finalData            Indicates where data is copied at destruction time
 ===================  ==========
+
+Set the final data location. Final data controls the location for
+write back when the buffer is destroyed.
 
 
 set_write_back
@@ -195,8 +252,10 @@ set_write_back
 .. rubric:: Parameters
 
 ===================  ==========
-flag
+flag                 True to force write back
 ===================  ==========
+
+Set the write back.
 
 is_sub_buffer
 =============
@@ -204,6 +263,8 @@ is_sub_buffer
 ::
 
   bool is_sub_buffer() const;
+
+Returns True if this is a sub-buffer.  
 
 	    
 reinterpret
@@ -218,15 +279,24 @@ reinterpret
 .. rubric:: Template parameters
 
 ===================  ==========
-ReinterpretT
-ReinterpretDim
+ReinterpretT         Type of new buffer element
+ReinterpretDim       Dimensions of new buffer
 ===================  ==========
 
 .. rubric:: Parameters
 
 ===================  ==========
-ReinterpretRange
+ReinterpretRange     Dimensionality of new buffer
 ===================  ==========
+
+Creates a new buffer with the requested element type and
+dimensionality, containing the data of the passed buffer or
+sub-buffer.
+
+.. rubric:: Exceptions
+
+errc::invalid_object_error
+  Size in bytes of new buffer does not match original buffer.
 
 ==================
  Buffer properties
@@ -247,7 +317,8 @@ use_host_ptr
 
    property::buffer
    
-Description
+Use the provided host pointer and do not allocate new data on the
+host.
 
 .. member-toc::
 
@@ -276,6 +347,9 @@ use_mutex
 
    property::buffer
    
+Adds the requirement that the memory owned by the SYCL buffer can be
+shared with the application via a std::mutex provided to the property.
+
 .. member-toc::
 
 .. _use_mutex-constructors:
@@ -311,6 +385,9 @@ context_bound
 
    property::buffer
    
+The buffer can only be associated with a single SYCL context provided
+to the property.
+
 .. member-toc::
 
 .. _context_bound-constructors:
