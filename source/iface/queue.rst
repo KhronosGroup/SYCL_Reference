@@ -104,7 +104,7 @@ asyncHandler            Called for asynchronous exceptions
 deviceSelector          Selects device for queue
 syclDevice              Device for queue
 syclContext             Associate queue with the context
-clQueue                 Assocate queue with OpenCL queue
+clQueue                 Assocate queue with OpenCL|trade| queue
 ======================  ===
   
 .. rubric:: Exceptions
@@ -143,7 +143,7 @@ get_device
    
   device get_device() const;
 
-Returns device associated with queue
+Returns device associated with queue.
 
 is_host
 =======
@@ -152,7 +152,7 @@ is_host
    
   bool is_host() const;
 
-Returns true if queue executes on host device.
+Returns True if queue executes on host device.
 
 get_info
 ========
@@ -261,7 +261,7 @@ Descriptor       Return type                 Description
 ===============  ==========================  ===
 context          context                     SYCL context associated with the queue
 device           device                      SYCL device associated with the queue
-reference_count  cl_uint                     reference count of the queue
+reference_count  cl_uint                     Reference count of the queue
 ===============  ==========================  ===
 
 

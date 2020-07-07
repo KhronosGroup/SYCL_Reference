@@ -72,6 +72,7 @@ in the same source file. A DPC++ compiler generates code for both the
 host and device. Any C++ compiler can compile programs that only use
 the host subset of DPC++.
 
+In this guide, it is safe to assume that anything that mentions SYCL is also applicable to DPC++. Anything specific to DPC++ will be explicitly mentioned.
 
 Structure of This Document
 ==========================

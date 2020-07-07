@@ -71,7 +71,7 @@ or devices are supplied.
 propList
   See `Context Properties`_.
 asyncHandler
-  Called to report asynchronous SYCL exceptions for this context.
+  Called to report asynchronous SYCL exceptions for this context
 dev
   Constructed context contains device
 deviceList
@@ -105,7 +105,7 @@ is_host
    
   bool is_host() const;
 
-Returns true if this context is a host context.
+Returns True if this context is a host context.
 
 get_platform
 ============
@@ -163,7 +163,7 @@ information.
 ===============  ==========================  ===
 Descriptor       Return type                 Description
 ===============  ==========================  ===
-reference_count  cl_uint                     reference count of the underlying cl_context
+reference_count  cl_uint                     Reference count of the underlying cl_context
 platform         platform                    SYCL platform for the context
 devices          vector_class<device>        SYCL devices associated with this platform
 ===============  ==========================  ===

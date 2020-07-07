@@ -60,7 +60,7 @@ Output:
 Construct a SYCL platform instance.
 
 The default constructor creates a host platform. When passed a
-``cl_platform_id``, an OpenCL platform is used to construct the
+``cl_platform_id``, an OpenCL|trade| platform is used to construct the
 platform. The ``cl_platform_id`` is retained and available via
 get_. When passed a :ref:`device_selector`, a platform is constructed
 that includes the preferred device.
