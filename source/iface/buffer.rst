@@ -182,6 +182,8 @@ get_allocator
 
 Returns the allocator provided to the buffer.
 
+.. _buffer-get_access:
+
 get_access
 ==========
 

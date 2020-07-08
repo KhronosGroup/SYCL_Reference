@@ -1,3 +1,7 @@
+****************
+Buffer accessors
+****************
+
 .. rst-class:: api-class
 	       
 ===============
@@ -16,19 +20,19 @@ Description
 .. rubric:: Template parameters
 
 ===============  =======
-dataT
-dimensions
-accessmode
-accessTarget
-isPlaceholder
+dataT            Type of buffer element
+dimensions       Number of buffer dimensions
+accessmode       See :ref:`access-mode`
+accessTarget     See :ref:`access-target`
+isPlaceholder    True if accessor is a placeholder
 ===============  =======
 
 .. rubric:: Member types
 
 ===============  =======
-value_type
-reference
-const_reference
+value_type       Type of buffer element
+reference        Type of reference to buffer element
+const_reference  Type of const reference to buffer element
 ===============  =======
 
 .. member-toc::
@@ -97,12 +101,36 @@ const_reference
            id<dimensions> accessOffset, const property_list &propList = {});
 
 
+Construct an accessor for a buffer.
+
+Programs typically find it more convenient to use
+:ref:`buffer-get_access` to create an accessor for a buffer.
+
+.. rubric:: Template parameters
+
+============  ===
+AllocatorT    Type of allocator for buffer element
+============  ===
+
+.. rubric:: Parameters
+
+======================  ===
+bufferRef               Associate accessor with this buffer
+commandGroupHandlerRef  Associate accessor with this handler
+propList                `Buffer accessor properties`_
+accessRange             Dimensions of data to be accessed            
+accessOffset            Coordinates of origin of data
+======================  ===
+
+
 is_placeholder
 ==============
 
 ::
    
   constexpr bool is_placeholder() const;
+
+Return True if this is a placeholder accessor.
 
 get_size
 ========
@@ -111,12 +139,16 @@ get_size
    
   size_t get_size() const;
 
+Returns size in bytes of the buffer region that this accesses.
+
 get_count
 =========
 
 ::
    
   size_t get_count() const;
+
+Returns number elements that this accesses.
 
 get_range
 =========
@@ -132,8 +164,11 @@ get_range
 .. rubric:: Template parameters
 
 ===============  ===
-dimensions
+dimensions       number of dimensions
 ===============  ===
+
+Returns dimensions of the asssociated buffer or range that was
+provided when the accessor was created.
 
 get_offset
 ==========
@@ -149,8 +184,12 @@ get_offset
 .. rubric:: Template parameters
 
 ===============  ===
-dimensions
+dimensions       number of dimensions
 ===============  ===
+
+
+Returns coordinates of the origin of the buffer or offset that was
+provided when the accessor was created.
 
 operator ()
 ===========
@@ -176,6 +215,7 @@ operator ()
 
   operator atomic<dataT, access::address_space::global_space> () const;
 
+Returns reference or value of element in the associated buffer.
 
 operator[]
 ==========
@@ -226,6 +266,7 @@ operator[]
    dimensions > 1*
   __unspecified__ &operator[](size_t index) const;
 
+Returns reference or value of element in the associated buffer at the requested index.
 
 get_pointer
 ===========
@@ -247,5 +288,11 @@ get_pointer
 
   constant_ptr<dataT> get_pointer() const;
 
+Returns pointer to memory in a host buffer.
 
+==========================
+Buffer accessor properties
+==========================
 
+SYCL does not define any properties for the buffer specialization of
+an accessor.
