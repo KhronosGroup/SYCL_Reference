@@ -4,13 +4,12 @@ before_script:
   - python3 -m venv venv
   - . venv/bin/activate
   - pip install --upgrade --quiet -r requirements.txt
-
-test:
-  stage: test
-  script:
   - python doc.py html
   - python doc.py latexpdf
   - python doc.py spelling
+
+test:
+  stage: test
   artifacts:
     paths:
     - build
@@ -20,9 +19,6 @@ test:
 pages:
   stage: deploy
   script:
-  - python doc.py html
-  - python doc.py latexpdf
-  - python doc.py spelling
   - cp -r build/html public
   artifacts:
     paths:
