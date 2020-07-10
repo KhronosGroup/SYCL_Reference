@@ -67,6 +67,8 @@ single_task
 
   void single_task(kernel syclKernel);
 
+.. _handler-parallel_for:
+
 parallel_for
 ============
 
