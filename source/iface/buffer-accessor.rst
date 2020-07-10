@@ -86,7 +86,7 @@ const_reference  Type of const reference to buffer element
    (isPlaceholder == access::placeholder::false_t
     && (accessTarget == access::target::global_buffer
         || accessTarget == access::target::constant_buffer))
-   && dimensions > 0*
+    && dimensions > 0*
 
   template <typename AllocatorT>
   accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
@@ -197,76 +197,63 @@ operator ()
 .. parsed-literal::
    
   *Available only when:
-   (accessMode == access::mode::write
+   accessMode == access::mode::write
     || accessMode == access::mode::read_write
     || accessMode == access::mode::discard_write
-    || accessMode == access::mode::discard_read_write)
-   && dimensions == 0)*
+    || accessMode == access::mode::discard_read_write*
 
   operator dataT &() const;
 
   *Available only when:
-   accessMode == access::mode::read && dimensions == 0*
+   accessMode == access::mode::read*
    
   operator dataT() const;
 
   *Available only when:
-   accessMode == access::mode::atomic && dimensions == 0*
+   accessMode == access::mode::atomic*
 
   operator atomic<dataT, access::address_space::global_space> () const;
 
-Returns reference or value of element in the associated buffer.
+Returns reference or value of element in the associated buffer. 
+
+The variants of this operator are only available when *dimensions ==
+0*, which means that a buffer contains a single element.
 
 operator[]
 ==========
 
 .. parsed-literal::
 
-  *Available only when:
-   (accessMode == access::mode::write
-    || accessMode == access::mode::read_write
-    || accessMode == access::mode::discard_write
-    ||accessMode == access::mode::discard_read_write)
-   && dimensions > 0)*
-
+  *Reference variants*
+  dataT &operator[](size_t index) const;
   dataT &operator[](id<dimensions> index) const;
 
-  *Available only when:
-   (accessMode == access::mode::write
-    || accessMode == access::mode::read_write
-    || accessMode == access::mode::discard_write
-    ||accessMode == access::mode::discard_read_write)
-   && dimensions == 1)*
-
-  dataT &operator[](size_t index) const;
-
-  *Available only when:
-   accessMode == access::mode::read && dimensions > 0*
-
+  *Value variants*
+  dataT operator[](size_t index) const;
   dataT operator[](id<dimensions> index) const;
 
-  *Available only when:
-   accessMode == access::mode::read && dimensions == 1*
-
-  dataT operator[](size_t index) const;
-
-  *Available only when:
-   accessMode == access::mode::atomic && dimensions >  0*
-
+  *Atomic variants*
+  atomic<dataT, access::address_space::global_space> operator[](
+    size_t index) const;
   atomic<dataT, access::address_space::global_space> operator[](
     id<dimensions> index) const;
 
-  *Available only when:
-   accessMode == access::mode::atomic && dimensions == 1*
-   
-  atomic<dataT, access::address_space::global_space> operator[](
-    size_t index) const;
-
-  *Available only when:
-   dimensions > 1*
+  *Single dimension in multi-dimensional buffer*
   __unspecified__ &operator[](size_t index) const;
 
-Returns reference or value of element in the associated buffer at the requested index.
+Returns reference or value of element in the associated buffer at the
+requested index.
+
+One dimensional buffers are indexed by a data of type
+size_t. Multi-dimensional buffers may be indexed by a data of type
+``id<dimensions>``, or by a sequence of *[]*, 1 per dimension. For
+example ``a[1][2]``.  The operator returns a reference when the
+accessor allows writes, which requires that accessMode be one of
+``access::mode::write``, ``accessMode == access::mode::read_write``,
+``accessMode == access::mode::discard_write``, or ``accessMode ==
+access::mode::discard_read_write``. The operator returns an atomic if
+the accessMode is ``access::mode::atomic``.
+
 
 get_pointer
 ===========
