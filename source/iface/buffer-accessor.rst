@@ -4,6 +4,8 @@ Buffer accessors
 
 .. rst-class:: api-class
 	       
+.. _buffer-accessor:
+
 ===============
 Buffer accessor
 ===============

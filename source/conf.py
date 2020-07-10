@@ -139,6 +139,7 @@ class_layout_pattern = (':title'
                           
 class_ignore = ['target',
                 'transition',
+                'block_quote',
                 'todo_node',
                 'paragraph',
                 'literal_block',

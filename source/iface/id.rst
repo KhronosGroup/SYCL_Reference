@@ -1,3 +1,7 @@
+.. rst-class:: api-class
+	       
+.. _id:
+
 ====
  id
 ====
@@ -6,6 +10,11 @@
 
    template <int dimensions = 1>
    class id;
+
+The id is an abstraction that describes the location of a point in a
+``range``. Examples includes use as an index in an :ref:`buffer-accessor`
+and as an argument to a kernel function in a :ref:`handler-parallel_for` to
+identify the work item.
 
 .. member-toc::
 
@@ -16,24 +25,18 @@
 ::
 
   id();
-
-  *Available only when:
-   dimensions==1*
-    
   id(size_t dim0);
-
-  *Available only when:
-   dimensions==2*
-
   id(size_t dim0, size_t dim1);
-
-  *Available only when:
-   dimensions==3*
-
   id(size_t dim0, size_t dim1, size_t dim2);
 
   id(const range<dimensions> &range);
   id(const item<dimensions> &item);
+
+Construct an ``id``.
+
+An ``id`` can be 0, 1, 2, or 3 dimensions. An ``id`` constructed from
+a :ref:`range` uses the ``range`` values. An ``id`` constructed from
+an :ref:`item` uses the ``id`` contained in the ``item``.
 
 get
 ===
@@ -41,6 +44,8 @@ get
 ::
    
   size_t get(int dimension) const;
+
+Returns the value for dimension ``dimension``.
 
 (operators)
 ===========
@@ -67,3 +72,4 @@ get
    
    friend id operatorOP(const size_t &lhs, const id &rhs);
 
+Relational, arithmetic, and indexing operators on an ``id``.

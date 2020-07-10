@@ -26,16 +26,16 @@ AllocatorT        Allocator for buffer data
 ================  ==========
 
 Buffers are containers for data that can be read/written by both
-kernel and host via an :ref:`accessor`.  The data in a buffer cannot
-be directly accessed. Instead, a program creates an :ref:`accessor`
-that references the buffer. The accessor provides array-like
-interfaces to read/write actual data.  The SYCL runtime uses the
-creation and destruction of accessors as a declaration of intent of
-the program so that it can control the movement of data between device
-and host, and to track data dependencies between host and kernels so
-that kernels and data movements can execute asynchronously when their
-operands are available without requiring the program to explicitly
-schedule all operations.
+kernel and host via an :ref:`buffer-accessor`.  The data in a buffer
+cannot be directly accessed. Instead, a program creates an
+:ref:`buffer-accessor` that references the buffer. The accessor
+provides array-like interfaces to read/write actual data.  The SYCL
+runtime uses the creation and destruction of accessors as a
+declaration of intent of the program so that it can control the
+movement of data between device and host, and to track data
+dependencies between host and kernels so that kernels and data
+movements can execute asynchronously when their operands are available
+without requiring the program to explicitly schedule all operations.
 
 Initialization
 
