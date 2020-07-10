@@ -10,6 +10,8 @@ before_script:
 
 test:
   stage: test
+  script:
+  - echo Branch is not master, publishing as an artifact
   artifacts:
     paths:
     - build
