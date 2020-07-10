@@ -12,3 +12,4 @@ or to shared local memory allocated by the runtime.
    buffer-accessor
    local-accessor
    image-accessor
+   accessor-enums

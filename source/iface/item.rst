@@ -1,3 +1,7 @@
+.. rst-class:: api-class
+	       
+.. _item:
+
 ======
  item
 ======
@@ -9,6 +13,14 @@
 
 .. member-toc::
 
+Similar to an :ref:`id`, the ``item`` describes the location of a
+point in a ``range``. It can be used as an argument to a kernel
+function in a :ref:`handler-parallel_for` to identify the work
+item. The ``item`` carries more information than than :ref:`id`, such
+as the ``range`` of an index space. The interface does not include a
+constructor because only the SYCL runtime needs to construct an
+``item``.
+
 get_id
 ======
 
@@ -18,6 +30,8 @@ get_id
   size_t get_id(int dimension) const;
 
 
+Returns :ref:`id` associated with ``item``.
+
 get_range
 =========
 
@@ -25,6 +39,8 @@ get_range
    
   range<dimensions> get_range() const;
   size_t get_range(int dimension) const;
+
+Returns :ref:`range` associated with ``item``.
 
 
 get_offset
@@ -37,6 +53,7 @@ get_offset
    
   id<dimensions> get_offset() const;
 
+Returns offset associaed with ``item``.
 
 get_linear_id
 =============
@@ -45,14 +62,27 @@ get_linear_id
    
   size_t get_linear_id() const;
 
-(operators)
-===========
+Returns the linear id, suitable for mapping the ``id`` to a 1
+dimensional array.
+
+
+operator[]
+==========
 
 ::
    
   size_t operator[](int dimension) const;
 
-  *Only available when:
-   with_offset is false*
+Returns id for dimension ``dimension``.
+
+   
+operator()
+==========
+
+::
    
   operator item<dimensions, true>() const;
+
+Returns item with offset set to 0.
+
+Only available when ``with_offset`` is False.
