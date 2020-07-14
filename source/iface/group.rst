@@ -1,3 +1,5 @@
+.. _group:
+
 .. rst-class:: api-class
 	       
 =======
@@ -77,8 +79,8 @@ mem_fence
   void mem_fence(access::fence_space accessSpace =
     access::fence_space::global_and_local) const;
 
-asyn_work_group_copy
-====================
+async_work_group_copy
+=====================
 
 ::
    
