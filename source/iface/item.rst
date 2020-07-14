@@ -11,7 +11,6 @@
    template <int dimensions = 1, bool with_offset = true>
    class item;
 
-.. member-toc::
 
 Similar to an :ref:`id`, the ``item`` describes the location of a
 point in a ``range``. It can be used as an argument to a kernel
@@ -20,6 +19,15 @@ item. The ``item`` carries more information than than :ref:`id`, such
 as the ``range`` of an index space. The interface does not include a
 constructor because only the SYCL runtime needs to construct an
 ``item``.
+
+.. rubric:: Template parameters
+
+==============  ===
+dimensions      Number of dimensions in index space
+with_offset     True if item has offset
+==============  ===
+
+.. member-toc::
 
 get_id
 ======
@@ -53,7 +61,7 @@ get_offset
    
   id<dimensions> get_offset() const;
 
-Returns offset associaed with ``item``.
+Returns offset associated with ``item``.
 
 get_linear_id
 =============

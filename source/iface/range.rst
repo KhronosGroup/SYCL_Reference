@@ -1,7 +1,3 @@
-**********************************
-Ranges and index space identifiers
-**********************************
-
 .. rst-class:: api-class
 	       
 .. _range:
