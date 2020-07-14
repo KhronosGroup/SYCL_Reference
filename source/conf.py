@@ -65,6 +65,7 @@ exclude_patterns = ['root/*.rst',
 prolog_template = string.Template("""
 .. |true| replace:: ``true``
 .. |false| replace:: ``false``
+.. |2020| replace:: *Since SYCL 2020*
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. _SYCL Specification: https://www.khronos.org/registry/SYCL/specs/sycl-1.2.1.pdf
