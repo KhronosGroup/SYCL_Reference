@@ -77,6 +77,15 @@ Data access
    sampler
 
 
+Unified shared memory (USM)
+===========================
+
+.. toctree::
+
+   usm
+   usm_allocator
+   malloc-functions
+
 .. _expressing-parallelism:
 
 Expressing parallelism
