@@ -25,8 +25,8 @@ Namespaces
 ==========
 
 Unless otherwise noted, all symbols should be prefixed with the
-``cl::sycl`` namespace. ``buffer`` is ``cl::sycl::buffer``, and
-``info::device::name`` is ``cl::sycl::info::device::name``.
+``sycl`` namespace. ``buffer`` is ``sycl::buffer``, and
+``info::device::name`` is ``sycl::info::device::name``.
 
 
 Standard Library Classes
@@ -84,7 +84,7 @@ Unified shared memory (USM)
 
    usm
    usm_allocator
-   malloc-functions
+   usm-malloc
 
 .. _expressing-parallelism:
 
