@@ -100,7 +100,7 @@ queue with an ``asyncHandler`` and calling wait_and_throw_.
 
 ======================  ===
 propList                See `Queue Properties`_
-asyncHandler            Called for asynchronous exceptions
+asyncHandler            Called for asynchronous exceptions, see :ref:`async_handler`
 deviceSelector          Selects device for queue
 syclDevice              Device for queue
 syclContext             Associate queue with the context
@@ -215,6 +215,8 @@ wait
 
 Wait for all enqueued tasks to complete.
 
+.. _queue-wait_and_throw:
+
 wait_and_throw
 ==============
 
@@ -224,6 +226,8 @@ wait_and_throw
 
 Wait for all enqueued tasks and pass asynchronous errors to handler
 provided in `(constructors)`_.
+
+.. _queue-throw_asynchronous:
 
 throw_asynchronous
 ==================

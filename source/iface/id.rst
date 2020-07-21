@@ -11,10 +11,10 @@
    template <int dimensions = 1>
    class id;
 
-The id is an abstraction that describes the location of a point in a
-``range``. Examples includes use as an index in an :ref:`buffer-accessor`
-and as an argument to a kernel function in a :ref:`handler-parallel_for` to
-identify the work item.
+The ``id`` is an abstraction that describes the location of a point in
+a :ref:`range`. Examples includes use as an index in an
+:ref:`buffer-accessor` and as an argument to a kernel function in a
+:ref:`handler-parallel_for` to identify the work item.
 
 .. member-toc::
 
