@@ -1,30 +1,44 @@
 ==========================
- DPC++ Language Reference
+ SYCL Language Reference
 ==========================
  
-dpcpp
-=====
+Prerequisites
+=============
 
-.. image:: https://gitlab.devtools.intel.com/infodev/dpcpp-language-reference/badges/dpcpp/pipeline.svg
-    :target: https://gitlab.devtools.intel.com/infodev/dpcpp-language-reference/-/jobs
-    :alt: pipeline status
+Install python3. Sphinx and plugins are python packages and can be
+installed with this command::
 
-`HTML
-<https://infodev.gitlab-pages.devtools.intel.com/dpcpp-language-reference/dpcpp/dpcpp-index.html>`__
+   pip install -r requirements.txt
 
+Building
+========
 
-SYCL
-====
+To build::
 
-.. image:: https://gitlab.devtools.intel.com/infodev/dpcpp-language-reference/badges/sycl/pipeline.svg
-    :target: https://gitlab.devtools.intel.com/infodev/dpcpp-language-reference/-/jobs
+  python doc.py html
+
+View the document in your browser starting at: build/html/sycl-index.html
+
+Automatic Publishing
+====================
+
+Gitlab CI builds and publishes the doc on commit:
+  
+.. image:: https://gitlab.com/rscohn2/sycl-ref/badges/sycl/pipeline.svg
+    :target: https://gitlab.com/rscohn2/sycl-ref/-/jobs
     :alt: pipeline status
 	  
-`HTML
-<https://infodev.gitlab-pages.devtools.intel.com/dpcpp-language-reference/sycl/sycl-index.html>`__
+`HTML <https://rscohn2.gitlab.io/sycl-ref/sycl/sycl-index.html>`__
 
-Updates
-=======
+Derived Manuals
+===============
+
+If you want to customize the manual for a compiler (e.g. DPC++), but
+be able to incorporate updates made to the SYCL doc, then create
+another branch (e.g. dpcpp). In the branch copy source/sycl/conf.cpp
+to source/dpcpp/conf.cpp and build the doc::
+
+  python doc.py --compiler dpcpp html
 
 If the change is common to SYCL and DPC++, then commit the change to the
 sycl branch and merge it into dpcpp branch::
@@ -33,9 +47,5 @@ sycl branch and merge it into dpcpp branch::
   git merge sycl
   # resolve conflicts and commit
 
-
 Contributors and reviewers may submit a pull request, comment on an
 existing merge request, or file an issue to provide input.
-
-Contact `Robert Cohn <mailto:robert.s.cohn@intel.com>`__ or `Jacqui
-DuPont <mailto:jacqui.b.dupont@intel.com>`__ with questions.
