@@ -1,30 +1,25 @@
 image: rscohn2/oneapi-spec:latest
 
-before_script:
+stages:
+  - publish
+  
+cache:
+  paths:
+    - public
+    
+pages:
+  stage: publish
+  script:
   - python3 -m venv venv
   - . venv/bin/activate
   - pip install --upgrade --quiet -r requirements.txt
   - python doc.py html
   - python doc.py latexpdf
   - python doc.py spelling
-
-test:
-  stage: test
-  script:
-  - echo Branch is not sycl, publishing as an artifact
+  - mkdir public
+  - cp -r build/html public/$CI_COMMIT_REF_NAME
   artifacts:
-    paths:
-    - build
-  except:
-  - sycl
-  
-pages:
-  stage: deploy
-  script:
-  - cp -r build/html public
-  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
     paths:
     - public
     - build
-  only:
-  - sycl
