@@ -161,7 +161,7 @@ Copies memory from ``src`` to ``dest``.
 
 ``copy`` invokes the operation on a :ref:`device`. The source,
 destination, or both source and destination are
-:ref:`accessors`. Source or destination can be a pointer or a
+:ref:`iface-accessors`. Source or destination can be a pointer or a
 ``shared_ptr``.
 
 .. rubric:: Template parameters

@@ -130,7 +130,7 @@ is_host
    
   bool is_host() const;
 
-Returns True if the platform contains a SYCL :term:`host device`
+Returns True if the platform contains a SYCL host device
 
 get_platforms
 =============

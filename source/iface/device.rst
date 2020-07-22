@@ -74,7 +74,7 @@ is_host
    
   bool is_host() const;
 
-Returns True if the device is a :term:`host device`, False otherwise.
+Returns True if the device is a host device, False otherwise.
 
 is_cpu
 ======

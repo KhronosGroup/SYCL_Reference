@@ -146,7 +146,7 @@ accessor_error
 
    class accessor_error : public runtime_error;
 
-Error regarding :ref:`accessors`.
+Error regarding :ref:`iface-accessors`.
 
 nd_range_error
 ==============

@@ -114,7 +114,7 @@ SYCL provides built-in device selectors for convenience. They use
 device_selector_ as a base class.
 
 =====================  ===
-default_selector       Selects device according to implementation-defined heuristic or :term:`host device` if no device can be found.
+default_selector       Selects device according to implementation-defined heuristic or host device if no device can be found.
 gpu_selector           Select a GPU
 accelerator_selector   Select an accelerator
 cpu_selector           Select a CPU device
