@@ -46,10 +46,10 @@ extensions = [
 ]
 
 html_context = {
-    'display_github': True,
-    'github_user': 'rscohn2',
-    'github_repo': 'syclreference',
-    'github_version': 'master/source/'
+    'display_gitlab': True,
+    'gitlab_user': 'rscohn2',
+    'gitlab_repo': 'sycl-ref',
+    'gitlab_version': 'sycl/source/'
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -94,13 +94,6 @@ html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     # 'fixed_sidebar': True,
     # 'page_width': 'max-width'
-}
-
-html_context = {
-    'display_github': True,
-    'github_user': 'rscohn2',
-    'github_repo': 'syclreference',
-    'github_version': 'master/source/'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
