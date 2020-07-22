@@ -1,8 +1,6 @@
-.. _programming-interface:
-
-=====================
-Programming Interface
-=====================
+=========
+Interface
+=========
 
 For further details on SYCL, see the `SYCL
 Specification <https://www.khronos.org/registry/SYCL/specs/sycl-1.2.1.pdf>`__.

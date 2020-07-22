@@ -25,12 +25,14 @@ sys.path.append(os.path.abspath("./_ext"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'DPC++ Reference'
+project = 'SYCL Reference'
 copyright = '2020, Intel'
 author = 'Intel'
 
 
 # -- General configuration ---------------------------------------------------
+
+master_doc = 'sycl-index'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -69,9 +71,6 @@ prolog_template = string.Template("""
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. _SYCL Specification: https://www.khronos.org/registry/SYCL/specs/sycl-1.2.1.pdf
-.. _DPC++ book: https://www.apress.com/gp/book/9781484255735>
-.. _oneAPI online training: https://software.seek.intel.com/learn-parallel-programming-dpc-essentials
-.. _oneAPI Specification:  https://spec.oneapi.com
 """)
 
 rst_prolog = prolog_template.substitute({})
