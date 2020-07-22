@@ -3,6 +3,9 @@ image: rscohn2/oneapi-spec:latest
 stages:
   - publish
   
+# Keeps public directory from previous runs
+# so gitlab pages will include them, too
+# unless cache is purged
 cache:
   paths:
     - public
@@ -16,9 +19,10 @@ pages:
   - python doc.py html
   - python doc.py latexpdf
   - python doc.py spelling
-  - mkdir public
+  - mkdir -p public
   - cp -r build/html public/$CI_COMMIT_REF_NAME
   artifacts:
+    # name is unique for branch so it will keep multiple branches
     name: "$CI_COMMIT_REF_NAME"
     paths:
     - public
