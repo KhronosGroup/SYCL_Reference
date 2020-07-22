@@ -11,12 +11,12 @@ before_script:
 test:
   stage: test
   script:
-  - echo Branch is not master, publishing as an artifact
+  - echo Branch is not sycl, publishing as an artifact
   artifacts:
     paths:
     - build
   except:
-  - master
+  - sycl
   
 pages:
   stage: deploy
@@ -27,4 +27,4 @@ pages:
     - public
     - build
   only:
-  - master
+  - sycl
