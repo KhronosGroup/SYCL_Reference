@@ -1,4 +1,4 @@
-.. _accessors:
+.. _iface-accessors:
 
 ===========
  Accessors
