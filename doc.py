@@ -79,7 +79,11 @@ def makedirs(path):
 def sphinx(target):
     os.environ['LATEXMKOPTS'] = '--silent'
     os.environ['LATEXOPTS'] = '-interaction=nonstopmode -halt-on-error'
-    opts = sphinx_opts + (' -q' if not args.verbose else '') + (' -W' if args.W else '') + (' -a' if args.all else '')
+    opts = (sphinx_opts
+            + (' -c %s' % args.compiler)
+            + (' -q' if not args.verbose else '')
+            + (' -W' if args.W else '')
+            + (' -a' if args.all else ''))
     shell('%s -M %s %s %s %s' % (sphinx_build,
                                  target,
                                  source_dir,
@@ -148,7 +152,7 @@ def build(target):
 def site(target=None):
     rm('site')
     copytree(join('build', 'html'), 'site')
-    copy(join('build', 'latex', 'syclreference.pdf'), 'site')
+    copy(join('build', 'latex', '%sreference.pdf' % args.compiler), 'site')
     copy(join('build', 'spelling', 'output.txt'), 'site')
 
 @action
@@ -173,6 +177,7 @@ def main():
     global args
     parser = argparse.ArgumentParser(description='Build doc.')
     parser.add_argument('action',choices=commands.keys())
+    parser.add_argument('--compiler', default='sycl')
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('-W', action='store_true')
     parser.add_argument('--verbose', action='store_true')
