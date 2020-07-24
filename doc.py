@@ -112,6 +112,7 @@ def doxygen(target=None):
 @action
 def examples(target=None):
     run_examples = ['vector-add',
+                    'std-vector',
                     'fall-back',
                     'kernel-model',
                     'memory-model',

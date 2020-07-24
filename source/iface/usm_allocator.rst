@@ -13,6 +13,12 @@
    template <typename T, usm::alloc AllocKind, size_t Alignment = 0>
    class usm_allocator;
 
+Allocator suitable for use with a C++ standard library container.
+
+A ``usm_allocator`` enables using USM allocation for standard library
+containers. It is typically passed as template parameter when
+declaring standard library containers (e.g. vector).
+
 .. rubric:: Template parameters
 
 =============  ===	    
@@ -21,17 +27,21 @@ AllocKind      Type of allocation, see o
 Alignment      Alignment of the allocation
 =============  ===	    
 	    
+.. rubric:: Example
+
+.. literalinclude:: /examples/std-vector.cpp
+   :linenos:
+
 .. rubric:: Member types
 
 =============  ===	    
 value_type
 =============  ===	    
 
-
 .. member-toc::
 
-(constuctors)
-=============
+(constructors)
+==============
 
 ::
 

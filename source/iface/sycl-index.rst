@@ -80,9 +80,9 @@ Unified shared memory (USM)
 
 .. toctree::
 
-   usm
-   usm_allocator
    usm-malloc
+   usm_allocator
+   usm
 
 .. _expressing-parallelism:
 

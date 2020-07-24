@@ -1,5 +1,3 @@
-#include <vector>
-
 #include <CL/sycl.hpp>
 using namespace sycl;
 
