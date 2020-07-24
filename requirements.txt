@@ -1,3 +1,4 @@
+docutils
 Sphinx
 sphinxcontrib-spelling
 sphinx-notfound-page

@@ -1,4 +1,4 @@
-image: rscohn2/oneapi-spec:latest
+image: ubuntu:20.04
 
 stages:
   - publish
@@ -13,6 +13,8 @@ cache:
 pages:
   stage: publish
   script:
+  - apt-get update -qq
+  - DEBIAN_FRONTEND=noninteractive xargs -a packages.txt apt-get install -qq
   - python3 -m venv venv
   - . venv/bin/activate
   - pip install --upgrade --quiet -r requirements.txt

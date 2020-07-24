@@ -5,10 +5,11 @@
 Prerequisites
 =============
 
-Install python3. Sphinx and plugins are python packages and can be
-installed with this command::
+::
 
-   pip install -r requirements.txt
+   apt-get update -qq
+   DEBIAN_FRONTEND=noninteractive xargs -a packages.txt apt-get install -qq
+   pip install --upgrade --quiet -r requirements.txt
 
 Building
 ========
