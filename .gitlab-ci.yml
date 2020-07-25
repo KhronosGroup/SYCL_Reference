@@ -1,15 +1,23 @@
+# Build works with standard ubuntu container, but using this image is
+# much faster because all prerequisites are already installed.
 image: rscohn2/oneapi-spec:latest
 
 stages:
   - publish
   
-# Keeps public directory from previous runs
-# so gitlab pages will include them, too
-# unless cache is purged
+# By re-using the public directory from previous runs, we can publish
+# multiple branches in gitlab pages. Each branch is copied to a unique
+# directory and will be included when we publish the public directory
+# to gitlab pages.
+#
+# Results may be unpredictable because admin can purge cache and
+# concurrent builds may over-write each other.
 cache:
   paths:
     - public
     
+# Gitlab publishes the public directory to gitlab pages when pages is
+# the job name and the public directory is an artifact
 pages:
   stage: publish
   script:
@@ -22,9 +30,10 @@ pages:
   - python doc.py latexpdf
   - python doc.py spelling
   - mkdir -p public
+  - rm -rf public/$CI_COMMIT_REF_NAME
   - cp -r build/html public/$CI_COMMIT_REF_NAME
   artifacts:
-    # name is unique for branch so it will keep multiple branches
+    # use unique name for branch so it will keep multiple branches
     name: "$CI_COMMIT_REF_NAME"
     paths:
     - public

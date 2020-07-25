@@ -5,11 +5,11 @@
 Prerequisites
 =============
 
-::
+Ubuntu::
 
    apt-get update -qq
    DEBIAN_FRONTEND=noninteractive xargs -a packages.txt apt-get install -qq
-   pip install --upgrade --quiet -r requirements.txt
+   pip3 install --upgrade --quiet -r requirements.txt
 
 Building
 ========
@@ -18,7 +18,7 @@ To build::
 
   python doc.py html
 
-View the document in your browser starting at: build/html/sycl-index.html
+Open build/html/sycl-index.html in your browser.
 
 Automatic Publishing
 ====================
@@ -46,7 +46,5 @@ sycl branch and merge it into dpcpp branch::
 
   git checkout dpcpp
   git merge sycl
-  # resolve conflicts and commit
 
-Contributors and reviewers may submit a pull request, comment on an
-existing merge request, or file an issue to provide input.
+Resolve conflicts and commit.
