@@ -1,3 +1,5 @@
+# Build works with standard ubuntu container, but using this image is
+# much faster because all prerequisites are already installed.
 image: rscohn2/oneapi-spec:latest
 
 stages:
@@ -14,6 +16,8 @@ cache:
   paths:
     - public
     
+# Gitlab publishes the public directory to gitlab pages when pages is
+# the job name and the public directory is an artifact
 pages:
   stage: publish
   script:
