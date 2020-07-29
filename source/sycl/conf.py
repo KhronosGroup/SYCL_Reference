@@ -46,10 +46,10 @@ extensions = [
 ]
 
 html_context = {
-    'display_gitlab': True,
-    'gitlab_user': 'rscohn2',
-    'gitlab_repo': 'sycl-ref',
-    'gitlab_version': 'sycl/source/'
+    'display_github': True,
+    'github_user': 'oneapi-src',
+    'github_repo': 'dpcpp-ref',
+    'github_version': 'sycl/source/'
 }
 
 # Add any paths that contain templates here, relative to this directory.
