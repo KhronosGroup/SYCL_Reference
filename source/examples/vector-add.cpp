@@ -1,7 +1,7 @@
 #include <CL/sycl.hpp>
 using namespace sycl;
 
-#define SIZE 10
+const int SIZE = 10;
 
 void show_platforms() {
   auto platforms = platform::get_platforms();
@@ -29,15 +29,15 @@ void vec_add(int *a, int *b, int *c) {
 
   queue q;
 
-  q.submit([&](handler &cgh) {
-      auto c_res = c_buf.get_access<access::mode::write>(cgh);
-      auto a_in = a_buf.get_access<access::mode::read>(cgh);
-      auto b_in = b_buf.get_access<access::mode::read>(cgh);
+  q.submit([&](handler &h) {
+      auto c_res = c_buf.get_access<access::mode::write>(h);
+      auto a_in = a_buf.get_access<access::mode::read>(h);
+      auto b_in = b_buf.get_access<access::mode::read>(h);
 
-      cgh.parallel_for(a_size,
-		       [=](id<1> idx) {
-			 c_res[idx] = a_in[idx] + b_in[idx];
-		       });
+      h.parallel_for(a_size,
+		     [=](id<1> idx) {
+		       c_res[idx] = a_in[idx] + b_in[idx];
+		     });
     });
 }
 

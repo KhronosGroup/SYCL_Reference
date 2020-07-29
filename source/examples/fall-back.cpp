@@ -1,10 +1,10 @@
 #include<CL/sycl.hpp>
 #include<iostream>
 
-#define N 1024
-#define M 32
+const int N = 1024;
+const int M = 32;
 
-using namespace cl::sycl;
+using namespace sycl;
 
 int main(){
   cpu_selector cpuSelector;
@@ -12,13 +12,13 @@ int main(){
   queue defaultqueue;
   buffer<int,2> buf(range<2>(N,N));
 
-  defaultqueue.submit([&](handler &cgh){
-      auto bufacc = buf.get_access<access::mode::read_write>(cgh);
-      cgh.parallel_for(nd_range<2>(range<2>(N,N), range<2>(M,M)),
-		       [=](nd_item<2> i){
-			 id<2> ind = i.get_global_id();
-			 bufacc[ind[0]][ind[1]] = ind[0]+ind[1];
-		       });
+  defaultqueue.submit([&](handler &h){
+      auto bufacc = buf.get_access<access::mode::read_write>(h);
+      h.parallel_for(nd_range<2>(range<2>(N,N), range<2>(M,M)),
+		     [=](nd_item<2> i){
+		       id<2> ind = i.get_global_id();
+		       bufacc[ind[0]][ind[1]] = ind[0]+ind[1];
+		     });
     }, cpuQueue);
   auto bufacc1 = buf.get_access<access::mode::read>();
   for(int i = 0; i < N; i++){

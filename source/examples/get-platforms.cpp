@@ -1,7 +1,5 @@
 #include <CL/sycl.hpp>
 
-namespace sycl = cl::sycl;
-
 int main() {
   auto platforms = sycl::platform::get_platforms();
 

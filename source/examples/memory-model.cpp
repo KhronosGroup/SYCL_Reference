@@ -1,8 +1,8 @@
-#include <vector>
 #include <CL/sycl.hpp>
-using namespace cl::sycl;
 
-#define SIZE 64
+using namespace sycl;
+
+const int SIZE = 64;
 
 int main() {
   std::array<int, SIZE> a, c;
@@ -22,17 +22,17 @@ int main() {
     image<2>  b_device(b.data(),image_channel_order::rgba,
 		       image_channel_type::fp32, range<2>(8, 8));
 
-    q.submit([&](handler &cgh) {
+    q.submit([&](handler &h) {
 	accessor<int, 1, access::mode::discard_write,
-		 access::target::global_buffer> c_res(c_device, cgh);
+		 access::target::global_buffer> c_res(c_device, h);
 	accessor<int, 1, access::mode::read,
-		 access::target::constant_buffer> a_res(a_device, cgh);
+		 access::target::constant_buffer> a_res(a_device, h);
 	accessor<float4, 2, access::mode::write,
-		 access::target::image> b_res(b_device, cgh);
+		 access::target::image> b_res(b_device, h);
 
 	float4 init = {0.f, 0.f, 0.f, 0.f};
 
-	cgh.parallel_for(a_size,[=](id<1> idx) {
+	h.parallel_for(a_size,[=](id<1> idx) {
 	    c_res[idx] = a_res[idx];
 	    b_res.write(int2(0,0), init);
 	  });

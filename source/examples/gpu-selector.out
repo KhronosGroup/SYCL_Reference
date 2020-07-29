@@ -1,4 +1,4 @@
 Cannot select a GPU
-No device of requested type available. Please check https://software.intel.com/en-us/articles/intel-oneapi-dpcpp-compiler-system-requirements-beta 0 (CL_SUCCESS)
+No device of requested type available. Please check https://software.intel.com/en-us/articles/intel-oneapi-dpcpp-compiler-system-requirements-beta -1 (CL_DEVICE_NOT_FOUND)
 Using a CPU device
 Using Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz

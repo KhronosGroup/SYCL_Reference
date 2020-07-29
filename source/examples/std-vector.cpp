@@ -30,11 +30,11 @@ int main() {
     c[i] = i;
   }
 
-  q.submit([&](handler &cgh) {
-      cgh.parallel_for(range<1>(size),
-		       [=](id<1> idx) {
-			 C[idx] = A[idx] + B[idx];
-		       });
+  q.submit([&](handler &h) {
+      h.parallel_for(range<1>(size),
+		     [=](id<1> idx) {
+		       C[idx] = A[idx] + B[idx];
+		     });
     }).wait();
 
   for (int i = 0; i < size; i++) std::cout << c[i] << std::endl;

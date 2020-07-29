@@ -1,9 +1,9 @@
-#include <vector>
+#include <array>
 #include <CL/sycl.hpp>
 
-#define SIZE 1024
+const int SIZE = 1024;
 
-using namespace cl::sycl;
+using namespace sycl;
 
 class Vassign {
   accessor<int, 1, access::mode::read_write,
@@ -27,9 +27,9 @@ int main() {
     buffer<int>  a_device(a.data(), a_size);
     queue q;
 
-    q.submit([&](handler &cgh) {
-	auto a_in = a_device.get_access<access::mode::write>(cgh);
-	cgh.single_task([=]() {
+    q.submit([&](handler &h) {
+	auto a_in = a_device.get_access<access::mode::write>(h);
+	h.single_task([=]() {
 	    a_in[0] = 2;
 	  });
       });
@@ -39,11 +39,11 @@ int main() {
     range<1> a_size{SIZE};
     buffer<int>  a_device(a.data(), a_size);
     queue q;
-    q.submit([&](handler &cgh) {
+    q.submit([&](handler &h) {
 	auto a_in = a_device.get_access<access::mode::read_write,
-					access::target::global_buffer>(cgh);
+					access::target::global_buffer>(h);
 	Vassign F(a_in);
-	cgh.parallel_for(range<1>(SIZE), F);
+	h.parallel_for(range<1>(SIZE), F);
       });
   }
 } 

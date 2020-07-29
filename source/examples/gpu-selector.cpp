@@ -1,6 +1,6 @@
 #include <CL/sycl.hpp>
 
-using namespace cl::sycl;
+using namespace sycl;
 
 int main() {
   device d;
