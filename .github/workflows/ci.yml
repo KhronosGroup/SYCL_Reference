@@ -1,0 +1,46 @@
+on: [push, pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container: rscohn2/oneapi-spec:latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Checkout gh-pages
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: gh-pages
+    - name: Install prerequisites
+      run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive xargs -a packages.txt apt-get install -qq
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install --upgrade --quiet -r requirements.txt
+    - name: Build doc
+      run: |
+          . venv/bin/activate
+          python doc.py html
+          python doc.py latexpdf
+          python doc.py spelling
+    - name: Archive build directory
+      uses: actions/upload-artifact@v1
+      with:
+          name: build
+          path: build
+    - name: Publish to github pages
+      if: ${{ github.ref == 'refs/heads/sycl' || github.ref == 'refs/heads/dpcpp' || github.ref == 'refs/heads/test-publish' }}
+      run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          cd gh-pages
+          rm -rf $BRANCH_NAME
+          cp -r ../build/html $BRANCH_NAME
+          cp ../build/latex/*.pdf $BRANCH_NAME
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Update from github actions"
+          git push
+
