@@ -44,9 +44,7 @@ This is the base class for the `Built-in Device Selectors`_. To define
 a custom device selector, create a derived class that defines the ()
 operator.
 
-.. rubric:: Example
-
-.. todo:: Custom device selector	    
+.. todo:: Example Custom device selector	    
 
 .. member-toc::
 

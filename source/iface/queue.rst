@@ -41,8 +41,6 @@ function, and an invocation of the kernel function on an index
 space. After submitting the command group, a program may use the queue
 to monitor the completion of the task for completion and errors.
 
-.. rubric:: Example
-
 .. todo::
 
    Example uses basic constructor and demonstrates the commonly uses
@@ -112,9 +110,7 @@ clQueue                 Assocate queue with OpenCL|trade| queue
 invalid_object_error
   If ``syclContext`` does not encapsulate ``syclDevice``.
 
-.. rubric:: Example
-
-.. todo:: exercise various constructors
+.. todo:: example exercise various constructors
 
 
 get
