@@ -1,3 +1,6 @@
+..
+  Copyright 2020 Intel Corporation
+
 ================
  private_memory
 ================
