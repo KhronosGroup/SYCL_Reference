@@ -31,7 +31,7 @@ Prerequisites
 =============
 
 The document is built with `Sphinx
-<https://www.sphinx-doc.org/en/master/`__ and plugins. To install all
+<https://www.sphinx-doc.org/en/master>`__ and plugins. To install all
 required software on Ubuntu::
 
    apt-get update -qq

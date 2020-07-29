@@ -19,9 +19,9 @@ jobs:
           python doc.py html
           python doc.py latexpdf
           python doc.py spelling
-          mkdir -p public/${BRANCH_NAME}
-          rm -rf public/${BRANCH_NAME}/*
-          cp -r build/html/* public/${BRANCH_NAME}
+          mkdir -p public
+          rm -rf public/${BRANCH_NAME}
+          cp -r build/html public/${BRANCH_NAME}
     - name: Archive build
       uses: actions/upload-artifact@v1
       with:
