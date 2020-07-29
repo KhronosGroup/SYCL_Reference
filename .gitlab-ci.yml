@@ -29,9 +29,9 @@ pages:
   - python doc.py html
   - python doc.py latexpdf
   - python doc.py spelling
-  - mkdir -p public
-  - rm -rf public/$CI_COMMIT_REF_NAME
-  - cp -r build/html public/$CI_COMMIT_REF_NAME
+  - mkdir -p public/$CI_COMMIT_REF_NAME
+  - rm -rf public/$CI_COMMIT_REF_NAME/*
+  - cp -r build/html/* public/$CI_COMMIT_REF_NAME
   artifacts:
     # use unique name for branch so it will keep multiple branches
     name: "$CI_COMMIT_REF_NAME"
