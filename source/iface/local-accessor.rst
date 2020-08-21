@@ -34,6 +34,8 @@ reference
 const_reference
 ===============  =======
 
+.. seealso:: |SYCL_SPEC_LOCAL_ACCESSOR|
+
 .. member-toc::
 
 (constructors)

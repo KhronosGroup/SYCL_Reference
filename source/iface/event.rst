@@ -36,6 +36,8 @@ querying status of a running kernel. Operations like
 event to wait on and return an event associated with the queued
 kernel.
 
+.. seealso:: |SYCL_SPEC_EVENT|
+
 .. member-toc::
 
 (constructors)

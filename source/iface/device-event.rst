@@ -11,6 +11,8 @@
 
    class device_event;
 
+.. seealso:: |SYCL_SPEC_DEVICE_EVENT|
+
 .. member-toc::
 
 wait

@@ -69,6 +69,8 @@ const_reference   const reference type of buffer element
 allocator_type    type of allocator for buffer data
 ================  ==========
 
+.. seealso:: |SYCL_SPEC_BUFFER|
+
 .. member-toc::
 
 

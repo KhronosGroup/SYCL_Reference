@@ -22,6 +22,8 @@ An ``nd_item`` is typically passed to a kernel function in a
 the work item in the work group and global space, the ``nd_item`` also
 contains the :ref:`nd_range` defining the index space.
 
+.. seealso:: |SYCL_SPEC_ND_ITEM|
+
 .. member-toc::
 
 get_global_id

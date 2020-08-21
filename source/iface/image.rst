@@ -26,6 +26,8 @@ dimensions
 AllocatorT
 ========================  ==========
 
+.. seealso:: |SYCL_SPEC_IMAGE|
+
 .. member-toc::
 
 .. _image-image:

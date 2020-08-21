@@ -17,6 +17,8 @@ exception
    
    class exception;
 
+.. seealso:: |SYCL_SPEC_EXCEPTION|
+
 .. member-toc::
 
 Container for an exception that occurs during execution. Synchronous

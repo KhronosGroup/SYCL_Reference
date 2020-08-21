@@ -14,6 +14,8 @@
    template <int dimensions>
    class h_item;
 
+.. seealso:: |SYCL_SPEC_H_ITEM|
+
 .. member-toc::
 
    

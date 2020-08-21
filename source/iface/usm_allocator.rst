@@ -41,6 +41,8 @@ Alignment      Alignment of the allocation
 value_type
 =============  ===	    
 
+.. seealso:: |SYCL_SPEC_USM_ALLOCATOR|
+
 .. member-toc::
 
 (constructors)

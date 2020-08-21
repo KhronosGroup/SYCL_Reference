@@ -19,6 +19,8 @@ a :ref:`range`. Examples includes use as an index in an
 :ref:`buffer-accessor` and as an argument to a kernel function in a
 :ref:`handler-parallel_for` to identify the work item.
 
+.. seealso:: |SYCL_SPEC_ID|
+
 .. member-toc::
 
 

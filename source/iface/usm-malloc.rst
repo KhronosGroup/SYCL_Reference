@@ -44,6 +44,8 @@ the device must copy it to host-accessible memory.
 
 Deallocate with free_.
 
+.. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
+
 =============
  malloc_host
 =============
@@ -73,6 +75,8 @@ Returns a pointer to memory that resides on the host.
 Host and device may reference the memory.
 
 Deallocate with free_.
+
+.. seealso:: |SYCL_SPEC_MALLOC_HOST|
 
 ===============
  malloc_shared
@@ -116,6 +120,8 @@ optimize access.
 
 Deallocate with free_.
 
+.. seealso:: |SYCL_SPEC_MALLOC_SHARED|
+
 ======
  free
 ======
@@ -129,3 +135,4 @@ Deallocate with free_.
 Free memory allocated by `malloc_device`_, `malloc_host`_, or
 `malloc_shared`_.
    
+.. seealso:: |SYCL_SPEC_FREE|

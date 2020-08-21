@@ -70,7 +70,39 @@ prolog_template = string.Template("""
 .. |2020| replace:: *Since SYCL 2020*
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
-.. _SYCL Specification: https://www.khronos.org/registry/SYCL/specs/sycl-1.2.1.pdf
+.. _SYCL Specification: https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf
+.. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
+.. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
+.. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4
+.. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
+.. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
+.. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
+.. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
+.. |SYCL_SPEC_BUFFER_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.9
+.. |SYCL_SPEC_LOCAL_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.11
+.. |SYCL_SPEC_IMAGE_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.12
+.. |SYCL_SPEC_MALLOC_DEVICE| replace:: `SYCL Specification`_ Section 4.8.5.1
+.. |SYCL_SPEC_MALLOC_HOST| replace:: `SYCL Specification`_ Section 4.8.5.2
+.. |SYCL_SPEC_MALLOC_SHARED| replace:: `SYCL Specification`_ Section 4.8.5.2
+.. |SYCL_SPEC_FREE| replace:: `SYCL Specification`_ Section 4.8.5.4
+.. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
+.. |SYCL_SPEC_USM_ALLOC| replace:: `SYCL Specification`_ Section 4.8.3
+.. |SYCL_SPEC_DEVICE_SELECTORS| replace:: `SYCL Specification`_ Section 4.6.1.1
+.. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
+.. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
+.. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
+.. |SYCL_SPEC_SAMPLER| replace:: `SYCL Specification`_ Section 4.7.8
+.. |SYCL_SPEC_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.1
+.. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
+.. |SYCL_SPEC_ID| replace:: `SYCL Specification`_ Section 4.10.1.3
+.. |SYCL_SPEC_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.4
+.. |SYCL_SPEC_H_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.6
+.. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
+.. |SYCL_SPEC_ND_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.2
+.. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
+.. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
+.. |SYCL_SPEC_KERNEL| replace:: `SYCL Specification`_ Section 4.12
+.. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """)
 
 rst_prolog = prolog_template.substitute({})
@@ -126,6 +158,7 @@ class_layout_pattern = (':title'
                         '(:rubric Memory operations:table)?'
                         '(:rubric Member types:table)?'
                         '(:rubric Nonmember data:table)?'
+                        '(:seealso)?'
                         '(:rubric Member and nonmember functions)?'
                         '(:rubric Example)?'
                         '(:section)*')
@@ -150,7 +183,6 @@ class_section_layout_pattern = (':title'
 )
 
 class_section_layout = re.compile(class_section_layout_pattern)
-
 
 def check_class(object_file, section):
     enc = ''

@@ -21,6 +21,8 @@ Kernel
 Abstraction of a kernel object.
 
 
+.. seealso:: |SYCL_SPEC_KERNEL|
+
 .. member-toc::
 
 

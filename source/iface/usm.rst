@@ -36,3 +36,4 @@ shared
   SYCL runtime may move data between host and device. Accessible by
   host and device.
 
+.. seealso:: |SYCL_SPEC_USM_ALLOC|

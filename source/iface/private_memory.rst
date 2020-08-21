@@ -10,6 +10,8 @@
    template <typename T, int Dimensions = 1>
    class private_memory;
    
+.. seealso:: |SYCL_SPEC_PRIVATE_MEMORY|
+
 .. member-toc::
 
 (constructors)

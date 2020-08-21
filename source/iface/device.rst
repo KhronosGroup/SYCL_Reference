@@ -33,6 +33,8 @@ An abstract class representing various models of SYCL devices. A
 device could be a GPU, CPU, or other type of accelerator. Devices
 execute kernel functions.
 
+.. seealso:: |SYCL_SPEC_DEVICE|
+
 .. member-toc::
 
    

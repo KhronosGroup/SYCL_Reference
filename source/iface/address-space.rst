@@ -21,6 +21,8 @@
    };
 
 
+.. seealso:: |SYCL_SPEC_ADDRESS_SPACE|
+
 .. rst-class:: api-class
 	       
 ===========
@@ -57,6 +59,8 @@ const_reference_t
 address_space
 =================  ====
    
+.. seealso:: |SYCL_SPEC_MULTI_PTR|
+
 .. member-toc::
 
 (constructors)

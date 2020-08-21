@@ -23,6 +23,8 @@ passed as an argument to the command group function. The command group
 function is an argument to :ref:`queue-submit`.
 
 
+.. seealso:: |SYCL_SPEC_HANDLER|
+
 .. member-toc::
 
 

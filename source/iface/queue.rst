@@ -46,6 +46,8 @@ to monitor the completion of the task for completion and errors.
    Example uses basic constructor and demonstrates the commonly uses
    member functions.
 
+.. seealso:: |SYCL_SPEC_QUEUE|
+
 .. member-toc::
 
 (constructors)

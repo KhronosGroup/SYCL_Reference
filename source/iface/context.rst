@@ -36,6 +36,8 @@ A context may include a subset of the devices provided by the
 platform. The same platform may be associated with more than one
 context, but a device can only be part of a single context.
 
+.. seealso:: |SYCL_SPEC_CONTEXT|
+
 .. member-toc::
 
 (constructors)

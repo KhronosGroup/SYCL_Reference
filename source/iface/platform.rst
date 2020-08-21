@@ -33,6 +33,8 @@ Abstraction for SYCL platform.
 
 A platform contains 1 or more SYCL devices, or a host device.
 
+.. seealso:: |SYCL_SPEC_PLATFORM|
+   
 .. member-toc::
 
 .. _platform-example:

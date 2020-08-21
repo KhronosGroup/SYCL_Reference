@@ -5,6 +5,8 @@
 Samplers
 ********
 
+.. seealso:: |SYCL_SPEC_SAMPLER|
+
 ==============
  address_mode
 ==============

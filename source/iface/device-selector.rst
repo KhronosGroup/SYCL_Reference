@@ -122,6 +122,8 @@ host_selector          Select the host device
 
 Create a device selector by copying another one.
 		   
+.. seealso:: |SYCL_SPEC_DEVICE_SELECTORS|
+
  .. rubric:: Example
 
 .. literalinclude:: /examples/gpu-selector.cpp

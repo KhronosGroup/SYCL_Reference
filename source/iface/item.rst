@@ -30,6 +30,8 @@ dimensions      Number of dimensions in index space
 with_offset     True if item has offset
 ==============  ===
 
+.. seealso:: |SYCL_SPEC_ITEM|
+
 .. member-toc::
 
 get_id
