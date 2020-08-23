@@ -5,3 +5,5 @@
 /source/examples/*.bin
 /site
 /_tools
+# python virtual environment
+/venv

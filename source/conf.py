@@ -27,30 +27,23 @@ sys.path.append(os.path.abspath("./_ext"))
 
 project = 'SYCL Reference'
 copyright = '2020, Intel'
-author = 'Intel'
+author = ''
 
 
 # -- General configuration ---------------------------------------------------
 
-master_doc = 'sycl-index'
+master_doc = 'index'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-#    'notfound.extension',
+    #'notfound.extension',
     'sphinx_rtd_theme',
     'sphinx.ext.todo',
-    'sphinxcontrib.spelling'
+    'sphinxcontrib.spelling',
 #    'summary'
 ]
-
-html_context = {
-    'display_github': True,
-    'github_user': 'oneapi-src',
-    'github_repo': 'dpcpp-ref',
-    'github_version': 'sycl/source/'
-}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -117,6 +110,7 @@ todo_include_todos = False
 
 # -- Options for HTML output -------------------------------------------------
 
+html_logo = '_static/Khronos_Group_SYCL_logo.svg'
 html_favicon = '_static/favicon.png'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -133,6 +127,10 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+
+# -- Options for latex output -------------------------------------------------
+
+latex_logo = '_static/Khronos_Group_SYCL_logo.pdf'
 
 # -- notfound extension ------------------------------------
 
@@ -275,8 +273,8 @@ class ExampleDirective(Directive):
         return [nodes.rubric(text='Example')]
     
 def setup(app):
-    add_custom_css = getattr(app,'add_css_file',getattr(app,'add_stylesheet'))
-    add_custom_css('custom.css')
+    # add_custom_css = getattr(app,'add_css_file',getattr(app,'add_stylesheet'))
+    # add_custom_css('custom.css')
     app.connect('doctree-resolved', check_doc)
     app.add_directive('member-toc', MemberTocDirective)
     if False:

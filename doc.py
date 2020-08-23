@@ -77,10 +77,10 @@ def makedirs(path):
     os.makedirs(path)
 
 def sphinx(target):
-    os.environ['LATEXMKOPTS'] = '--silent'
-    os.environ['LATEXOPTS'] = '-interaction=nonstopmode -halt-on-error'
+    if not args.verbose:
+        os.environ['LATEXMKOPTS'] = '--silent'
+        os.environ['LATEXOPTS'] = '-interaction=nonstopmode -halt-on-error'
     opts = (sphinx_opts
-            + (' -c %s' % join('source', args.compiler))
             + (' -q' if not args.verbose else '')
             + (' -W' if args.W else '')
             + (' -a' if args.all else ''))
