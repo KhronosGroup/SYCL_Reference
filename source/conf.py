@@ -53,7 +53,15 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['root/*.rst',
                     '*.inc.rst',
-                    '**/*.inc.rst'
+                    '**/*.inc.rst',
+                    'iface/math.rst',
+                    'iface/integer.rst',
+                    'iface/common.rst',
+                    'iface/geometric.rst',
+                    'iface/relational.rst',
+                    'iface/vector.rst',
+                    'iface/synchronization.rst',
+                    'iface/printf.rst'
 ]
 
 
