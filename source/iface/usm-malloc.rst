@@ -1,6 +1,8 @@
 ..
   Copyright 2020 Intel Corporation
 
+.. _malloc_device:
+
 ===============
  malloc_device
 ===============
@@ -39,8 +41,11 @@ ctxt                See :ref:`context`
 
 Returns a pointer to memory that resides on the device.
 
-The host may not reference the memory. To access the data on the host,
-the device must copy it to host-accessible memory.
+The host may not directly reference the memory, but can read and write
+the memory with :ref:`queue` member functions (:ref:`queue-memset`,
+:ref:`queue-memcpy`, :ref:`queue-fill`) or :ref:`handler` member
+functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
+:ref:`handler-fill`).
 
 Deallocate with free_.
 

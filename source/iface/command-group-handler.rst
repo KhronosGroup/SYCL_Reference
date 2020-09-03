@@ -5,6 +5,8 @@
 Invoking kernels
 ****************
 
+.. _handler:
+
 .. rst-class:: api-class
 	       
 =========
@@ -212,6 +214,8 @@ isPlaceholder   Placeholder value for accessor
 
 Updates host copy of data associated with accessor.
 
+.. _handler-fill:
+
 fill
 ====
 
@@ -219,7 +223,9 @@ fill
 
   template <typename T, int dim, access::mode mode,
             access::target tgt, access::placeholder isPlaceholder>
-  void fill(accessor<T, dim, mode, tgt, isPlaceholder> dest, const T& src);
+  void fill(accessor<T, dim, mode, tgt, isPlaceholder> dest, const T& pattern);
+  template <typename T>
+  event fill(void* ptr, const T& pattern, size_t count);
 
 .. rubric:: Template parameters
 
@@ -235,8 +241,32 @@ isPlaceholder   Placeholder value for accessor
 
 ==============  ===
 dest            Destination of fill operation
-src             Value to fill
+pattern         Value to fill
 ==============  ===
 
-Fill the destination of the memory associated with the accessor with
-the value in ``src``.
+Fill the destination with the value in ``pattern``.  The destination
+may be memory associated with an accessor or allocated with
+:ref:`malloc_device`.
+
+
+.. _handler-memcpy:
+
+memcpy
+======
+
+::
+   
+   void memcpy(void* dest, const void* src, size_t num_bytes);
+
+Set memory allocated with :ref:`malloc_device`.
+
+.. _handler-memset:
+
+memset
+======
+
+::
+
+   void memset(void* ptr, int value, size_t num_bytes);
+   
+Set memory allocated with :ref:`malloc_device`.

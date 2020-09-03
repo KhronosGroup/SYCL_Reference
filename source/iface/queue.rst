@@ -237,6 +237,40 @@ throw_asynchronous
 Passes any asynchronous errors to handler provided in
 `(constructors)`_.
 
+.. _queue-memcpy:
+
+memcpy
+======
+
+::
+   
+   event memcpy(void* dest, const void* src, size_t num_bytes);
+
+Set memory allocated with :ref:`malloc_device`.
+
+.. _queue-memset:
+
+memset
+======
+
+::
+
+   event memset(void* ptr, int value, size_t num_bytes);
+   
+Set memory allocated with :ref:`malloc_device`.
+
+.. _queue-fill:
+
+fill
+====
+
+::
+
+   template <typename T>
+   event fill(void* ptr, const T& pattern, size_t count);
+
+Set memory allocated with :ref:`malloc_device`.
+
 ==========
 Queue Info
 ==========
