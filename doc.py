@@ -118,6 +118,7 @@ def examples(target=None):
                     'memory-model',
                     'nd-range',
                     'get-platforms',
+                    'get_devices',
                     'gpu-selector',
                     'execution-model']
     compiler = 'dpcpp'

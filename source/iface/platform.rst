@@ -80,6 +80,8 @@ Returns the OpenCL device associated with the platform.
 Only call this when the platform constructor was passed a
 ``cl_platform_id``.
 
+.. _platform-get_devices:
+
 get_devices
 ===========
 
@@ -88,8 +90,8 @@ get_devices
   vector_class<device> get_devices(
      info::device_type = info::device_type::all) const;
 
-Return vector of SYCL devices associated with the platform and
-filtered by the :ref:`device_type <info-device>`.
+Returns vector of SYCL devices associated with the platform and
+filtered by :ref:`info-device_type`
 
 .. rubric:: Example
 

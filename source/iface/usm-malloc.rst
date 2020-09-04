@@ -11,22 +11,22 @@
 
 ::
 
-   void* sycl::malloc_device(size_t num_bytes,
-                             const sycl::device& dev,
-                             const sycl::context& ctxt);
-   void* sycl::aligned_alloc_device(size_t alignment,
+   void* malloc_device(size_t num_bytes,
+                             const device& dev,
+                             const context& ctxt);
+   void* aligned_alloc_device(size_t alignment,
                                     size_t num_bytes,
-                                    const sycl::device& dev,
-                                    const sycl::context& ctxt);
+                                    const device& dev,
+                                    const context& ctxt);
    template <typename T>
-   T* sycl::malloc_device(size_t count,
-                          const sycl::device& dev,
-                          const sycl::context& ctxt);
+   T* malloc_device(size_t count,
+                          const device& dev,
+                          const context& ctxt);
    template <typename T>
-   T* sycl::aligned_alloc_device(size_d alignment,
+   T* aligned_alloc_device(size_d alignment,
                                  size_t count,
-                                 const sycl::device& dev,
-                                 const sycl::context& ctxt);
+                                 const device& dev,
+                                 const context& ctxt);
 
 
 .. rubric:: Parameters
@@ -59,11 +59,11 @@ Deallocate with free_.
 
 ::
 
-   void* sycl::malloc_host(size_t num_bytes, const sycl::context& ctxt);
+   void* malloc_host(size_t num_bytes, const context& ctxt);
    template <typename T>
-   void* sycl::aligned_alloc_host(size_t alignment, size_t num_bytes, const sycl::context& ctxt);
-   T* sycl::malloc_host(size_t count, const sycl::context& ctxt);
-   T* sycl::aligned_alloc_host(size_t alignment, size_t count, const sycl::context& ctxt);
+   void* aligned_alloc_host(size_t alignment, size_t num_bytes, const context& ctxt);
+   T* malloc_host(size_t count, const context& ctxt);
+   T* aligned_alloc_host(size_t alignment, size_t count, const context& ctxt);
 
 .. rubric:: Parameters
 
@@ -91,22 +91,22 @@ Deallocate with free_.
 
 ::
 
-   void* sycl::malloc_shared(size_t num_bytes,
-                             const sycl::device& dev,
-                             const sycl::context& ctxt);
-   void* sycl::aligned_alloc_ahared(size_t alignment,
+   void* malloc_shared(size_t num_bytes,
+                             const device& dev,
+                             const context& ctxt);
+   void* aligned_alloc_ahared(size_t alignment,
                                  size_t num_bytes,
-                                 const sycl::device& dev,
-                                 const sycl::context& ctxt);
+                                 const device& dev,
+                                 const context& ctxt);
    template <typename T>
-   T* sycl::malloc_shared(size_t count,
-                          const sycl::device& dev,
-                          const sycl::context& ctxt);
+   T* malloc_shared(size_t count,
+                          const device& dev,
+                          const context& ctxt);
    template <typename T>
-   T* sycl::aligned_alloc_ahared(size_t alignment,
+   T* aligned_alloc_ahared(size_t alignment,
                               size_t count,
-                              const sycl::device& dev,
-                              const sycl::context& ctxt);
+                              const device& dev,
+                              const context& ctxt);
 
 .. rubric:: Parameters
 
@@ -135,7 +135,7 @@ Deallocate with free_.
 
 ::
 
-   void free(void* ptr, sycl::context& context);
+   void free(void* ptr, context& context);
 
 Free memory allocated by `malloc_device`_, `malloc_host`_, or
 `malloc_shared`_.

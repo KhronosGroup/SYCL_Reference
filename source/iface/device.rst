@@ -188,6 +188,8 @@ feature_not_supported
   the ``prop`` template argument.
 
 
+.. _device-get_devices:
+
 get_devices
 ===========
 
@@ -196,9 +198,7 @@ get_devices
   static vector_class<device> get_devices(
       info::device_type deviceType = info::device_type::all);
 
-Returns vector of devices associated with deviceType.
-
-See device_type_
+Returns vector of devices filtered by :ref:`info-device_type`.
 
 ===========
 Device Info
@@ -376,6 +376,8 @@ partition_type_affinity_domain
 reference_count
 ==================================  ==========================  ===
 
+.. _info-device_type:
+
 device_type
 ===========
 
@@ -391,7 +393,7 @@ device_type
     all          // Maps to OpenCL CL_DEVICE_TYPE_ALL
   };
 
-See get_devices_
+See platform :ref:`platform-get_devices` and device :ref:`device-get_devices`.
 
 partition_property
 ==================
