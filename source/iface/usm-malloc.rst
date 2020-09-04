@@ -190,6 +190,7 @@ calling malloc_host. On failure, returns nullptr.
 ::
 
    void free(void* ptr, context& context);
+   void free(void* ptr, queue& q);
 
 Free memory allocated by `malloc_device`_, `malloc_host`_, or
 `malloc_shared`_.
