@@ -12,22 +12,34 @@
 ::
 
    void* malloc_device(size_t num_bytes,
-                             const device& dev,
-                             const context& ctxt);
+                       const queue& q);
    void* aligned_alloc_device(size_t alignment,
-                                    size_t num_bytes,
-                                    const device& dev,
-                                    const context& ctxt);
+                              size_t num_bytes,
+                              const queue& q);
    template <typename T>
    T* malloc_device(size_t count,
-                          const device& dev,
-                          const context& ctxt);
+                    const queue& q);
    template <typename T>
    T* aligned_alloc_device(size_d alignment,
-                                 size_t count,
-                                 const device& dev,
-                                 const context& ctxt);
+                           size_t count,
+                           const queue& q);
 
+   void* malloc_device(size_t num_bytes,
+                       const device& dev,
+                       const context& ctxt);
+   void* aligned_alloc_device(size_t alignment,
+                              size_t num_bytes,
+                              const device& dev,
+                              const context& ctxt);
+   template <typename T>
+   T* malloc_device(size_t count,
+                    const device& dev,
+                    const context& ctxt);
+   template <typename T>
+   T* aligned_alloc_device(size_d alignment,
+                           size_t count,
+                           const device& dev,
+                           const context& ctxt);
 
 .. rubric:: Parameters
 
@@ -36,6 +48,7 @@ alignment           alignment of allocated data
 num_bytes           allocation size in bytes
 count               number of elements
 dev                 See :ref:`device`
+q                   See :ref:`queue`
 ctxt                See :ref:`context`
 ==================  ===
 
@@ -61,11 +74,35 @@ functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
 
 ::
 
-   void* malloc_host(size_t num_bytes, const context& ctxt);
+   void* malloc_host(size_t num_bytes,
+                       const queue& q);
+   void* aligned_alloc_host(size_t alignment,
+                              size_t num_bytes,
+                              const queue& q);
    template <typename T>
-   void* aligned_alloc_host(size_t alignment, size_t num_bytes, const context& ctxt);
-   T* malloc_host(size_t count, const context& ctxt);
-   T* aligned_alloc_host(size_t alignment, size_t count, const context& ctxt);
+   T* malloc_host(size_t count,
+                    const queue& q);
+   template <typename T>
+   T* aligned_alloc_host(size_d alignment,
+                           size_t count,
+                           const queue& q);
+
+   void* malloc_host(size_t num_bytes,
+                       const device& dev,
+                       const context& ctxt);
+   void* aligned_alloc_host(size_t alignment,
+                              size_t num_bytes,
+                              const device& dev,
+                              const context& ctxt);
+   template <typename T>
+   T* malloc_host(size_t count,
+                    const device& dev,
+                    const context& ctxt);
+   template <typename T>
+   T* aligned_alloc_host(size_d alignment,
+                           size_t count,
+                           const device& dev,
+                           const context& ctxt);
 
 .. rubric:: Parameters
 
@@ -93,21 +130,34 @@ leaks. On failure, returns nullptr.
 ::
 
    void* malloc_shared(size_t num_bytes,
-                             const device& dev,
-                             const context& ctxt);
-   void* aligned_alloc_ahared(size_t alignment,
-                                 size_t num_bytes,
-                                 const device& dev,
-                                 const context& ctxt);
+                       const queue& q);
+   void* aligned_alloc_shared(size_t alignment,
+                              size_t num_bytes,
+                              const queue& q);
    template <typename T>
    T* malloc_shared(size_t count,
-                          const device& dev,
-                          const context& ctxt);
+                    const queue& q);
    template <typename T>
-   T* aligned_alloc_ahared(size_t alignment,
-                              size_t count,
+   T* aligned_alloc_shared(size_d alignment,
+                           size_t count,
+                           const queue& q);
+
+   void* malloc_shared(size_t num_bytes,
+                       const device& dev,
+                       const context& ctxt);
+   void* aligned_alloc_shared(size_t alignment,
+                              size_t num_bytes,
                               const device& dev,
                               const context& ctxt);
+   template <typename T>
+   T* malloc_shared(size_t count,
+                    const device& dev,
+                    const context& ctxt);
+   template <typename T>
+   T* aligned_alloc_shared(size_d alignment,
+                           size_t count,
+                           const device& dev,
+                           const context& ctxt);
 
 .. rubric:: Parameters
 

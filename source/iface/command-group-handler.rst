@@ -258,7 +258,9 @@ memcpy
    
    void memcpy(void* dest, const void* src, size_t num_bytes);
 
-Set memory allocated with :ref:`malloc_device`.
+Set memory allocated with :ref:`malloc_device`. For usage, see
+:ref:`event-elapsed-time`.
+
 
 .. _handler-memset:
 
@@ -269,4 +271,5 @@ memset
 
    void memset(void* ptr, int value, size_t num_bytes);
    
-Set memory allocated with :ref:`malloc_device`.
+Set memory allocated with :ref:`malloc_device`. For usage, see
+:ref:`event-elapsed-time`.

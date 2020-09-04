@@ -141,6 +141,20 @@ get_profiling_info
 Returns information about the queue as determined by ``param``. See
 `Event profiling info`_ for details.
 
+.. _event-elapsed-time:
+   
+.. rubric:: Example
+
+Measure the elapsed time of a memcpy executed on a device with event
+profiling info.
+   
+.. literalinclude:: /examples/event-elapsed-time.cpp
+
+Output:
+
+.. literalinclude:: /examples/event-elapsed-time.out
+
+
 ==========
 Event info
 ==========
