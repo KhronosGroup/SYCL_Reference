@@ -200,6 +200,12 @@ get_devices
 
 Returns vector of devices filtered by :ref:`info-device_type`.
 
+.. rubric:: Example
+
+Enumerate the GPU devices
+   
+.. literalinclude:: /examples/get_devices.cpp
+
 ===========
 Device Info
 ===========

@@ -39,15 +39,17 @@ dev                 See :ref:`device`
 ctxt                See :ref:`context`
 ==================  ===
 
-Returns a pointer to memory that resides on the device.
+Returns a pointer to the newly allocated memory on the specified
+device on success. This memory is not accessible on the host. Memory
+allocated by malloc_device must be deallocated with :ref:`sycl::free
+<sycl-free>` to avoid memory leaks. If ctxt is a host context, it
+should behave as if calling malloc_host. On failure, returns nullptr.
 
 The host may not directly reference the memory, but can read and write
 the memory with :ref:`queue` member functions (:ref:`queue-memset`,
 :ref:`queue-memcpy`, :ref:`queue-fill`) or :ref:`handler` member
 functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
 :ref:`handler-fill`).
-
-Deallocate with free_.
 
 .. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
 
@@ -75,11 +77,10 @@ dev                 See :ref:`device`
 ctxt                See :ref:`context`
 ==================  ===
 
-Returns a pointer to memory that resides on the host.
-
-Host and device may reference the memory.
-
-Deallocate with free_.
+Returns a pointer to the newly allocated host memory on success. Host
+and device may reference the memory.  Memory allocated by malloc_host
+must be deallocated with :ref:`sycl::free <sycl-free>` to avoid memory
+leaks. On failure, returns nullptr.
 
 .. seealso:: |SYCL_SPEC_MALLOC_HOST|
 
@@ -118,14 +119,17 @@ dev                 See :ref:`device`
 ctxt                See :ref:`context`
 ==================  ===
 
-Returns a pointer to memory that may reside on host or device.
 
-The SYCL runtime may migrate the data between host and device to
-optimize access.
-
-Deallocate with free_.
+Returns a pointer to the newly allocated shared memory on the
+specified device on success. The SYCL runtime may migrate the data
+between host and device to optimize access.  Memory allocated by
+malloc_shared must be deallocated with :ref:`sycl::free <sycl-free>`
+to avoid memory leaks. If ctxt is a host context, should behave as if
+calling malloc_host. On failure, returns nullptr.
 
 .. seealso:: |SYCL_SPEC_MALLOC_SHARED|
+
+.. _sycl-free:
 
 ======
  free
