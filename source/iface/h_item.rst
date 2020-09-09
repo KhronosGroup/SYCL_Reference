@@ -1,6 +1,3 @@
-..
-  Copyright 2020 Intel Corporation
-
 .. rst-class:: api-class
 	       
 .. _h_item:
