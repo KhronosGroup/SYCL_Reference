@@ -1,3 +1,6 @@
+# Copyright 2020 The Khronos Group Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 import os
 from os.path import join
 import string
@@ -179,6 +182,7 @@ class_ignore = ['target',
 class_layout = re.compile(class_layout_pattern)
 
 class_section_layout_pattern = (':title'
+                                '(:comment)?'
                                 '(:rubric Template parameters:table)?'
                                 '(:rubric Parameters:table)?'
                                 '(:rubric Parameters:definition_list)?'
