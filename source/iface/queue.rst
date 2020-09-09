@@ -318,3 +318,8 @@ Queue properties are specified in the queue constructor.
 enable_profiling
   SYCL runtime captures profiling information for command groups
   submitted to the queue.
+
+.. rubric:: Example
+
+See :ref:`event-elapsed-time`.
+  

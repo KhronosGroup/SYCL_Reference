@@ -1,7 +1,12 @@
 #include <CL/sycl.hpp>
 
 int main() {
-  auto q = sycl::queue(sycl::gpu_selector());
+  sycl::property_list properties{sycl::property::queue::enable_profiling()};
+  auto q = sycl::queue(sycl::gpu_selector(), properties);
+
+  std::cout << "  Platform: "
+	    << q.get_device().get_platform().get_info<sycl::info::platform::name>()
+	    << std::endl;
 
   const int bytes = 1024 * 1024;
 
