@@ -1,3 +1,7 @@
+..
+  Copyright 2020 The Khronos Group Inc.
+  SPDX-License-Identifier: CC-BY-4.0
+
 .. _usm_allocator:
 
 .. rst-class:: api-class

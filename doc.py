@@ -1,3 +1,6 @@
+# Copyright 2020 The Khronos Group Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 import argparse
 from functools import wraps
 import glob
