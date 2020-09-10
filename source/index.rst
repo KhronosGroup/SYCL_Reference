@@ -1,6 +1,6 @@
+.. SPDX-FileCopyrightText: 2020 The Khronos Group Inc.
 ..
-  Copyright 2020 The Khronos Group Inc.
-  SPDX-License-Identifier: CC-BY-4.0
+.. SPDX-License-Identifier: CC-BY-4.0
 
 ================
  SYCL Reference
