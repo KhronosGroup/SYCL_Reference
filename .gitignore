@@ -5,9 +5,5 @@
 *.log
 *.diff
 /build
-/source/examples/*.bin
-/source/examples/*.out
-/site
-/_tools
 # python virtual environment
 /venv

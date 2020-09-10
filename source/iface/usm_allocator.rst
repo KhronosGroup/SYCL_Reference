@@ -34,6 +34,7 @@ Alignment      Alignment of the allocation
 .. rubric:: Example
 
 .. literalinclude:: /examples/std-vector.cpp
+   :lines: 5-
    :linenos:
 
 .. rubric:: Member types

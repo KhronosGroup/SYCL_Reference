@@ -134,7 +134,7 @@ def examples(target=None):
     for run_example in run_examples:
         bin = join(build, run_example)
         sources = ['%s.cpp' % join('source', 'examples', run_example)]
-        output = join(source, '%s.out' % run_example)
+        output = join(build, '%s.out' % run_example)
         if not up_to_date(output, sources):
             shell('%s %s -o %s %s' % (compiler, compiler_options, bin, ' '.join(sources)))
             try:
