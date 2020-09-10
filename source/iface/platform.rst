@@ -33,10 +33,13 @@ A platform contains 1 or more SYCL devices, or a host device.
 Enumerate the platforms and the devices they contain.
    
 .. literalinclude:: /examples/get-platforms.cpp
+   :lines: 5-
+   :linenos:
 
 Output:
 
 .. literalinclude:: /examples/get-platforms.out
+   :lines: 5-
 
 
 (constructors)

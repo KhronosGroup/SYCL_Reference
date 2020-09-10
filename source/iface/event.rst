@@ -138,10 +138,13 @@ Measure the elapsed time of a memcpy executed on a device with event
 profiling info.
    
 .. literalinclude:: /examples/event-elapsed-time.cpp
+   :lines: 5-
+   :linenos:
 
 Output:
 
 .. literalinclude:: /examples/event-elapsed-time.out
+   :lines: 5-
 
 
 ==========

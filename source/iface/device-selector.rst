@@ -116,7 +116,10 @@ Create a device selector by copying another one.
  .. rubric:: Example
 
 .. literalinclude:: /examples/gpu-selector.cpp
+   :lines: 5-
+   :linenos:
 
 Output on a system without a GPU:
 
 .. literalinclude:: /examples/gpu-selector.out		    
+   :lines: 5-

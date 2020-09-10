@@ -23,7 +23,8 @@ jobs:
           python doc.py html
           python doc.py latexpdf
           python doc.py spelling
-          reuse lint > build/reuse.txt
+          # ignore non-zero error code
+          reuse lint > build/reuse.txt ; true
     - name: Archive build directory
       uses: actions/upload-artifact@v1
       with:
