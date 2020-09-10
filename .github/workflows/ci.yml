@@ -1,7 +1,7 @@
 # Copyright 2020 The Khronos Group Inc.
 # SPDX-License-Identifier: Apache-2.0
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   ci:
