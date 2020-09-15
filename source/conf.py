@@ -41,11 +41,8 @@ master_doc = 'index'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    #'notfound.extension',
-    'sphinx_rtd_theme',
     'sphinx.ext.todo',
     'sphinxcontrib.spelling',
-#    'summary'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -127,11 +124,15 @@ html_favicon = '_static/favicon.png'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
+
 html_theme_options = {
-    # 'fixed_sidebar': True,
-    # 'page_width': 'max-width'
-}
+        'repository_url': 'https://github.com/KhronosGroup/SYCL_Reference',
+        'path_to_docs': 'source',
+        'use_issues_button': True,
+        'use_edit_page_button': True,
+        'repository_branch': 'main'
+    }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
