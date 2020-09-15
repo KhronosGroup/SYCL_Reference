@@ -29,7 +29,7 @@ sys.path.append(os.path.abspath("./_ext"))
 # -- Project information -----------------------------------------------------
 
 project = 'SYCL Reference'
-copyright = '2020, Intel'
+copyright = '2020, The Khronos Group Inc.'
 author = ''
 
 
