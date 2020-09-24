@@ -30,6 +30,8 @@ To build::
 
 To see the document, open build/html/index.html
 
+another test
+
 Automatic Publishing
 ====================
 
