@@ -24,6 +24,8 @@ required software on Ubuntu::
    apt-get update -qq
    DEBIAN_FRONTEND=noninteractive xargs -a packages.txt apt-get install -qq
    pip3 install --upgrade --quiet -r requirements.txt
+   
+ Testing github integration
 
 Building
 ========
