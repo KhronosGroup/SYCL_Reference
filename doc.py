@@ -114,17 +114,11 @@ def doxygen(target=None):
 
 @action
 def examples(target=None):
-    run_examples = ['vector-add',
-                    'std-vector',
+    run_examples = ['std-vector',
                     'event-elapsed-time',
-                    'fall-back',
-                    'kernel-model',
-                    'memory-model',
-                    'nd-range',
                     'get-platforms',
                     'get_devices',
-                    'gpu-selector',
-                    'execution-model']
+                    'gpu-selector']
     compiler = 'dpcpp'
     compiler_options = '-Wall -Werror'
     build = join('build', 'examples')
