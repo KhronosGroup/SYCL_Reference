@@ -32,4 +32,6 @@ int main() {
   auto start = event.get_profiling_info<sycl::info::event_profiling::command_start>();
 
   std::cout << "Elapsed time: " << (end-start)/1.0e9 << " seconds\n";
+
+  sycl::free(dst, q);
 }
