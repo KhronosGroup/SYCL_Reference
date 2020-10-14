@@ -22,9 +22,6 @@ a :ref:`range`. Examples includes use as an index in an
 
 .. seealso:: |SYCL_SPEC_ID|
 
-.. member-toc::
-
-
 (constructors)
 ==============
 

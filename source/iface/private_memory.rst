@@ -13,8 +13,6 @@ sycl::private_memory
    
 .. seealso:: |SYCL_SPEC_PRIVATE_MEMORY|
 
-.. member-toc::
-
 (constructors)
 ==============
 

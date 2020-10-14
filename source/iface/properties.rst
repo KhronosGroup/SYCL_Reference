@@ -12,9 +12,6 @@
 
    class property_list;
 
-.. member-toc::
-
-
 property_list
 =============
 

@@ -39,8 +39,6 @@ const_reference  Type of const reference to buffer element
 
 .. seealso:: |SYCL_SPEC_BUFFER_ACCESSOR|
 
-.. member-toc::
-
 (constructors)
 ==============
 

@@ -24,9 +24,6 @@ execute kernel functions.
 
 .. seealso:: |SYCL_SPEC_DEVICE|
 
-.. member-toc::
-
-   
 (constructors)
 ==============
 

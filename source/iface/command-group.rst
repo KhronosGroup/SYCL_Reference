@@ -26,8 +26,6 @@ sycl::command_group
 
    class command_group;
 
-.. member-toc::
-
 (constructors)
 ==============
 

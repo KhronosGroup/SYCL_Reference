@@ -20,8 +20,6 @@ sycl::exception
 
 .. seealso:: |SYCL_SPEC_EXCEPTION|
 
-.. member-toc::
-
 Container for an exception that occurs during execution. Synchronous
 API's throw exceptions that may be caught with C++ exception handling
 methods. The SYCL runtime holds exceptions that occur during
@@ -94,8 +92,6 @@ size_type
 iterator
 const_iterator
 ===============  ===
-
-.. member-toc::
 
 size
 ====

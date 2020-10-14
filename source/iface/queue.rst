@@ -37,8 +37,6 @@ to monitor the completion of the task for completion and errors.
 
 .. seealso:: |SYCL_SPEC_QUEUE|
 
-.. member-toc::
-
 (constructors)
 ==============
 

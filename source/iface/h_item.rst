@@ -17,9 +17,6 @@ sycl::h_item
 
 .. seealso:: |SYCL_SPEC_H_ITEM|
 
-.. member-toc::
-
-   
 get_global
 ==========
 

@@ -239,11 +239,6 @@ def check_doc(app, doctree, docname):
             if 'api-class' in classes:
                 check_class(object_file, section)
 
-class MemberTocDirective(Directive):
-
-    def run(self):
-        return [nodes.rubric(text='Member and nonmember functions')]
-
 class TParamsDirective(Directive):
 
     def run(self):
@@ -288,7 +283,6 @@ def setup(app):
     # add_custom_css = getattr(app,'add_css_file',getattr(app,'add_stylesheet'))
     # add_custom_css('custom.css')
     app.connect('doctree-resolved', check_doc)
-    app.add_directive('member-toc', MemberTocDirective)
     if False:
         app.add_directive('tparams', TParamsDirective)
         app.add_directive('params', ParamsDirective)
