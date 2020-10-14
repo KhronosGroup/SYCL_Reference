@@ -24,7 +24,7 @@ the top right to file an issue on github or suggest an edit.
 
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    header-file
    namespaces

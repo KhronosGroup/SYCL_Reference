@@ -8,7 +8,7 @@ Error handling
 ==============
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    iface/exception
 

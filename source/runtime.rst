@@ -9,7 +9,7 @@
 =================
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
      
    iface/device-selector
    iface/platform

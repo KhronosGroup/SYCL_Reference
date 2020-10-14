@@ -11,7 +11,7 @@
 In this section, we define methods that are common to multiple classes.
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    iface/common-byval
    iface/common-reference

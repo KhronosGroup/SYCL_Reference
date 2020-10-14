@@ -7,7 +7,7 @@
 =============================
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    iface/types
 

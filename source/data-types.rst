@@ -8,7 +8,7 @@
 
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    iface/scalar-types
    iface/vector-types
