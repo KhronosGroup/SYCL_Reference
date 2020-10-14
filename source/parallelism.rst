@@ -8,7 +8,7 @@ Expressing parallelism
 ======================
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    iface/range
    iface/group

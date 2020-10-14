@@ -8,7 +8,7 @@
 
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
    iface/usm-malloc
    iface/usm_allocator
