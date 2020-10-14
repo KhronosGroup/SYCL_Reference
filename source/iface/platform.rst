@@ -10,9 +10,9 @@ Platforms
 
 .. rst-class:: api-class
 
-========
-platform
-========
+==============
+sycl::platform
+==============
 
 ::
    
@@ -49,7 +49,7 @@ Output:
    
   platform();
   explicit platform(cl_platform_id platformID);
-  explicit platform(const device_selector &deviceSelector);
+  explicit platform(const sycl::device_selector &deviceSelector);
 
 Construct a SYCL platform instance.
 
@@ -79,8 +79,8 @@ get_devices
 
 ::
    
-  vector_class<device> get_devices(
-     info::device_type = info::device_type::all) const;
+  sycl::vector_class<sycl::device> get_devices(
+     sycl::info::device_type = sycl::info::device_type::all) const;
 
 Returns vector of SYCL devices associated with the platform and
 filtered by :ref:`info-device_type`
@@ -97,12 +97,12 @@ get_info
 
 ::
    
-  template< info::platform param >
-  typename info::param_traits<info::platform, param>::return_type get_info() const;
+  template< sycl::info::platform param >
+  typename sycl::info::param_traits<sycl::info::platform, param>::return_type get_info() const;
 
 Returns information about the platform as determined by ``param``.
 
-See `Platform Info`_ for details.
+See `sycl::info::platform`_ for details.
 
 .. rubric:: Example
 
@@ -115,7 +115,7 @@ has_extension
 
 ::
    
-  bool has_extension(const string_class &extension) const;
+  bool has_extension(const sycl::string_class &extension) const;
 
 Returns True if the platform has ``extension``.
   
@@ -133,7 +133,7 @@ get_platforms
 
 ::
    
-  static vector_class<platform> get_platforms();
+  static sycl::vector_class<platform> get_platforms();
 
 Returns a vector_class containing SYCL platforms bound to the system.
 
@@ -141,9 +141,9 @@ Returns a vector_class containing SYCL platforms bound to the system.
 
 See `platform-example`_.
 
-=============
-Platform Info
-=============
+====================
+sycl::info::platform
+====================
 
 ::
 
@@ -154,12 +154,6 @@ Platform Info
     vendor,
     extensions
   };
-
-.. rubric:: Namespace
-
-::
-
-   info
 
 Used as a template parameter for get_info_ to determine
 the type of information.

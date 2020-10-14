@@ -2,18 +2,18 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-******
-Kernel
-******
+*******
+Kernels
+*******
 
 
 .. rst-class:: api-class
 	       
 .. _kernel:
 
-========
- kernel
-========
+============
+sycl::kernel
+============
 
 ::
 
@@ -32,7 +32,7 @@ Abstraction of a kernel object.
 
 ::
 
-     kernel(cl_kernel clKernel, const context& syclContext);
+     kernel(cl_kernel clKernel, const sycl::context& syclContext);
 
 
 Constructs a SYCL kernel instance from an OpenCL kernel.
@@ -62,7 +62,7 @@ get_context
 
 ::
 
-   context get_context() const;
+   sycl::context get_context() const;
 
 
 Returns context associated with the kernel.
@@ -72,7 +72,7 @@ get_program
 
 ::
 
-   program get_program() const;
+   sycl::program get_program() const;
 
 
 Returns program that this kernel is part of.
@@ -82,15 +82,15 @@ get_info
 
 ::
 
-   template <info::kernel param>
-   typename info::param_traits<info::kernel, param>::return_type
+   template <sycl::info::kernel param>
+   typename sycl::info::param_traits<sycl::info::kernel, param>::return_type
    get_info() const;
 
 
 .. rubric:: Template parameters
 
 ==================  ===   
-param               See `info::kernel`_
+param               See `sycl::info::kernel`_
 ==================  ===   
 
 Returns information about the kernel
@@ -100,21 +100,21 @@ get_work_group_info
 
 ::
 
-   template <info::kernel_work_group param>
-   typename info::param_traits<info::kernel_work_group, param>::return_type
-   get_work_group_info(const device &dev) const;
+   template <sycl::info::kernel_work_group param>
+   typename sycl::info::param_traits<sycl::info::kernel_work_group, param>::return_type
+   get_work_group_info(const sycl::device &dev) const;
 
 .. rubric:: Template parameters
 
 ==================  ===   
-param               See `info::kernel_work_group`_
+param               See `sycl::info::kernel_work_group`_
 ==================  ===   
 
 Returns information about the work group
 
-==============
- info::kernel
-==============
+==================
+sycl::info::kernel
+==================
 
 ::
    
@@ -127,9 +127,9 @@ Returns information about the work group
        attributes
    };
 
-=========================
- info::kernel_work_group
-=========================
+=============================
+sycl::info::kernel_work_group
+=============================
 
 ::
 

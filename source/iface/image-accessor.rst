@@ -4,15 +4,15 @@
 
 .. rst-class:: api-class
 	       
-===============
-Image accessor
-===============
+======================
+sycl::accessor (image)
+======================
 
 ::
    
-   template <typename dataT, int dimensions, access::mode accessmode,
-             access::target accessTarget = access::target::global_buffer,
-             access::placeholder isPlaceholder = access::placeholder::false_t>
+   template <typename dataT, int dimensions, sycl::access::mode accessmode,
+             sycl::access::target accessTarget = sycl::access::target::global_buffer,
+             sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
    class accessor;
 
 Description
@@ -49,22 +49,22 @@ const_reference
    accessTarget == access::target::host_image*
 
   template <typename AllocatorT>
-  accessor(image<dimensions, AllocatorT> &imageRef,
-           const property_list &propList = {});
+  accessor(sycl::image<dimensions, AllocatorT> &imageRef,
+           const sycl::property_list &propList = {});
 
   *Available only when:
    accessTarget == access::target::image*
 
   template <typename AllocatorT>
-  accessor(image<dimensions, AllocatorT> &imageRef,
-           handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(sycl::image<dimensions, AllocatorT> &imageRef,
+           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
 
   *Available only when:
    accessTarget == access::target::image_array && dimensions < 3*
    
   template <typename AllocatorT>
-  accessor(image<dimensions + 1, AllocatorT> &imageRef,
-           handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(sycl::image<dimensions + 1, AllocatorT> &imageRef,
+           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
 
 
 get_count
@@ -82,12 +82,12 @@ get_range
    *Available only when:
     (accessTarget != access::target::image_array)*
     
-   range<dimensions> get_range() const;
+   sycl::range<dimensions> get_range() const;
 
    *Available only when:
     (accessTarget == access::target::image_array)*
     
-   range<dimensions+1> get_range() const;
+   sycl::range<dimensions+1> get_range() const;
 
 .. rubric:: Template parameters
 

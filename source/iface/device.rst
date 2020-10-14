@@ -10,9 +10,9 @@ Devices
 
 .. rst-class:: api-class
 	       
-======
-device
-======
+============
+sycl::device
+============
 
 ::
    
@@ -158,7 +158,7 @@ property.
 .. rubric:: Template parameters
 
 =================  ===
-prop               See partition_property_
+prop               See `sycl::info::partition_property`_
 =================  ===
 	    
 
@@ -167,13 +167,13 @@ prop               See partition_property_
 =================  ===
 nbSubDev           Number of subdevices
 counts             Vector of sizes for the subdevices
-affinityDomain     See partition_affinity_domain_
+affinityDomain     See `sycl::info::partition_affinity_domain`_
 =================  ===
 
 .. rubric:: Exceptions
 
 feature_not_supported
-  When device does not support the partition_property_ specified by
+  When device does not support the `sycl::info::partition_property`_ specified by
   the ``prop`` template argument.
 
 
@@ -203,8 +203,8 @@ Device Info
 
 .. _info-device:
 
-device
-======
+sycl::info::device
+==================
 
 ::
 
@@ -285,18 +285,12 @@ device
     reference_count
   }
   
-.. rubric:: Namespace
-
-::
-
-   info
-
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-==================================  ==========================  ===
-Descriptor                          Return type                 Description
-==================================  ==========================  ===
+==================================  ====================================  ===
+Descriptor                          Return type                           Description
+==================================  ====================================  ===
 device_type
 vendor_id
 max_compute_units
@@ -333,16 +327,16 @@ image_max_array_size
 max_samplers
 max_parameter_size
 mem_base_addr_align
-half_fp_config                      fp_config_
-single_fp_config                    fp_config_
-double_fp_config                    fp_config_
-global_mem_cache_type               global_mem_cache_type_
+half_fp_config                      `sycl::info::fp_config`_
+single_fp_config                    `sycl::info::fp_config`_
+double_fp_config                    `sycl::info::fp_config`_
+global_mem_cache_type               `sycl::info::global_mem_cache_type`_
 global_mem_cache_line_size
 global_mem_cache_size
 global_mem_size
 max_constant_buffer_size
 max_constant_args
-local_mem_type                      local_mem_type_
+local_mem_type                      `sycl::info::local_mem_type`_
 local_mem_size
 error_correction_support
 host_unified_memory
@@ -351,7 +345,7 @@ is_endian_little
 is_available
 is_compiler_available
 is_linker_available
-execution_capabilities              execution_capability_
+execution_capabilities              `sycl::info::execution_capability`_
 queue_profiling
 built_in_kernels
 platform
@@ -371,12 +365,12 @@ partition_affinity_domains
 partition_type_property
 partition_type_affinity_domain
 reference_count
-==================================  ==========================  ===
+==================================  ====================================  ===
 
 .. _info-device_type:
 
-device_type
-===========
+sycl::info::device_type
+=======================
 
 ::
 
@@ -392,8 +386,8 @@ device_type
 
 See platform :ref:`platform-get_devices` and device :ref:`device-get_devices`.
 
-partition_property
-==================
+sycl::info::partition_property
+==============================
 
 ::
 
@@ -406,8 +400,8 @@ partition_property
 
 See create_sub_devices_
 
-partition_affinity_domain
-=========================
+sycl::info::partition_affinity_domain
+=====================================
 
 ::
 
@@ -423,8 +417,8 @@ partition_affinity_domain
 
 See create_sub_devices_
 
-local_mem_type
-==============
+sycl::info::local_mem_type
+==========================
 
 ::
 
@@ -432,8 +426,8 @@ local_mem_type
 
 See get_info_
 
-fp_config
-=========
+sycl::info::fp_config
+=====================
 
 ::
 
@@ -450,8 +444,8 @@ fp_config
 
 See get_info_
 
-global_mem_cache_type
-=====================
+sycl::info::global_mem_cache_type
+==================================
 
 ::
 
@@ -459,8 +453,8 @@ global_mem_cache_type
 
 See get_info_
 
-execution_capability
-====================
+sycl::info::execution_capability
+================================
 
 ::
    

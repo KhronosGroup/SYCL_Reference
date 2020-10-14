@@ -7,9 +7,9 @@
 **************
 
 
-===============
- rounding_mode
-===============
+===================
+sycl::rounding_mode
+===================
 
 ::
 
@@ -21,9 +21,9 @@
        rtn
    };
 
-======
- elem
-======
+==========
+sycl::elem
+==========
 
 ::
 
@@ -57,9 +57,9 @@
 
 .. rst-class:: api-class
 	       
-=====
- vec
-=====
+=========
+sycl::vec
+=========
 
 ::
 
@@ -82,7 +82,7 @@ vector_t
    explicit vec(const dataT &arg);
    template <typename... argTN>
    vec(const argTN&... args);
-   vec(const vec<dataT, numElements> &rhs);
+   vec(const sycl::vec<dataT, numElements> &rhs);
    vec(vector_t openclVector);
 
 
@@ -119,8 +119,8 @@ convert
 
 ::
    
-   template <typename convertT, rounding_mode roundingMode = rounding_mode::automatic>
-   vec<convertT, numElements> convert() const;
+   template <typename convertT, sycl::rounding_mode roundingMode = sycl::rounding_mode::automatic>
+   sycl::vec<convertT, numElements> convert() const;
 
 as
 ==
@@ -179,131 +179,128 @@ load
 
 ::
 
-   template <access::address_space addressSpace>
-   void load(size_t offset, multi_ptr<const dataT, addressSpace> ptr);
+   template <sycl::access::address_space addressSpace>
+   void load(size_t offset, sycl::multi_ptr<const dataT, addressSpace> ptr);
 
 store
 =====
 
 ::
 
-   template <access::address_space addressSpace>
-   void load(size_t offset, multi_ptr<const dataT, addressSpace> ptr);
+   template <sycl::access::address_space addressSpace>
+   void load(size_t offset, sycl::multi_ptr<const dataT, addressSpace> ptr);
 
 Arithmetic operators
 ====================
 
 .. parsed-literal::
    
-  friend vec operator+(const vec &lhs, const vec &rhs);
-  friend vec operator+(const vec &lhs, const dataT &rhs);
-  friend vec operator+(const dataT &lhs, const vec &rhs);
+  friend sycl::vec operator+(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator+(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator+(const dataT &lhs, const sycl::vec &rhs);
 
-  friend vec operator-(const vec &lhs, const vec &rhs);
-  friend vec operator-(const vec &lhs, const dataT &rhs);
-  friend vec operator-(const dataT &lhs, const vec &rhs);
+  friend sycl::vec operator-(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator-(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator-(const dataT &lhs, const sycl::vec &rhs);
 
-  friend vec operator*(const vec &lhs, const vec &rhs);
-  friend vec operator*(const vec &lhs, const dataT &rhs);
-  friend vec operator*(const dataT &lhs, const vec &rhs);
+  friend sycl::vec operator*(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator*(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator*(const dataT &lhs, const sycl::vec &rhs);
 
-  friend vec operator/(const vec &lhs, const vec &rhs);
-  friend vec operator/(const vec &lhs, const dataT &rhs);
-  friend vec operator/(const dataT &lhs, const vec &rhs);
+  friend sycl::vec operator/(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator/(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator/(const dataT &lhs, const sycl::vec &rhs);
 
   
-  friend vec &operator+=(vec &lhs, const vec &rhs);
-  friend vec &operator+=(vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator+=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator+=(sycl::vec &lhs, const dataT &rhs);
 
-  friend vec &operator-=(vec &lhs, const vec &rhs);
-  friend vec &operator-=(vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator-=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator-=(sycl::vec &lhs, const dataT &rhs);
 
-  friend vec &operator*=(vec &lhs, const vec &rhs);
-  friend vec &operator*=(vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator*=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator*=(sycl::vec &lhs, const dataT &rhs);
 
-  friend vec &operator/=(vec &lhs, const vec &rhs);
-  friend vec &operator/=(vec &lhs, const dataT &rhs);
-
-
-  friend vec &operator++(vec &lhs);
-  friend vec operator++(vec& lhs, int);
-
-  friend vec &operator--(vec &lhs);
-  friend vec operator--(vec& lhs, int);
-
-  friend vec<RET, numElements> operator&&(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator&&(const vec& lhs, const dataT &rhs);
-
-  friend vec<RET, numElements> operator||(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator||(const vec& lhs, const dataT &rhs);
+  friend sycl::vec &operator/=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator/=(sycl::vec &lhs, const dataT &rhs);
 
 
-  friend vec<RET, numElements> operator==(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator==(const vec &lhs, const dataT &rhs);
-  friend vec<RET, numElements> operator==(const dataT &lhs, const vec &rhs);
+  friend sycl::vec &operator++(sycl::vec &lhs);
+  friend sycl::vec operator++(sycl::vec& lhs, int);
 
-  friend vec<RET, numElements> operator!=(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator!=(const vec &lhs, const dataT &rhs);
-  friend vec<RET, numElements> operator!=(const dataT &lhs, const vec &rhs);
+  friend sycl::vec &operator--(sycl::vec &lhs);
+  friend sycl::vec operator--(sycl::vec& lhs, int);
 
-  friend vec<RET, numElements> operator<(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator<(const vec &lhs, const dataT &rhs);
-  friend vec<RET, numElements> operator<(const dataT &lhs, const vec &rhs);
+  friend sycl::vec<RET, numElements> operator&&(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator&&(const sycl::vec& lhs, const dataT &rhs);
 
-  friend vec<RET, numElements> operator>(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator>(const vec &lhs, const dataT &rhs);
-  friend vec<RET, numElements> operator>(const dataT &lhs, const vec &rhs);
+  friend sycl::vec<RET, numElements> operator||(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator||(const sycl::vec& lhs, const dataT &rhs);
 
-  friend vec<RET, numElements> operator<=(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator<=(const vec &lhs, const dataT &rhs);
-  friend vec<RET, numElements> operator<=(const dataT &lhs, const vec &rhs);
 
-  friend vec<RET, numElements> operator>=(const vec &lhs, const vec &rhs);
-  friend vec<RET, numElements> operator>=(const vec &lhs, const dataT &rhs);
-  friend vec<RET, numElements> operator>=(const dataT &lhs, const vec &rhs);
+  friend sycl::vec<RET, numElements> operator==(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator==(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator==(const dataT &lhs, const sycl::vec &rhs);
 
-  vec<dataT, numElements> &operator=(const vec<dataT, numElements> &rhs);
-  vec<dataT, numElements> &operator=(const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator!=(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator!=(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator!=(const dataT &lhs, const sycl::vec &rhs);
 
-  friend vec<RET, numElements> operator&&(const dataT &lhs, const vec &rhs);
+  friend sycl::vec<RET, numElements> operator<(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator<(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator<(const dataT &lhs, const sycl::vec &rhs);
 
-  friend vec<RET, numElements> operator||(const dataT &lhs, const vec &rhs);
+  friend sycl::vec<RET, numElements> operator>(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator>(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator>(const dataT &lhs, const sycl::vec &rhs);
+
+  friend sycl::vec<RET, numElements> operator<=(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator<=(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator<=(const dataT &lhs, const sycl::vec &rhs);
+
+  friend sycl::vec<RET, numElements> operator>=(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec<RET, numElements> operator>=(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec<RET, numElements> operator>=(const dataT &lhs, const sycl::vec &rhs);
+
+  sycl::vec<dataT, numElements> &operator=(const sycl::vec<dataT, numElements> &rhs);
+  sycl::vec<dataT, numElements> &operator=(const dataT &rhs);
+
+  friend sycl::vec<RET, numElements> operator&&(const dataT &lhs, const sycl::vec &rhs);
+
+  friend sycl::vec<RET, numElements> operator||(const dataT &lhs, const sycl::vec &rhs);
 
   *Available only when:
    dataT != cl_float && dataT != cl_double && dataT != cl_half*
 
-  friend vec operator<<(const vec &lhs, const vec &rhs);
-  friend vec operator<<(const vec &lhs, const dataT &rhs);
-  friend vec operator<<(const dataT &lhs, const vec &rhs);
-  friend vec operator>>(const vec &lhs, const vec &rhs);
-  friend vec operator>>(const vec &lhs, const dataT &rhs);
-  friend vec operator>>(const dataT &lhs, const vec &rhs);
-  friend vec &operator>>=(vec &lhs, const vec &rhs);
-  friend vec &operator>>=(vec &lhs, const dataT &rhs);
-  friend vec &operator<<=(vec &lhs, const vec &rhs);
-  friend vec &operator<<=(vec &lhs, const dataT &rhs);
-  friend vec operator&(const vec &lhs, const vec &rhs);
-  friend vec operator&(const vec &lhs, const dataT &rhs);
-  friend vec operator|(const vec &lhs, const vec &rhs);
-  friend vec operator|(const vec &lhs, const dataT &rhs);
-  friend vec operator^(const vec &lhs, const vec &rhs);
-  friend vec operator^(const vec &lhs, const dataT &rhs);
-  friend vec &operator&=(vec &lhs, const vec &rhs);
-  friend vec &operator&=(vec &lhs, const dataT &rhs);
-  friend vec &operator|=(vec &lhs, const vec &rhs);
-  friend vec &operator|=(vec &lhs, const dataT &rhs);
-  friend vec &operator^=(vec &lhs, const vec &rhs);
-  friend vec &operator^=(vec &lhs, const dataT &rhs);
-  friend vec &operator%=(vec &lhs, const vec &rhs);
-  friend vec &operator%=(vec &lhs, const dataT &rhs);
-  friend vec operator%(const vec &lhs, const vec &rhs);
-  friend vec operator%(const vec &lhs, const dataT &rhs);
-  friend vec operator%(const dataT &lhs, const vec &rhs);
-  friend vec operator~(const vec &v);
-  friend vec<RET, numElements> operator!(const vec &v);
-  friend vec operator&(const dataT &lhs, const vec &rhs);
-  friend vec operator|(const dataT &lhs, const vec &rhs);
-  friend vec operator^(const dataT &lhs, const vec &rhs);
-
-
-  
+  friend sycl::vec operator<<(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator<<(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator<<(const dataT &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator>>(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator>>(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator>>(const dataT &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator>>=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator>>=(sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator<<=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator<<=(sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator&(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator&(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator|(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator|(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator^(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator^(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator&=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator&=(sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator|=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator|=(sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator^=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator^=(sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec &operator%=(sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec &operator%=(sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator%(const sycl::vec &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator%(const sycl::vec &lhs, const dataT &rhs);
+  friend sycl::vec operator%(const dataT &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator~(const sycl::vec &v);
+  friend sycl::vec<RET, numElements> operator!(const sycl::vec &v);
+  friend sycl::vec operator&(const dataT &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator|(const dataT &lhs, const sycl::vec &rhs);
+  friend sycl::vec operator^(const dataT &lhs, const sycl::vec &rhs);

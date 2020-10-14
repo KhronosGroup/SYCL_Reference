@@ -13,9 +13,9 @@ Queues
 
 .. rst-class:: api-class
 
-=====
-queue
-=====
+===========
+sycl::queue
+===========
 
 ::
    
@@ -44,32 +44,32 @@ to monitor the completion of the task for completion and errors.
 
 ::
    
-  explicit queue(const property_list &propList = {});
-  explicit queue(const async_handler &asyncHandler,
-                 const property_list &propList = {});
-  explicit queue(const device_selector &deviceSelector,
-                 const property_list &propList = {});
-  explicit queue(const device_selector &deviceSelector,
-                 const async_handler &asyncHandler,
-		 const property_list &propList = {});
-  explicit queue(const device &syclDevice, const property_list &propList = {});
-  explicit queue(const device &syclDevice, const async_handler &asyncHandler,
-                 const property_list &propList = {});
-  explicit queue(const context &syclContext,
-                 const device_selector &deviceSelector,
-		 const property_list &propList = {});
-  explicit queue(const context &syclContext,
-                 const device_selector &deviceSelector,
-                 const async_handler &asyncHandler,
-		 const property_list &propList = {});
-  explicit queue(const context &syclContext,
-                 const device &syclDevice,
-		 const property_list &propList = {});
-  explicit queue(const context &syclContext, const device &syclDevice,
-                 const async_handler &asyncHandler,
-		 const property_list &propList = {});
-  explicit queue(cl_command_queue clQueue, const context& syclContext,
-                 const async_handler &asyncHandler = {});
+  explicit queue(const sycl::property_list &propList = {});
+  explicit queue(const sycl::async_handler &asyncHandler,
+                 const sycl::property_list &propList = {});
+  explicit queue(const sycl::device_selector &deviceSelector,
+                 const sycl::property_list &propList = {});
+  explicit queue(const sycl::device_selector &deviceSelector,
+                 const sycl::async_handler &asyncHandler,
+		 const sycl::property_list &propList = {});
+  explicit queue(const sycl::device &syclDevice, const sycl::property_list &propList = {});
+  explicit queue(const sycl::device &syclDevice, const sycl::async_handler &asyncHandler,
+                 const sycl::property_list &propList = {});
+  explicit queue(const sycl::context &syclContext,
+                 const sycl::device_selector &deviceSelector,
+		 const sycl::property_list &propList = {});
+  explicit queue(const sycl::context &syclContext,
+                 const sycl::device_selector &deviceSelector,
+                 const sycl::async_handler &asyncHandler,
+		 const sycl::property_list &propList = {});
+  explicit queue(const sycl::context &syclContext,
+                 const sycl::device &syclDevice,
+		 const sycl::property_list &propList = {});
+  explicit queue(const sycl::context &syclContext, const sycl::device &syclDevice,
+                 const sycl::async_handler &asyncHandler,
+		 const sycl::property_list &propList = {});
+  explicit queue(cl_command_queue clQueue, const sycl::context& syclContext,
+                 const sycl::async_handler &asyncHandler = {});
 
 Construct a queue.
 
@@ -88,7 +88,7 @@ queue with an ``asyncHandler`` and calling wait_and_throw_.
 .. rubric:: Parameters
 
 ======================  ===
-propList                See `Queue Properties`_
+propList                See `sycl::property::queue`_
 asyncHandler            Called for asynchronous exceptions, see :ref:`async_handler`
 deviceSelector          Selects device for queue
 syclDevice              Device for queue
@@ -119,7 +119,7 @@ get_context
 
 ::
    
-  context get_context() const;
+  sycl::context get_context() const;
 
 Returns context associated with queue.
 
@@ -128,7 +128,7 @@ get_device
 
 ::
    
-  device get_device() const;
+  sycl::device get_device() const;
 
 Returns device associated with queue.
 
@@ -146,8 +146,8 @@ get_info
 
 ::
    
-  template <info::queue param>
-  typename info::param_traits<info::queue, param>::return_type get_info() const;
+  template <sycl::info::queue param>
+  typename sycl::info::param_traits<sycl::info::queue, param>::return_type get_info() const;
 
 Returns information about the queue as determined by ``param``. See
 queue_ for details.
@@ -233,7 +233,7 @@ memcpy
 
 ::
    
-   event memcpy(void* dest, const void* src, size_t num_bytes);
+   sycl::event memcpy(void* dest, const void* src, size_t num_bytes);
 
 Set memory allocated with :ref:`malloc_device`. For usage, see
 :ref:`event-elapsed-time`.
@@ -245,7 +245,7 @@ memset
 
 ::
 
-   event memset(void* ptr, int value, size_t num_bytes);
+   sycl::event memset(void* ptr, int value, size_t num_bytes);
    
 Set memory allocated with :ref:`malloc_device`. For usage, see
 :ref:`event-elapsed-time`.
@@ -258,13 +258,13 @@ fill
 ::
 
    template <typename T>
-   event fill(void* ptr, const T& pattern, size_t count);
+   sycl::event fill(void* ptr, const T& pattern, size_t count);
 
 Set memory allocated with :ref:`malloc_device`.
 
-==========
-Queue Info
-==========
+=================
+sycl::info::queue
+=================
 
 ::
 
@@ -273,12 +273,6 @@ Queue Info
     device,
     reference_count,
   };
-
-.. rubric:: Namespace
-
-::
-
-   info
 
 Used as a template parameter for get_info_ to determine the type of
 information.
@@ -292,16 +286,10 @@ reference_count  cl_uint                     Reference count of the queue
 ===============  ==========================  ===
 
 
-================
-Queue Properties
-================
+=====================
+sycl::property::queue
+=====================
 
-.. rubric:: Namespace
-
-::
-
-   property::queue
-	    
 Queue properties are specified in the queue constructor.
 
 enable_profiling

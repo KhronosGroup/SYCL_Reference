@@ -4,15 +4,15 @@
 
 .. rst-class:: api-class
 	       
-==============
-Local accessor
-==============
+=============================
+sycl::accessor (local memory)
+=============================
 
 ::
    
-   template <typename dataT, int dimensions, access::mode accessmode,
-             access::target accessTarget = access::target::global_buffer,
-             access::placeholder isPlaceholder = access::placeholder::false_t>
+   template <typename dataT, int dimensions, sycl::access::mode accessmode,
+             sycl::access::target accessTarget = sycl::access::target::global_buffer,
+             sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
    class accessor;
 
 Description
@@ -47,14 +47,14 @@ const_reference
   *Available only when:
    dimensions == 0*
    
-  accessor(handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
 
    
   *Available only when:
    dimensions > 0*
    
-  accessor(range<dimensions> allocationSize, handler &commandGroupHandlerRef,
-           const property_list &propList = {});
+  accessor(sycl::range<dimensions> allocationSize, sycl::handler &commandGroupHandlerRef,
+           const sycl::property_list &propList = {});
 
 
 
@@ -81,7 +81,7 @@ get_range
 
 ::
    
-  range<dimensions> get_range() const;
+  sycl::range<dimensions> get_range() const;
 
 .. rubric:: Template parameters
 
@@ -96,7 +96,7 @@ get_pointer
 
 ::
    
-  local_ptr<dataT> get_pointer() const;
+  sycl::local_ptr<dataT> get_pointer() const;
 
 Available only when: accessTarget == access::target::local
 
@@ -108,7 +108,7 @@ operator[]
   *Available only when:
    accessMode == access::mode::read_write && dimensions > 0*
     
-  dataT &operator[](id<dimensions> index) const;
+  dataT &operator[](sycl::id<dimensions> index) const;
 
   *Available only when:
    accessMode == access::mode::read_write && dimensions == 1*
@@ -118,13 +118,13 @@ operator[]
   *Available only when:
    accessMode == access::mode::atomic && dimensions > 0*
    
-  atomic<dataT, access::address_space::local_space> operator[](
-    id<dimensions> index) const;
+  sycl::atomic<dataT, sycl::access::address_space::local_space> operator[](
+    sycl::id<dimensions> index) const;
 
   *Available only when:
    accessMode == access::mode::atomic && dimensions == 1*
    
-  atomic<dataT, access::address_space::local_space> operator[](
+  sycl::atomic<dataT, sycl::access::address_space::local_space> operator[](
     size_t index) const;
 
   *Available only when:
@@ -146,7 +146,7 @@ operator ()
   *Available only when:
    accessMode == access::mode::atomic && dimensions == 0*
    
-  operator atomic<dataT,access::address_space::local_space> () const;
+  operator sycl::atomic<dataT,sycl::access::address_space::local_space> () const;
   
 
   

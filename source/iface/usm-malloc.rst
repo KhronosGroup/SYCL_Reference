@@ -4,9 +4,9 @@
 
 .. _malloc_device:
 
-===============
- malloc_device
-===============
+===================
+sycl::malloc_device
+===================
 
 |2020|
 
@@ -26,21 +26,21 @@
                            const queue& q);
 
    void* malloc_device(size_t num_bytes,
-                       const device& dev,
-                       const context& ctxt);
+                       const sycl::device& dev,
+                       const sycl::context& ctxt);
    void* aligned_alloc_device(size_t alignment,
                               size_t num_bytes,
-                              const device& dev,
-                              const context& ctxt);
+                              const sycl::device& dev,
+                              const sycl::context& ctxt);
    template <typename T>
    T* malloc_device(size_t count,
-                    const device& dev,
-                    const context& ctxt);
+                    const sycl::device& dev,
+                    const sycl::context& ctxt);
    template <typename T>
    T* aligned_alloc_device(size_d alignment,
                            size_t count,
-                           const device& dev,
-                           const context& ctxt);
+                           const sycl::device& dev,
+                           const sycl::context& ctxt);
 
 .. rubric:: Parameters
 
@@ -67,43 +67,43 @@ functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
 
 .. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
 
-=============
- malloc_host
-=============
+=================
+sycl::malloc_host
+=================
 
 |2020|
 
 ::
 
    void* malloc_host(size_t num_bytes,
-                       const queue& q);
+                     const sycl::queue& q);
    void* aligned_alloc_host(size_t alignment,
-                              size_t num_bytes,
-                              const queue& q);
+                            size_t num_bytes,
+                            const sycl::queue& q);
    template <typename T>
    T* malloc_host(size_t count,
-                    const queue& q);
+                  const sycl::queue& q);
    template <typename T>
    T* aligned_alloc_host(size_d alignment,
-                           size_t count,
-                           const queue& q);
+                         size_t count,
+                         const sycl::queue& q);
 
    void* malloc_host(size_t num_bytes,
-                       const device& dev,
-                       const context& ctxt);
+                     const sycl::device& dev,
+                     const sycl::context& ctxt);
    void* aligned_alloc_host(size_t alignment,
-                              size_t num_bytes,
-                              const device& dev,
-                              const context& ctxt);
+                            size_t num_bytes,
+                            const sycl::device& dev,
+                            const sycl::context& ctxt);
    template <typename T>
    T* malloc_host(size_t count,
-                    const device& dev,
-                    const context& ctxt);
+                  const sycl::device& dev,
+                  const sycl::context& ctxt);
    template <typename T>
    T* aligned_alloc_host(size_d alignment,
-                           size_t count,
-                           const device& dev,
-                           const context& ctxt);
+                         size_t count,
+                         const sycl::device& dev,
+                         const sycl::context& ctxt);
 
 .. rubric:: Parameters
 
@@ -122,9 +122,9 @@ leaks. On failure, returns nullptr.
 
 .. seealso:: |SYCL_SPEC_MALLOC_HOST|
 
-===============
- malloc_shared
-===============
+===================
+sycl::malloc_shared
+===================
 
 |2020|
 
@@ -134,31 +134,31 @@ leaks. On failure, returns nullptr.
                        const queue& q);
    void* aligned_alloc_shared(size_t alignment,
                               size_t num_bytes,
-                              const queue& q);
+                              const sycl::queue& q);
    template <typename T>
    T* malloc_shared(size_t count,
-                    const queue& q);
+                    const sycl::queue& q);
    template <typename T>
    T* aligned_alloc_shared(size_d alignment,
                            size_t count,
-                           const queue& q);
+                           const sycl::queue& q);
 
    void* malloc_shared(size_t num_bytes,
-                       const device& dev,
-                       const context& ctxt);
+                       const sycl::device& dev,
+                       const sycl::context& ctxt);
    void* aligned_alloc_shared(size_t alignment,
                               size_t num_bytes,
-                              const device& dev,
-                              const context& ctxt);
+                              const sycl::device& dev,
+                              const sycl::context& ctxt);
    template <typename T>
    T* malloc_shared(size_t count,
-                    const device& dev,
-                    const context& ctxt);
+                    const sycl::device& dev,
+                    const sycl::context& ctxt);
    template <typename T>
    T* aligned_alloc_shared(size_d alignment,
                            size_t count,
-                           const device& dev,
-                           const context& ctxt);
+                           const sycl::device& dev,
+                           const sycl::context& ctxt);
 
 .. rubric:: Parameters
 
@@ -182,18 +182,18 @@ calling malloc_host. On failure, returns nullptr.
 
 .. _sycl-free:
 
-======
- free
-======
+==========
+sycl::free
+==========
 
 |2020|
 
 ::
 
-   void free(void* ptr, context& context);
-   void free(void* ptr, queue& q);
+   void free(void* ptr, sycl::context& context);
+   void free(void* ptr, sycl::queue& q);
 
-Free memory allocated by `malloc_device`_, `malloc_host`_, or
-`malloc_shared`_.
+Free memory allocated by `sycl::malloc_device`_, `sycl::malloc_host`_, or
+`sycl::malloc_shared`_.
    
 .. seealso:: |SYCL_SPEC_FREE|

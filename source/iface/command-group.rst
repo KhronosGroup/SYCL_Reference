@@ -18,9 +18,9 @@ Command groups
 
 .. rst-class:: api-class
 
-===============
- command_group
-===============
+===================
+sycl::command_group
+===================
 
 ::
 
@@ -34,9 +34,9 @@ Command groups
 ::
 
   template <typename functorT>
-  command_group(queue &primaryQueue, const functorT &lambda);
+  command_group(sycl::queue &primaryQueue, const functorT &lambda);
   template <typename functorT>
-  command_group(queue &primaryQueue, queue &secondaryQueue,
+  command_group(sycl::queue &primaryQueue, sycl::queue &secondaryQueue,
                 const functorT &lambda);
 
 events
@@ -44,7 +44,7 @@ events
 
 ::
    
-  event start_event();
-  event kernel_event();
-  event complete_event();
+  sycl::event start_event();
+  sycl::event kernel_event();
+  sycl::event complete_event();
 

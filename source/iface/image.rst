@@ -10,14 +10,14 @@ Images
 
 .. rst-class:: api-class
 	       
-=====
-image
-=====
+===========
+sycl::image
+===========
 
 ::
    
    template <int dimensions = 1,
-             typename AllocatorT = cl::sycl::image_allocator>
+             typename AllocatorT = sycl::image_allocator>
    class image;
 
 .. rubric:: Template parameters
@@ -38,55 +38,55 @@ AllocatorT
 
 .. parsed-literal::
    
-  image(image_channel_order order, image_channel_type type,
-        const range<dimensions> &range, const property_list &propList = {});
-  image(image_channel_order order, image_channel_type type,
-        const range<dimensions> &range, AllocatorT allocator,
-        const property_list &propList = {});
-  image(void *hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        const property_list &propList = {});
-  image(void *hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        AllocatorT allocator, const property_list &propList = {});
-  image(const void *hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        const property_list &propList = {});
-  image(const void *hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        AllocatorT allocator, const property_list &propList = {});
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        const property_list &propList = {});
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        AllocatorT allocator, const property_list &propList = {});
-  image(cl_mem clMemObject, const context &syclContext,
-        event availableEvent = {});
+  image(sycl::image_channel_order order, sycl::image_channel_type type,
+        const sycl::range<dimensions> &range, const sycl::property_list &propList = {});
+  image(sycl::image_channel_order order, sycl::image_channel_type type,
+        const sycl::range<dimensions> &range, AllocatorT allocator,
+        const sycl::property_list &propList = {});
+  image(void *hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        const sycl::property_list &propList = {});
+  image(void *hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        AllocatorT allocator, const sycl::property_list &propList = {});
+  image(const void *hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        const sycl::property_list &propList = {});
+  image(const void *hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        AllocatorT allocator, const sycl::property_list &propList = {});
+  image(sycll::shared_ptr_class<void> &hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        const sycl::property_list &propList = {});
+  image(sycl::shared_ptr_class<void> &hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        AllocatorT allocator, const sycl::property_list &propList = {});
+  image(cl_mem clMemObject, const sycl::context &syclContext,
+        sycl::event availableEvent = {});
 
   *Available only when:
    dimensions > 1*
 	      
-  image(image_channel_order order, image_channel_type type,
-        const range<dimensions> &range, const range<dimensions - 1> &pitch,
-        const property_list &propList = {});
-  image(image_channel_order order, image_channel_type type,
-        const range<dimensions> &range, const range<dimensions - 1> &pitch,
-        AllocatorT allocator, const property_list &propList = {});
-  image(void \*hostPointer, image_channel_order order,     
-        image_channel_type type, const range<dimensions> &range,
-        range<dimensions - 1> &pitch, const property_list &propList = {});   
-  image(void \*hostPointer, image_channel_order order,     
-        image_channel_type type, const range<dimensions> &range,
-        range<dimensions - 1> &pitch, AllocatorT allocator,
-        const property_list &propList = {});
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        const range<dimensions - 1> &pitch, const property_list &propList = {});
-  image(shared_ptr_class<void> &hostPointer, image_channel_order order,
-        image_channel_type type, const range<dimensions> &range,
-        const range<dimensions - 1> &pitch, AllocatorT allocator,
-        const property_list &propList = {});
+  image(sycl::image_channel_order order, sycl::image_channel_type type,
+        const sycl::range<dimensions> &range, const sycl::range<dimensions - 1> &pitch,
+        const sycl::property_list &propList = {});
+  image(sycl::image_channel_order order, sycl::image_channel_type type,
+        const sycl::range<dimensions> &range, const sycl::range<dimensions - 1> &pitch,
+        AllocatorT allocator, const sycl::property_list &propList = {});
+  image(void \*hostPointer, sycl::image_channel_order order,     
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        sycl::range<dimensions - 1> &pitch, const sycl::property_list &propList = {});   
+  image(void \*hostPointer, sycl::image_channel_order order,     
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        sycl::range<dimensions - 1> &pitch, AllocatorT allocator,
+        const sycl::property_list &propList = {});
+  image(sycl::shared_ptr_class<void> &hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        const sycl::range<dimensions - 1> &pitch, const sycl::property_list &propList = {});
+  image(sycl::shared_ptr_class<void> &hostPointer, sycl::image_channel_order order,
+        sycl::image_channel_type type, const sycl::range<dimensions> &range,
+        const sycl::range<dimensions - 1> &pitch, AllocatorT allocator,
+        const sycl::property_list &propList = {});
 
 
 .. rubric:: Parameters
@@ -109,14 +109,14 @@ get_range
 
 ::
    
-  range<dimensions> get_range() const;
+  sycl::range<dimensions> get_range() const;
 
 get_pitch
 =========
 
 ::
    
-  range<dimensions-1> get_pitch() const;
+  sycl::range<dimensions-1> get_pitch() const;
 
 Available only when dimensions > 1
 
@@ -146,11 +146,11 @@ get_access
 
 ::
 
-  template <typename dataT, access::mode accessMode>
-  accessor<dataT, dimensions, accessMode, access::target::image>
-  get_access(handler & commandGroupHandler);
-  template <typename dataT, access::mode accessMode>
-  accessor<dataT, dimensions, accessMode, access::target::host_image>
+  template <typename dataT, sycl::access::mode accessMode>
+  accessor<dataT, dimensions, accessMode, sycl::access::target::image>
+  get_access(sycl::handler & commandGroupHandler);
+  template <typename dataT, sycl::access::mode accessMode>
+  accessor<dataT, dimensions, accessMode, sycl::access::target::host_image>
   get_access();
 
 .. rubric:: Template parameters
@@ -209,19 +209,13 @@ flag
 
 .. rst-class:: api-class
 	       
-use_host_ptr
-============
+sycl::property::image::use_host_ptr
+===================================
 
 ::
 
    class use_host_ptr;
 
-.. rubric:: Namespace
-
-::
-
-   property::image
-   
 Description
 
 .. member-toc::
@@ -239,18 +233,12 @@ Description
 
 .. rst-class:: api-class
 	       
-use_mutex
-=========
+sycl::property::image::use_mutex
+================================
 
 ::
 
    class use_mutex;
-
-.. rubric:: Namespace
-
-::
-
-   property::image
 
 Description
 
@@ -277,13 +265,13 @@ get_mutex_ptr
 
 Description
 
-context_bound
-==============================
+sycl::property::image::context_bound
+====================================
 
 
 ::
 
-   context_bound;
+   class context_bound;
 
 .. rubric:: Namespace
 
@@ -318,9 +306,9 @@ get_context
 
 Description
 
-===================
-Image_channel_order
-===================
+=========================
+sycl::image_channel_order
+=========================
 
 ::
    
@@ -341,9 +329,9 @@ Image_channel_order
      abgr
    }
 
-==================
-Image_channel_type
-==================
+========================
+sycl::image_channel_type
+========================
 
 ::
    
