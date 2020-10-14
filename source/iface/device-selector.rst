@@ -35,9 +35,6 @@ operator.
 
 .. todo:: Example Custom device selector	    
 
-.. member-toc::
-
-
 (constructors)
 ==============
 

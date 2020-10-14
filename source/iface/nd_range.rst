@@ -31,8 +31,6 @@ dimensions        Number of dimensions
 
 .. seealso:: |SYCL_SPEC_ND_RANGE|
 
-.. member-toc::
-   
 (constructors)
 ==============
 

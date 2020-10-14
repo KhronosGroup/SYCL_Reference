@@ -72,9 +72,6 @@ allocator_type    type of allocator for buffer data
 
 .. seealso:: |SYCL_SPEC_BUFFER|
 
-.. member-toc::
-
-
 .. _buffer-constructors:
 
 (constructors)
@@ -324,8 +321,6 @@ sycl::propery::buffer:use_host_ptr
 Use the provided host pointer and do not allocate new data on the
 host.
 
-.. member-toc::
-
 .. _use_host_ptr-constructors:
 
 (constructors)
@@ -347,8 +342,6 @@ sycl::property::use_mutex
 
 Adds the requirement that the memory owned by the SYCL buffer can be
 shared with the application via a std::mutex provided to the property.
-
-.. member-toc::
 
 .. _use_mutex-constructors:
 
@@ -379,8 +372,6 @@ sycl::property::buffer::context_bound
 
 The buffer can only be associated with a single SYCL context provided
 to the property.
-
-.. member-toc::
 
 .. _context_bound-constructors:
 

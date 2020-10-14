@@ -25,8 +25,6 @@ contains the :ref:`nd_range` defining the index space.
 
 .. seealso:: |SYCL_SPEC_ND_ITEM|
 
-.. member-toc::
-
 get_global_id
 =============
 

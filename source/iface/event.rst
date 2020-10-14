@@ -27,8 +27,6 @@ kernel.
 
 .. seealso:: |SYCL_SPEC_EVENT|
 
-.. member-toc::
-
 (constructors)
 ==============
 

@@ -62,8 +62,6 @@ address_space
    
 .. seealso:: |SYCL_SPEC_MULTI_PTR|
 
-.. member-toc::
-
 (constructors)
 ==============
 	    

@@ -29,8 +29,6 @@ AllocatorT
 
 .. seealso:: |SYCL_SPEC_IMAGE|
 
-.. member-toc::
-
 .. _image-image:
 
 (constructors)
@@ -218,8 +216,6 @@ sycl::property::image::use_host_ptr
 
 Description
 
-.. member-toc::
-
 .. _image-use_host_ptr-use_host_ptr:
 
 (constructors)
@@ -242,8 +238,6 @@ sycl::property::image::use_mutex
 
 Description
 
-.. member-toc::
-   
 .. _image-get_mutex_ptr-get_mutex_ptr:
    
 (constructors)
@@ -280,8 +274,6 @@ sycl::property::image::context_bound
    property::image
 
 Description
-
-.. member-toc::
 
 .. _image-context_bound-context_bound:
 
