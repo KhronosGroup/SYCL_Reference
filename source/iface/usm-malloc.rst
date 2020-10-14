@@ -65,6 +65,8 @@ the memory with :ref:`queue` member functions (:ref:`queue-memset`,
 functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
 :ref:`handler-fill`).
 
+See :ref:`event-elapsed-time` for usage.
+
 .. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
 
 =================
