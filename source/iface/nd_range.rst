@@ -7,9 +7,9 @@
 .. _nd_range:
 
 
-==========
- nd_range
-==========
+==============
+sycl::nd_range
+==============
 
 ::
 
@@ -38,8 +38,8 @@ dimensions        Number of dimensions
 
 ::
 
-  nd_range(range<dimensions> globalSize, range<dimensions> localSize,
-           id<dimensions> offset = id<dimensions>());
+  nd_range(sycl::range<dimensions> globalSize, sycl::range<dimensions> localSize,
+           sycl::id<dimensions> offset = sycl::id<dimensions>());
 
 Construct an ``nd_range``.
 
@@ -56,7 +56,7 @@ get_global_range
 
 ::
    
-  range<dimensions> get_global_range() const;
+  sycl::range<dimensions> get_global_range() const;
 
 Returns a :ref:`range` defining the index space.
 
@@ -65,7 +65,7 @@ get_local_range
 
 ::
    
-  range<dimensions> get_local_range() const;
+  sycl::range<dimensions> get_local_range() const;
 
 Returns a :ref:`range` defining the index space of a work group.
 
@@ -74,7 +74,7 @@ get_group_range
 
 ::
 
-  range<dimensions> get_group_range() const;
+  sycl::range<dimensions> get_group_range() const;
 
 Returns a :ref:`range` defining the number of work groups in every dimension.
 
@@ -84,6 +84,6 @@ get_offset
 
 ::
 
-  id<dimensions> get_offset() const;
+  sycl::id<dimensions> get_offset() const;
 
 Returns a :ref:`id` defining the offset.

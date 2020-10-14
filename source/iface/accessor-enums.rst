@@ -4,9 +4,9 @@
 
 .. _access-mode:
 
-======
- mode
-======
+==================
+sycl::access::mode
+==================
 
 ::
 
@@ -19,18 +19,11 @@
     atomic
   };
 
-.. rubric:: Namespace
-
-::
-
-   access
-
-   
 .. _access-target:
 
-========
- target
-========
+====================
+sycl::access::target
+====================
 
 ::
    
@@ -44,10 +37,5 @@
     image_array
   };
 
-.. rubric:: Namespace
-
-::
-
-   access
 
   

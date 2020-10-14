@@ -4,9 +4,9 @@
 
 .. rst-class:: api-class
 	       
-==============
- device_event
-==============
+==================
+sycl::device_event
+==================
 
 ::
 

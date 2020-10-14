@@ -6,9 +6,9 @@
 	       
 .. _id:
 
-====
- id
-====
+========
+sycl::id
+========
 
 ::
 
@@ -35,8 +35,8 @@ a :ref:`range`. Examples includes use as an index in an
   id(size_t dim0, size_t dim1);
   id(size_t dim0, size_t dim1, size_t dim2);
 
-  id(const range<dimensions> &range);
-  id(const item<dimensions> &item);
+  id(const sycl::range<dimensions> &range);
+  id(const sycl::item<dimensions> &item);
 
 Construct an ``id``.
 
@@ -64,18 +64,18 @@ Returns the value for dimension ``dimension``.
   *OP is:
    +, -, \*, /, %, <<, >>, &, |, ^, &&, ||, <, >, <=, >=*
 
-  friend id operatorOP(const id &lhs, const id &rhs);
-  friend id operatorOP(const id &lhs, const size_t &rhs);
+  friend id operatorOP(const sycl::id &lhs, const sycl::id &rhs);
+  friend id operatorOP(const sycl::id &lhs, const size_t &rhs);
 
   *OP is:
    +=, -=, \*=, /=, %=, <<=, >>=, &=, |=, ^=*
    
-  friend id &operatorOP(id &lhs, const id &rhs);
-  friend id &operatorOP(id &lhs, const size_t &rhs);
+  friend sycl::id &operatorOP(sycl::id &lhs, const sycl::id &rhs);
+  friend sycl::id &operatorOP(sycl::id &lhs, const size_t &rhs);
 
   *OP is:
    +, -, \*, /, %, <<, >>, &, |, ^, &&, ||, <, >, <=, >=*
    
-   friend id operatorOP(const size_t &lhs, const id &rhs);
+   friend sycl::id operatorOP(const size_t &lhs, const sycl::id &rhs);
 
 Relational, arithmetic, and indexing operators on an ``id``.

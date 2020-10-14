@@ -6,9 +6,9 @@
 
 .. rst-class:: api-class
 	       
-=======
- group
-=======
+===========
+sycl::group
+===========
 
 ::
 

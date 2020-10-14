@@ -6,9 +6,9 @@
 	       
 .. _item:
 
-======
- item
-======
+==========
+sycl::item
+==========
 
 ::
 
@@ -40,7 +40,7 @@ get_id
 
 ::
    
-  id<dimensions> get_id() const;
+  sycl::id<dimensions> get_id() const;
   size_t get_id(int dimension) const;
 
 
@@ -51,7 +51,7 @@ get_range
 
 ::
    
-  range<dimensions> get_range() const;
+  sycl::range<dimensions> get_range() const;
   size_t get_range(int dimension) const;
 
 Returns :ref:`range` associated with ``item``.
@@ -65,7 +65,7 @@ get_offset
   *Only available when:
    with_offset is true*
    
-  id<dimensions> get_offset() const;
+  sycl::id<dimensions> get_offset() const;
 
 Returns offset associated with ``item``.
 
@@ -95,7 +95,7 @@ operator()
 
 ::
    
-  operator item<dimensions, true>() const;
+  operator sycl::item<dimensions, true>() const;
 
 Returns item with offset set to 0.
 

@@ -6,9 +6,9 @@
 Streams
 *******
 
-====================
- stream_manipulator
-====================
+========================
+sycl::stream_manipulator
+========================
 
 ::
 
@@ -35,27 +35,27 @@ Streams
 
 ::
    
-   const stream_manipulator flush = stream_manipulator::flush;
-   const stream_manipulator dec = stream_manipulator::dec;
-   const stream_manipulator hex = stream_manipulator::hex;
-   const stream_manipulator oct = stream_manipulator::oct;
-   const stream_manipulator noshowbase = stream_manipulator::noshowbase;
-   const stream_manipulator showbase = stream_manipulator::showbase;
-   const stream_manipulator noshowpos = stream_manipulator::noshowpos;
-   const stream_manipulator showpos = stream_manipulator::showpos;
-   const stream_manipulator endl = stream_manipulator::endl;
-   const stream_manipulator fixed = stream_manipulator::fixed;
-   const stream_manipulator scientific = stream_manipulator::scientific;
-   const stream_manipulator hexfloat = stream_manipulator::hexfloat;
-   const stream_manipulator defaultfloat = stream_manipulator::defaultfloat;
+   const sycl::stream_manipulator flush = sycl::stream_manipulator::flush;
+   const sycl::stream_manipulator dec = sycl::stream_manipulator::dec;
+   const sycl::stream_manipulator hex = sycl::stream_manipulator::hex;
+   const sycl::stream_manipulator oct = sycl::stream_manipulator::oct;
+   const sycl::stream_manipulator noshowbase = sycl::stream_manipulator::noshowbase;
+   const sycl::stream_manipulator showbase = sycl::stream_manipulator::showbase;
+   const sycl::stream_manipulator noshowpos = sycl::stream_manipulator::noshowpos;
+   const sycl::stream_manipulator showpos = sycl::stream_manipulator::showpos;
+   const sycl::stream_manipulator endl = sycl::stream_manipulator::endl;
+   const sycl::stream_manipulator fixed = sycl::stream_manipulator::fixed;
+   const sycl::stream_manipulator scientific = sycl::stream_manipulator::scientific;
+   const sycl::stream_manipulator hexfloat = sycl::stream_manipulator::hexfloat;
+   const sycl::stream_manipulator defaultfloat = sycl::stream_manipulator::defaultfloat;
    __precision_manipulator__ setprecision(int precision);
    __width_manipulator__ setw(int width);
 
 .. rst-class:: api-class
 	       
-============
-Stream Class
-============
+==============
+ sycl::stream
+==============
 
 ::
 
@@ -67,7 +67,7 @@ Stream Class
 
 ::
    
-    stream(size_t totalBufferSize, size_t workItemBufferSize, handler& cgh);
+    stream(size_t totalBufferSize, size_t workItemBufferSize, sycl::handler& cgh);
 
 
 get_size
@@ -103,6 +103,6 @@ compatibility.  get_max_statement_size() is a deprecated query.
 ::
    
    template <typename T>
-   const stream& operator<<(const stream& os, const T &rhs);
+   const sycl::stream& operator<<(const sycl::stream& os, const T &rhs);
 
 

@@ -11,14 +11,14 @@
 
 .. rst-class:: api-class
 	       
-======
-buffer
-======
+============
+sycl::buffer
+============
 
 ::
    
    template <typename T, int dimensions = 1,
-             typename AllocatorT = cl::sycl::buffer_allocator>
+             typename AllocatorT = sycl::buffer_allocator>
    class buffer;
 
 .. rubric:: Template parameters
@@ -82,37 +82,37 @@ allocator_type    type of allocator for buffer data
 
 .. parsed-literal::
    
-  buffer(const range<dimensions> &bufferRange,
-         const property_list &propList = {});
-  buffer(const range<dimensions> &bufferRange, AllocatorT allocator,
-         const property_list &propList = {});
-  buffer(T *hostData, const range<dimensions> &bufferRange,
-         const property_list &propList = {});
-  buffer(T *hostData, const range<dimensions> &bufferRange,
-         AllocatorT allocator, const property_list &propList = {});
-  buffer(const T *hostData, const range<dimensions> &bufferRange,
-         const property_list &propList = {});
-  buffer(const T *hostData, const range<dimensions> &bufferRange,
-         AllocatorT allocator, const property_list &propList = {});
+  buffer(const sycl::range<dimensions> &bufferRange,
+         const sycl::property_list &propList = {});
+  buffer(const sycl::range<dimensions> &bufferRange, AllocatorT allocator,
+         const sycl::property_list &propList = {});
+  buffer(T *hostData, const sycl::range<dimensions> &bufferRange,
+         const sycl::property_list &propList = {});
+  buffer(T *hostData, const sycl::range<dimensions> &bufferRange,
+         AllocatorT allocator, const sycl::property_list &propList = {});
+  buffer(const T *hostData, const sycl::range<dimensions> &bufferRange,
+         const sycl::property_list &propList = {});
+  buffer(const T *hostData, const sycl::range<dimensions> &bufferRange,
+         AllocatorT allocator, const sycl::property_list &propList = {});
   buffer(const shared_ptr_class<T> &hostData,
-         const range<dimensions> &bufferRange, AllocatorT allocator,
-         const property_list &propList = {});
+         const sycl::range<dimensions> &bufferRange, AllocatorT allocator,
+         const sycl::property_list &propList = {});
   buffer(const shared_ptr_class<T> &hostData,
-         const range<dimensions> &bufferRange,
-         const property_list &propList = {});
+         const sycl::range<dimensions> &bufferRange,
+         const sycl::property_list &propList = {});
   buffer(buffer<T, dimensions, AllocatorT> b, const id<dimensions> &baseIndex,
-         const range<dimensions> &subRange);
+         const sycl::range<dimensions> &subRange);
 
   *Available only when:
    dimensions == 1*
    
   template <class InputIterator>
   buffer<T, 1>(InputIterator first, InputIterator last, AllocatorT allocator,
-               const property_list &propList = {});
+               const sycl::property_list &propList = {});
   template <class InputIterator>
   buffer<T, 1>(InputIterator first, InputIterator last,
-               const property_list &propList = {});
-  buffer(cl_mem clMemObject, const context &syclContext,
+               const sycl::property_list &propList = {});
+  buffer(cl_mem clMemObject, const sycl::context &syclContext,
          event availableEvent = {});
 
 Construct a buffer.
@@ -154,7 +154,7 @@ get_range
 
 ::
    
-  range<dimensions> get_range() const;
+  sycl::range<dimensions> get_range() const;
 
 
 Returns the dimensions of the buffer.
@@ -197,18 +197,18 @@ get_access
 
 ::
 
-  template <access::mode mode, access::target target = access::target::global_buffer>
+  template <sycl::access::mode mode, sycl::access::target target = sycl::access::target::global_buffer>
   accessor<T, dimensions, mode, target> get_access(
-      handler &commandGroupHandler);
-  template <access::mode mode>
-  accessor<T, dimensions, mode, access::target::host_buffer> get_access();
-  template <access::mode mode, access::target target = access::target::global_buffer>
+      sycl::handler &commandGroupHandler);
+  template <sycl::access::mode mode>
+  accessor<T, dimensions, mode, sycl::access::target::host_buffer> get_access();
+  template <sycl::access::mode mode, sycl::access::target target = sycl::access::target::global_buffer>
   accessor<T, dimensions, mode, target> get_access(
-      handler &commandGroupHandler, range<dimensions> accessRange,
+      sycl::handler &commandGroupHandler, sycl::range<dimensions> accessRange,
       id<dimensions> accessOffset = {});
-  template <access::mode mode>
-  accessor<T, dimensions, mode, access::target::host_buffer> get_access(
-    range<dimensions> accessRange, id<dimensions> accessOffset = {});
+  template <sycl::access::mode mode>
+  accessor<T, dimensions, mode, sycl::access::target::host_buffer> get_access(
+    sycl::range<dimensions> accessRange, sycl::id<dimensions> accessOffset = {});
 
 Returns a accessor to the buffer.
 
@@ -314,19 +314,13 @@ errc::invalid_object_error
 
 .. rst-class:: api-class
 	       
-use_host_ptr
-============
+sycl::propery::buffer:use_host_ptr
+==================================
 
 ::
 
    class use_host_ptr;
 
-.. rubric:: Namespace
-
-::
-
-   property::buffer
-   
 Use the provided host pointer and do not allocate new data on the
 host.
 
@@ -344,19 +338,13 @@ host.
 
 .. rst-class:: api-class
 	       
-use_mutex
-=========
+sycl::property::use_mutex
+=========================
 
 ::
 
    class use_mutex;
 
-.. rubric:: Namespace
-
-::
-
-   property::buffer
-   
 Adds the requirement that the memory owned by the SYCL buffer can be
 shared with the application via a std::mutex provided to the property.
 
@@ -377,24 +365,18 @@ get_mutex_ptr
 
 ::
 
-   mutex_class *get_mutex_ptr() const;
+   sycl::mutex_class *get_mutex_ptr() const;
 
 
-context_bound
-=============
+sycl::property::buffer::context_bound
+=====================================
 
 
 ::
 
-   context_bound;
+   class context_bound;
 
 
-.. rubric:: Namespace
-
-::
-
-   property::buffer
-   
 The buffer can only be associated with a single SYCL context provided
 to the property.
 
@@ -416,6 +398,6 @@ get_context
 
 ::
 
-   context get_context() const;
+   sycl::context get_context() const;
 
 	    

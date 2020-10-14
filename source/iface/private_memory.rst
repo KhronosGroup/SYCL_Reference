@@ -2,9 +2,9 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-================
- private_memory
-================
+====================
+sycl::private_memory
+====================
 
 ::
 
@@ -20,11 +20,11 @@
 
 ::
 
-  private_memory(const group<Dimensions> &);
+  private_memory(const sycl::group<Dimensions> &);
 
 (operators)
 ===========
 
 ::
 
-  T &operator()(const h_item<Dimensions> &id);
+  T &operator()(const sycl::h_item<Dimensions> &id);

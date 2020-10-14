@@ -161,7 +161,6 @@ from sphinx.util import logging
 logger = logging.getLogger(__name__)
 
 class_layout_pattern = (':title'
-                        '(:rubric Namespace)?'
                         '(:rubric Template parameters:table)?'
                         '(:rubric Example)?'
                         '(:rubric Kernel dispatch:table)?'

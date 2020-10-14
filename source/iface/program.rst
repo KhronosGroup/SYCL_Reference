@@ -2,13 +2,13 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-*******
-Program
-*******
+********
+Programs
+********
 
-===============
- info::program
-===============
+===================
+sycl::info::program
+===================
 
 ::
 
@@ -19,9 +19,9 @@ Program
    };
 
 
-===============
- program_state
-===============
+===================
+sycl::program_state
+===================
 
 ::
 
@@ -33,9 +33,9 @@ Program
 
 .. rst-class:: api-class
 	       
-=========
- program
-=========
+=============
+sycl::program
+=============
 
 ::
 
@@ -46,15 +46,15 @@ Program
 
 ::
    
-  explicit program(const context &context,
-                   const property_list &propList = {});
-  program(const context &context, vector_class<device> deviceList,
-          const property_list &propList = {});
-  program(vector_class<program> &programList,
-          const property_list &propList = {});
-  program(vector_class<program> &programList, string_class linkOptions,
-          const property_list &propList = {});
-  program(const context &context, cl_program clProgram);
+  explicit program(const context &sycl::context,
+                   const sycl::property_list &propList = {});
+  program(const context &sycl::context, sycl::vector_class<sycl::device> deviceList,
+          const sycl::property_list &propList = {});
+  program(sycl::vector_class<sycl::program> &programList,
+          const sycl::property_list &propList = {});
+  program(sycl::vector_class<sycl::program> &programList, sycl::string_class linkOptions,
+          const sycl::property_list &propList = {});
+  program(const sycl::context &context, cl_program clProgram);
 
 get
 ===
@@ -77,22 +77,22 @@ compile_with_kernel_type
 ::
 
    template <typename kernelT>
-   void build_with_kernel_type(string_class buildOptions = "");
+   void build_with_kernel_type(sycl::string_class buildOptions = "");
 
 build_with_source
 =================
 
 ::
 
-   void build_with_source(string_class kernelSource,
-                          string_class buildOptions = "");
+   void build_with_source(sycl::string_class kernelSource,
+                          sycl::string_class buildOptions = "");
 
 link
 ====
 
 ::
 
-   void link(string_class linkOptions = "");
+   void link(sycl::string_class linkOptions = "");
 
 has_kernel
 ==========
@@ -102,7 +102,7 @@ has_kernel
    template <typename kernelT>
    bool has_kernel<kernelT>() const;
 
-   bool has_kernel(string_class kernelName) const;
+   bool has_kernel(sycl::string_class kernelName) const;
 
 get_kernel
 ==========
@@ -110,9 +110,9 @@ get_kernel
 ::
 
   template <typename kernelT>
-  kernel get_kernel<kernelT>() const;
+  sycl::kernel get_kernel<kernelT>() const;
 
-  kernel get_kernel(string_class kernelName) const;
+  sycl::kernel get_kernel(sycl::string_class kernelName) const;
 
 
 get_info
@@ -120,8 +120,8 @@ get_info
 
 ::
 
-  template <info::program param>
-  typename info::param_traits<info::program, param>::return_type
+  template <sycl::info::program param>
+  typename info::param_traits<sycl::info::program, param>::return_type
   get_info() const;
 
 get_binaries
@@ -129,14 +129,14 @@ get_binaries
 
 ::
 
-  vector_class<vector_class<char>> get_binaries() const;
+  sycl::vector_class<sycl::vector_class<char>> get_binaries() const;
 
 get_context
 ===========
 
 ::
 
-   context get_context() const;
+   sycl::context get_context() const;
 
 
 get_devices
@@ -144,7 +144,7 @@ get_devices
 
 ::
 
-   vector_class<device> get_devices() const;
+   sycl::vector_class<sycl::device> get_devices() const;
 
 
 get_compile_options
@@ -152,7 +152,7 @@ get_compile_options
 
 ::
 
-   string_class get_compile_options() const;
+   sycl::string_class get_compile_options() const;
 
 
 get_link_options
@@ -160,14 +160,14 @@ get_link_options
 
 ::
 
-   string_class get_link_options() const;
+   sycl::string_class get_link_options() const;
 
 get_build_options
 =================
 
 ::
 
-   string_class get_build_options() const;
+   sycl::string_class get_build_options() const;
 
 
 get_state
@@ -175,7 +175,7 @@ get_state
  
 ::
 
-   program_state get_state() const;
+   sycl::program_state get_state() const;
 
 
 

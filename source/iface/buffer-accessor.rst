@@ -2,23 +2,19 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-****************
-Buffer accessors
-****************
-
 .. rst-class:: api-class
 	       
 .. _buffer-accessor:
 
-===============
-Buffer accessor
-===============
+=======================
+sycl::accessor (buffer)
+=======================
 
 ::
    
-   template <typename dataT, int dimensions, access::mode accessmode,
-             access::target accessTarget = access::target::global_buffer,
-             access::placeholder isPlaceholder = access::placeholder::false_t>
+   template <typename dataT, int dimensions, sycl::access::mode accessmode,
+             sycl::access::target accessTarget = sycl::access::target::global_buffer,
+             sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
    class accessor;
 
 Description
@@ -58,8 +54,8 @@ const_reference  Type of const reference to buffer element
    && dimensions == 0*
 
   template <typename AllocatorT>
-  accessor(buffer<dataT, 1, AllocatorT> &bufferRef,
-           const property_list &propList = {});
+  accessor(sycl::buffer<dataT, 1, AllocatorT> &bufferRef,
+           const sycl::property_list &propList = {});
    
   *Available only when:
    (isPlaceholder == access::placeholder::false_t
@@ -68,8 +64,8 @@ const_reference  Type of const reference to buffer element
    && dimensions == 0*
 
   template <typename AllocatorT>
-  accessor(buffer<dataT, 1, AllocatorT> &bufferRef,
-           handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(sycl::buffer<dataT, 1, AllocatorT> &bufferRef,
+           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
 
   *Available only when:
    ((isPlaceholder == access::placeholder::false_t
@@ -80,15 +76,15 @@ const_reference  Type of const reference to buffer element
    && dimensions > 0*
    
   template <typename AllocatorT>
-  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           const property_list &propList = {});
+  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           const sycl::property_list &propList = {});
   template <typename AllocatorT>
-  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           range<dimensions> accessRange, const property_list &propList = {});
+  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           sycl::range<dimensions> accessRange, const sycl::property_list &propList = {});
   template <typename AllocatorT>
-  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           range<dimensions> accessRange, id<dimensions> accessOffset,
-           const property_list &propList = {});
+  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           sycl::range<dimensions> accessRange, id<dimensions> accessOffset,
+           const sycl::property_list &propList = {});
 
   *Available only when:
    (isPlaceholder == access::placeholder::false_t
@@ -97,16 +93,16 @@ const_reference  Type of const reference to buffer element
     && dimensions > 0*
 
   template <typename AllocatorT>
-  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           handler &commandGroupHandlerRef, const property_list &propList = {});
+  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
   template <typename AllocatorT>
-  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           handler &commandGroupHandlerRef, range<dimensions> accessRange,
-           const property_list &propList = {});
+  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           sycl::handler &commandGroupHandlerRef, sycl::range<dimensions> accessRange,
+           const sycl::property_list &propList = {});
   template <typename AllocatorT>
-  accessor(buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           handler &commandGroupHandlerRef, range<dimensions> accessRange,
-           id<dimensions> accessOffset, const property_list &propList = {});
+  accessor(sycl:buffer<dataT, dimensions, AllocatorT> &bufferRef,
+           sycl::handler &commandGroupHandlerRef, sycl::range<dimensions> accessRange,
+           sycl::id<dimensions> accessOffset, const sycl::property_list &propList = {});
 
 
 Construct an accessor for a buffer.
@@ -125,7 +121,7 @@ AllocatorT    Type of allocator for buffer element
 ======================  ===
 bufferRef               Associate accessor with this buffer
 commandGroupHandlerRef  Associate accessor with this handler
-propList                `Buffer accessor properties`_
+propList                `sycl::accessor (buffer) properties`_
 accessRange             Dimensions of data to be accessed            
 accessOffset            Coordinates of origin of data
 ======================  ===
@@ -166,7 +162,7 @@ get_range
   *Available only when:
    dimensions > 0*
    
-  range<dimensions> get_range() const;
+  sycl::range<dimensions> get_range() const;
 
 
 .. rubric:: Template parameters
@@ -186,7 +182,7 @@ get_offset
   *Available only when:
    dimensions > 0*
    
-  id<dimensions> get_offset() const;
+  sycl::id<dimensions> get_offset() const;
 
 
 .. rubric:: Template parameters
@@ -234,16 +230,16 @@ operator[]
 
   *Reference variants*
   dataT &operator[](size_t index) const;
-  dataT &operator[](id<dimensions> index) const;
+  dataT &operator[](sycl::id<dimensions> index) const;
 
   *Value variants*
   dataT operator[](size_t index) const;
-  dataT operator[](id<dimensions> index) const;
+  dataT operator[](sycl::id<dimensions> index) const;
 
   *Atomic variants*
-  atomic<dataT, access::address_space::global_space> operator[](
+  atomic<dataT, sycl::access::address_space::global_space> operator[](
     size_t index) const;
-  atomic<dataT, access::address_space::global_space> operator[](
+  atomic<dataT, sycl::access::address_space::global_space> operator[](
     id<dimensions> index) const;
 
   *Single dimension in multi-dimensional buffer*
@@ -276,18 +272,18 @@ get_pointer
   *Available only when:
    accessTarget == access::target::global_buffer*
 
-  global_ptr<dataT> get_pointer() const;
+  sycl::global_ptr<dataT> get_pointer() const;
 
   *Available only when:
    accessTarget == access::target::constant_buffer*
 
-  constant_ptr<dataT> get_pointer() const;
+  sycl::constant_ptr<dataT> get_pointer() const;
 
 Returns pointer to memory in a host buffer.
 
-==========================
-Buffer accessor properties
-==========================
+==================================
+sycl::accessor (buffer) properties
+==================================
 
 SYCL does not define any properties for the buffer specialization of
 an accessor.

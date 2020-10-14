@@ -11,9 +11,9 @@ Events
 
 .. rst-class:: api-class
 	       
-=====
-event
-=====
+===========
+sycl::event
+===========
 
 ::
    
@@ -35,7 +35,7 @@ kernel.
 ::
    
   event();
-  event(cl_event clEvent, const context& syclContext);
+  event(cl_event clEvent, const sycl::context& syclContext);
 
 Construct an event.
 
@@ -64,7 +64,7 @@ get_wait_list
 
 ::
    
-  vector_class<event> get_wait_list();
+  sycl::vector_class<sycl::event> get_wait_list();
 
 
 Returns vector of events that this events waits on.
@@ -83,7 +83,7 @@ wait
 
 ::
    
-  static void wait(const vector_class<event> &eventList);
+  static void wait(const sycl::vector_class<sycl::event> &eventList);
 
 Wait for vector of events to complete.
 
@@ -102,7 +102,7 @@ wait_and_throw
 
 ::
 
-  static void wait_and_throw(const vector_class<event> &eventList);
+  static void wait_and_throw(const sycl::vector_class<sycl::event> &eventList);
 
 Wait for a vector of events to complete, and pass asynchronous errors
 to handlers associated with the commands.
@@ -112,11 +112,11 @@ get_info
 
 ::
    
-  template <info::event param>
-  typename info::param_traits<info::event, param>::return_type get_info() const;
+  template <sycl::info::event param>
+  typename sycl::info::param_traits<sycl::info::event, param>::return_type get_info() const;
 
 Returns information about the queue as determined by ``param``. See
-`Event Info`_ for details.
+`sycl::info::event`_ for details.
 
 
 get_profiling_info
@@ -124,11 +124,11 @@ get_profiling_info
 
 ::
    
-  template <info::event_profiling param>
-  typename info::param_traits<info::event_profiling, param>::return_type get_profiling_info() const;
+  template <sycl::info::event_profiling param>
+  typename sycl::info::param_traits<sycl::info::event_profiling, param>::return_type get_profiling_info() const;
 
 Returns information about the queue as determined by ``param``. See
-`Event profiling info`_ for details.
+`sycl::info::event_profiling`_ for details.
 
 .. _event-elapsed-time:
    
@@ -147,9 +147,9 @@ Output:
    :lines: 5-
 
 
-==========
-Event info
-==========
+=================
+sycl::info::event
+=================
 
 ::
    
@@ -158,25 +158,19 @@ Event info
      reference_count
    };
 
-.. rubric:: Namespace
-
-::
-
-   info
-
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-========================  ==========================  ===
-Descriptor                Return type                 Description
-========================  ==========================  ===
-command_execution_status  info::event_command_status  See event_command_status_
-reference_count           cl_uint                     Reference count of the event
-========================  ==========================  ===
+========================  ================================  ===
+Descriptor                Return type                       Description
+========================  ================================  ===
+command_execution_status  sycl::info::event_command_status  See `sycl::info::event_command_status`_
+reference_count           cl_uint                           Reference count of the event
+========================  ================================  ===
 	    
-====================
-event_command_status
-====================
+================================
+sycl::info::event_command_status
+================================
 
 ::
 
@@ -187,9 +181,9 @@ event_command_status
    };
 
 
-====================
-Event profiling info
-====================
+===========================
+sycl::info::event_profiling
+===========================
 
 ::
 
@@ -198,12 +192,6 @@ Event profiling info
      command_start,
      command_end
    };
-
-.. rubric:: Namespace
-
-::
-
-   info
 
 Used as a template parameter for get_profiling_info_ to determine the
 type of information.

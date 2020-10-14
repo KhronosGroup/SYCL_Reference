@@ -10,9 +10,9 @@ Exceptions
 
 .. rst-class:: api-class
 	       
-=========
-exception
-=========
+===============
+sycl::exception
+===============
 
 ::
    
@@ -27,7 +27,7 @@ API's throw exceptions that may be caught with C++ exception handling
 methods. The SYCL runtime holds exceptions that occur during
 asynchronous operations until :ref:`queue-wait_and_throw` or
 :ref:`queue-throw_asynchronous` is called. They runtime delivers the
-exception as a list to the `async_handler`_ associated with the
+exception as a list to the `sycl::async_handler`_ associated with the
 :ref:`queue`.
 
    
@@ -55,7 +55,7 @@ get_context
 
 ::
 
-   context get_context() const;
+   sycl::context get_context() const;
 
 
 Returns :ref:`context` associated with this error.
@@ -73,9 +73,9 @@ Returns OpenCL error code if the error is an OpenCL error, otherwise
 
 .. rst-class:: api_class
 	       
-==============
-exception_list
-==============
+====================
+sycl::exception_list
+====================
 
 ::
 
@@ -129,15 +129,15 @@ Returns an iterator to the beginning of the list of exceptions.
 Derived exceptions
 ==================
 
-runtime_error
-=============
+sycl::runtime_error
+===================
 
 ::
 
    class runtime_error : public exception;
 
-kernel_error
-============
+sycl::kernel_error
+==================
 
 ::
 
@@ -145,8 +145,8 @@ kernel_error
 
 Error that occured before or while enqueuing the SYCL kernel.
 
-accessor_error
-==============
+sycl::accessor_error
+====================
 
 ::
 
@@ -154,8 +154,8 @@ accessor_error
 
 Error regarding :ref:`iface-accessors`.
 
-nd_range_error
-==============
+sycl::nd_range_error
+====================
 
 ::
 
@@ -163,8 +163,8 @@ nd_range_error
 
 Error regarding the :ref:`nd_range` for a SYCL kernel.
 
-event_error
-===========
+sycl::event_error
+=================
 
 ::
 
@@ -172,8 +172,8 @@ event_error
 
 Error regarding an :ref:`event`.
 
-invalid_parameter_error
-=======================
+sycl::invalid_parameter_error
+=============================
 
 ::
 
@@ -182,90 +182,90 @@ invalid_parameter_error
 Error regarding parameters to a SYCL kernel, including captured
 parameters to a lambda.
 
-device_error
-============
+sycl::device_error
+==================
 
 ::
 
    class device_error : public exception;
 
-compile_program_error
-=====================
+sycl::compile_program_error
+===========================
 
 ::
 
-   class compile_program_error : public device_error;
+   class compile_program_error : public sycl::device_error;
 
 Error while compiling a SYCL kernel.
 
-link_program_error
-==================
+sycl::link_program_error
+========================
 
 ::
 
-   class link_program_error : public device_error;
+   class link_program_error : public sycl::device_error;
 
 Error linking a SYCL kernel to a SYCL device.
 
-invalid_object_error
+sycl::invalid_object_error
+==========================
+
+::
+
+   class invalid_object_error : public sycl::device_error;
+
+Error regarding memory objects used inside a kernel.
+
+sycl::memory_allocation_error
+=============================
+
+::
+
+   class memory_allocation_error : public sycl::device_error;
+
+Error regarding memory allocation on the SYCL device.
+
+sycl::platform_error
 ====================
 
 ::
 
-   class invalid_object_error : public device_error;
-
-Error regarding memory objects used inside a kernel.
-
-memory_allocation_error
-=======================
-
-::
-
-   class memory_allocation_error : public device_error;
-
-Error regarding memory allocation on the SYCL device.
-
-platform_error
-==============
-
-::
-
-   class platform_error : public device_error;
+   class platform_error : public sycl::device_error;
 
 Error triggered by the :ref:`platform`.
 
-profililng_error
-================
+sycl::profiling_error
+=====================
 
 ::
 
-   class profiling_error : public device_error;
+   class profiling_error : public sycl::device_error;
 
 Error triggered while profiling is enabled.
 
-featured_non_supported
-======================
+sycl::featured_non_supported
+============================
 
 ::
 
-   class feature_not_supported : public device_error;
+   class feature_not_supported : public sycl::device_error;
 
 Optional feature or extension is not available on the :ref:`device`.
 
 .. _async_handler:
 
-=============
-async_handler
-=============
+===================
+sycl::async_handler
+===================
 
 ::
 
-   void handler(exception_list e);
+   void handler(sycl::exception_list e);
 
 .. rubric:: Parameters
 
 =============  ===
-e              List of asynchronous exceptions. See `exception_list`_
+e              List of asynchronous exceptions. See `sycl::exception_list`_
 =============  ===
 
 The SYCL runtime delivers asynchronous exceptions by invoking an

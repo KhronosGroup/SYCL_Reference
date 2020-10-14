@@ -7,9 +7,9 @@ Synchronization types
 *********************
 
 
-=====================
- access::fence_space
-=====================
+=========================
+sycl::access::fence_space
+=========================
 
 ::
 
@@ -20,9 +20,9 @@ Synchronization types
    };
 
 
-==============
- memory_order
-==============
+==================
+sycl::memory_order
+==================
 
 ::
 
@@ -32,14 +32,14 @@ Synchronization types
 
 .. rst-class:: api-class
 	       
-========
- atomic
-========
+============
+sycl::atomic
+============
 
 ::
 
    template <typename T,
-             access::address_space addressSpace = access::address_space::global_space
+             sycl::access::address_space addressSpace = sycl::access::address_space::global_space
 	    >
    class atomic;
 
@@ -49,14 +49,14 @@ Synchronization types
 ::
    
    template <typename pointerT>
-   atomic(multi_ptr<pointerT, addressSpace> ptr);
+   atomic(sycl::multi_ptr<pointerT, addressSpace> ptr);
 
 store
 =====
 
 ::
    
-   void store(T operand, memory_order memoryOrder = memory_order::relaxed);
+   void store(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
 load
@@ -64,14 +64,14 @@ load
 
 ::
 
-     T load(memory_order memoryOrder = memory_order::relaxed) const;
+     T load(sycl::memory_order memoryOrder = sycl::memory_order::relaxed) const;
 
 exchange
 ========
 
 ::
 
-   T exchange(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T exchange(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 compare_exchange_strong
 =======================
@@ -82,8 +82,8 @@ compare_exchange_strong
     T != float*
     
    bool compare_exchange_strong(T &expected, T desired,
-                                memory_order successMemoryOrder = memory_order::relaxed,
-                                memory_order failMemoryOrder = memory_order::relaxed);
+                                sycl::memory_order successMemoryOrder = sycl::memory_order::relaxed,
+                                sycl::memory_order failMemoryOrder = sycl::memory_order::relaxed);
 
 
 fetch_add
@@ -94,7 +94,7 @@ fetch_add
    *Available only when:
     T != float*
     
-   T fetch_add(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_add(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
 fetch_sub
@@ -105,7 +105,7 @@ fetch_sub
    *Available only when:
     T != float*
     
-   T fetch_sub(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_sub(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
 fetch_and
@@ -116,7 +116,7 @@ fetch_and
    *Available only when:
     T != float*
     
-   T fetch_and(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_and(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
    
 
 
@@ -128,7 +128,7 @@ fetch_or
    *Available only when:
     T != float*
 
-   T fetch_or(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_or(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
 fetch_xor
@@ -139,7 +139,7 @@ fetch_xor
    *Available only when:
     T != float*
     
-   T fetch_xor(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_xor(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
 fetch_min
@@ -150,7 +150,7 @@ fetch_min
    *Available only when:
     T != float*
     
-   T fetch_min(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_min(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
    
 
 fetch_max
@@ -161,7 +161,7 @@ fetch_max
    *Available only when:
     T != float*
     
-   T fetch_max(T operand, memory_order memoryOrder = memory_order::relaxed);
+   T fetch_max(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
 

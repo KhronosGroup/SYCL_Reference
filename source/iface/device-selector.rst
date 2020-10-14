@@ -19,9 +19,9 @@ for full control.
 
 .. rst-class:: api-class
 	       
-===============
-device_selector
-===============
+=====================
+sycl::device_selector
+=====================
 
 ::
    
@@ -44,7 +44,7 @@ operator.
 ::
    
   device_selector();
-  device_selector(const device_selector &rhs);
+  device_selector(const sycl::device_selector &rhs);
 
 Construct a device_selector.
 
@@ -56,7 +56,7 @@ select_device
 
 ::
    
-  device select_device() const;
+  sycl::device select_device() const;
 
    
 Returns the device with the highest score as determined by calling
@@ -71,7 +71,7 @@ operator=
 
 ::
    
-  device_selector &operator=(const device_selector &rhs);
+  sycl::device_selector &operator=(const sycl::device_selector &rhs);
 
 Create a device selector by copying another one.
 
@@ -81,7 +81,7 @@ operator()
 
 ::
    
-  virtual int operator()(const device &device) const = 0;
+  virtual int operator()(const sycl::device &device) const = 0;
 
 Scoring function for devices.
 

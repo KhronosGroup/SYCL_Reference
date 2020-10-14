@@ -4,9 +4,9 @@
 
 .. _usm-alloc:
 
-=======
- alloc
-=======
+================
+sycl::usm::alloc
+================
 
 |2020|
 
@@ -18,12 +18,6 @@
      shared,
      unknown
    };
-
-.. rubric:: Namespace
-
-::
-
-   usm
 
 Identifies type of USM memory in calls to USM-related API.
 

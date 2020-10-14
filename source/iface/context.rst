@@ -10,9 +10,9 @@ Contexts
 
 .. rst-class:: api-class
 	       
-=======
-context
-=======
+=============
+sycl::context
+=============
 
 ::
    
@@ -34,20 +34,20 @@ context, but a device can only be part of a single context.
 
 ::
    
-  explicit context(const property_list &propList = {});
-  context(async_handler asyncHandler,
-          const property_list &propList = {});
-  context(const device &dev, const property_list &propList = {});
-  context(const device &dev, async_handler asyncHandler,
-          const property_list &propList = {});
-  context(const platform &plt, const property_list &propList = {});
-  context(const platform &plt, async_handler asyncHandler,
-          const property_list &propList = {});
-  context(const vector_class<device> &deviceList,
-          const property_list &propList = {});
-  context(const vector_class<device> &deviceList,
-          async_handler asyncHandler, const property_list &propList = {});
-  context(cl_context clContext, async_handler asyncHandler = {});
+  explicit context(const sycl::property_list &propList = {});
+  context(sycl::async_handler asyncHandler,
+          const sycl::property_list &propList = {});
+  context(const sycl::device &dev, const sycl::property_list &propList = {});
+  context(const sycl::device &dev, sycl::async_handler asyncHandler,
+          const sycl::property_list &propList = {});
+  context(const sycl::platform &plt, const sycl::property_list &propList = {});
+  context(const sycl::platform &plt, sycl::async_handler asyncHandler,
+          const sycl::property_list &propList = {});
+  context(const sycl::vector_class<device> &deviceList,
+          const sycl::property_list &propList = {});
+  context(const sycl::vector_class<sycl::device> &deviceList,
+          sycl::async_handler asyncHandler, const sycl::property_list &propList = {});
+  context(cl_context clContext, sycl::async_handler asyncHandler = {});
 
 Construct a context.
 
@@ -60,7 +60,7 @@ or devices are supplied.
 .. rubric:: Parameters
 
 propList
-  See `Context Properties`_.
+  See `sycl::property::context`_.
 asyncHandler
   Called to report asynchronous SYCL exceptions for this context
 dev
@@ -103,7 +103,7 @@ get_platform
 
 ::
    
-  platform get_platform() const;
+  sycl::platform get_platform() const;
 
 Return platform associated with this context.
 	    
@@ -112,7 +112,7 @@ get_devices
 
 ::
    
-  vector_class<device> get_devices() const;
+  sycl::vector_class<sycl::device> get_devices() const;
 
 	    
 Returns vector of devices associated with this context.
@@ -122,17 +122,17 @@ get_info
 
 ::
    
-  template <info::context param>
-  typename info::param_traits<info::context, param>::return_type get_info() const;
+  template <sycl::info::context param>
+  typename sycl::info::param_traits<sycl::info::context, param>::return_type get_info() const;
 
 Returns information about the context as determined by ``param``. See
-`Context Info`_ for details.
+`sycl::info::context`_ for details.
 	    
 .. include:: property_methods.inc.rst
 	     
-============
-Context Info
-============
+===================
+sycl::info::context
+===================
 
 ::
 
@@ -141,12 +141,6 @@ Context Info
     platform,
     devices
   };
-
-.. rubric:: Namespace
-
-::
-
-   info
 
 Used as a template parameter for get_info_ to determine the type of
 information.
@@ -160,9 +154,9 @@ devices          vector_class<device>        SYCL devices associated with this p
 ===============  ==========================  ===
 
 
-==================
-Context Properties
-==================
+=======================
+sycl::property::context
+=======================
 
 SYCL does not define any properties for context_.
 

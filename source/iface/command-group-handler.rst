@@ -10,9 +10,9 @@ Invoking kernels
 
 .. rst-class:: api-class
 	       
-=========
- handler
-=========
+=============
+sycl::handler
+=============
 
 ::
 
@@ -36,10 +36,10 @@ require
 
 ::
    
-  template <typename dataT, int dimensions, access::mode accessMode,
-    access::target accessTarget>
-  void require(accessor<dataT, dimensions, accessMode, accessTarget,
-               access::placeholder::true_t> acc);
+  template <typename dataT, int dimensions, sycl::access::mode accessMode,
+    sycl::access::target accessTarget>
+  void require(sycl::accessor<dataT, dimensions, accessMode, accessTarget,
+               sycl::access::placeholder::true_t> acc);
 
 Adds a requirement before a device may execute a kernel.
 
@@ -71,7 +71,7 @@ single_task
   template <typename KernelName, typename KernelType>
   void single_task(KernelType kernelFunc);
 
-  void single_task(kernel syclKernel);
+  void single_task(sycl::kernel syclKernel);
 
 Defines and invokes a kernel function.
 
@@ -84,24 +84,24 @@ parallel_for
 ::
 
   template <typename KernelName, typename KernelType, int dimensions>
-  void parallel_for(range<dimensions> numWorkItems, KernelType kernelFunc);
+  void parallel_for(sycl::range<dimensions> numWorkItems, KernelType kernelFunc);
 
   template <typename KernelName, typename KernelType, int dimensions>
-  void parallel_for(range<dimensions> numWorkItems,
-                    id<dimensions> workItemOffset, KernelType kernelFunc);
+  void parallel_for(sycl::range<dimensions> numWorkItems,
+                    sycl::id<dimensions> workItemOffset, KernelType kernelFunc);
 
   template <typename KernelName, typename KernelType, int dimensions>
-  void parallel_for(nd_range<dimensions> ndRange, KernelType kernelFunc);
+  void parallel_for(sycl::nd_range<dimensions> ndRange, KernelType kernelFunc);
 
   template <int dimensions>
-  void parallel_for(range<dimensions> numWorkItems, kernel syclKernel);
+  void parallel_for(sycl::range<dimensions> numWorkItems, sycl::kernel syclKernel);
 
   template <int dimensions>
-  void parallel_for(range<dimensions> numWorkItems,
-                    id<dimensions> workItemOffset, kernel syclKernel);
+  void parallel_for(sycl::range<dimensions> numWorkItems,
+                    sycl::id<dimensions> workItemOffset, sycl::kernel syclKernel);
 
   template <int dimensions>
-  void parallel_for(nd_range<dimensions> ndRange, kernel syclKernel);
+  void parallel_for(sycl::nd_range<dimensions> ndRange, sycl::kernel syclKernel);
 
 Invokes a kernel function for a :ref:`range` or :ref:`nd_range`.
 
@@ -122,12 +122,12 @@ parallel_for_work_group
 ::
    
   template <typename KernelName, typename WorkgroupFunctionType, int dimensions>
-  void parallel_for_work_group(range<dimensions> numWorkGroups,
+  void parallel_for_work_group(sycl::range<dimensions> numWorkGroups,
                                WorkgroupFunctionType kernelFunc);
 
   template <typename KernelName, typename WorkgroupFunctionType, int dimensions>
-  void parallel_for_work_group(range<dimensions> numWorkGroups,
-                               range<dimensions> workGroupSize,
+  void parallel_for_work_group(sycl::range<dimensions> numWorkGroups,
+                               sycl::range<dimensions> workGroupSize,
                                WorkgroupFunctionType kernelFunc);
 
 Outer invocation in a hierarchical invocation of a kernel.
@@ -139,31 +139,31 @@ copy
 
 ::
    
-  template <typename T_src, int dim_src, access::mode mode_src, access::target tgt_src,
-            access::placeholder isPlaceholder, typename T_dest>
-  void copy(accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
-            shared_ptr_class<T_dest> dest);
+  template <typename T_src, int dim_src, sycl::access::mode mode_src, sycl::access::target tgt_src,
+            sycl::access::placeholder isPlaceholder, typename T_dest>
+  void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
+            sycl::shared_ptr_class<T_dest> dest);
   template <typename T_src,
-            typename T_dest, int dim_dest, access::mode mode_dest, access::target tgt_dest,
-	    access::placeholder isPlaceholder>
-  void copy(shared_ptr_class<T_src> src,
-            accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
-  template <typename T_src, int dim_src, access::mode mode_src,
-            access::target tgt_src, access::placeholder isPlaceholder,
+            typename T_dest, int dim_dest, sycl::access::mode mode_dest, sycl::access::target tgt_dest,
+	    sycl::access::placeholder isPlaceholder>
+  void copy(sycl::shared_ptr_class<T_src> src,
+            sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
+  template <typename T_src, int dim_src, sycl::access::mode mode_src,
+            sycl::access::target tgt_src, sycl::access::placeholder isPlaceholder,
             typename T_dest>
-  void copy(accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
+  void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
             T_dest *dest);
   template <typename T_src,
-            typename T_dest, int dim_dest, access::mode mode_dest,
-	    access::target tgt_dest, access::placeholder isPlaceholder>
+            typename T_dest, int dim_dest, sycl::access::mode mode_dest,
+	    sycl::access::target tgt_dest, sycl::access::placeholder isPlaceholder>
   void copy(const T_src *src,
-            accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
-  template <typename T_src, int dim_src, access::mode mode_src,
-            access::target tgt_src, access::placeholder isPlaceholder_src,
-            typename T_dest, int dim_dest, access::mode mode_dest, access::target tgt_dest,
-	    access::placeholder isPlaceholder_dest>
-  void copy(accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder_src> src,
-            accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder_dest> dest);
+            sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
+  template <typename T_src, int dim_src, sycl::access::mode mode_src,
+            sycl::access::target tgt_src, sycl::access::placeholder isPlaceholder_src,
+            typename T_dest, int dim_dest, sycl::access::mode mode_dest, sycl::access::target tgt_dest,
+	    sycl::access::placeholder isPlaceholder_dest>
+  void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder_src> src,
+            sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder_dest> dest);
 
 Copies memory from ``src`` to ``dest``.
 
@@ -222,9 +222,9 @@ fill
 
 ::
 
-  template <typename T, int dim, access::mode mode,
-            access::target tgt, access::placeholder isPlaceholder>
-  void fill(accessor<T, dim, mode, tgt, isPlaceholder> dest, const T& pattern);
+  template <typename T, int dim, sycl::access::mode mode,
+            sycl::access::target tgt, sycl::access::placeholder isPlaceholder>
+  void fill(sycl::accessor<T, dim, mode, tgt, isPlaceholder> dest, const T& pattern);
   template <typename T>
   event fill(void* ptr, const T& pattern, size_t count);
 
