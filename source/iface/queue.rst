@@ -37,7 +37,9 @@ to monitor the completion of the task for completion and errors.
 
 .. seealso:: |SYCL_SPEC_QUEUE|
 
-(constructors)
+.. _queue-constructors:
+
+(Constructors)
 ==============
 
 ::
@@ -86,7 +88,7 @@ queue with an ``asyncHandler`` and calling wait_and_throw_.
 .. rubric:: Parameters
 
 ======================  ===
-propList                See `sycl::property::queue`_
+propList                See `queue-properties`_
 asyncHandler            Called for asynchronous exceptions, see :ref:`async_handler`
 deviceSelector          Selects device for queue
 syclDevice              Device for queue
@@ -210,7 +212,7 @@ wait_and_throw
   void wait_and_throw();
 
 Wait for all enqueued tasks and pass asynchronous errors to handler
-provided in `(constructors)`_.
+provided in :ref:`queue-constructors`.
 
 .. _queue-throw_asynchronous:
 
@@ -222,7 +224,7 @@ throw_asynchronous
   void throw_asynchronous();
 
 Passes any asynchronous errors to handler provided in
-`(constructors)`_.
+:ref:`queue-constructors`.
 
 .. _queue-memcpy:
 
@@ -284,17 +286,59 @@ reference_count  cl_uint                     Reference count of the queue
 ===============  ==========================  ===
 
 
-=====================
-sycl::property::queue
-=====================
+.. _queue-properties:
+
+================
+Queue properties
+================
 
 Queue properties are specified in the queue constructor.
 
-enable_profiling
-  SYCL runtime captures profiling information for command groups
-  submitted to the queue.
+.. rst-class:: api-class
+
+sycl::property::queue::enable_profiling
+=======================================
+
+::
+
+   class enable_profiling;
+   
+SYCL runtime captures profiling information for command groups
+submitted to the queue.
+
+(constructors)
+--------------
+
+::
+
+   enable_profiling();
+
+Constructs an enable_profiling property instance.
 
 .. rubric:: Example
 
 See :ref:`event-elapsed-time`.
+  
+.. rst-class:: api-class
+
+sycl::property::queue::in_order
+===============================
+
+|2020|
+
+::
+
+   class in_order;
+   
+SYCL queue provides in-order semantics.
+
+(constructors)
+--------------
+
+::
+
+   in_order();
+
+Constructs an in_order property instance.
+
   
