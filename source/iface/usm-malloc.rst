@@ -198,4 +198,6 @@ sycl::free
 Free memory allocated by `sycl::malloc_device`_, `sycl::malloc_host`_, or
 `sycl::malloc_shared`_.
    
+See :ref:`event-elapsed-time` for usage.
+
 .. seealso:: |SYCL_SPEC_FREE|
