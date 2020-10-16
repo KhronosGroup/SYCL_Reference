@@ -114,7 +114,8 @@ def doxygen(target=None):
 
 @action
 def examples(target=None):
-    run_examples = ['std-vector',
+    run_examples = ['host-task',
+                    'std-vector',
                     'event-elapsed-time',
                     'get-platforms',
                     'get_devices',
