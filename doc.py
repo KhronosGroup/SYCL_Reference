@@ -119,6 +119,7 @@ def examples(target=None):
                     'event-elapsed-time',
                     'get-platforms',
                     'get_devices',
+                    'stream',
                     'gpu-selector']
     compiler = 'dpcpp'
     compiler_options = '-Wall -Werror'

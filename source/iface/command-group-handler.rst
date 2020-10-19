@@ -70,7 +70,8 @@ single_task
 
   void single_task(sycl::kernel syclKernel);
 
-Defines and invokes a kernel function.
+Defines and invokes a kernel function. See :ref:`stream-example` for
+usage.
 
 .. _handler-parallel_for:
 
