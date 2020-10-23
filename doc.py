@@ -115,6 +115,7 @@ def doxygen(target=None):
 @action
 def examples(target=None):
     run_examples = ['host-task',
+                    'gpu-platform',
                     'std-vector',
                     'event-elapsed-time',
                     'get-platforms',
