@@ -6,31 +6,6 @@
 Programs
 ********
 
-===================
-sycl::info::program
-===================
-
-::
-
-   enum class program: int {
-       context,
-       devices,
-       reference_count
-   };
-
-
-===================
-sycl::program_state
-===================
-
-::
-
-   enum class program_state {
-       none,
-       compiled,
-       linked
-   };
-
 .. rst-class:: api-class
 	       
 =============
@@ -177,6 +152,31 @@ get_state
 
    sycl::program_state get_state() const;
 
+
+===================
+sycl::info::program
+===================
+
+::
+
+   enum class program: int {
+       context,
+       devices,
+       reference_count
+   };
+
+
+===================
+sycl::program_state
+===================
+
+::
+
+   enum class program_state {
+       none,
+       compiled,
+       linked
+   };
 
 
 
