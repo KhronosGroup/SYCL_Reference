@@ -6,13 +6,14 @@
 	   :target: https://sycl.readthedocs.io/en/latest/?badge=latest
            :alt: Documentation Status
 
+.. image:: https://api.reuse.software/badge/github.com/KhronosGroup/SYCL_Reference
+          :target: https://api.reuse.software/info/github.com/KhronosGroup/SYCL_Reference
+          :alt: REUSE status
+
 ==========================
  SYCL Language Reference
 ==========================
  
-.. image:: https://api.reuse.software/badge/github.com/KhronosGroup/SYCL_Reference
-   :target: https://api.reuse.software/info/github.com/KhronosGroup/SYCL_Reference
-   :alt: REUSE status
 
 This repo contains the source for the SYCL reference manual published
 at _ReadTheDocs.
