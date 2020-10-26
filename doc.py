@@ -3,11 +3,9 @@
 
 import argparse
 from functools import wraps
-import glob
 import os
 import os.path
 from os.path import join
-import os.path
 import shutil
 import subprocess
 
@@ -15,8 +13,6 @@ sphinx_opts = '-n -N -j auto'
 sphinx_build = 'sphinx-build'
 source_dir = 'source'
 build_dir = 'build'
-doxygen_xml = join(build_dir, 'doxygen', 'xml', 'index.xml')
-doxyfile = join('source', 'Doxyfile')
 
 indent = 0
 
@@ -100,7 +96,10 @@ def sphinx(target):
         + (' -W' if args.W else '')
         + (' -a' if args.all else '')
     )
-    shell('%s -M %s %s %s %s' % (sphinx_build, target, source_dir, build_dir, opts))
+    shell(
+        '%s -M %s %s %s %s'
+        % (sphinx_build, target, source_dir, build_dir, opts)
+    )
 
 
 def up_to_date(target, deps):
@@ -111,17 +110,6 @@ def up_to_date(target, deps):
             print('time')
             return False
     return True
-
-
-def doxygen_files():
-    makedirs('build')
-    return [doxyfile] + glob.glob(join('source', 'headers', '**'), recursive=True)
-
-
-def doxygen(target=None):
-    if not os.path.exists(doxyfile) or up_to_date(doxygen_xml, doxygen_files()):
-        return
-    shell('DOXYGEN_QUIET=%s doxygen %s' % ('NO' if args.verbose else 'YES', doxyfile))
 
 
 @action
@@ -139,7 +127,6 @@ def examples(target=None):
     compiler = 'dpcpp'
     compiler_options = '-Wall -Werror'
     build = join('build', 'examples')
-    source = join('source', 'examples')
     makedirs(build)
 
     for run_example in run_examples:
@@ -148,25 +135,17 @@ def examples(target=None):
         output = join(build, '%s.out' % run_example)
         if not up_to_date(output, sources):
             shell(
-                '%s %s -o %s %s' % (compiler, compiler_options, bin, ' '.join(sources))
+                '%s %s -o %s %s'
+                % (compiler, compiler_options, bin, ' '.join(sources))
             )
             try:
                 shell('%s > %s' % (bin, output))
-            except:
+            except Exception:
                 log('Failed')
 
 
 @action
-def prep(target=None):
-    #    examples()
-    #    doxygen()
-    pass
-
-
-@action
 def build(target):
-    if target != 'clean':
-        prep()
     sphinx(target)
 
 
@@ -192,7 +171,6 @@ commands = {
     'examples': examples,
     'html': build,
     'latexpdf': build,
-    'prep': prep,
     'pseudoxml': build,
     'site': site,
     'spelling': build,

@@ -23,3 +23,9 @@ jobs:
     - name: Doc8
       run: |
           ~/.local/bin/doc8
+    - name: Black
+      run: |
+          ~/.local/bin/black --skip-string-normalization --line-length 79 --check .
+    - name: Flake8
+      run: |
+          ~/.local/bin/flake8

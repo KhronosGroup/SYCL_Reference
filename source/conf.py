@@ -6,6 +6,12 @@ from os.path import join
 import string
 import sys
 
+from docutils.parsers.rst import Directive
+from docutils.parsers.rst.directives.body import ParsedLiteral
+from docutils import nodes
+import re
+from sphinx.util import logging
+
 sys.path.append(os.path.abspath("./_ext"))
 
 
@@ -67,13 +73,14 @@ exclude_patterns = [
 
 
 prolog_template = string.Template(
-    """
+    '.. _`SYCL Specification`: '
+    + 'https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf'
+    + """
 .. |true| replace:: ``true``
 .. |false| replace:: ``false``
 .. |2020| replace:: *Since SYCL 2020*
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
-.. _`SYCL Specification`: https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
 .. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
 .. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
@@ -111,11 +118,10 @@ prolog_template = string.Template(
 )
 
 rst_prolog = prolog_template.substitute({})
-
 primary_domain = 'cpp'
 
 
-# -- Options for todo extension -------------------------------------------------
+# -- Options for todo extension -----------------------------------------------
 todo_include_todos = False
 
 
@@ -154,12 +160,6 @@ notfound_default_version = ''
 
 # -- Add some directives for structure------------------------------------
 
-
-from docutils.parsers.rst import Directive
-from docutils.parsers.rst.directives.body import ParsedLiteral
-from docutils import nodes
-import re
-from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
 
@@ -292,8 +292,6 @@ class ExampleDirective(Directive):
 
 
 def setup(app):
-    # add_custom_css = getattr(app,'add_css_file',getattr(app,'add_stylesheet'))
-    # add_custom_css('custom.css')
     app.connect('doctree-resolved', check_doc)
     if False:
         app.add_directive('tparams', TParamsDirective)
