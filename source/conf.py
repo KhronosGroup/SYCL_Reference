@@ -51,21 +51,23 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['root/*.rst',
-                    '*.inc.rst',
-                    '**/*.inc.rst',
-                    'iface/math.rst',
-                    'iface/integer.rst',
-                    'iface/common.rst',
-                    'iface/geometric.rst',
-                    'iface/relational.rst',
-                    'iface/vector.rst',
-                    'iface/synchronization.rst',
-                    'iface/printf.rst'
+exclude_patterns = [
+    'root/*.rst',
+    '*.inc.rst',
+    '**/*.inc.rst',
+    'iface/math.rst',
+    'iface/integer.rst',
+    'iface/common.rst',
+    'iface/geometric.rst',
+    'iface/relational.rst',
+    'iface/vector.rst',
+    'iface/synchronization.rst',
+    'iface/printf.rst',
 ]
 
 
-prolog_template = string.Template("""
+prolog_template = string.Template(
+    """
 .. |true| replace:: ``true``
 .. |false| replace:: ``false``
 .. |2020| replace:: *Since SYCL 2020*
@@ -105,12 +107,12 @@ prolog_template = string.Template("""
 .. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
 .. |SYCL_SPEC_KERNEL| replace:: `SYCL Specification`_ Section 4.12
 .. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
-""")
+"""
+)
 
 rst_prolog = prolog_template.substitute({})
 
 primary_domain = 'cpp'
-
 
 
 # -- Options for todo extension -------------------------------------------------
@@ -128,12 +130,12 @@ html_favicon = '_static/favicon.png'
 html_theme = 'sphinx_book_theme'
 
 html_theme_options = {
-        'repository_url': 'https://github.com/KhronosGroup/SYCL_Reference',
-        'path_to_docs': 'source',
-        'use_issues_button': True,
-        'use_edit_page_button': True,
-        'repository_branch': 'main'
-    }
+    'repository_url': 'https://github.com/KhronosGroup/SYCL_Reference',
+    'path_to_docs': 'source',
+    'use_issues_button': True,
+    'use_edit_page_button': True,
+    'repository_branch': 'main',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -161,39 +163,45 @@ from sphinx.util import logging
 
 logger = logging.getLogger(__name__)
 
-class_layout_pattern = (':title'
-                        '(:rubric Template parameters:table)?'
-                        '(:rubric Example)?'
-                        '(:rubric Kernel dispatch:table)?'
-                        '(:rubric Memory operations:table)?'
-                        '(:rubric Member types:table)?'
-                        '(:rubric Nonmember data:table)?'
-                        '(:seealso)?'
-                        '(:rubric Member and nonmember functions)?'
-                        '(:rubric Example)?'
-                        '(:section)*')
-                          
-class_ignore = ['target',
-                'transition',
-                'block_quote',
-                'todo_node',
-                'paragraph',
-                'literal_block',
-                'system_message']
+class_layout_pattern = (
+    ':title'
+    '(:rubric Template parameters:table)?'
+    '(:rubric Example)?'
+    '(:rubric Kernel dispatch:table)?'
+    '(:rubric Memory operations:table)?'
+    '(:rubric Member types:table)?'
+    '(:rubric Nonmember data:table)?'
+    '(:seealso)?'
+    '(:rubric Member and nonmember functions)?'
+    '(:rubric Example)?'
+    '(:section)*'
+)
+
+class_ignore = [
+    'target',
+    'transition',
+    'block_quote',
+    'todo_node',
+    'paragraph',
+    'literal_block',
+    'system_message',
+]
 class_layout = re.compile(class_layout_pattern)
 
-class_section_layout_pattern = (':title'
-                                '(:comment)?'
-                                '(:rubric Template parameters:table)?'
-                                '(:rubric Parameters:table)?'
-                                '(:rubric Parameters:definition_list)?'
-                                '(:rubric Returns)?'
-                                '(:rubric Exceptions)?'
-                                '(:rubric Exceptions:definition_list)?'
-                                '(:rubric Example)?'
+class_section_layout_pattern = (
+    ':title'
+    '(:comment)?'
+    '(:rubric Template parameters:table)?'
+    '(:rubric Parameters:table)?'
+    '(:rubric Parameters:definition_list)?'
+    '(:rubric Returns)?'
+    '(:rubric Exceptions)?'
+    '(:rubric Exceptions:definition_list)?'
+    '(:rubric Example)?'
 )
 
 class_section_layout = re.compile(class_section_layout_pattern)
+
 
 def check_class(object_file, section):
     enc = ''
@@ -214,6 +222,7 @@ def check_class(object_file, section):
     for subsection in section.traverse(nodes.section, include_self=False):
         check_class_section(object_file, class_name, subsection)
 
+
 def check_class_section(object_file, class_name, section):
     enc = ''
     for n in section:
@@ -231,6 +240,7 @@ def check_class_section(object_file, class_name, section):
         logger.warning('  got: %s' % enc)
         logger.warning('  expected: %s' % class_section_layout_pattern)
 
+
 def check_doc(app, doctree, docname):
     obj_path = join('build', 'objects', '%s.txt' % docname)
     os.makedirs(os.path.dirname(obj_path), exist_ok=True)
@@ -240,46 +250,47 @@ def check_doc(app, doctree, docname):
             if 'api-class' in classes:
                 check_class(object_file, section)
 
-class TParamsDirective(Directive):
 
+class TParamsDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Template parameters')]
-    
-class ExceptionsDirective(Directive):
 
+
+class ExceptionsDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Exceptions')]
-    
-class ParamsDirective(Directive):
 
+
+class ParamsDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Parameters')]
-    
-class ReturnsDirective(Directive):
 
+
+class ReturnsDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Return value')]
-    
-class MemberFunctionsDirective(Directive):
 
+
+class MemberFunctionsDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Member functions')]
 
-class MemberTypesDirective(Directive):
 
+class MemberTypesDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Member types')]
-    
-class NonMemberFunctionsDirective(Directive):
 
+
+class NonMemberFunctionsDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Non-member functions')]
-    
-class ExampleDirective(Directive):
 
+
+class ExampleDirective(Directive):
     def run(self):
         return [nodes.rubric(text='Example')]
-    
+
+
 def setup(app):
     # add_custom_css = getattr(app,'add_css_file',getattr(app,'add_stylesheet'))
     # add_custom_css('custom.css')
