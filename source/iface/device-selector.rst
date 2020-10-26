@@ -18,13 +18,13 @@ for full control.
 .. _device_selector:
 
 .. rst-class:: api-class
-	       
+
 =====================
 sycl::device_selector
 =====================
 
 ::
-   
+
   class device_selector;
 
 Abstract class for device selectors.
@@ -33,13 +33,13 @@ This is the base class for the `Built-in Device Selectors`_. To define
 a custom device selector, create a derived class that defines the ()
 operator.
 
-.. todo:: Example Custom device selector	    
+.. todo:: Example Custom device selector
 
 (constructors)
 ==============
 
 ::
-   
+
   device_selector();
   device_selector(const sycl::device_selector &rhs);
 
@@ -52,22 +52,22 @@ select_device
 =============
 
 ::
-   
+
   sycl::device select_device() const;
 
-   
+
 Returns the device with the highest score as determined by calling
 `operator()`_.
 
 .. rubric:: Exceptions
-   
+
 Throws a runtime error if all devices have a negative score.
 
 operator=
 =========
 
 ::
-   
+
   sycl::device_selector &operator=(const sycl::device_selector &rhs);
 
 Create a device selector by copying another one.
@@ -77,7 +77,7 @@ operator()
 ==========
 
 ::
-   
+
   virtual int operator()(const sycl::device &device) const = 0;
 
 Scoring function for devices.
@@ -89,7 +89,7 @@ device should not be selected.
 
 
 .. _built-in-device-selectors:
-   
+
 ===========================
 Built-in Device Selectors
 ===========================
@@ -97,17 +97,23 @@ Built-in Device Selectors
 SYCL provides built-in device selectors for convenience. They use
 device_selector_ as a base class.
 
-=====================  ===
-default_selector       Selects device according to implementation-defined heuristic or host device if no device can be found.
-gpu_selector           Select a GPU
-accelerator_selector   Select an accelerator
-cpu_selector           Select a CPU device
-host_selector          Select the host device
-=====================  ===
+.. list-table::
+
+  * - default_selector
+    - Selects device according to implementation-defined heuristic or
+      host device if no device can be found.
+  * - gpu_selector
+    - Select a GPU
+  * - accelerator_selector
+    - Select an accelerator
+  * - cpu_selector
+    - Select a CPU device
+  * - host_selector
+    - Select the host device
 
 
 Create a device selector by copying another one.
-		   
+
 .. seealso:: |SYCL_SPEC_DEVICE_SELECTORS|
 
  .. rubric:: Example
@@ -118,5 +124,5 @@ Create a device selector by copying another one.
 
 Output on a system without a GPU:
 
-.. literalinclude:: /examples/gpu-selector.out		    
+.. literalinclude:: /examples/gpu-selector.out
    :lines: 5-

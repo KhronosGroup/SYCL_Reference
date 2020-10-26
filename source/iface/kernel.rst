@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 .. _kernel:
 
 ============
@@ -33,7 +33,7 @@ get
 ===
 
 ::
-   
+
    cl_kernel get() const;
 
 
@@ -81,9 +81,9 @@ get_info
 
 .. rubric:: Template parameters
 
-==================  ===   
+==================  ===
 param               See `sycl::info::kernel`_
-==================  ===   
+==================  ===
 
 Returns information about the kernel
 
@@ -98,9 +98,9 @@ get_work_group_info
 
 .. rubric:: Template parameters
 
-==================  ===   
+==================  ===
 param               See `sycl::info::kernel_work_group`_
-==================  ===   
+==================  ===
 
 Returns information about the work group
 
@@ -109,7 +109,7 @@ sycl::info::kernel
 ==================
 
 ::
-   
+
    enum class kernel: int {
        function_name,
        num_args,

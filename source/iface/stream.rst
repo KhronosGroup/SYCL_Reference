@@ -7,7 +7,8 @@ Streams
 *******
 
 
-Kernels may not use std streams for input/output. ``sycl::stream`` provides similar functionality.
+Kernels may not use std streams for input/output. ``sycl::stream``
+provides similar functionality.
 
 .. _stream-example:
 
@@ -16,11 +17,11 @@ Kernels may not use std streams for input/output. ``sycl::stream`` provides simi
 Output to stdout in a kernel.
 
 .. literalinclude:: /examples/stream.cpp
-   :linenos:		    
+   :linenos:
    :start-after: SPDX-License
 
 .. rst-class:: api-class
-	       
+
 ==============
  sycl::stream
 ==============
@@ -34,7 +35,7 @@ Output to stdout in a kernel.
 ==============
 
 ::
-   
+
     stream(size_t totalBufferSize, size_t workItemBufferSize, sycl::handler& cgh);
 
 
@@ -42,7 +43,7 @@ get_size
 ========
 
 ::
-   
+
   size_t get_size() const;
 
 
@@ -57,7 +58,7 @@ get_max_statement_size
 ======================
 
 ::
-   
+
    size_t get_max_statement_size() const;
 
 get_max_statement_size() has the same functionality as
@@ -69,7 +70,7 @@ operator<<
 ==========
 
 ::
-   
+
    template <typename T>
    const sycl::stream& operator<<(const sycl::stream& os, const T &rhs);
 
@@ -102,7 +103,7 @@ sycl::stream_manipulator
 =====================
 
 ::
-   
+
    const sycl::stream_manipulator flush = sycl::stream_manipulator::flush;
    const sycl::stream_manipulator dec = sycl::stream_manipulator::dec;
    const sycl::stream_manipulator hex = sycl::stream_manipulator::hex;

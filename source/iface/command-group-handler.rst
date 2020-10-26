@@ -5,7 +5,7 @@
 .. _handler:
 
 .. rst-class:: api-class
-	       
+
 =============
 sycl::handler
 =============
@@ -28,7 +28,7 @@ require
 =======
 
 ::
-   
+
   template <typename dataT, int dimensions, sycl::access::mode accessMode,
     sycl::access::target accessTarget>
   void require(sycl::accessor<dataT, dimensions, accessMode, accessTarget,
@@ -40,7 +40,7 @@ set_arg
 =======
 
 ::
-   
+
   template <typename T>
   void set_arg(int argIndex, T && arg);
 
@@ -50,7 +50,7 @@ set_args
 ========
 
 ::
-   
+
   template <typename... Ts>
   void set_args(Ts &&... args);
 
@@ -104,17 +104,17 @@ Invokes a kernel function for a :ref:`range` or :ref:`nd_range`.
 =================  ===
 numWorkItems       Range for work items
 workItemOffset     Offset into range for work items
-kernelFunc         Kernel function      
+kernelFunc         Kernel function
 syclKernel         See :ref:`kernel`
 ndRange            See :ref:`nd_range`
 =================  ===
-	    
-  
+
+
 parallel_for_work_group
 =======================
 
 ::
-   
+
   template <typename KernelName, typename WorkgroupFunctionType, int dimensions>
   void parallel_for_work_group(sycl::range<dimensions> numWorkGroups,
                                WorkgroupFunctionType kernelFunc);
@@ -132,14 +132,14 @@ copy
 ====
 
 ::
-   
+
   template <typename T_src, int dim_src, sycl::access::mode mode_src, sycl::access::target tgt_src,
             sycl::access::placeholder isPlaceholder, typename T_dest>
   void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
             sycl::shared_ptr_class<T_dest> dest);
   template <typename T_src,
             typename T_dest, int dim_dest, sycl::access::mode mode_dest, sycl::access::target tgt_dest,
-	    sycl::access::placeholder isPlaceholder>
+            sycl::access::placeholder isPlaceholder>
   void copy(sycl::shared_ptr_class<T_src> src,
             sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
   template <typename T_src, int dim_src, sycl::access::mode mode_src,
@@ -149,13 +149,13 @@ copy
             T_dest *dest);
   template <typename T_src,
             typename T_dest, int dim_dest, sycl::access::mode mode_dest,
-	    sycl::access::target tgt_dest, sycl::access::placeholder isPlaceholder>
+            sycl::access::target tgt_dest, sycl::access::placeholder isPlaceholder>
   void copy(const T_src *src,
             sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
   template <typename T_src, int dim_src, sycl::access::mode mode_src,
             sycl::access::target tgt_src, sycl::access::placeholder isPlaceholder_src,
             typename T_dest, int dim_dest, sycl::access::mode mode_dest, sycl::access::target tgt_dest,
-	    sycl::access::placeholder isPlaceholder_dest>
+            sycl::access::placeholder isPlaceholder_dest>
   void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder_src> src,
             sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder_dest> dest);
 
@@ -250,7 +250,7 @@ memcpy
 ======
 
 ::
-   
+
    void memcpy(void* dest, const void* src, size_t num_bytes);
 
 Set memory allocated with :ref:`malloc_device`. For usage, see
@@ -265,6 +265,6 @@ memset
 ::
 
    void memset(void* ptr, int value, size_t num_bytes);
-   
+
 Set memory allocated with :ref:`malloc_device`. For usage, see
 :ref:`event-elapsed-time`.

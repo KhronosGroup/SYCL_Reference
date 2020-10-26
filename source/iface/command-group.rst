@@ -28,21 +28,21 @@ start_event
 ===========
 
 ::
-   
+
   sycl::event start_event();
 
 kernel_event
 ============
 
 ::
-   
+
   sycl::event kernel_event();
 
 complete_event
 ==============
 
 ::
-   
+
   sycl::event complete_event();
 
 

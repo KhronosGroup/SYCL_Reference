@@ -13,7 +13,8 @@ reference for:
 * sharing links to SYCL functions/types with other develoeprs
 * finding usage examples
 
-The reference supplements the `SYCL Specification`_ and has the same overall structure.
+The reference supplements the |SYCL_SPEC| and has the same overall
+structure.
 
 The document is a work-in-progress, and we are publishing now with
 the hope that the community will make it better. We want to have a
@@ -38,7 +39,6 @@ the top right to file an issue on github or suggest an edit.
    synchronization
    io
 
-   
 
 .. Built-in functions
 .. ==================

@@ -1,6 +1,7 @@
 # Copyright 2020 The Khronos Group Inc.
 # SPDX-License-Identifier: Apache-2.0
 
+doc8
 reuse
 Sphinx
 sphinx-book-theme

@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 .. _item:
 
 ==========
@@ -37,7 +37,7 @@ get_id
 ======
 
 ::
-   
+
   sycl::id<dimensions> get_id() const;
   size_t get_id(int dimension) const;
 
@@ -48,7 +48,7 @@ get_range
 =========
 
 ::
-   
+
   sycl::range<dimensions> get_range() const;
   size_t get_range(int dimension) const;
 
@@ -59,10 +59,10 @@ get_offset
 ==========
 
 ::
-   
+
   *Only available when:
    with_offset is true*
-   
+
   sycl::id<dimensions> get_offset() const;
 
 Returns offset associated with ``item``.
@@ -71,7 +71,7 @@ get_linear_id
 =============
 
 ::
-   
+
   size_t get_linear_id() const;
 
 Returns the linear id, suitable for mapping the ``id`` to a 1
@@ -82,17 +82,17 @@ operator[]
 ==========
 
 ::
-   
+
   size_t operator[](int dimension) const;
 
 Returns id for dimension ``dimension``.
 
-   
+
 operator()
 ==========
 
 ::
-   
+
   operator sycl::item<dimensions, true>() const;
 
 Returns item with offset set to 0.

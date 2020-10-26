@@ -9,15 +9,15 @@ Contexts
 .. _context:
 
 .. rst-class:: api-class
-	       
+
 =============
 sycl::context
 =============
 
 ::
-   
+
   class context;
-  
+
 A context encapsulates a single SYCL platform and a collection of SYCL
 devices associated with the platform.
 
@@ -31,7 +31,7 @@ context, but a device can only be part of a single context.
 ==============
 
 ::
-   
+
   explicit context(const sycl::property_list &propList = {});
   context(sycl::async_handler asyncHandler,
           const sycl::property_list &propList = {});
@@ -73,7 +73,6 @@ clContext
 
 .. todo:: Examples that combines the functions
 
-	  
 
 Constructs a context
 
@@ -81,17 +80,16 @@ get
 ===
 
 ::
-   
+
   cl_context get() const;
 
-	    
 Returns cl_context that was passed in constructor.
 
 is_host
 =======
 
 ::
-   
+
   bool is_host() const;
 
 Returns True if this context is a host context.
@@ -100,34 +98,33 @@ get_platform
 ============
 
 ::
-   
+
   sycl::platform get_platform() const;
 
 Return platform associated with this context.
-	    
+
 get_devices
 ===========
 
 ::
-   
+
   sycl::vector_class<sycl::device> get_devices() const;
 
-	    
 Returns vector of devices associated with this context.
 
 get_info
 ========
 
 ::
-   
+
   template <sycl::info::context param>
   typename sycl::info::param_traits<sycl::info::context, param>::return_type get_info() const;
 
 Returns information about the context as determined by ``param``. See
 `sycl::info::context`_ for details.
-	    
+
 .. include:: property_methods.inc.rst
-	     
+
 ===================
 sycl::info::context
 ===================
@@ -143,13 +140,21 @@ sycl::info::context
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-===============  ==========================  ===
-Descriptor       Return type                 Description
-===============  ==========================  ===
-reference_count  cl_uint                     Reference count of the underlying cl_context
-platform         platform                    SYCL platform for the context
-devices          vector_class<device>        SYCL devices associated with this platform
-===============  ==========================  ===
+.. list-table::
+   :header-rows: 1
+
+   * - Descriptor
+     - Return type
+     - Description
+   * - reference_count
+     - cl_uint
+     - Reference count of the underlying cl_context
+   * - platform
+     - platform
+     - SYCL platform for the context
+   * - devices
+     - vector_class<device>
+     - SYCL devices associated with this platform
 
 
 =======================

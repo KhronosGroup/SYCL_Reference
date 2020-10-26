@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 .. _range:
 
 ===========
@@ -11,7 +11,7 @@ sycl::range
 ===========
 
 ::
-   
+
    template <int dimensions = 1>
    class range;
 
@@ -33,19 +33,19 @@ dimensions        Number of dimensions
 ==============
 
 ::
-   
+
   range(size_t dim0);
   range(size_t dim0, size_t dim1);
   range(size_t dim0, size_t dim1, size_t dim2);
 
-Constructs a 1, 2, or 3 dimensional range.  
+Constructs a 1, 2, or 3 dimensional range.
 
 
 get
 ===
 
 ::
-   
+
   size_t get(int dimension) const;
 
 Returns the range of a single dimension.
@@ -54,7 +54,7 @@ operator[]
 ==========
 
 ::
-   
+
   size_t &operator[](int dimension);
   size_t operator[](int dimension) const;
 
@@ -78,7 +78,7 @@ Arithmetic Operators
 .. parsed-literal::
 
   *OP is: +, -, \*, /, %, <<, >>, &, \|, ^, &&, \|\|, <, >, <=, >=*
-  
+
   friend range operatorOP(const range &lhs, const range &rhs)
   friend range operatorOP(const range &lhs, const size_t &rhs)
   friend range operatorOP(const size_t &lhs, const range &rhs)
@@ -88,4 +88,4 @@ Arithmetic Operators
   friend range & operatorOP(const range &lhs, const range &rhs)
   friend range & operatorOP(const range &lhs, const size_t &rhs)
 
-Arithmetical and relational operations on ranges.  
+Arithmetical and relational operations on ranges.

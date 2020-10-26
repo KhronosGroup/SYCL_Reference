@@ -10,7 +10,7 @@
 
 .. toctree::
    :maxdepth: 1
-     
+
    iface/device-selector
    iface/platform
    iface/context

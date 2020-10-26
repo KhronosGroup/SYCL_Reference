@@ -3,13 +3,13 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 ======================
 sycl::accessor (image)
 ======================
 
 ::
-   
+
    template <typename dataT, int dimensions, sycl::access::mode accessmode,
              sycl::access::target accessTarget = sycl::access::target::global_buffer,
              sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
@@ -41,7 +41,7 @@ const_reference
 ==============
 
 .. parsed-literal::
-   
+
   *Available only when:
    accessTarget == access::target::host_image*
 
@@ -58,7 +58,7 @@ const_reference
 
   *Available only when:
    accessTarget == access::target::image_array && dimensions < 3*
-   
+
   template <typename AllocatorT>
   accessor(sycl::image<dimensions + 1, AllocatorT> &imageRef,
            sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
@@ -68,22 +68,22 @@ get_count
 =========
 
 ::
-   
+
   size_t get_count() const;
 
 get_range
 =========
 
 .. parsed-literal::
-   
+
    *Available only when:
     (accessTarget != access::target::image_array)*
-    
+
    sycl::range<dimensions> get_range() const;
 
    *Available only when:
     (accessTarget == access::target::image_array)*
-    
+
    sycl::range<dimensions+1> get_range() const;
 
 .. rubric:: Template parameters
@@ -96,7 +96,7 @@ read
 ====
 
 .. parsed-literal::
-   
+
   *Available only when:
    (accessTarget == access::target::image && accessMode == access::mode::read)
    || (accessTarget ==
@@ -127,10 +127,8 @@ operator[]
 ==========
 
 ::
-   
+
   *Available only when:
    accessTarget == access::target::image_array && dimensions < 3*
-   
-  __image_array_slice__ operator[](size_t index) const;
 
-  
+  __image_array_slice__ operator[](size_t index) const;

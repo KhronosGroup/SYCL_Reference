@@ -71,7 +71,8 @@ prolog_template = string.Template("""
 .. |2020| replace:: *Since SYCL 2020*
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
-.. _SYCL Specification: https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf
+.. _`SYCL Specification`: https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf
+.. |SYCL_SPEC| replace:: `SYCL Specification`_
 .. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
 .. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4

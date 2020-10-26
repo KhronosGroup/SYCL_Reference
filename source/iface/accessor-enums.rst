@@ -26,7 +26,7 @@ sycl::access::target
 ====================
 
 ::
-   
+
   enum class target {
     global_buffer = 2014,
     constant_buffer,
@@ -37,5 +37,3 @@ sycl::access::target
     image_array
   };
 
-
-  

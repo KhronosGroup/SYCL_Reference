@@ -9,13 +9,13 @@ Images
 ******
 
 .. rst-class:: api-class
-	       
+
 ===========
 sycl::image
 ===========
 
 ::
-   
+
    template <int dimensions = 1,
              typename AllocatorT = sycl::image_allocator>
    class image;
@@ -35,7 +35,7 @@ AllocatorT
 ==============
 
 .. parsed-literal::
-   
+
   image(sycl::image_channel_order order, sycl::image_channel_type type,
         const sycl::range<dimensions> &range, const sycl::property_list &propList = {});
   image(sycl::image_channel_order order, sycl::image_channel_type type,
@@ -64,17 +64,17 @@ AllocatorT
 
   *Available only when:
    dimensions > 1*
-	      
+
   image(sycl::image_channel_order order, sycl::image_channel_type type,
         const sycl::range<dimensions> &range, const sycl::range<dimensions - 1> &pitch,
         const sycl::property_list &propList = {});
   image(sycl::image_channel_order order, sycl::image_channel_type type,
         const sycl::range<dimensions> &range, const sycl::range<dimensions - 1> &pitch,
         AllocatorT allocator, const sycl::property_list &propList = {});
-  image(void \*hostPointer, sycl::image_channel_order order,     
+  image(void \*hostPointer, sycl::image_channel_order order,
         sycl::image_channel_type type, const sycl::range<dimensions> &range,
-        sycl::range<dimensions - 1> &pitch, const sycl::property_list &propList = {});   
-  image(void \*hostPointer, sycl::image_channel_order order,     
+        sycl::range<dimensions - 1> &pitch, const sycl::property_list &propList = {});
+  image(void \*hostPointer, sycl::image_channel_order order,
         sycl::image_channel_type type, const sycl::range<dimensions> &range,
         sycl::range<dimensions - 1> &pitch, AllocatorT allocator,
         const sycl::property_list &propList = {});
@@ -106,14 +106,14 @@ get_range
 =========
 
 ::
-   
+
   sycl::range<dimensions> get_range() const;
 
 get_pitch
 =========
 
 ::
-   
+
   sycl::range<dimensions-1> get_pitch() const;
 
 Available only when dimensions > 1
@@ -164,7 +164,7 @@ accessMode
 commandGroupHandler
 ===================  ===
 
-	    
+
 set_final_data
 ==============
 
@@ -206,7 +206,7 @@ flag
 ==================
 
 .. rst-class:: api-class
-	       
+
 sycl::property::image::use_host_ptr
 ===================================
 
@@ -228,7 +228,7 @@ Description
 Description
 
 .. rst-class:: api-class
-	       
+
 sycl::property::image::use_mutex
 ================================
 
@@ -239,7 +239,7 @@ sycl::property::image::use_mutex
 Description
 
 .. _image-get_mutex_ptr-get_mutex_ptr:
-   
+
 (constructors)
 --------------
 
@@ -303,7 +303,7 @@ sycl::image_channel_order
 =========================
 
 ::
-   
+
    enum class image_channel_order : unsigned int {
      a,
      r,
@@ -326,7 +326,7 @@ sycl::image_channel_type
 ========================
 
 ::
-   
+
    enum class image_channel_type : unsigned int {
      snorm_int8,
      snorm_int16,

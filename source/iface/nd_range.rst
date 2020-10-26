@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 .. _nd_range:
 
 
@@ -15,7 +15,7 @@ sycl::nd_range
 
    template <int dimensions = 1>
    class nd_range;
-   
+
 
 The ``nd_range`` defines the index space for a work group as well as
 the global index space. It is passed to :ref:`handler-parallel_for` to
@@ -53,7 +53,7 @@ get_global_range
 ================
 
 ::
-   
+
   sycl::range<dimensions> get_global_range() const;
 
 Returns a :ref:`range` defining the index space.
@@ -62,7 +62,7 @@ get_local_range
 ===============
 
 ::
-   
+
   sycl::range<dimensions> get_local_range() const;
 
 Returns a :ref:`range` defining the index space of a work group.

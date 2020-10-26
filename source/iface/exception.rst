@@ -9,13 +9,13 @@ Exceptions
 **********
 
 .. rst-class:: api-class
-	       
+
 ===============
 sycl::exception
 ===============
 
 ::
-   
+
    class exception;
 
 .. seealso:: |SYCL_SPEC_EXCEPTION|
@@ -28,12 +28,12 @@ asynchronous operations until :ref:`queue-wait_and_throw` or
 exception as a list to the `sycl::async_handler`_ associated with the
 :ref:`queue`.
 
-   
+
 what
 ====
 
 ::
-   
+
    const char *what() const;
 
 Returns string that describes the error that triggered the exception.
@@ -70,7 +70,7 @@ Returns OpenCL error code if the error is an OpenCL error, otherwise
 ``CL_SUCCESS``.
 
 .. rst-class:: api_class
-	       
+
 ====================
 sycl::exception_list
 ====================
