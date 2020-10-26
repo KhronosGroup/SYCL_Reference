@@ -23,12 +23,12 @@ sycl::queue
 
 Queues connect a host program to a single device. Programs submit
 tasks to a device via the queue and may monitor the queue for
-completion. A program initiates the task by submitting a
-:ref:`command_group-function-object` to a queue. The command group
-defines a kernel function, the prerequisites to execute the kernel
-function, and an invocation of the kernel function on an index
-space. After submitting the command group, a program may use the queue
-to monitor the completion of the task for completion and errors.
+completion. A program initiates the task by submitting a command group
+to a queue. The command group defines a kernel function, the
+prerequisites to execute the kernel function, and an invocation of the
+kernel function on an index space. After submitting the command group,
+a program may use the queue to monitor the completion of the task for
+completion and errors.
 
 .. todo::
 
@@ -181,8 +181,7 @@ Submit a command group function object to the queue for asynchronous
 execution.
 
 Returns an :ref:`event`, which may be used for synchronizing enqueued
-tasks. See :ref:`command_group-function-object` for more
-information on the ``cgf`` parameter.
+tasks.
 
 In most cases, the ``T`` template parameter is not provided because it
 is inferred from the type of ``cgf``.
