@@ -1,1 +1,0 @@
-class kernel_handler;

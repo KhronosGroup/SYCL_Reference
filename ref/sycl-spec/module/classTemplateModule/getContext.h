@@ -1,1 +1,0 @@
-context get_context() const noexcept; // (1)

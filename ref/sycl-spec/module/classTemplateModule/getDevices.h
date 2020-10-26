@@ -1,1 +1,0 @@
-std::vector<device> get_devices() const noexcept; // (1)
