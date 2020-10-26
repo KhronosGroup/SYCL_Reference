@@ -10,13 +10,13 @@
 
 
 .. rst-class:: api-class
-	       
+
 ============
 sycl::buffer
 ============
 
 ::
-   
+
    template <typename T, int dimensions = 1,
              typename AllocatorT = sycl::buffer_allocator>
    class buffer;
@@ -62,7 +62,7 @@ Memory allocation
 
 
 .. rubric:: Member types
-	    
+
 ================  ==========
 value_type        type of buffer element
 reference         reference type of buffer element
@@ -78,7 +78,7 @@ allocator_type    type of allocator for buffer data
 ==============
 
 .. parsed-literal::
-   
+
   buffer(const sycl::range<dimensions> &bufferRange,
          const sycl::property_list &propList = {});
   buffer(const sycl::range<dimensions> &bufferRange, AllocatorT allocator,
@@ -102,7 +102,7 @@ allocator_type    type of allocator for buffer data
 
   *Available only when:
    dimensions == 1*
-   
+
   template <class InputIterator>
   buffer<T, 1>(InputIterator first, InputIterator last, AllocatorT allocator,
                const sycl::property_list &propList = {});
@@ -150,7 +150,7 @@ get_range
 =========
 
 ::
-   
+
   sycl::range<dimensions> get_range() const;
 
 
@@ -163,7 +163,7 @@ get_count
 
   size_t get_count() const;
 
-Returns the total number of elements in the buffer.  
+Returns the total number of elements in the buffer.
 
 
 get_size
@@ -224,7 +224,7 @@ accessRange          Dimensions of the sub-buffer that is accessed
 accessOffset         Origin of the sub-buffer that is accessed
 ===================  ==========
 
-	    
+
 set_final_data
 ==============
 
@@ -271,9 +271,9 @@ is_sub_buffer
 
   bool is_sub_buffer() const;
 
-Returns True if this is a sub-buffer.  
+Returns True if this is a sub-buffer.
 
-	    
+
 reinterpret
 ===========
 
@@ -310,7 +310,7 @@ errc::invalid_object_error
 ==================
 
 .. rst-class:: api-class
-	       
+
 sycl::propery::buffer:use_host_ptr
 ==================================
 
@@ -332,7 +332,7 @@ host.
 
 
 .. rst-class:: api-class
-	       
+
 sycl::property::use_mutex
 =========================
 
@@ -390,5 +390,3 @@ get_context
 ::
 
    sycl::context get_context() const;
-
-	    

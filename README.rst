@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. image:: https://readthedocs.org/projects/sycl/badge/?version=latest
-	   :target: https://sycl.readthedocs.io/en/latest/?badge=latest
+           :target: https://sycl.readthedocs.io/en/latest/?badge=latest
            :alt: Documentation Status
 
 .. image:: https://api.reuse.software/badge/github.com/KhronosGroup/SYCL_Reference
@@ -13,7 +13,6 @@
 ==========================
  SYCL Language Reference
 ==========================
- 
 
 This repo contains the source for the SYCL reference manual published
 at _ReadTheDocs.
@@ -57,14 +56,14 @@ header from the SYCL spec to the headers directory and update the doc.
 Adding licenses to files
 ========================
 
-Use the reuse_ tool::
+Use the reuse_ tool
 
 Code examples::
-  
+
   reuse addheader --copyright "The Khronos Group Inc." --year 2020 --license Apache-2.0 source/examples/host-task.cpp
 
 Doc sources::
-  
+
   reuse addheader --copyright "The Khronos Group Inc." --year 2020 --license CC-BY-4.0 source/index.rst
 
 

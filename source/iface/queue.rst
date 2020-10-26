@@ -4,7 +4,7 @@
 
 .. _queues:
 
-	       
+
 ******
 Queues
 ******
@@ -18,7 +18,7 @@ sycl::queue
 ===========
 
 ::
-   
+
    class queue;
 
 Queues connect a host program to a single device. Programs submit
@@ -43,7 +43,7 @@ completion and errors.
 ==============
 
 ::
-   
+
   explicit queue(const sycl::property_list &propList = {});
   explicit queue(const sycl::async_handler &asyncHandler,
                  const sycl::property_list &propList = {});
@@ -51,23 +51,23 @@ completion and errors.
                  const sycl::property_list &propList = {});
   explicit queue(const sycl::device_selector &deviceSelector,
                  const sycl::async_handler &asyncHandler,
-		 const sycl::property_list &propList = {});
+                 const sycl::property_list &propList = {});
   explicit queue(const sycl::device &syclDevice, const sycl::property_list &propList = {});
   explicit queue(const sycl::device &syclDevice, const sycl::async_handler &asyncHandler,
                  const sycl::property_list &propList = {});
   explicit queue(const sycl::context &syclContext,
                  const sycl::device_selector &deviceSelector,
-		 const sycl::property_list &propList = {});
+                 const sycl::property_list &propList = {});
   explicit queue(const sycl::context &syclContext,
                  const sycl::device_selector &deviceSelector,
                  const sycl::async_handler &asyncHandler,
-		 const sycl::property_list &propList = {});
+                 const sycl::property_list &propList = {});
   explicit queue(const sycl::context &syclContext,
                  const sycl::device &syclDevice,
-		 const sycl::property_list &propList = {});
+                 const sycl::property_list &propList = {});
   explicit queue(const sycl::context &syclContext, const sycl::device &syclDevice,
                  const sycl::async_handler &asyncHandler,
-		 const sycl::property_list &propList = {});
+                 const sycl::property_list &propList = {});
   explicit queue(cl_command_queue clQueue, const sycl::context& syclContext,
                  const sycl::async_handler &asyncHandler = {});
 
@@ -87,15 +87,21 @@ queue with an ``asyncHandler`` and calling wait_and_throw_.
 
 .. rubric:: Parameters
 
-======================  ===
-propList                See `queue-properties`_
-asyncHandler            Called for asynchronous exceptions, see :ref:`async_handler`
-deviceSelector          Selects device for queue
-syclDevice              Device for queue
-syclContext             Associate queue with the context
-clQueue                 Assocate queue with OpenCL|trade| queue
-======================  ===
-  
+.. list-table::
+
+   * - propList
+     - See `queue-properties`_
+   * - asyncHandler
+     - Called for asynchronous exceptions, see :ref:`async_handler`
+   * - deviceSelector
+     - Selects device for queue
+   * - syclDevice
+     - Device for queue
+   * - syclContext
+     - Associate queue with the context
+   * - clQueue
+     - Assocate queue with OpenCL|trade| queue
+
 .. rubric:: Exceptions
 
 invalid_object_error
@@ -109,7 +115,7 @@ get
 
 
 ::
-   
+
   cl_command_queue get() const;
 
 Return OpenCL queue associated with SYCL queue.
@@ -118,7 +124,7 @@ get_context
 ===========
 
 ::
-   
+
   sycl::context get_context() const;
 
 Returns context associated with queue.
@@ -127,7 +133,7 @@ get_device
 ==========
 
 ::
-   
+
   sycl::device get_device() const;
 
 Returns device associated with queue.
@@ -136,7 +142,7 @@ is_host
 =======
 
 ::
-   
+
   bool is_host() const;
 
 Returns True if queue executes on host device.
@@ -145,7 +151,7 @@ get_info
 ========
 
 ::
-   
+
   template <sycl::info::queue param>
   typename sycl::info::param_traits<sycl::info::queue, param>::return_type get_info() const;
 
@@ -158,7 +164,7 @@ submit
 ======
 
 ::
-   
+
   template <typename T>
   event submit(T cgf);
   template <typename T>
@@ -172,10 +178,12 @@ T
 
 .. rubric:: Parameters
 
-=================  ===
-cgf                Command group function object
-secondaryQueue     On error, runtime resubmits command group to the secondary queue.
-=================  ===
+.. list-table::
+
+   * - cgf
+     - Command group function object
+   * - secondaryQueue
+     - On error, runtime resubmits command group to the secondary queue.
 
 Submit a command group function object to the queue for asynchronous
 execution.
@@ -187,7 +195,7 @@ In most cases, the ``T`` template parameter is not provided because it
 is inferred from the type of ``cgf``.
 
 .. rubric:: Exceptions
-	    
+
 The runtime resubmits the command group to the secondary queue
 if an error occurs executing on the primary queue.
 
@@ -196,7 +204,7 @@ wait
 ====
 
 ::
-   
+
   void wait();
 
 Wait for all enqueued tasks to complete.
@@ -207,7 +215,7 @@ wait_and_throw
 ==============
 
 ::
-   
+
   void wait_and_throw();
 
 Wait for all enqueued tasks and pass asynchronous errors to handler
@@ -219,7 +227,7 @@ throw_asynchronous
 ==================
 
 ::
-   
+
   void throw_asynchronous();
 
 Passes any asynchronous errors to handler provided in
@@ -231,7 +239,7 @@ memcpy
 ======
 
 ::
-   
+
    sycl::event memcpy(void* dest, const void* src, size_t num_bytes);
 
 Set memory allocated with :ref:`malloc_device`. For usage, see
@@ -245,7 +253,7 @@ memset
 ::
 
    sycl::event memset(void* ptr, int value, size_t num_bytes);
-   
+
 Set memory allocated with :ref:`malloc_device`. For usage, see
 :ref:`event-elapsed-time`.
 
@@ -276,13 +284,21 @@ sycl::info::queue
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-===============  ==========================  ===
-Descriptor       Return type                 Description
-===============  ==========================  ===
-context          context                     SYCL context associated with the queue
-device           device                      SYCL device associated with the queue
-reference_count  cl_uint                     Reference count of the queue
-===============  ==========================  ===
+.. list-table::
+   :header-rows: 1
+
+   * - Descriptor
+     - Return type
+     - Description
+   * - context
+     - context
+     - SYCL context associated with the queue
+   * - device
+     - device
+     - SYCL device associated with the queue
+   * - reference_count
+     - cl_uint
+     - Reference count of the queue
 
 
 .. _queue-properties:
@@ -301,7 +317,7 @@ sycl::property::queue::enable_profiling
 ::
 
    class enable_profiling;
-   
+
 SYCL runtime captures profiling information for command groups
 submitted to the queue.
 
@@ -317,7 +333,7 @@ Constructs an enable_profiling property instance.
 .. rubric:: Example
 
 See :ref:`event-elapsed-time`.
-  
+
 .. rst-class:: api-class
 
 sycl::property::queue::in_order
@@ -328,7 +344,7 @@ sycl::property::queue::in_order
 ::
 
    class in_order;
-   
+
 SYCL queue provides in-order semantics.
 
 (constructors)
@@ -339,5 +355,3 @@ SYCL queue provides in-order semantics.
    in_order();
 
 Constructs an in_order property instance.
-
-  

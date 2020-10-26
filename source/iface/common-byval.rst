@@ -23,4 +23,3 @@ Classes with reference semantics support the following methods.
     friend bool operator==(const T &lhs, const T &rhs) { /* ... */ }
     friend bool operator!=(const T &lhs, const T &rhs) { /* ... */ }
   };
-   

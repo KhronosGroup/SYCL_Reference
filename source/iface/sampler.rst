@@ -28,7 +28,7 @@ sycl::filtering_mode
 ====================
 
 ::
-   
+
   enum class filtering_mode: unsigned int {
      nearest,
      linear
@@ -46,7 +46,7 @@ sycl::coordinate_normalization_mode
   };
 
 .. rst-class:: api-class
-	       
+
 =============
 sycl::sampler
 =============
@@ -59,7 +59,7 @@ sycl::sampler
 ==============
 
 ::
-   
+
   sampler(sycl::coordinate_normalization_mode normalizationMode,
           sycl::addressing_mode addressingMode, sycl::filtering_mode filteringMode,
           const sycl::property_list &propList = {});

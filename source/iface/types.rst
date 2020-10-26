@@ -31,7 +31,7 @@ sycl::memory_order
    };
 
 .. rst-class:: api-class
-	       
+
 ============
 sycl::atomic
 ============
@@ -40,14 +40,14 @@ sycl::atomic
 
    template <typename T,
              sycl::access::address_space addressSpace = sycl::access::address_space::global_space
-	    >
+            >
    class atomic;
 
 (constructors)
 ==============
 
 ::
-   
+
    template <typename pointerT>
    atomic(sycl::multi_ptr<pointerT, addressSpace> ptr);
 
@@ -55,7 +55,7 @@ store
 =====
 
 ::
-   
+
    void store(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
@@ -80,7 +80,7 @@ compare_exchange_strong
 
    *Available only when:
     T != float*
-    
+
    bool compare_exchange_strong(T &expected, T desired,
                                 sycl::memory_order successMemoryOrder = sycl::memory_order::relaxed,
                                 sycl::memory_order failMemoryOrder = sycl::memory_order::relaxed);
@@ -93,7 +93,7 @@ fetch_add
 
    *Available only when:
     T != float*
-    
+
    T fetch_add(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
@@ -104,7 +104,7 @@ fetch_sub
 
    *Available only when:
     T != float*
-    
+
    T fetch_sub(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
@@ -112,19 +112,18 @@ fetch_and
 =========
 
 .. parsed-literal::
-   
+
    *Available only when:
     T != float*
-    
+
    T fetch_and(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
-   
 
 
 fetch_or
 ========
 
 .. parsed-literal::
-   
+
    *Available only when:
     T != float*
 
@@ -135,10 +134,10 @@ fetch_xor
 =========
 
 .. parsed-literal::
-   
+
    *Available only when:
     T != float*
-    
+
    T fetch_xor(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
@@ -146,12 +145,12 @@ fetch_min
 =========
 
 .. parsed-literal::
-   
+
    *Available only when:
     T != float*
-    
+
    T fetch_min(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
-   
+
 
 fetch_max
 =========
@@ -160,7 +159,7 @@ fetch_max
 
    *Available only when:
     T != float*
-    
+
    T fetch_max(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 

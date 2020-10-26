@@ -13,7 +13,7 @@ or to shared local memory allocated by the runtime.
 
 .. toctree::
    :maxdepth: 1
-   
+
    buffer-accessor
    local-accessor
    image-accessor

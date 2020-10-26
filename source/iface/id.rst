@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 .. _id:
 
 ========
@@ -45,7 +45,7 @@ get
 ===
 
 ::
-   
+
   size_t get(int dimension) const;
 
 Returns the value for dimension ``dimension``.
@@ -54,7 +54,7 @@ Returns the value for dimension ``dimension``.
 ===========
 
 ::
-   
+
   size_t &operator[](int dimension);
   size_t operator[](int dimension) const;
 
@@ -66,13 +66,13 @@ Returns the value for dimension ``dimension``.
 
   *OP is:
    +=, -=, \*=, /=, %=, <<=, >>=, &=, |=, ^=*
-   
+
   friend sycl::id &operatorOP(sycl::id &lhs, const sycl::id &rhs);
   friend sycl::id &operatorOP(sycl::id &lhs, const size_t &rhs);
 
   *OP is:
    +, -, \*, /, %, <<, >>, &, |, ^, &&, ||, <, >, <=, >=*
-   
+
    friend sycl::id operatorOP(const size_t &lhs, const sycl::id &rhs);
 
 Relational, arithmetic, and indexing operators on an ``id``.

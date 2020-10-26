@@ -3,7 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. rst-class:: api-class
-	       
+
 .. _nd_item:
 
 =============
@@ -14,7 +14,7 @@ sycl::nd_item
 
    template <int dimensions = 1>
    class nd_item;
-   
+
 The ``nd_item`` describes the location of a point in an
 :ref:`nd_range`.
 
@@ -29,7 +29,7 @@ get_global_id
 =============
 
 ::
-   
+
   sycl::id<dimensions> get_global_id() const;
   size_t get_global_id(int dimension) const;
 
@@ -39,7 +39,7 @@ get_global_linear_id
 ====================
 
 ::
-   
+
   size_t get_global_linear_id() const;
 
 Returns global id mapped to a linear space.
@@ -48,7 +48,7 @@ get_local_id
 ============
 
 ::
-   
+
   sycl::id<dimensions> get_local_id() const;
   size_t get_local_id(int dimension) const;
 
@@ -58,7 +58,7 @@ get_local_linear_id
 ===================
 
 ::
-   
+
   size_t get_local_linear_id() const;
 
 Returns linear id for point in the work group.
@@ -67,7 +67,7 @@ get_group
 =========
 
 ::
-   
+
   sycl::group<dimensions> get_group() const;
   size_t get_group(int dimension) const;
 
@@ -77,7 +77,7 @@ get_group_linear_id
 ===================
 
 ::
-   
+
   size_t get_group_linear_id() const;
 
 Returns linear id for group in workspace.
@@ -86,7 +86,7 @@ get_group_range
 ===============
 
 ::
-   
+
   sycl::range<dimensions> get_group_range() const;
   size_t get_group_range(int dimension) const;
 
@@ -96,7 +96,7 @@ get_global_range
 ================
 
 ::
-   
+
   sycl::range<dimensions> get_global_range() const;
   size_t get_global_range(int dimension) const;
 
@@ -106,7 +106,7 @@ get_local_range
 ===============
 
 ::
-   
+
   sycl::range<dimensions> get_local_range() const;
   size_t get_local_range(int dimension) const;
 
@@ -116,7 +116,7 @@ get_offset
 ==========
 
 ::
-   
+
   sycl::id<dimensions> get_offset() const;
 
 Returns the offset provided to the :ref:`handler-parallel_for`.
@@ -125,7 +125,7 @@ get_nd_range
 ============
 
 ::
-   
+
   sycl::nd_range<dimensions> get_nd_range() const;
 
 Returns the :ref:`nd_range` provided to the :ref:`handler-parallel_for`.
@@ -134,7 +134,7 @@ barrier
 =======
 
 ::
-   
+
   void barrier(sycl::access::fence_space accessSpace =
     sycl::access::fence_space::global_and_local) const;
 
@@ -145,7 +145,7 @@ mem_fence
 =========
 
 ::
-   
+
   template <sycl::access::mode accessMode = sycl::access::mode::read_write>
   void mem_fence(sycl::access::fence_space accessSpace =
     sycl::access::fence_space::global_and_local) const;
@@ -156,7 +156,7 @@ async_work_group_copy
 =====================
 
 ::
-   
+
   template <typename dataT>
   device_event async_work_group_copy(sycl::local_ptr<dataT> dest,
     sycl::global_ptr<dataT> src, size_t numElements) const;
@@ -178,7 +178,7 @@ wait_for
 ========
 
 ::
-   
+
   template <typename... eventTN>
   void wait_for(eventTN... events) const;
 

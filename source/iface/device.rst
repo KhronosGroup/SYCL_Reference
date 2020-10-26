@@ -9,13 +9,13 @@ Devices
 .. _device:
 
 .. rst-class:: api-class
-	       
+
 ============
 sycl::device
 ============
 
 ::
-   
+
    class device;
 
 An abstract class representing various models of SYCL devices. A
@@ -28,7 +28,7 @@ execute kernel functions.
 ==============
 
 .. parsed-literal::
-   
+
   device();
   explicit device(cl_device_id deviceId);
   explicit device(const device_selector &deviceSelector);
@@ -38,7 +38,7 @@ Construct a device.
 The default constructor creates a host device. A device can also be
 constructed from an OpenCL|trade| device or may be chosen by a
 :ref:`device-selectors`.
-	     
+
 .. rubric:: Parameters
 
 =================  =======================
@@ -50,7 +50,7 @@ get
 ===
 
 ::
-   
+
   cl_device_id get() const;
 
 Return the cl_device_id of the underlying OpenCL platform.
@@ -59,7 +59,7 @@ is_host
 =======
 
 ::
-   
+
   bool is_host() const;
 
 Returns True if the device is a host device, False otherwise.
@@ -68,7 +68,7 @@ is_cpu
 ======
 
 ::
-   
+
   bool is_cpu() const;
 
 Returns True if the device is a CPU, False otherwise.
@@ -77,7 +77,7 @@ is_gpu
 ======
 
 ::
-   
+
   bool is_gpu() const;
 
 Returns True if the device is a GPU, False otherwise.
@@ -86,7 +86,7 @@ is_accelerator
 ==============
 
 ::
-   
+
   bool is_accelerator() const;
 
 Returns True if the device is an accelerator, False otherwise.
@@ -95,7 +95,7 @@ get_platform
 ============
 
 ::
-   
+
   platform get_platform() const;
 
 Returns the platform that contains the device.
@@ -104,7 +104,7 @@ get_info
 ========
 
 ::
-   
+
   template <info::device param>
   typename info::param_traits<info::device, param>::return_type
   get_info() const;
@@ -120,7 +120,7 @@ has_extension
 =============
 
 ::
-   
+
   bool has_extension(const string_class &extension) const;
 
 Returns True if device supports the extension.
@@ -130,7 +130,7 @@ create_sub_devices
 ==================
 
 .. parsed-literal::
-   
+
   *Available only when:
    prop == info::partition_property::partition_equally*
 
@@ -139,13 +139,13 @@ create_sub_devices
 
   *Available only when:
    prop == info::partition_property::partition_by_counts*
-   
+
   template <info::partition_property prop>
   vector_class<device> create_sub_devices(const vector_class<size_t> &counts) const;
 
   *Available only when:
    prop == info::partition_property::partition_by_affinity_domain*
-   
+
   template <info::partition_property prop>
   vector_class<device> create_sub_devices(info::affinity_domain affinityDomain) const;
 
@@ -157,7 +157,7 @@ property.
 =================  ===
 prop               See `sycl::info::partition_property`_
 =================  ===
-	    
+
 
 .. rubric:: Parameters
 
@@ -170,8 +170,8 @@ affinityDomain     See `sycl::info::partition_affinity_domain`_
 .. rubric:: Exceptions
 
 feature_not_supported
-  When device does not support the `sycl::info::partition_property`_ specified by
-  the ``prop`` template argument.
+  When device does not support the `sycl::info::partition_property`_
+  specified by the ``prop`` template argument.
 
 
 .. _device-get_devices:
@@ -180,7 +180,7 @@ get_devices
 ===========
 
 ::
-   
+
   static vector_class<device> get_devices(
       info::device_type deviceType = info::device_type::all);
 
@@ -189,7 +189,7 @@ Returns vector of devices filtered by :ref:`info-device_type`.
 .. rubric:: Example
 
 Enumerate the GPU devices
-   
+
 .. literalinclude:: /examples/get_devices.cpp
    :lines: 5-
    :linenos:
@@ -281,13 +281,13 @@ sycl::info::device
     partition_type_affinity_domain,
     reference_count
   }
-  
+
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-==================================  ====================================  ===
-Descriptor                          Return type                           Description
-==================================  ====================================  ===
+==================================  ================  ===
+Descriptor                          Return type       Description
+==================================  ================  ===
 device_type
 vendor_id
 max_compute_units
@@ -324,16 +324,16 @@ image_max_array_size
 max_samplers
 max_parameter_size
 mem_base_addr_align
-half_fp_config                      `sycl::info::fp_config`_
-single_fp_config                    `sycl::info::fp_config`_
-double_fp_config                    `sycl::info::fp_config`_
-global_mem_cache_type               `sycl::info::global_mem_cache_type`_
+half_fp_config                      fp_config_
+single_fp_config                    fp_config_
+double_fp_config                    fp_config_
+global_mem_cache_type               cache_type_
 global_mem_cache_line_size
 global_mem_cache_size
 global_mem_size
 max_constant_buffer_size
 max_constant_args
-local_mem_type                      `sycl::info::local_mem_type`_
+local_mem_type                      local_mem_type_
 local_mem_size
 error_correction_support
 host_unified_memory
@@ -342,7 +342,7 @@ is_endian_little
 is_available
 is_compiler_available
 is_linker_available
-execution_capabilities              `sycl::info::execution_capability`_
+execution_capabilities              exec_capability_
 queue_profiling
 built_in_kernels
 platform
@@ -362,7 +362,7 @@ partition_affinity_domains
 partition_type_property
 partition_type_affinity_domain
 reference_count
-==================================  ====================================  ===
+==================================  ================  ===
 
 .. _info-device_type:
 
@@ -414,6 +414,8 @@ sycl::info::partition_affinity_domain
 
 See create_sub_devices_
 
+.. _local_mem_type:
+
 sycl::info::local_mem_type
 ==========================
 
@@ -422,6 +424,8 @@ sycl::info::local_mem_type
   enum class local_mem_type : int { none, local, global };
 
 See get_info_
+
+.. _fp_config:
 
 sycl::info::fp_config
 =====================
@@ -441,6 +445,8 @@ sycl::info::fp_config
 
 See get_info_
 
+.. _cache_type:
+
 sycl::info::global_mem_cache_type
 ==================================
 
@@ -450,14 +456,16 @@ sycl::info::global_mem_cache_type
 
 See get_info_
 
+.. _exec_capability:
+
 sycl::info::execution_capability
 ================================
 
 ::
-   
+
   enum class execution_capability : unsigned int {
     exec_kernel,
     exec_native_kernel
   };
 
-See get_info_  
+See get_info_

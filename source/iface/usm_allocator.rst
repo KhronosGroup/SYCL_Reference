@@ -25,12 +25,12 @@ declaring standard library containers (e.g. vector).
 
 .. rubric:: Template parameters
 
-=============  ===	    
+=============  ===
 T              Type of allocated element
 AllocKind      Type of allocation, see o
 Alignment      Alignment of the allocation
-=============  ===	    
-	    
+=============  ===
+
 .. rubric:: Example
 
 .. literalinclude:: /examples/std-vector.cpp
@@ -39,9 +39,9 @@ Alignment      Alignment of the allocation
 
 .. rubric:: Member types
 
-=============  ===	    
+=============  ===
 value_type
-=============  ===	    
+=============  ===
 
 .. seealso:: |SYCL_SPEC_USM_ALLOCATOR|
 
@@ -69,10 +69,10 @@ deallocate
 ==========
 
 ::
-   
+
   void deallocate(T *Ptr, size_t size);
 
-Deallocates memory  
+Deallocates memory
 
 construct
 =========
@@ -96,7 +96,7 @@ destroy
 =======
 
 ::
-   
+
   template <
       sycl::usm::alloc AllocT = AllocKind,
       typename std::enable_if<AllocT != sycl::usm::alloc::device, int>::type = 0>

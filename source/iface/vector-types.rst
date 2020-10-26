@@ -56,7 +56,7 @@ sycl::elem
 
 
 .. rst-class:: api-class
-	       
+
 =========
 sycl::vec
 =========
@@ -95,7 +95,7 @@ Conversion functions
 
   *Available when:
    numElements == 1*
-   
+
   operator dataT() const;
 
 
@@ -104,21 +104,21 @@ get_count
 =========
 
 ::
-   
+
    size_t get_count() const;
 
 get_size
 ========
 
 ::
-   
+
   size_t get_size() const;
-   
+
 convert
 =======
 
 ::
-   
+
    template <typename convertT, sycl::rounding_mode roundingMode = sycl::rounding_mode::automatic>
    sycl::vec<convertT, numElements> convert() const;
 
@@ -137,7 +137,7 @@ swizzle
 
    template<int... swizzleIndexes>
    __swizzled_vec__ swizzle() const;
-   
+
 swizzle access
 ==============
 
@@ -194,7 +194,7 @@ Arithmetic operators
 ====================
 
 .. parsed-literal::
-   
+
   friend sycl::vec operator+(const sycl::vec &lhs, const sycl::vec &rhs);
   friend sycl::vec operator+(const sycl::vec &lhs, const dataT &rhs);
   friend sycl::vec operator+(const dataT &lhs, const sycl::vec &rhs);
@@ -211,7 +211,7 @@ Arithmetic operators
   friend sycl::vec operator/(const sycl::vec &lhs, const dataT &rhs);
   friend sycl::vec operator/(const dataT &lhs, const sycl::vec &rhs);
 
-  
+
   friend sycl::vec &operator+=(sycl::vec &lhs, const sycl::vec &rhs);
   friend sycl::vec &operator+=(sycl::vec &lhs, const dataT &rhs);
 

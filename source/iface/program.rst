@@ -7,7 +7,7 @@ Programs
 ********
 
 .. rst-class:: api-class
-	       
+
 =============
 sycl::program
 =============
@@ -20,7 +20,7 @@ sycl::program
 ==============
 
 ::
-   
+
   explicit program(const context &sycl::context,
                    const sycl::property_list &propList = {});
   program(const context &sycl::context, sycl::vector_class<sycl::device> deviceList,
@@ -147,7 +147,7 @@ get_build_options
 
 get_state
 =========
- 
+
 ::
 
    sycl::program_state get_state() const;
