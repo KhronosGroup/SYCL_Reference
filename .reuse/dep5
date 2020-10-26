@@ -8,3 +8,11 @@ Source:
 # Files: src/*
 # Copyright: $YEAR $NAME <$CONTACT>
 # License: ...
+
+Files: source/_static/Khronos_Group_SYCL_logo.* source/_static/favicon.png
+Copyright: 2020 The Khronos Group Inc.
+License: CC-BY-4.0
+
+Files: reference/headers/*
+Copyright: 2020 The Khronos Group Inc.
+License: Apache-2.0
