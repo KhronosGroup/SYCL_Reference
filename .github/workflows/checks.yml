@@ -18,8 +18,8 @@ jobs:
           DEBIAN_FRONTEND=noninteractive xargs -a ubuntu-packages.txt sudo apt-get install -qq
           python3 -m venv venv
           . venv/bin/activate
-          sudo python3 -m pip install --quiet --upgrade pip wheel
-          sudo python3 -m pip install --quiet --upgrade -r requirements.txt
+          sudo -H python3 -m pip install --quiet --upgrade pip wheel setuptools
+          sudo -H python3 -m pip install --quiet --upgrade -r requirements.txt
     - name: Sphinx
       run: |
           python3 doc.py html
