@@ -28,7 +28,7 @@ jobs:
     - name: Doc8
       run: |
           . venv/bin/activate
-          doc8
+          doc8 --ignore-path venv
     - name: Black
       run: |
           . venv/bin/activate
