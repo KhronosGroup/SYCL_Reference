@@ -19,8 +19,8 @@ jobs:
           DEBIAN_FRONTEND=noninteractive xargs -a ubuntu-packages.txt apt-get install -qq
           python3 -m venv venv
           . venv/bin/activate
-          pip install --quiet --upgrade pip wheel
-          pip install --quiet --upgrade -r requirements.txt
+          python -m pip install --quiet --upgrade pip wheel
+          python -m pip install --quiet --upgrade -r requirements.txt
     - name: Sphinx
       run: |
           . venv/bin/activate
@@ -28,6 +28,8 @@ jobs:
     - name: Reuse
       run: |
           . venv/bin/activate
+          which reuse
+	  reuse --version
           reuse lint
     - name: Doc8
       run: |
