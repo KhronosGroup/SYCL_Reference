@@ -82,7 +82,7 @@ get_info
 .. rubric:: Template parameters
 
 ==================  ===
-param               See `sycl::info::kernel`_
+``param``           See `sycl::info::kernel`_
 ==================  ===
 
 Returns information about the kernel
@@ -132,6 +132,3 @@ sycl::info::kernel_work_group
        preferred_work_group_size_multiple,
        private_mem_size
    };
-
-
-

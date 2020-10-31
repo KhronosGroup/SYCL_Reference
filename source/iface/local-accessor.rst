@@ -145,3 +145,5 @@ operator ()
    accessMode == access::mode::atomic && dimensions == 0*
 
   operator sycl::atomic<dataT,sycl::access::address_space::local_space> () const;
+
+  

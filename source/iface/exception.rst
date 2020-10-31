@@ -79,8 +79,8 @@ sycl::exception_list
 
    class exception_list;
 
-An exContainer for a list of asychronous exceptions that occur in the same
-queue. Re
+A container for a list of asynchronous exceptions that occur in the same
+queue.
 
 .. rubric:: Member types
 
@@ -139,7 +139,7 @@ sycl::kernel_error
 
    class kernel_error : public runtime_error;
 
-Error that occured before or while enqueuing the SYCL kernel.
+Error that occurred before or while enqueueing the SYCL kernel.
 
 sycl::accessor_error
 ====================
@@ -269,3 +269,4 @@ The SYCL runtime delivers asynchronous exceptions by invoking an
 constructor. The SYCL runtime delivers asynchronous exceptions to the
 handler when :ref:`queue-wait_and_throw` or
 :ref:`queue-throw_asynchronous` is called.
+
