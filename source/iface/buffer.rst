@@ -311,8 +311,8 @@ errc::invalid_object_error
 
 .. rst-class:: api-class
 
-sycl::propery::buffer:use_host_ptr
-==================================
+sycl::property::buffer:use_host_ptr
+===================================
 
 ::
 
@@ -390,3 +390,5 @@ get_context
 ::
 
    sycl::context get_context() const;
+   
+ 

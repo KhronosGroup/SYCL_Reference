@@ -6,9 +6,9 @@
 
 .. _nd_item:
 
-=============
-sycl::nd_item
-=============
+=================
+``sycl::nd_item``
+=================
 
 ::
 
@@ -25,8 +25,8 @@ contains the :ref:`nd_range` defining the index space.
 
 .. seealso:: |SYCL_SPEC_ND_ITEM|
 
-get_global_id
-=============
+``get_global_id``
+=================
 
 ::
 
@@ -35,8 +35,8 @@ get_global_id
 
 Returns global :ref:`id` for the requested dimensions.
 
-get_global_linear_id
-====================
+``get_global_linear_id``
+========================
 
 ::
 
@@ -44,8 +44,8 @@ get_global_linear_id
 
 Returns global id mapped to a linear space.
 
-get_local_id
-============
+``get_local_id``
+================
 
 ::
 
@@ -54,8 +54,8 @@ get_local_id
 
 Returns id for the point in the work group.
 
-get_local_linear_id
-===================
+``get_local_linear_id``
+=======================
 
 ::
 
@@ -63,8 +63,8 @@ get_local_linear_id
 
 Returns linear id for point in the work group.
 
-get_group
-=========
+``get_group``
+=============
 
 ::
 
@@ -73,8 +73,8 @@ get_group
 
 Returns :ref:`group` associated with the item.
 
-get_group_linear_id
-===================
+``get_group_linear_id``
+=======================
 
 ::
 
@@ -82,8 +82,8 @@ get_group_linear_id
 
 Returns linear id for group in workspace.
 
-get_group_range
-===============
+``get_group_range``
+===================
 
 ::
 
@@ -92,8 +92,8 @@ get_group_range
 
 Returns the number of groups in every dimension.
 
-get_global_range
-================
+``get_global_range``
+====================
 
 ::
 
@@ -102,8 +102,8 @@ get_global_range
 
 Returns the :ref:`range` of the index space.
 
-get_local_range
-===============
+``get_local_range``
+===================
 
 ::
 
@@ -112,8 +112,8 @@ get_local_range
 
 Returns the position of the work item in the work group.
 
-get_offset
-==========
+``get_offset``
+==============
 
 ::
 
@@ -121,8 +121,8 @@ get_offset
 
 Returns the offset provided to the :ref:`handler-parallel_for`.
 
-get_nd_range
-============
+``get_nd_range``
+================
 
 ::
 
@@ -130,8 +130,8 @@ get_nd_range
 
 Returns the :ref:`nd_range` provided to the :ref:`handler-parallel_for`.
 
-barrier
-=======
+``barrier``
+===========
 
 ::
 
@@ -141,8 +141,8 @@ barrier
 Executes a work group barrier.
 
 
-mem_fence
-=========
+``mem_fence``
+=============
 
 ::
 
@@ -152,8 +152,8 @@ mem_fence
 
 Executes a work group memory fence.
 
-async_work_group_copy
-=====================
+``async_work_group_copy``
+=========================
 
 ::
 
@@ -174,8 +174,8 @@ Copies elements from a source local to the destination asynchronously.
 
 Returns an event that indicates when the operation has completed.
 
-wait_for
-========
+``wait_for``
+============
 
 ::
 
@@ -183,3 +183,4 @@ wait_for
   void wait_for(eventTN... events) const;
 
 Wait for asynchronous events to complete.
+

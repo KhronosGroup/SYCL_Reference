@@ -85,3 +85,5 @@ get_offset
   sycl::id<dimensions> get_offset() const;
 
 Returns a :ref:`id` defining the offset.
+
+   

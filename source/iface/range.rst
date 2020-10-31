@@ -17,8 +17,7 @@ sycl::range
 
 The range is an abstraction that describes the number of elements in
 each dimension of buffers and index spaces. It can contain 1, 2, or 3
-numbers, dependending on the dimensionality of the object it
-describes.
+numbers, depending on the dimensionality of the object it describes.
 
 
 .. rubric:: Template parameters
