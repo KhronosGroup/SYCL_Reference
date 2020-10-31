@@ -8,17 +8,34 @@ on: [push, pull_request]
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install prerequisites
       run: |
-          pip3 install setuptools
-          pip3 install -r requirements.txt
-    - name: Reuse
+          sudo apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive xargs -a ubuntu-packages.txt sudo apt-get install -qq
+          python3 -m venv venv
+          . venv/bin/activate
+          sudo -H python3 -m pip install --quiet --upgrade pip wheel setuptools
+          sudo -H python3 -m pip install --quiet --upgrade -r requirements.txt
+    - name: Sphinx
       run: |
-          ~/.local/bin/reuse lint
+          python3 doc.py html
     - name: Doc8
       run: |
-          ~/.local/bin/doc8
+          doc8 --ignore-path venv
+    - name: Black
+      run: |
+          black --exclude venv --skip-string-normalization --line-length 79 --check .
+    - name: Flake8
+      run: |
+          flake8 --exclude venv
+    - name: clang-format
+      run: |
+          find source -name '*.cpp' | xargs clang-format -i
+          git diff --exit-code
+    - name: Reuse
+      run: |
+          reuse lint
