@@ -57,18 +57,21 @@ or devices are supplied.
 
 .. rubric:: Parameters
 
-propList
-  See `sycl::property::context`_.
-asyncHandler
-  Called to report asynchronous SYCL exceptions for this context
-dev
-  Constructed context contains device
-deviceList
-  Constructed context contains devices
-plt
-  Constructed context contains platform
-clContext
-  Constructed context contains cl_context
+.. list-table::
+
+  * - ``propList``
+    - See `sycl::property::context`_.
+  * - ``asyncHandler``
+    - Called to report asynchronous SYCL exceptions for this context
+  * - ``dev``
+    - Constructed context contains device
+  * - ``deviceList``
+    - Constructed context contains devices
+  * - ``plt``
+    - Constructed context contains platform
+  * - ``clContext``
+    - Constructed context contains cl_context
+
 
 
 .. todo:: Examples that combines the functions
@@ -147,13 +150,13 @@ information.
      - Return type
      - Description
    * - reference_count
-     - cl_uint
+     - ``cl_uint``
      - Reference count of the underlying cl_context
    * - platform
-     - platform
+     - :ref:`platform`
      - SYCL platform for the context
    * - devices
-     - vector_class<device>
+     - ``vector_class<device>``
      - SYCL devices associated with this platform
 
 

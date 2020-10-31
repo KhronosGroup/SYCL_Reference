@@ -132,8 +132,8 @@ Returns information about the queue as determined by ``param``. See
 
 .. rubric:: Example
 
-Measure the elapsed time of a memcpy executed on a device with event
-profiling info.
+Measure the elapsed time of a ``memcpy`` executed on a device with
+event profiling info.
 
 .. literalinclude:: /examples/event-elapsed-time.cpp
    :lines: 5-
@@ -165,11 +165,11 @@ information.
    * - Descriptor
      - Return type
      - Description
-   * - command_execution_status
-     - sycl::info::event_command_status
+   * - ``command_execution_status``
+     - ``sycl::info::event_command_status``
      - See `sycl::info::event_command_status`_
-   * - reference_count
-     - cl_uint
+   * - ``reference_count``
+     - ``cl_uint``
      - Reference count of the event
 
 ====================================
@@ -207,13 +207,13 @@ type of information.
      - Return type
      - Description
    * - command_submit
-     - cl_ulong
+     - ``cl_ulong``
      - Time in nanoseconds when :ref:`command_group` was submitted
    * - command_start
-     - cl_ulong
+     - ``cl_ulong``
      - Time in nanoseconds when :ref:`command_group` started execution
    * - command_end
-     - cl_ulong
+     - ``cl_ulong``
      - Time in nanoseconds when :ref:`command_group` finished
        execution
 

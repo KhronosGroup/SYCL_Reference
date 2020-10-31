@@ -55,9 +55,10 @@
 
 Returns a pointer to the newly allocated memory on the specified
 device on success. This memory is not accessible on the host. Memory
-allocated by malloc_device must be deallocated with :ref:`sycl::free
-<sycl-free>` to avoid memory leaks. If ctxt is a host context, it
-should behave as if calling malloc_host. On failure, returns nullptr.
+allocated by :ref:`sycl::malloc_device <malloc_device>` must be
+deallocated with :ref:`sycl::free <sycl-free>` to avoid memory
+leaks. If ``ctxt`` is a host context, it should behave as if calling
+:ref:`sycl::malloc_host <malloc_host>`. On failure, returns ``nullptr``.
 
 The host may not directly reference the memory, but can read and write
 the memory with :ref:`queue` member functions (:ref:`queue-memset`,
@@ -68,6 +69,8 @@ functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
 See :ref:`event-elapsed-time` for usage.
 
 .. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
+
+.. _malloc_host:
 
 =====================
 ``sycl::malloc_host``
@@ -118,11 +121,14 @@ See :ref:`event-elapsed-time` for usage.
 ==================  ===
 
 Returns a pointer to the newly allocated host memory on success. Host
-and device may reference the memory.  Memory allocated by malloc_host
-must be deallocated with :ref:`sycl::free <sycl-free>` to avoid memory
-leaks. On failure, returns nullptr.
+and device may reference the memory.  Memory allocated by
+:ref:`sycl::malloc_host <malloc_host>` must be deallocated with
+:ref:`sycl::free <sycl-free>` to avoid memory leaks. On failure,
+returns ``nullptr``.
 
 .. seealso:: |SYCL_SPEC_MALLOC_HOST|
+
+.. _malloc_shared:
 
 =======================
 ``sycl::malloc_shared``
@@ -176,9 +182,10 @@ leaks. On failure, returns nullptr.
 Returns a pointer to the newly allocated shared memory on the
 specified device on success. The SYCL runtime may migrate the data
 between host and device to optimize access.  Memory allocated by
-malloc_shared must be deallocated with :ref:`sycl::free <sycl-free>`
-to avoid memory leaks. If ctxt is a host context, should behave as if
-calling malloc_host. On failure, returns nullptr.
+:ref:`sycl::malloc_shared <malloc_shared>` must be deallocated with
+:ref:`sycl::free <sycl-free>` to avoid memory leaks. If ``ctxt`` is a
+host context, should behave as if calling :ref:`sycl::malloc_host
+<malloc_host>`. On failure, returns ``nullptr``.
 
 .. seealso:: |SYCL_SPEC_MALLOC_SHARED|
 

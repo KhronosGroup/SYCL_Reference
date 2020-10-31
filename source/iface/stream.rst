@@ -14,7 +14,7 @@ provides similar functionality.
 
 .. rubric:: Example
 
-Output to stdout in a kernel.
+Output to console in a kernel.
 
 .. literalinclude:: /examples/stream.cpp
    :linenos:

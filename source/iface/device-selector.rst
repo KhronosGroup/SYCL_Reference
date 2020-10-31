@@ -99,16 +99,16 @@ device_selector_ as a base class.
 
 .. list-table::
 
-  * - default_selector
+  * - ``default_selector``
     - Selects device according to implementation-defined heuristic or
       host device if no device can be found.
-  * - gpu_selector
+  * - ``gpu_selector``
     - Select a GPU
-  * - accelerator_selector
+  * - ``accelerator_selector``
     - Select an accelerator
-  * - cpu_selector
+  * - ``cpu_selector``
     - Select a CPU device
-  * - host_selector
+  * - ``host_selector``
     - Select the host device
 
 

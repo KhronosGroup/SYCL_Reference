@@ -23,6 +23,9 @@ jobs:
     - name: Sphinx
       run: |
           python3 doc.py html
+    - name: Spelling
+      run: |
+          python3 doc.py spelling
     - name: Doc8
       run: |
           doc8 --ignore-path venv

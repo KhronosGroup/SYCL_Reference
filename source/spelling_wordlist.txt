@@ -5,8 +5,16 @@ atomics
 dimensionality
 runtime
 runtimes
+subdevices
 allocator
 enqueueing
 Todo
-
+Deallocates
+Allocators
+enqueued
+deallocated
+Multipointer
+USM
+Namespaces
+namespace
 

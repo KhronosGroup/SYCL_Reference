@@ -66,7 +66,7 @@ Memory allocation
 ===================  ==========
 ``value_type``       type of buffer element
 ``reference``        reference type of buffer element
-``const_reference``  const reference type of buffer element
+``const_reference``  ``const`` reference type of buffer element
 ``allocator_type``   type of allocator for buffer data
 ===================  ==========
 
@@ -122,7 +122,7 @@ buffer is destroyed.  Buffers can also be initialized as a slice of
 another buffer, by specifying the origin of the data and the
 dimensions.
 
-A constructor can also accept cl_mem or iterators to initialize a
+A constructor can also accept ``cl_mem`` or iterators to initialize a
 buffer.
 
 .. rubric:: Template parameters
@@ -302,7 +302,7 @@ sub-buffer.
 
 .. rubric:: Exceptions
 
-errc::invalid_object_error
+``errc::invalid_object_error``
   Size in bytes of new buffer does not match original buffer.
 
 ==================
@@ -341,7 +341,8 @@ host.
    class use_mutex;
 
 Adds the requirement that the memory owned by the SYCL buffer can be
-shared with the application via a std::mutex provided to the property.
+shared with the application via a ``std::mutex`` provided to the
+property.
 
 .. _use_mutex-constructors:
 
@@ -390,5 +391,3 @@ to the property.
 ::
 
    sycl::context get_context() const;
-   
- 

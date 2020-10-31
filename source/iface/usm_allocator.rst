@@ -90,7 +90,7 @@ Deallocates memory
       class U, class... ArgTs>
   void construct(U *Ptr, ArgTs &&... Args);
 
-Constructs an object on memory pointed by Ptr.
+Constructs an object on memory pointed by ``Ptr``.
 
 ``destroy``
 ===========

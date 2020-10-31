@@ -89,18 +89,18 @@ queue with an ``asyncHandler`` and calling wait_and_throw_.
 
 .. list-table::
 
-   * - propList
+   * - ``propList``
      - See `queue-properties`_
-   * - asyncHandler
+   * - ``asyncHandler``
      - Called for asynchronous exceptions, see :ref:`async_handler`
-   * - deviceSelector
+   * - ``deviceSelector``
      - Selects device for queue
-   * - syclDevice
+   * - ``syclDevice``
      - Device for queue
-   * - syclContext
+   * - ``syclContext``
      - Associate queue with the context
-   * - clQueue
-     - Assocate queue with OpenCL|trade| queue
+   * - ``clQueue``
+     - Associate queue with OpenCL|trade| queue
 
 .. rubric:: Exceptions
 
@@ -180,10 +180,11 @@ queue_ for details.
 
 .. list-table::
 
-   * - cgf
-     - Command group function object
-   * - secondaryQueue
-     - On error, runtime resubmits command group to the secondary queue.
+  * - ``cgf``
+    - Command group function object
+  * - ``secondaryQueue``
+    - On error, runtime resubmits command group to the secondary
+      queue.
 
 Submit a command group function object to the queue for asynchronous
 execution.
@@ -290,14 +291,14 @@ information.
    * - Descriptor
      - Return type
      - Description
-   * - context
-     - context
+   * - ``context``
+     - ``context``
      - SYCL context associated with the queue
-   * - device
-     - device
+   * - ``device``
+     - ``device``
      - SYCL device associated with the queue
-   * - reference_count
-     - cl_uint
+   * - ``reference_count``
+     - ``cl_uint``
      - Reference count of the queue
 
 

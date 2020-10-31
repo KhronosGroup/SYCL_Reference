@@ -2,9 +2,9 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-==============
- param_traits
-==============
+================
+``param_traits``
+================
 
 ::
 
