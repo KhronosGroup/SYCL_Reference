@@ -20,7 +20,7 @@ jobs:
           python3 -m venv venv
           . venv/bin/activate
           pip install --quiet --upgrade pip wheel
-          pip install --quiet -r requirements.txt
+          pip install --quiet --upgrade -r requirements.txt
     - name: Sphinx
       run: |
           . venv/bin/activate
