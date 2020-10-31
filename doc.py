@@ -9,7 +9,7 @@ from os.path import join
 import shutil
 import subprocess
 
-sphinx_opts = '-n -N -j auto'
+sphinx_opts = '-W -n -N -j auto'
 sphinx_build = 'sphinx-build'
 source_dir = 'source'
 build_dir = 'build'
