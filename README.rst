@@ -15,7 +15,7 @@
 ==========================
 
 This repo contains the source for the SYCL reference manual published
-at _ReadTheDocs.
+at ReadTheDocs_.
 
 It's a work in progress. It may be missing descriptions or entire
 classes. If you see something wrong, file an issue or submit a PR to
@@ -24,7 +24,7 @@ fix it.
 Automatic Publishing
 ====================
 
-Commits to main branch are built and published at _ReadTheDocs.
+Commits to main branch are built and published at ReadTheDocs_.
 
 Prerequisites
 =============
