@@ -18,16 +18,14 @@ int main() {
   // Create allocator for device associated with q
   vec_alloc myAlloc(q);
   // Create std vectors with the allocator
-  std::vector<int, vec_alloc >
-    a(size, myAlloc),
-    b(size, myAlloc),
-    c(size, myAlloc);
+  std::vector<int, vec_alloc> a(size, myAlloc), b(size, myAlloc),
+      c(size, myAlloc);
 
   // Get pointer to vector data for access in kernel
   auto A = a.data();
   auto B = b.data();
   auto C = c.data();
-  
+
   for (int i = 0; i < size; i++) {
     a[i] = i;
     b[i] = i;
@@ -35,12 +33,11 @@ int main() {
   }
 
   q.submit([&](handler &h) {
-      h.parallel_for(range<1>(size),
-		     [=](id<1> idx) {
-		       C[idx] = A[idx] + B[idx];
-		     });
-    }).wait();
+     h.parallel_for(range<1>(size),
+                    [=](id<1> idx) { C[idx] = A[idx] + B[idx]; });
+   }).wait();
 
-  for (int i = 0; i < size; i++) std::cout << c[i] << std::endl;
+  for (int i = 0; i < size; i++)
+    std::cout << c[i] << std::endl;
   return 0;
 }

@@ -8,9 +8,10 @@ int main() {
   sycl::property_list properties{sycl::property::queue::enable_profiling()};
   auto q = sycl::queue(sycl::gpu_selector(), properties);
 
-  std::cout << "  Platform: "
-	    << q.get_device().get_platform().get_info<sycl::info::platform::name>()
-	    << std::endl;
+  std::cout
+      << "  Platform: "
+      << q.get_device().get_platform().get_info<sycl::info::platform::name>()
+      << std::endl;
 
   const int num_ints = 1024 * 1024;
   const size_t num_bytes = num_ints * sizeof(int);
@@ -28,10 +29,12 @@ int main() {
   auto event = q.memcpy(dst, src, num_bytes);
   event.wait();
 
-  auto end = event.get_profiling_info<sycl::info::event_profiling::command_end>();
-  auto start = event.get_profiling_info<sycl::info::event_profiling::command_start>();
+  auto end =
+      event.get_profiling_info<sycl::info::event_profiling::command_end>();
+  auto start =
+      event.get_profiling_info<sycl::info::event_profiling::command_start>();
 
-  std::cout << "Elapsed time: " << (end-start)/1.0e9 << " seconds\n";
+  std::cout << "Elapsed time: " << (end - start) / 1.0e9 << " seconds\n";
 
   sycl::free(dst, q);
 }
