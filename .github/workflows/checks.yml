@@ -21,18 +21,23 @@ jobs:
           pip install --quiet -r requirements.txt
     - name: Sphinx
       run: |
+          . venv/bin/activate
           python doc.py html
     - name: Reuse
       run: |
+          . venv/bin/activate
           reuse lint
     - name: Doc8
       run: |
+          . venv/bin/activate
           doc8
     - name: Black
       run: |
+          . venv/bin/activate
           black --skip-string-normalization --line-length 79 --check .
     - name: Flake8
       run: |
+          . venv/bin/activate
           flake8
     - name: clang-format
       run: |
