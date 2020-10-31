@@ -9,7 +9,6 @@ on: [push, pull_request]
 jobs:
   checks:
     runs-on: ubuntu-latest
-    container: sphinxdoc/sphinx
     steps:
     - name: Checkout
       uses: actions/checkout@v2
