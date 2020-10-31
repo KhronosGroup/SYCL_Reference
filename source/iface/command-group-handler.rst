@@ -6,9 +6,9 @@
 
 .. rst-class:: api-class
 
-=============
-sycl::handler
-=============
+=================
+``sycl::handler``
+=================
 
 ::
 
@@ -24,8 +24,8 @@ function is an argument to :ref:`queue-submit`.
 
 .. seealso:: |SYCL_SPEC_HANDLER|
 
-require
-=======
+``require``
+===========
 
 ::
 
@@ -36,8 +36,8 @@ require
 
 Adds a requirement before a device may execute a kernel.
 
-set_arg
-=======
+``set_arg``
+===========
 
 ::
 
@@ -46,8 +46,8 @@ set_arg
 
 Sets a kernel argument.
 
-set_args
-========
+``set_args``
+============
 
 ::
 
@@ -56,8 +56,8 @@ set_args
 
 Sets all kernel arguments.
 
-single_task
-===========
+``single_task``
+===============
 
 ::
 
@@ -72,8 +72,8 @@ usage.
 .. _handler-parallel_for:
 
 
-parallel_for
-============
+``parallel_for``
+================
 
 ::
 
@@ -101,17 +101,17 @@ Invokes a kernel function for a :ref:`range` or :ref:`nd_range`.
 
 .. rubric:: Parameters
 
-=================  ===
-numWorkItems       Range for work items
-workItemOffset     Offset into range for work items
-kernelFunc         Kernel function
-syclKernel         See :ref:`kernel`
-ndRange            See :ref:`nd_range`
-=================  ===
+==================  ===
+``numWorkItems``    Range for work items
+``workItemOffset``  Offset into range for work items
+``kernelFunc``      Kernel function
+``syclKernel``      See :ref:`kernel`
+``ndRange``         See :ref:`nd_range`
+==================  ===
 
 
-parallel_for_work_group
-=======================
+``parallel_for_work_group``
+===========================
 
 ::
 
@@ -128,8 +128,8 @@ Outer invocation in a hierarchical invocation of a kernel.
 
 The kernel function is executed once per work group.
 
-copy
-====
+``copy``
+========
 
 ::
 
@@ -168,28 +168,28 @@ destination, or both source and destination are
 
 .. rubric:: Template parameters
 
-==================  ===
-T_src               Type of source data elements
-dim_src             Dimensionality of source accessor data
-T_dest              Type of element for destination data
-dim_dest            Dimensionality of destination accessor data
-mode_src            Mode for source accessor
-mode_dest           Mode for destination accessor
-tgt_src             Target for source accessor
-tgt_dest            Target for destination accessor
-isPlaceholder_src   Placeholder value for source accessor
-isPlaceholder_dest  Placeholder value for destination accessor
-==================  ===
+======================  ===
+``T_src``               Type of source data elements
+``dim_src``             Dimensionality of source accessor data
+``T_dest``              Type of element for destination data
+``dim_dest``            Dimensionality of destination accessor data
+``mode_src``            Mode for source accessor
+``mode_dest``           Mode for destination accessor
+``tgt_src``             Target for source accessor
+``tgt_dest``            Target for destination accessor
+``isPlaceholder_src``   Placeholder value for source accessor
+``isPlaceholder_dest``  Placeholder value for destination accessor
+======================  ===
 
 .. rubric:: Parameters
 
 =============  ===
-src            source of copy
-dest           destination of copy
+``src``        source of copy
+``dest``       destination of copy
 =============  ===
 
-update_host
-===========
+``update_host``
+===============
 
 ::
 
@@ -199,20 +199,20 @@ update_host
 
 .. rubric:: Template parameters
 
-==============  ===
-T               Type of element associated with accessor
-dim             Dimensionality of accessor
-mode            Access mode for accessor
-tgt             Target for accessor
-isPlaceholder   Placeholder value for accessor
-==============  ===
+==================  ===
+``T``               Type of element associated with accessor
+``dim``             Dimensionality of accessor
+``mode``            Access mode for accessor
+``tgt``             Target for accessor
+``isPlaceholder``   Placeholder value for accessor
+==================  ===
 
 Updates host copy of data associated with accessor.
 
 .. _handler-fill:
 
-fill
-====
+``fill``
+========
 
 ::
 
@@ -224,19 +224,19 @@ fill
 
 .. rubric:: Template parameters
 
-==============  ===
-T               Type of element associated with accessor
-dim             Dimensionality of accessor
-mode            Access mode for accessor
-tgt             Target for accessor
-isPlaceholder   Placeholder value for accessor
-==============  ===
+=================   ===
+``T``               Type of element associated with accessor
+``dim``             Dimensionality of accessor
+``mode``            Access mode for accessor
+``tgt``             Target for accessor
+``isPlaceholder``   Placeholder value for accessor
+=================   ===
 
 .. rubric:: Parameters
 
 ==============  ===
-dest            Destination of fill operation
-pattern         Value to fill
+``dest``        Destination of fill operation
+``pattern``     Value to fill
 ==============  ===
 
 Fill the destination with the value in ``pattern``.  The destination
@@ -246,8 +246,8 @@ may be memory associated with an accessor or allocated with
 
 .. _handler-memcpy:
 
-memcpy
-======
+``memcpy``
+==========
 
 ::
 
@@ -259,8 +259,8 @@ Set memory allocated with :ref:`malloc_device`. For usage, see
 
 .. _handler-memset:
 
-memset
-======
+``memset``
+==========
 
 ::
 

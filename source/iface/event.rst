@@ -11,9 +11,9 @@ Events
 
 .. rst-class:: api-class
 
-===========
-sycl::event
-===========
+===============
+``sycl::event``
+===============
 
 ::
 
@@ -37,8 +37,8 @@ kernel.
 
 Construct an event.
 
-cl_event_get
-============
+``cl_event_get``
+================
 
 ::
 
@@ -47,8 +47,8 @@ cl_event_get
 
 Returns OpenCL|trade| event associated with this event.
 
-is_host
-=======
+``is_host``
+===========
 
 ::
 
@@ -57,8 +57,8 @@ is_host
 
 Returns True if this a host event
 
-get_wait_list
-=============
+``get_wait_list``
+=================
 
 ::
 
@@ -67,8 +67,8 @@ get_wait_list
 
 Returns vector of events that this events waits on.
 
-wait
-====
+``wait``
+========
 
 ::
 
@@ -76,8 +76,8 @@ wait
 
 Wait for the associated command to complete.
 
-wait
-====
+``wait``
+========
 
 ::
 
@@ -85,8 +85,8 @@ wait
 
 Wait for vector of events to complete.
 
-wait_and_throw
-==============
+``wait_and_throw``
+==================
 
 ::
 
@@ -95,8 +95,8 @@ wait_and_throw
 Wait for an event to complete, and pass asynchronous errors to handler
 associated with the command.
 
-wait_and_throw
-==============
+``wait_and_throw``
+==================
 
 ::
 
@@ -105,8 +105,8 @@ wait_and_throw
 Wait for a vector of events to complete, and pass asynchronous errors
 to handlers associated with the commands.
 
-get_info
-========
+``get_info``
+============
 
 ::
 
@@ -117,8 +117,8 @@ Returns information about the queue as determined by ``param``. See
 `sycl::info::event`_ for details.
 
 
-get_profiling_info
-==================
+``get_profiling_info``
+======================
 
 ::
 
@@ -145,9 +145,9 @@ Output:
    :lines: 5-
 
 
-=================
-sycl::info::event
-=================
+=====================
+``sycl::info::event``
+=====================
 
 ::
 
@@ -172,9 +172,9 @@ information.
      - cl_uint
      - Reference count of the event
 
-================================
-sycl::info::event_command_status
-================================
+====================================
+``sycl::info::event_command_status``
+====================================
 
 ::
 
@@ -185,9 +185,9 @@ sycl::info::event_command_status
    };
 
 
-===========================
-sycl::info::event_profiling
-===========================
+===============================
+``sycl::info::event_profiling``
+===============================
 
 ::
 

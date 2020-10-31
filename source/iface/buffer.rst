@@ -11,9 +11,9 @@
 
 .. rst-class:: api-class
 
-============
-sycl::buffer
-============
+================
+``sycl::buffer``
+================
 
 ::
 
@@ -24,9 +24,9 @@ sycl::buffer
 .. rubric:: Template parameters
 
 ================  ==========
-T                 Type of data in buffer
-dimensions        Dimensionality of data: 1, 2, or 3
-AllocatorT        Allocator for buffer data
+``T``             Type of data in buffer
+``dimensions``    Dimensionality of data: 1, 2, or 3
+``AllocatorT``    Allocator for buffer data
 ================  ==========
 
 Buffers are containers for data that can be read/written by both
@@ -63,12 +63,12 @@ Memory allocation
 
 .. rubric:: Member types
 
-================  ==========
-value_type        type of buffer element
-reference         reference type of buffer element
-const_reference   const reference type of buffer element
-allocator_type    type of allocator for buffer data
-================  ==========
+===================  ==========
+``value_type``       type of buffer element
+``reference``        reference type of buffer element
+``const_reference``  const reference type of buffer element
+``allocator_type``   type of allocator for buffer data
+===================  ==========
 
 .. seealso:: |SYCL_SPEC_BUFFER|
 
@@ -127,27 +127,27 @@ buffer.
 
 .. rubric:: Template parameters
 
-================  ==========
-InputIterator     type of iterator used to initialize the buffer
-================  ==========
+=================  ==========
+``InputIterator``  type of iterator used to initialize the buffer
+=================  ==========
 
 .. rubric:: Parameters
 
 ================  ==========
-bufferRange       :ref:`range` specifies the dimensions of the buffer
-allocator         Allocator for buffer data
-propList          See `Buffer properties`_
-hostData          Pointer to host memory to hold data
-first             Iterator to initialize buffer
-last              Iterator to initialize buffer
-b                 Buffer used to initialize this buffer
-baseIndx          Origin of sub-buffer
-subRange          Dimensions of sub-buffer
+``bufferRange``   :ref:`range` specifies the dimensions of the buffer
+``allocator``     Allocator for buffer data
+``propList``      See `Buffer properties`_
+``hostData``      Pointer to host memory to hold data
+``first``         Iterator to initialize buffer
+``last``          Iterator to initialize buffer
+``b``             Buffer used to initialize this buffer
+``baseIndx``      Origin of sub-buffer
+``subRange``      Dimensions of sub-buffer
 ================  ==========
 
 
-get_range
-=========
+``get_range``
+=============
 
 ::
 
@@ -156,8 +156,8 @@ get_range
 
 Returns the dimensions of the buffer.
 
-get_count
-=========
+``get_count``
+=============
 
 ::
 
@@ -166,8 +166,8 @@ get_count
 Returns the total number of elements in the buffer.
 
 
-get_size
-========
+``get_size``
+============
 
 ::
 
@@ -177,8 +177,8 @@ get_size
 Returns the size of the buffer storage in bytes.
 
 
-get_allocator
-=============
+``get_allocator``
+=================
 
 ::
 
@@ -189,8 +189,8 @@ Returns the allocator provided to the buffer.
 
 .. _buffer-get_access:
 
-get_access
-==========
+``get_access``
+==============
 
 ::
 
@@ -212,21 +212,21 @@ Returns a accessor to the buffer.
 .. rubric:: Template parameters
 
 ================  ==========
-mode              See :ref:`access-mode`
-target            See :ref:`access-target`
+``mode``          See :ref:`access-mode`
+``target``        See :ref:`access-target`
 ================  ==========
 
 .. rubric:: Parameters
 
-===================  ==========
-commandGroupHandler  Command group that uses the accessor
-accessRange          Dimensions of the sub-buffer that is accessed
-accessOffset         Origin of the sub-buffer that is accessed
-===================  ==========
+=======================  ==========
+``commandGroupHandler``  Command group that uses the accessor
+``accessRange``          Dimensions of the sub-buffer that is accessed
+``accessOffset``         Origin of the sub-buffer that is accessed
+=======================  ==========
 
 
-set_final_data
-==============
+``set_final_data``
+==================
 
 ::
 
@@ -236,21 +236,21 @@ set_final_data
 .. rubric:: Template parameters
 
 ===================  ==========
-Destination          std::weak_ptr<T> or output iterator
+``Destination``      ``std::weak_ptr<T>`` or output iterator
 ===================  ==========
 
 .. rubric:: Parameters
 
 ===================  ==========
-finalData            Indicates where data is copied at destruction time
+``finalData``        Indicates where data is copied at destruction time
 ===================  ==========
 
 Set the final data location. Final data controls the location for
 write back when the buffer is destroyed.
 
 
-set_write_back
-==============
+``set_write_back``
+==================
 
 ::
 
@@ -259,13 +259,13 @@ set_write_back
 .. rubric:: Parameters
 
 ===================  ==========
-flag                 True to force write back
+``flag``             True to force write back
 ===================  ==========
 
 Set the write back.
 
-is_sub_buffer
-=============
+``is_sub_buffer``
+=================
 
 ::
 
@@ -274,8 +274,8 @@ is_sub_buffer
 Returns True if this is a sub-buffer.
 
 
-reinterpret
-===========
+``reinterpret``
+===============
 
 ::
 
@@ -286,15 +286,15 @@ reinterpret
 .. rubric:: Template parameters
 
 ===================  ==========
-ReinterpretT         Type of new buffer element
-ReinterpretDim       Dimensions of new buffer
+``ReinterpretT``     Type of new buffer element
+``ReinterpretDim``   Dimensions of new buffer
 ===================  ==========
 
 .. rubric:: Parameters
 
-===================  ==========
-ReinterpretRange     Dimensionality of new buffer
-===================  ==========
+====================  ==========
+``ReinterpretRange``  Dimensionality of new buffer
+====================  ==========
 
 Creates a new buffer with the requested element type and
 dimensionality, containing the data of the passed buffer or
@@ -311,8 +311,8 @@ errc::invalid_object_error
 
 .. rst-class:: api-class
 
-sycl::property::buffer:use_host_ptr
-===================================
+``sycl::property::buffer:use_host_ptr``
+=======================================
 
 ::
 
@@ -333,8 +333,8 @@ host.
 
 .. rst-class:: api-class
 
-sycl::property::use_mutex
-=========================
+``sycl::property::use_mutex``
+=============================
 
 ::
 
@@ -353,16 +353,16 @@ shared with the application via a std::mutex provided to the property.
    use_mutex();
 
 
-get_mutex_ptr
--------------
+``get_mutex_ptr``
+-----------------
 
 ::
 
    sycl::mutex_class *get_mutex_ptr() const;
 
 
-sycl::property::buffer::context_bound
-=====================================
+``sycl::property::buffer::context_bound``
+=========================================
 
 
 ::
@@ -384,8 +384,8 @@ to the property.
    use_mutex();
 
 
-get_context
------------
+``get_context``
+---------------
 
 ::
 

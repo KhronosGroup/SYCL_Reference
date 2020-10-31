@@ -19,9 +19,9 @@ for full control.
 
 .. rst-class:: api-class
 
-=====================
-sycl::device_selector
-=====================
+=========================
+``sycl::device_selector``
+=========================
 
 ::
 
@@ -48,8 +48,8 @@ Construct a device_selector.
 A device selector can be created from another by passing ``rhs``.
 
 
-select_device
-=============
+``select_device``
+=================
 
 ::
 
@@ -63,8 +63,8 @@ Returns the device with the highest score as determined by calling
 
 Throws a runtime error if all devices have a negative score.
 
-operator=
-=========
+``operator=``
+=============
 
 ::
 
@@ -73,8 +73,8 @@ operator=
 Create a device selector by copying another one.
 
 
-operator()
-==========
+``operator()``
+==============
 
 ::
 

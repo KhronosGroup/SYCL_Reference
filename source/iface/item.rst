@@ -6,9 +6,9 @@
 
 .. _item:
 
-==========
-sycl::item
-==========
+==============
+``sycl::item``
+==============
 
 ::
 
@@ -26,15 +26,15 @@ constructor because only the SYCL runtime needs to construct an
 
 .. rubric:: Template parameters
 
-==============  ===
-dimensions      Number of dimensions in index space
-with_offset     True if item has offset
-==============  ===
+===============  ===
+``dimensions``   Number of dimensions in index space
+``with_offset``  True if item has offset
+===============  ===
 
 .. seealso:: |SYCL_SPEC_ITEM|
 
-get_id
-======
+``get_id``
+==========
 
 ::
 
@@ -44,8 +44,8 @@ get_id
 
 Returns :ref:`id` associated with ``item``.
 
-get_range
-=========
+``get_range``
+=============
 
 ::
 
@@ -55,8 +55,8 @@ get_range
 Returns :ref:`range` associated with ``item``.
 
 
-get_offset
-==========
+``get_offset``
+==============
 
 ::
 
@@ -67,8 +67,8 @@ get_offset
 
 Returns offset associated with ``item``.
 
-get_linear_id
-=============
+``get_linear_id``
+=================
 
 ::
 
@@ -78,8 +78,8 @@ Returns the linear id, suitable for mapping the ``id`` to a 1
 dimensional array.
 
 
-operator[]
-==========
+``operator[]``
+==============
 
 ::
 
@@ -88,8 +88,8 @@ operator[]
 Returns id for dimension ``dimension``.
 
 
-operator()
-==========
+``operator()``
+==============
 
 ::
 

@@ -6,9 +6,9 @@
 
 .. _kernel:
 
-============
-sycl::kernel
-============
+================
+``sycl::kernel``
+================
 
 ::
 
@@ -29,8 +29,8 @@ Abstraction of a kernel object.
 
 Constructs a SYCL kernel instance from an OpenCL kernel.
 
-get
-===
+``get``
+=======
 
 ::
 
@@ -39,8 +39,8 @@ get
 
 Returns OpenCL kernel associated with the SYCL kernel.
 
-is_host
-=======
+``is_host``
+===========
 
 ::
 
@@ -49,8 +49,8 @@ is_host
 
 Return true if this SYCL kernel is a host kernel.
 
-get_context
-===========
+``get_context``
+===============
 
 ::
 
@@ -59,8 +59,8 @@ get_context
 
 Returns context associated with the kernel.
 
-get_program
-===========
+``get_program``
+===============
 
 ::
 
@@ -69,8 +69,8 @@ get_program
 
 Returns program that this kernel is part of.
 
-get_info
-========
+``get_info``
+============
 
 ::
 
@@ -87,8 +87,8 @@ get_info
 
 Returns information about the kernel
 
-get_work_group_info
-===================
+``get_work_group_info``
+=======================
 
 ::
 
@@ -99,14 +99,14 @@ get_work_group_info
 .. rubric:: Template parameters
 
 ==================  ===
-param               See `sycl::info::kernel_work_group`_
+``param``           See `sycl::info::kernel_work_group`_
 ==================  ===
 
 Returns information about the work group
 
-==================
-sycl::info::kernel
-==================
+======================
+``sycl::info::kernel``
+======================
 
 ::
 
@@ -119,9 +119,9 @@ sycl::info::kernel
        attributes
    };
 
-=============================
-sycl::info::kernel_work_group
-=============================
+=================================
+``sycl::info::kernel_work_group``
+=================================
 
 ::
 

@@ -10,9 +10,9 @@ Platforms
 
 .. rst-class:: api-class
 
-==============
-sycl::platform
-==============
+==================
+``sycl::platform``
+==================
 
 ::
 
@@ -58,8 +58,8 @@ get_. When passed a :ref:`device_selector`, a platform is constructed
 that includes the preferred device.
 
 
-get
-===
+``get``
+=======
 
 ::
 
@@ -72,8 +72,8 @@ Only call this when the platform constructor was passed a
 
 .. _platform-get_devices:
 
-get_devices
-===========
+``get_devices``
+===============
 
 ::
 
@@ -90,8 +90,8 @@ See `platform-example`_.
 
 .. _platform-get_info:
 
-get_info
-========
+``get_info``
+============
 
 ::
 
@@ -108,8 +108,8 @@ See `platform-example`_.
 
 .. _platform-has_extension:
 
-has_extension
-=============
+``has_extension``
+=================
 
 ::
 
@@ -117,8 +117,8 @@ has_extension
 
 Returns True if the platform has ``extension``.
 
-is_host
-=======
+``is_host``
+===========
 
 ::
 
@@ -126,8 +126,8 @@ is_host
 
 Returns True if the platform contains a SYCL host device
 
-get_platforms
-=============
+``get_platforms``
+=================
 
 ::
 
@@ -139,9 +139,9 @@ Returns a vector_class containing SYCL platforms bound to the system.
 
 See `platform-example`_.
 
-====================
-sycl::info::platform
-====================
+========================
+``sycl::info::platform``
+========================
 
 ::
 

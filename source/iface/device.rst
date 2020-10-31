@@ -10,9 +10,9 @@ Devices
 
 .. rst-class:: api-class
 
-============
-sycl::device
-============
+================
+``sycl::device``
+================
 
 ::
 
@@ -46,8 +46,8 @@ deviceID           OpenCL device id
 deviceSelector     Device selector
 =================  =======================
 
-get
-===
+``get``
+=======
 
 ::
 
@@ -55,8 +55,8 @@ get
 
 Return the cl_device_id of the underlying OpenCL platform.
 
-is_host
-=======
+``is_host``
+===========
 
 ::
 
@@ -64,8 +64,8 @@ is_host
 
 Returns True if the device is a host device, False otherwise.
 
-is_cpu
-======
+``is_cpu``
+==========
 
 ::
 
@@ -73,8 +73,8 @@ is_cpu
 
 Returns True if the device is a CPU, False otherwise.
 
-is_gpu
-======
+``is_gpu``
+==========
 
 ::
 
@@ -82,8 +82,8 @@ is_gpu
 
 Returns True if the device is a GPU, False otherwise.
 
-is_accelerator
-==============
+``is_accelerator``
+==================
 
 ::
 
@@ -91,8 +91,8 @@ is_accelerator
 
 Returns True if the device is an accelerator, False otherwise.
 
-get_platform
-============
+``get_platform``
+================
 
 ::
 
@@ -100,8 +100,8 @@ get_platform
 
 Returns the platform that contains the device.
 
-get_info
-========
+``get_info``
+============
 
 ::
 
@@ -116,8 +116,8 @@ Returns information about the device as determined by ``param``. See
 
 See :ref:`platform-example`.
 
-has_extension
-=============
+``has_extension``
+=================
 
 ::
 
@@ -126,8 +126,8 @@ has_extension
 Returns True if device supports the extension.
 
 
-create_sub_devices
-==================
+``create_sub_devices``
+======================
 
 .. parsed-literal::
 
@@ -176,8 +176,8 @@ feature_not_supported
 
 .. _device-get_devices:
 
-get_devices
-===========
+``get_devices``
+===============
 
 ::
 
@@ -200,8 +200,8 @@ Device Info
 
 .. _info-device:
 
-sycl::info::device
-==================
+``sycl::info::device``
+======================
 
 ::
 
@@ -366,8 +366,8 @@ reference_count
 
 .. _info-device_type:
 
-sycl::info::device_type
-=======================
+``sycl::info::device_type``
+===========================
 
 ::
 
@@ -383,8 +383,8 @@ sycl::info::device_type
 
 See platform :ref:`platform-get_devices` and device :ref:`device-get_devices`.
 
-sycl::info::partition_property
-==============================
+``sycl::info::partition_property``
+==================================
 
 ::
 
@@ -397,8 +397,8 @@ sycl::info::partition_property
 
 See create_sub_devices_
 
-sycl::info::partition_affinity_domain
-=====================================
+``sycl::info::partition_affinity_domain``
+=========================================
 
 ::
 
@@ -416,8 +416,8 @@ See create_sub_devices_
 
 .. _local_mem_type:
 
-sycl::info::local_mem_type
-==========================
+``sycl::info::local_mem_type``
+==============================
 
 ::
 
@@ -427,8 +427,8 @@ See get_info_
 
 .. _fp_config:
 
-sycl::info::fp_config
-=====================
+``sycl::info::fp_config``
+=========================
 
 ::
 
@@ -447,8 +447,8 @@ See get_info_
 
 .. _cache_type:
 
-sycl::info::global_mem_cache_type
-==================================
+``sycl::info::global_mem_cache_type``
+=====================================
 
 ::
 
@@ -458,8 +458,8 @@ See get_info_
 
 .. _exec_capability:
 
-sycl::info::execution_capability
-================================
+``sycl::info::execution_capability``
+====================================
 
 ::
 

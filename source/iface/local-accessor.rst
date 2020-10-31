@@ -4,9 +4,9 @@
 
 .. rst-class:: api-class
 
-=============================
-sycl::accessor (local memory)
-=============================
+=================================
+``sycl::accessor`` (local memory)
+=================================
 
 ::
 
@@ -19,21 +19,21 @@ Description
 
 .. rubric:: Template parameters
 
-===============  =======
-dataT
-dimensions
-accessmode
-accessTarget
-isPlaceholder
-===============  =======
+=================  =======
+``dataT``
+``dimensions``
+``accessmode``
+``accessTarget``
+``isPlaceholder``
+=================  =======
 
 .. rubric:: Member types
 
-===============  =======
-value_type
-reference
-const_reference
-===============  =======
+===================  =======
+``value_type``
+``reference``
+``const_reference``
+===================  =======
 
 .. seealso:: |SYCL_SPEC_LOCAL_ACCESSOR|
 
@@ -56,8 +56,8 @@ const_reference
 
 
 
-get_size
-========
+``get_size``
+============
 
 ::
 
@@ -65,8 +65,8 @@ get_size
 
 .. rubric:: Returns
 
-get_count
-=========
+``get_count``
+=============
 
 ::
 
@@ -74,8 +74,8 @@ get_count
 
 .. rubric:: Returns
 
-get_range
-=========
+``get_range``
+=============
 
 ::
 
@@ -84,13 +84,13 @@ get_range
 .. rubric:: Template parameters
 
 ===============  =======
-dimensions
+``dimensions``
 ===============  =======
 
 .. rubric:: Returns
 
-get_pointer
-===========
+``get_pointer``
+===============
 
 ::
 
@@ -98,8 +98,8 @@ get_pointer
 
 Available only when: accessTarget == access::target::local
 
-operator[]
-==========
+``operator[]``
+==============
 
 .. parsed-literal::
 
@@ -131,8 +131,8 @@ operator[]
   __unspecified__ &operator[](size_t index) const;
 
 
-operator ()
-===========
+``operator ()``
+===============
 
 .. parsed-literal::
 

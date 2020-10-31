@@ -6,9 +6,9 @@
 
 .. _buffer-accessor:
 
-=======================
-sycl::accessor (buffer)
-=======================
+===========================
+``sycl::accessor`` (buffer)
+===========================
 
 ::
 
@@ -21,21 +21,21 @@ Description
 
 .. rubric:: Template parameters
 
-===============  =======
-dataT            Type of buffer element
-dimensions       Number of buffer dimensions
-accessmode       See :ref:`access-mode`
-accessTarget     See :ref:`access-target`
-isPlaceholder    True if accessor is a placeholder
-===============  =======
+=================  =======
+``dataT``          Type of buffer element
+``dimensions``     Number of buffer dimensions
+``accessmode``     See :ref:`access-mode`
+``accessTarget``   See :ref:`access-target`
+``isPlaceholder``  True if accessor is a placeholder
+=================  =======
 
 .. rubric:: Member types
 
-===============  =======
-value_type       Type of buffer element
-reference        Type of reference to buffer element
-const_reference  Type of const reference to buffer element
-===============  =======
+===================  =======
+``value_type``       Type of buffer element
+``reference``        Type of reference to buffer element
+``const_reference``  Type of const reference to buffer element
+===================  =======
 
 .. seealso:: |SYCL_SPEC_BUFFER_ACCESSOR|
 
@@ -110,23 +110,22 @@ Programs typically find it more convenient to use
 
 .. rubric:: Template parameters
 
-============  ===
-AllocatorT    Type of allocator for buffer element
-============  ===
+==============  ===
+``AllocatorT``  Type of allocator for buffer element
+==============  ===
 
 .. rubric:: Parameters
 
-======================  ===
-bufferRef               Associate accessor with this buffer
-commandGroupHandlerRef  Associate accessor with this handler
-propList                `sycl::accessor (buffer) properties`_
-accessRange             Dimensions of data to be accessed
-accessOffset            Coordinates of origin of data
-======================  ===
+==========================  ===
+``bufferRef``               Associate accessor with this buffer
+``commandGroupHandlerRef``  Associate accessor with this handler
+``propList``                `sycl::accessor (buffer) properties`_
+``accessRange``             Dimensions of data to be accessed
+``accessOffset``            Coordinates of origin of data
+==========================  ===
 
-
-is_placeholder
-==============
+``is_placeholder``
+==================
 
 ::
 
@@ -134,8 +133,8 @@ is_placeholder
 
 Return True if this is a placeholder accessor.
 
-get_size
-========
+``get_size``
+============
 
 ::
 
@@ -143,8 +142,8 @@ get_size
 
 Returns size in bytes of the buffer region that this accesses.
 
-get_count
-=========
+``get_count``
+=============
 
 ::
 
@@ -152,8 +151,8 @@ get_count
 
 Returns number elements that this accesses.
 
-get_range
-=========
+``get_range``
+=============
 
 .. parsed-literal::
 
@@ -166,14 +165,14 @@ get_range
 .. rubric:: Template parameters
 
 ===============  ===
-dimensions       number of dimensions
+``dimensions``   number of dimensions
 ===============  ===
 
 Returns dimensions of the asssociated buffer or range that was
 provided when the accessor was created.
 
-get_offset
-==========
+``get_offset``
+==============
 
 .. parsed-literal::
 
@@ -186,15 +185,15 @@ get_offset
 .. rubric:: Template parameters
 
 ===============  ===
-dimensions       number of dimensions
+``dimensions``   number of dimensions
 ===============  ===
 
 
 Returns coordinates of the origin of the buffer or offset that was
 provided when the accessor was created.
 
-operator ()
-===========
+``operator ()``
+===============
 
 .. parsed-literal::
 
@@ -221,8 +220,8 @@ Returns reference or value of element in the associated buffer.
 The variants of this operator are only available when *dimensions ==
 0*, which means that a buffer contains a single element.
 
-operator[]
-==========
+``operator[]``
+==============
 
 .. parsed-literal::
 
@@ -257,8 +256,8 @@ access::mode::discard_read_write``. The operator returns an atomic if
 the accessMode is ``access::mode::atomic``.
 
 
-get_pointer
-===========
+``get_pointer``
+===============
 
 .. parsed-literal::
 
@@ -279,9 +278,9 @@ get_pointer
 
 Returns pointer to memory in a host buffer.
 
-==================================
-sycl::accessor (buffer) properties
-==================================
+======================================
+``sycl::accessor`` (buffer) properties
+======================================
 
 SYCL does not define any properties for the buffer specialization of
 an accessor.

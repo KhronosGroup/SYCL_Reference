@@ -6,9 +6,9 @@
 
 .. _range:
 
-===========
-sycl::range
-===========
+===============
+``sycl::range``
+===============
 
 ::
 
@@ -23,7 +23,7 @@ numbers, depending on the dimensionality of the object it describes.
 .. rubric:: Template parameters
 
 ================  ===
-dimensions        Number of dimensions
+``dimensions``    Number of dimensions
 ================  ===
 
 .. seealso:: |SYCL_SPEC_RANGE|
@@ -40,8 +40,8 @@ dimensions        Number of dimensions
 Constructs a 1, 2, or 3 dimensional range.
 
 
-get
-===
+``get``
+=======
 
 ::
 
@@ -49,8 +49,8 @@ get
 
 Returns the range of a single dimension.
 
-operator[]
-==========
+``operator[]``
+==============
 
 ::
 
@@ -59,8 +59,8 @@ operator[]
 
 Returns the range of a single dimension.
 
-size
-====
+``size``
+========
 
 ::
 

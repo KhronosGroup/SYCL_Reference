@@ -8,9 +8,9 @@
  Multipointer
 **************
 
-===========================
-sycl::access::address_space
-===========================
+===============================
+``sycl::access::address_space``
+===============================
 
 ::
 
@@ -26,9 +26,9 @@ sycl::access::address_space
 
 .. rst-class:: api-class
 
-===============
-sycl::multi_ptr
-===============
+===================
+``sycl::multi_ptr``
+===================
 
 ::
 
@@ -39,25 +39,25 @@ sycl::multi_ptr
 .. rubric:: Template parameters
 
 ===============  ===
-ElementType
-Space
+``ElementType``
+``Space``
 ===============  ===
 
 .. rubric:: Member types
 
-=================  ====
-element_type
-difference_type
-pointer_t
-const_pointer_t
-reference_t
-const_reference_t
-=================  ====
+=====================  ====
+``element_type``
+``difference_type``
+``pointer_t``
+``const_pointer_t``
+``reference_t``
+``const_reference_t``
+=====================  ====
 
 .. rubric:: Nonmember data
 
 =================  ====
-address_space
+``address_space``
 =================  ====
 
 .. seealso:: |SYCL_SPEC_MULTI_PTR|
@@ -74,8 +74,8 @@ address_space
   multi_ptr(ElementType*);
   multi_ptr(std::nullptr_t);
 
-operator=
-=========
+``operator=``
+=============
 
 .. parsed-literal::
 
@@ -107,29 +107,29 @@ operator=
 
 .. rubric:: Template parameters
 
-===============  ===
-dimensions
-Mode
-isPlaceholder
-===============  ===
+=================  ===
+``dimensions``
+``Mode``
+``isPlaceholder``
+=================  ===
 
 
-operator*
-=========
+``operator*``
+=============
 
 ::
 
      friend ElementType& operator*(const sycl::multi_ptr& mp);
 
-operator->
-==========
+``operator->``
+==============
 
 ::
 
      ElementType* operator->() const;
 
-get
-===
+``get``
+=======
 
 ::
 
@@ -178,8 +178,8 @@ Returns the underlying OpenCL C pointer
   friend sycl::multi_ptr operator+(const sycl::multi_ptr& lhs, difference_type r);
   friend sycl::multi_ptr operator-(const sycl::multi_ptr& lhs, difference_type r);
 
-prefetch
-========
+``prefetch``
+============
 
 ::
 

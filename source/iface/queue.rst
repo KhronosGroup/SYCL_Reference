@@ -13,9 +13,9 @@ Queues
 
 .. rst-class:: api-class
 
-===========
-sycl::queue
-===========
+===============
+``sycl::queue``
+===============
 
 ::
 
@@ -110,8 +110,8 @@ invalid_object_error
 .. todo:: example exercise various constructors
 
 
-get
-===
+``get``
+=======
 
 
 ::
@@ -120,8 +120,8 @@ get
 
 Return OpenCL queue associated with SYCL queue.
 
-get_context
-===========
+``get_context``
+===============
 
 ::
 
@@ -129,8 +129,8 @@ get_context
 
 Returns context associated with queue.
 
-get_device
-==========
+``get_device``
+==============
 
 ::
 
@@ -138,8 +138,8 @@ get_device
 
 Returns device associated with queue.
 
-is_host
-=======
+``is_host``
+===========
 
 ::
 
@@ -147,8 +147,8 @@ is_host
 
 Returns True if queue executes on host device.
 
-get_info
-========
+``get_info``
+============
 
 ::
 
@@ -160,8 +160,8 @@ queue_ for details.
 
 .. _queue-submit:
 
-submit
-======
+``submit``
+==========
 
 ::
 
@@ -173,7 +173,7 @@ submit
 .. rubric:: Template parameters
 
 =================  ===
-T
+``T``
 =================  ===
 
 .. rubric:: Parameters
@@ -200,8 +200,8 @@ The runtime resubmits the command group to the secondary queue
 if an error occurs executing on the primary queue.
 
 
-wait
-====
+``wait``
+========
 
 ::
 
@@ -211,8 +211,8 @@ Wait for all enqueued tasks to complete.
 
 .. _queue-wait_and_throw:
 
-wait_and_throw
-==============
+``wait_and_throw``
+==================
 
 ::
 
@@ -223,8 +223,8 @@ provided in :ref:`queue-constructors`.
 
 .. _queue-throw_asynchronous:
 
-throw_asynchronous
-==================
+``throw_asynchronous``
+======================
 
 ::
 
@@ -235,8 +235,8 @@ Passes any asynchronous errors to handler provided in
 
 .. _queue-memcpy:
 
-memcpy
-======
+``memcpy``
+==========
 
 ::
 
@@ -247,8 +247,8 @@ Set memory allocated with :ref:`malloc_device`. For usage, see
 
 .. _queue-memset:
 
-memset
-======
+``memset``
+==========
 
 ::
 
@@ -259,8 +259,8 @@ Set memory allocated with :ref:`malloc_device`. For usage, see
 
 .. _queue-fill:
 
-fill
-====
+``fill``
+========
 
 ::
 
@@ -269,9 +269,9 @@ fill
 
 Set memory allocated with :ref:`malloc_device`.
 
-=================
-sycl::info::queue
-=================
+=====================
+``sycl::info::queue``
+=====================
 
 ::
 
@@ -311,8 +311,8 @@ Queue properties are specified in the queue constructor.
 
 .. rst-class:: api-class
 
-sycl::property::queue::enable_profiling
-=======================================
+``sycl::property::queue::enable_profiling``
+===========================================
 
 ::
 
@@ -336,8 +336,8 @@ See :ref:`event-elapsed-time`.
 
 .. rst-class:: api-class
 
-sycl::property::queue::in_order
-===============================
+``sycl::property::queue::in_order``
+===================================
 
 |2020|
 
