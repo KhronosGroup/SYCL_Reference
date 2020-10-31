@@ -25,12 +25,6 @@ jobs:
       run: |
           . venv/bin/activate
           python doc.py html
-    - name: Reuse
-      run: |
-          . venv/bin/activate
-          which reuse
-          reuse --version
-          reuse lint
     - name: Doc8
       run: |
           . venv/bin/activate
@@ -47,3 +41,9 @@ jobs:
       run: |
           find . -name '*.cpp' | xargs clang-format -i
           git diff --exit-code
+    - name: Reuse
+      run: |
+          . venv/bin/activate
+          which reuse
+          reuse --version
+          reuse lint
