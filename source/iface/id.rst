@@ -6,9 +6,9 @@
 
 .. _id:
 
-========
-sycl::id
-========
+============
+``sycl::id``
+============
 
 ::
 
@@ -41,8 +41,8 @@ An ``id`` can be 0, 1, 2, or 3 dimensions. An ``id`` constructed from
 a :ref:`range` uses the ``range`` values. An ``id`` constructed from
 an :ref:`item` uses the ``id`` contained in the ``item``.
 
-get
-===
+``get``
+=======
 
 ::
 

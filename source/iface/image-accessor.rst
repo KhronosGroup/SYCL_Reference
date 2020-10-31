@@ -4,9 +4,9 @@
 
 .. rst-class:: api-class
 
-======================
-sycl::accessor (image)
-======================
+==========================
+``sycl::accessor`` (image)
+==========================
 
 ::
 
@@ -19,21 +19,21 @@ Description
 
 .. rubric:: Template parameters
 
-================  ===
-dataT
-dimensions
-accessmode
-accessTarget
-isPlaceholder
-================  ===
+=================  ===
+``dataT``
+``dimensions``
+``accessmode``
+``accessTarget``
+``isPlaceholder``
+=================  ===
 
 .. rubric:: Member types
 
-===============  =======
-value_type
-reference
-const_reference
-===============  =======
+===================  =======
+``value_type``
+``reference``
+``const_reference``
+===================  =======
 
 .. seealso:: |SYCL_SPEC_IMAGE_ACCESSOR|
 
@@ -64,15 +64,15 @@ const_reference
            sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
 
 
-get_count
-=========
+``get_count``
+=============
 
 ::
 
   size_t get_count() const;
 
-get_range
-=========
+``get_range``
+=============
 
 .. parsed-literal::
 
@@ -89,11 +89,11 @@ get_range
 .. rubric:: Template parameters
 
 ================  ===
-dimensions
+``dimensions``
 ================  ===
 
-read
-====
+``read``
+========
 
 .. parsed-literal::
 
@@ -119,12 +119,12 @@ read
 .. rubric:: Template parameters
 
 ================  ===
-coordT
+``coordT``
 ================  ===
 
 
-operator[]
-==========
+``operator[]``
+==============
 
 ::
 

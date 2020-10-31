@@ -6,9 +6,9 @@
 
 .. rst-class:: api-class
 
-=====================
- sycl::command_group
-=====================
+=======================
+``sycl::command_group``
+=======================
 ::
 
    class command_group;
@@ -24,22 +24,22 @@
   command_group(sycl::queue &primaryQueue, sycl::queue &secondaryQueue,
                 const functorT &lambda);
 
-start_event
-===========
+``start_event``
+===============
 
 ::
 
   sycl::event start_event();
 
-kernel_event
-============
+``kernel_event``
+================
 
 ::
 
   sycl::event kernel_event();
 
-complete_event
-==============
+``complete_event``
+==================
 
 ::
 

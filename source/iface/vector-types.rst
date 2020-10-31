@@ -7,9 +7,9 @@
 **************
 
 
-===================
-sycl::rounding_mode
-===================
+=======================
+``sycl::rounding_mode``
+=======================
 
 ::
 
@@ -21,9 +21,9 @@ sycl::rounding_mode
        rtn
    };
 
-==========
-sycl::elem
-==========
+==============
+``sycl::elem``
+==============
 
 ::
 
@@ -57,9 +57,9 @@ sycl::elem
 
 .. rst-class:: api-class
 
-=========
-sycl::vec
-=========
+=============
+``sycl::vec``
+=============
 
 ::
 
@@ -68,10 +68,10 @@ sycl::vec
 
 .. rubric:: Member types
 
-============  ===
-element_type
-vector_t
-============  ===
+================  ===
+``element_type``
+``vector_t``
+================  ===
 
 (constructors)
 ==============
@@ -100,22 +100,22 @@ Conversion functions
 
 
 
-get_count
-=========
+``get_count``
+=============
 
 ::
 
    size_t get_count() const;
 
-get_size
-========
+``get_size``
+============
 
 ::
 
   size_t get_size() const;
 
-convert
-=======
+``convert``
+===========
 
 ::
 
@@ -130,8 +130,8 @@ as
    template <typename asT>
    asT as() const;
 
-swizzle
-=======
+``swizzle``
+===========
 
 ::
 
@@ -174,16 +174,16 @@ swizzle access
      __swizzled_vec__ odd() const;
      __swizzled_vec__ even() const;
 
-load
-====
+``load``
+========
 
 ::
 
    template <sycl::access::address_space addressSpace>
    void load(size_t offset, sycl::multi_ptr<const dataT, addressSpace> ptr);
 
-store
-=====
+``store``
+=========
 
 ::
 

@@ -4,9 +4,9 @@
 
 .. _malloc_device:
 
-===================
-sycl::malloc_device
-===================
+=======================
+``sycl::malloc_device``
+=======================
 
 |2020|
 
@@ -45,12 +45,12 @@ sycl::malloc_device
 .. rubric:: Parameters
 
 ==================  ===
-alignment           alignment of allocated data
-num_bytes           allocation size in bytes
-count               number of elements
-dev                 See :ref:`device`
-q                   See :ref:`queue`
-ctxt                See :ref:`context`
+``alignment``       alignment of allocated data
+``num_bytes``       allocation size in bytes
+``count``           number of elements
+``dev``             See :ref:`device`
+``q``               See :ref:`queue`
+``ctxt``            See :ref:`context`
 ==================  ===
 
 Returns a pointer to the newly allocated memory on the specified
@@ -69,9 +69,9 @@ See :ref:`event-elapsed-time` for usage.
 
 .. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
 
-=================
-sycl::malloc_host
-=================
+=====================
+``sycl::malloc_host``
+=====================
 
 |2020|
 
@@ -110,11 +110,11 @@ sycl::malloc_host
 .. rubric:: Parameters
 
 ==================  ===
-alignment           alignment of allocated data
-num_bytes           allocation size in bytes
-count               number of elements
-dev                 See :ref:`device`
-ctxt                See :ref:`context`
+``alignment``       alignment of allocated data
+``num_bytes``       allocation size in bytes
+``count``           number of elements
+``dev``             See :ref:`device`
+``ctxt``            See :ref:`context`
 ==================  ===
 
 Returns a pointer to the newly allocated host memory on success. Host
@@ -124,9 +124,9 @@ leaks. On failure, returns nullptr.
 
 .. seealso:: |SYCL_SPEC_MALLOC_HOST|
 
-===================
-sycl::malloc_shared
-===================
+=======================
+``sycl::malloc_shared``
+=======================
 
 |2020|
 
@@ -165,11 +165,11 @@ sycl::malloc_shared
 .. rubric:: Parameters
 
 ==================  ===
-alignment           alignment of allocated data
-num_bytes           allocation size in bytes
-count               number of elements
-dev                 See :ref:`device`
-ctxt                See :ref:`context`
+``alignment``       alignment of allocated data
+``num_bytes``       allocation size in bytes
+``count``           number of elements
+``dev``             See :ref:`device`
+``ctxt``            See :ref:`context`
 ==================  ===
 
 
@@ -184,9 +184,9 @@ calling malloc_host. On failure, returns nullptr.
 
 .. _sycl-free:
 
-==========
-sycl::free
-==========
+==============
+``sycl::free``
+==============
 
 |2020|
 

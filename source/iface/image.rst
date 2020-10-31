@@ -10,9 +10,9 @@ Images
 
 .. rst-class:: api-class
 
-===========
-sycl::image
-===========
+===============
+``sycl::image``
+===============
 
 ::
 
@@ -23,8 +23,8 @@ sycl::image
 .. rubric:: Template parameters
 
 ========================  ==========
-dimensions
-AllocatorT
+``dimensions``
+``AllocatorT``
 ========================  ==========
 
 .. seealso:: |SYCL_SPEC_IMAGE|
@@ -89,28 +89,28 @@ AllocatorT
 
 .. rubric:: Parameters
 
-================  ===
-order
-type
-range
-propList          See `Image properties`_
-allocator
-pitch
-hostPointer
-syclContext
-clMemObject
-availableEvent
-================  ===
+==================  ===
+``order``
+``type``
+``range``
+``propList``        See `Image properties`_
+``allocator``
+``pitch``
+``hostPointer``
+``syclContext``
+``clMemObject``
+``availableEvent``
+==================  ===
 
-get_range
-=========
+``get_range``
+=============
 
 ::
 
   sycl::range<dimensions> get_range() const;
 
-get_pitch
-=========
+``get_pitch``
+=============
 
 ::
 
@@ -118,29 +118,29 @@ get_pitch
 
 Available only when dimensions > 1
 
-get_count
-=========
+``get_count``
+=============
 
 ::
 
   size_t get_count() const;
 
-get_size
-========
+``get_size``
+============
 
 ::
 
   size_t get_size() const;
 
-get_allocator
-=============
+``get_allocator``
+=================
 
 ::
 
   AllocatorT get_allocator() const;
 
-get_access
-==========
+``get_access``
+==============
 
 ::
 
@@ -154,19 +154,19 @@ get_access
 .. rubric:: Template parameters
 
 ===================  ===
-dataT
-accessMode
+``dataT``
+``accessMode``
 ===================  ===
 
 .. rubric:: Parameters
 
-===================  ===
-commandGroupHandler
-===================  ===
+=======================  ===
+``commandGroupHandler``
+=======================  ===
 
 
-set_final_data
-==============
+``set_final_data``
+==================
 
 ::
 
@@ -178,18 +178,18 @@ Description
 .. rubric:: Template parameters
 
 ================  ===
-Destination
+``Destination``
 ================  ===
 
 .. rubric:: Parameters
 
 ================  ===
-finalData
+``finalData``
 ================  ===
 
 
-set_write_back
-==============
+``set_write_back``
+==================
 
 ::
 
@@ -207,8 +207,8 @@ flag
 
 .. rst-class:: api-class
 
-sycl::property::image::use_host_ptr
-===================================
+``sycl::property::image::use_host_ptr``
+=======================================
 
 ::
 
@@ -229,8 +229,8 @@ Description
 
 .. rst-class:: api-class
 
-sycl::property::image::use_mutex
-================================
+``sycl::property::image::use_mutex``
+====================================
 
 ::
 
@@ -249,8 +249,8 @@ Description
 
 Description
 
-get_mutex_ptr
--------------
+``get_mutex_ptr``
+-----------------
 
 ::
 
@@ -259,8 +259,8 @@ get_mutex_ptr
 
 Description
 
-sycl::property::image::context_bound
-====================================
+``sycl::property::image::context_bound``
+========================================
 
 
 ::
@@ -288,8 +288,8 @@ Description
 Description
 
 
-get_context
------------
+``get_context``
+---------------
 
 ::
 
@@ -298,9 +298,9 @@ get_context
 
 Description
 
-=========================
-sycl::image_channel_order
-=========================
+=============================
+``sycl::image_channel_order``
+=============================
 
 ::
 

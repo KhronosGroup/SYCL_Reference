@@ -10,9 +10,9 @@ Contexts
 
 .. rst-class:: api-class
 
-=============
-sycl::context
-=============
+=================
+``sycl::context``
+=================
 
 ::
 
@@ -76,8 +76,8 @@ clContext
 
 Constructs a context
 
-get
-===
+``get``
+=======
 
 ::
 
@@ -85,8 +85,8 @@ get
 
 Returns cl_context that was passed in constructor.
 
-is_host
-=======
+``is_host``
+===========
 
 ::
 
@@ -94,8 +94,8 @@ is_host
 
 Returns True if this context is a host context.
 
-get_platform
-============
+``get_platform``
+================
 
 ::
 
@@ -103,8 +103,8 @@ get_platform
 
 Return platform associated with this context.
 
-get_devices
-===========
+``get_devices``
+===============
 
 ::
 
@@ -112,8 +112,8 @@ get_devices
 
 Returns vector of devices associated with this context.
 
-get_info
-========
+``get_info``
+============
 
 ::
 
@@ -125,9 +125,9 @@ Returns information about the context as determined by ``param``. See
 
 .. include:: property_methods.inc.rst
 
-===================
-sycl::info::context
-===================
+=======================
+``sycl::info::context``
+=======================
 
 ::
 
@@ -157,9 +157,9 @@ information.
      - SYCL devices associated with this platform
 
 
-=======================
-sycl::property::context
-=======================
+===========================
+``sycl::property::context``
+===========================
 
 SYCL does not define any properties for context_.
 

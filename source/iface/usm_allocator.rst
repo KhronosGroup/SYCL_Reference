@@ -6,9 +6,9 @@
 
 .. rst-class:: api-class
 
-===================
-sycl::usm_allocator
-===================
+=======================
+``sycl::usm_allocator``
+=======================
 
 |2020|
 
@@ -26,9 +26,9 @@ declaring standard library containers (e.g. vector).
 .. rubric:: Template parameters
 
 =============  ===
-T              Type of allocated element
-AllocKind      Type of allocation, see o
-Alignment      Alignment of the allocation
+``T``          Type of allocated element
+``AllocKind``  Type of allocation, see o
+``Alignment``  Alignment of the allocation
 =============  ===
 
 .. rubric:: Example
@@ -39,9 +39,9 @@ Alignment      Alignment of the allocation
 
 .. rubric:: Member types
 
-=============  ===
-value_type
-=============  ===
+==============  ===
+``value_type``
+==============  ===
 
 .. seealso:: |SYCL_SPEC_USM_ALLOCATOR|
 
@@ -56,8 +56,8 @@ value_type
   template <class U>
   usm_allocator(sycl::usm_allocator<U, AllocKind, Alignment> const &) noexcept;
 
-allocate
-========
+``allocate``
+============
 
 ::
 
@@ -65,8 +65,8 @@ allocate
 
 Allocates memory
 
-deallocate
-==========
+``deallocate``
+==============
 
 ::
 
@@ -74,8 +74,8 @@ deallocate
 
 Deallocates memory
 
-construct
-=========
+``construct``
+=============
 
 ::
 
@@ -92,8 +92,8 @@ construct
 
 Constructs an object on memory pointed by Ptr.
 
-destroy
-=======
+``destroy``
+===========
 
 ::
 

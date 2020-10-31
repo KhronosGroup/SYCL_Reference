@@ -6,9 +6,9 @@
 
 .. rst-class:: api-class
 
-===========
-sycl::group
-===========
+===============
+``sycl::group``
+===============
 
 ::
 
@@ -17,38 +17,38 @@ sycl::group
 
 .. rubric:: Template parameters
 
-===========  ===
-dimensions
-===========  ===
+==============  ===
+``dimensions``
+==============  ===
 
 .. seealso:: |SYCL_SPEC_GROUP|
 
-get_id
-======
+``get_id``
+==========
 
 ::
 
   id<dimensions> get_id() const;
   size_t get_id(int dimension) const;
 
-get_global_range
-================
+``get_global_range``
+====================
 
 ::
 
   range<dimensions> get_global_range() const;
   size_t get_global_range(int dimension) const;
 
-get_local_range
-===============
+``get_local_range``
+===================
 
 ::
 
   range<dimensions> get_local_range() const;
   size_t get_local_range(int dimension) const;
 
-get_group_range
-===============
+``get_group_range``
+===================
 
 ::
 
@@ -56,15 +56,15 @@ get_group_range
   size_t get_group_range(int dimension) const;
 
 
-get_linear_id
-=============
+``get_linear_id``
+=================
 
 ::
 
   size_t get_linear_id() const;
 
-parallel_for_work_item
-======================
+``parallel_for_work_item``
+==========================
 
 ::
 
@@ -74,8 +74,8 @@ parallel_for_work_item
   void parallel_for_work_item(range<dimensions> logicalRange,
     workItemFunctionT func) const;
 
-mem_fence
-=========
+``mem_fence``
+=============
 
 ::
 
@@ -83,8 +83,8 @@ mem_fence
   void mem_fence(access::fence_space accessSpace =
     access::fence_space::global_and_local) const;
 
-async_work_group_copy
-=====================
+``async_work_group_copy``
+=========================
 
 ::
 
@@ -101,16 +101,16 @@ async_work_group_copy
   device_event async_work_group_copy(global_ptr<dataT> dest,
     local_ptr<dataT> src, size_t numElements, size_t destStride) const;
 
-wait_for
-========
+``wait_for``
+============
 
 ::
 
   template <typename... eventTN>
   void wait_for(eventTN... events) const;
 
-operator[]
-==========
+``operator[]``
+==============
 
 ::
 

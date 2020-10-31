@@ -7,9 +7,9 @@ Synchronization types
 *********************
 
 
-=========================
-sycl::access::fence_space
-=========================
+=============================
+``sycl::access::fence_space``
+=============================
 
 ::
 
@@ -20,9 +20,9 @@ sycl::access::fence_space
    };
 
 
-==================
-sycl::memory_order
-==================
+======================
+``sycl::memory_order``
+======================
 
 ::
 
@@ -32,9 +32,9 @@ sycl::memory_order
 
 .. rst-class:: api-class
 
-============
-sycl::atomic
-============
+================
+``sycl::atomic``
+================
 
 ::
 
@@ -51,30 +51,30 @@ sycl::atomic
    template <typename pointerT>
    atomic(sycl::multi_ptr<pointerT, addressSpace> ptr);
 
-store
-=====
+``store``
+=========
 
 ::
 
    void store(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-load
-====
+``load``
+========
 
 ::
 
      T load(sycl::memory_order memoryOrder = sycl::memory_order::relaxed) const;
 
-exchange
-========
+``exchange``
+============
 
 ::
 
    T exchange(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
-compare_exchange_strong
-=======================
+``compare_exchange_strong``
+===========================
 
 .. parsed-literal::
 
@@ -86,8 +86,8 @@ compare_exchange_strong
                                 sycl::memory_order failMemoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_add
-=========
+``fetch_add``
+=============
 
 .. parsed-literal::
 
@@ -97,8 +97,8 @@ fetch_add
    T fetch_add(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_sub
-=========
+``fetch_sub``
+=============
 
 .. parsed-literal::
 
@@ -108,8 +108,8 @@ fetch_sub
    T fetch_sub(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_and
-=========
+``fetch_and``
+=============
 
 .. parsed-literal::
 
@@ -119,8 +119,8 @@ fetch_and
    T fetch_and(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_or
-========
+``fetch_or``
+============
 
 .. parsed-literal::
 
@@ -130,8 +130,8 @@ fetch_or
    T fetch_or(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_xor
-=========
+``fetch_xor``
+=============
 
 .. parsed-literal::
 
@@ -141,8 +141,8 @@ fetch_xor
    T fetch_xor(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_min
-=========
+``fetch_min``
+=============
 
 .. parsed-literal::
 
@@ -152,8 +152,8 @@ fetch_min
    T fetch_min(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
 
 
-fetch_max
-=========
+``fetch_max``
+=============
 
 .. parsed-literal::
 
