@@ -132,4 +132,3 @@ Description
    accessTarget == access::target::image_array && dimensions < 3*
 
   __image_array_slice__ operator[](size_t index) const;
-   

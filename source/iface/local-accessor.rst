@@ -96,7 +96,7 @@ Description
 
   sycl::local_ptr<dataT> get_pointer() const;
 
-Available only when: accessTarget == access::target::local
+Available only when: ``accessTarget == access::target::local``
 
 ``operator[]``
 ==============
@@ -145,5 +145,3 @@ Available only when: accessTarget == access::target::local
    accessMode == access::mode::atomic && dimensions == 0*
 
   operator sycl::atomic<dataT,sycl::access::address_space::local_space> () const;
-
-  

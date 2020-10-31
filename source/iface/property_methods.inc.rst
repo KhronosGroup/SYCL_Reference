@@ -2,8 +2,8 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-has_property
-============
+``has_property``
+================
 
 ::
 
@@ -13,13 +13,13 @@ has_property
 .. rubric:: Template parameters
 
 =============  ===
-propertyT
+``propertyT``
 =============  ===
 
 Returns True if the property type was passed to the constructor.
 
-get_property
-============
+``get_property``
+================
 
 ::
 
@@ -29,7 +29,7 @@ get_property
 .. rubric:: Template parameters
 
 =============  ===
-propertyT
+``propertyT``
 =============  ===
 
 Returns copy of property of passed to the constructor.

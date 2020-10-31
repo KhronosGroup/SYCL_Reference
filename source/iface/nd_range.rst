@@ -86,4 +86,3 @@ Returns a :ref:`range` defining the number of work groups in every dimension.
 
 Returns a :ref:`id` defining the offset.
 
-   

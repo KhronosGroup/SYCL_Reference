@@ -34,7 +34,7 @@ Description
 ===================  =======
 ``value_type``       Type of buffer element
 ``reference``        Type of reference to buffer element
-``const_reference``  Type of const reference to buffer element
+``const_reference``  Type of ``const`` reference to buffer element
 ===================  =======
 
 .. seealso:: |SYCL_SPEC_BUFFER_ACCESSOR|
@@ -168,7 +168,7 @@ Returns number elements that this accesses.
 ``dimensions``   number of dimensions
 ===============  ===
 
-Returns dimensions of the asssociated buffer or range that was
+Returns dimensions of the associated buffer or range that was
 provided when the accessor was created.
 
 ``get_offset``
@@ -249,11 +249,11 @@ One dimensional buffers are indexed by a data of type
 size_t. Multi-dimensional buffers may be indexed by a data of type
 ``id<dimensions>``, or by a sequence of *[]*, 1 per dimension. For
 example ``a[1][2]``.  The operator returns a reference when the
-accessor allows writes, which requires that accessMode be one of
+accessor allows writes, which requires that ``accessMode`` be one of
 ``access::mode::write``, ``accessMode == access::mode::read_write``,
 ``accessMode == access::mode::discard_write``, or ``accessMode ==
 access::mode::discard_read_write``. The operator returns an atomic if
-the accessMode is ``access::mode::atomic``.
+the ``accessMode`` is ``access::mode::atomic``.
 
 
 ``get_pointer``
