@@ -85,4 +85,3 @@ Returns a :ref:`range` defining the number of work groups in every dimension.
   sycl::id<dimensions> get_offset() const;
 
 Returns a :ref:`id` defining the offset.
-

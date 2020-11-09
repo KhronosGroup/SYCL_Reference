@@ -11,4 +11,3 @@ Error handling
    :maxdepth: 1
 
    iface/exception
-

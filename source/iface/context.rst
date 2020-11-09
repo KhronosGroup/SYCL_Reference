@@ -165,4 +165,3 @@ information.
 ===========================
 
 SYCL does not define any properties for context_.
-

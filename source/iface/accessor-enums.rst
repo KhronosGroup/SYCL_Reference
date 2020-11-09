@@ -36,4 +36,3 @@
     host_image,
     image_array
   };
-

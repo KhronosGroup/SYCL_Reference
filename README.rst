@@ -33,8 +33,15 @@ The document is built with _Sphinx plugins. To install all required
 software on Ubuntu::
 
    apt-get update -qq
-   DEBIAN_FRONTEND=noninteractive xargs -a packages.txt apt-get install -qq
+   DEBIAN_FRONTEND=noninteractive xargs -a ubuntu-packages.txt apt-get install -qq
    pip3 install --upgrade --quiet -r requirements.txt
+
+On Windows, install python_ and git_, followed by::
+
+   pip install --upgrade --quiet -r requirements.txt
+
+For development, you must also install `clang-format`_. This is only
+needed for C++ code formatting as part of the git pre-commit hook.
 
 Building
 ========
@@ -72,3 +79,6 @@ Doc sources::
 .. _ReadTheDocs: https://sycl.readthedocs.io
 .. _Sphinx: https://www.sphinx-doc.org/en/master
 .. _reuse: https://pypi.org/project/reuse/
+.. _python: https://www.python.org/downloads/windows/
+.. _git: https://git-scm.com/download/win
+.. _`clang-format`: https://llvm.org/builds/

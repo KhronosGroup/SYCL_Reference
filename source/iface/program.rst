@@ -177,9 +177,3 @@ Programs
        compiled,
        linked
    };
-
-
-
-
-
-

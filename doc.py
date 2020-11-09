@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
-from functools import wraps
 import os
 import os.path
-from os.path import join
 import shutil
 import subprocess
+from functools import wraps
+from os.path import join
 
 sphinx_opts = '-W -n -N -j auto'
 sphinx_build = 'sphinx-build'

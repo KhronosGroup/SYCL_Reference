@@ -20,25 +20,5 @@ jobs:
           . venv/bin/activate
           sudo -H python3 -m pip install --quiet --upgrade pip wheel setuptools
           sudo -H python3 -m pip install --quiet --upgrade -r requirements.txt
-    - name: Sphinx
-      run: |
-          python3 doc.py html
-    - name: Spelling
-      run: |
-          python3 doc.py spelling
-    - name: Doc8
-      run: |
-          doc8 --ignore-path venv
-    - name: Black
-      run: |
-          black --exclude venv --skip-string-normalization --line-length 79 --check .
-    - name: Flake8
-      run: |
-          flake8 --exclude venv
-    - name: clang-format
-      run: |
-          find source -name '*.cpp' | xargs clang-format -i
-          git diff --exit-code
-    - name: Reuse
-      run: |
-          reuse lint
+    - name: Checks
+      run: pre-commit run --all

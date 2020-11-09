@@ -183,4 +183,3 @@ Returns an event that indicates when the operation has completed.
   void wait_for(eventTN... events) const;
 
 Wait for asynchronous events to complete.
-

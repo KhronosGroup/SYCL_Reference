@@ -13,5 +13,3 @@
    iface/usm-malloc
    iface/usm_allocator
    iface/usm
-
-

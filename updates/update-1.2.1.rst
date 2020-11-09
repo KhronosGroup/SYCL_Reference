@@ -9,7 +9,7 @@
 ::
 
    find ref/sycl-1.2.1 -name '*.h' | xargs grep -n '^class'
-   
+
 ====== ===
 Status Path
 ====== ===

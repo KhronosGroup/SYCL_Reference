@@ -21,4 +21,3 @@ Multipointer
 USM
 Namespaces
 namespace
-

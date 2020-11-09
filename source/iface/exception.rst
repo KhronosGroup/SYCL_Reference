@@ -269,4 +269,3 @@ The SYCL runtime delivers asynchronous exceptions by invoking an
 constructor. The SYCL runtime delivers asynchronous exceptions to the
 handler when :ref:`queue-wait_and_throw` or
 :ref:`queue-throw_asynchronous` is called.
-

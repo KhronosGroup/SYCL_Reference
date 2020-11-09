@@ -149,7 +149,7 @@ done      member: get_info
           member: get_pointer
           member: operator[]
           member: operator ()
-done    class: platform                         
+done    class: platform
 done      member: (constructor)
 done      member: get
 done      member: get_devices

@@ -44,5 +44,3 @@
 ::
 
   sycl::event complete_event();
-
-
