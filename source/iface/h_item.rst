@@ -108,4 +108,3 @@
 
   sycl::id<dimensions> get_physical_local_id() const;
   size_t get_physical_local_id(int dimension) const;
-

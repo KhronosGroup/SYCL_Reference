@@ -8,4 +8,3 @@ Namespaces
 Unless otherwise noted, all symbols should be prefixed with the
 ``sycl`` namespace. ``buffer`` is ``sycl::buffer``, and
 ``info::device::name`` is ``sycl::info::device::name``.
-

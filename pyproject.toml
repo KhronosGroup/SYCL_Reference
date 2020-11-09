@@ -2,6 +2,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-[doc8]
-
-ignore-path=reference,LICENSES,build,updates
+[tool.black]
+line-length = 79
+skip-string-normalization = true

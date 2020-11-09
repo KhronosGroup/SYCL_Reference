@@ -161,12 +161,3 @@ Synchronization types
     T != float*
 
    T fetch_max(T operand, sycl::memory_order memoryOrder = sycl::memory_order::relaxed);
-
-
-
-
-
-
-
-
-

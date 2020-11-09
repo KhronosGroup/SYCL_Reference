@@ -53,6 +53,3 @@ the top right to file an issue on GitHub or suggest an edit.
 ..   vector
 ..   synchronization
 ..   printf
-
-
-

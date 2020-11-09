@@ -19,5 +19,3 @@ property_list
 
    template <typename... propertyTN>
    property_list(propertyTN... props);
-
-

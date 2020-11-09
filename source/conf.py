@@ -2,14 +2,14 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
-from os.path import join
+import re
 import string
 import sys
+from os.path import join
 
+from docutils import nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst.directives.body import ParsedLiteral
-from docutils import nodes
-import re
 from sphinx.util import logging
 
 sys.path.append(os.path.abspath("./_ext"))

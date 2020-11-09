@@ -11,4 +11,3 @@
 ======
 
 OpenCL types
-

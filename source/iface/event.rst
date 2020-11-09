@@ -216,5 +216,3 @@ type of information.
      - ``cl_ulong``
      - Time in nanoseconds when :ref:`command_group` finished
        execution
-
-

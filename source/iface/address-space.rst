@@ -210,6 +210,3 @@ Returns the underlying OpenCL C pointer
   friend bool operator>(std::nullptr_t, const sycl::multi_ptr& rhs);
   friend bool operator<=(std::nullptr_t, const sycl::multi_ptr& rhs);
   friend bool operator>=(std::nullptr_t, const sycl::multi_ptr& rhs);
-
-
-
