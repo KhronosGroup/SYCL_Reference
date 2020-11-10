@@ -10,15 +10,14 @@ jobs:
   checks:
     runs-on: ubuntu-20.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Install prerequisites
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install dependencies
       run: |
-          sudo apt-get update -qq
-          DEBIAN_FRONTEND=noninteractive xargs -a ubuntu-packages.txt sudo apt-get install -qq
-          python3 -m venv venv
-          . venv/bin/activate
-          sudo -H python3 -m pip install --quiet --upgrade pip wheel setuptools
-          sudo -H python3 -m pip install --quiet --upgrade -r requirements.txt
+        DEBIAN_FRONTEND=noninteractive sudo apt install -qq clang-format enchant git
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
     - name: Checks
-      run: pre-commit run --all
+      run: |
+        pre-commit run --all
+        python doc.py examples
