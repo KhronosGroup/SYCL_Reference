@@ -20,4 +20,5 @@ jobs:
     - name: Checks
       run: |
         pre-commit run --all
-        python doc.py examples
+        # Need to install dpcpp without blowing up time
+        # python doc.py examples
