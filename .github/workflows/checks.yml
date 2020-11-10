@@ -14,9 +14,9 @@ jobs:
     - uses: actions/setup-python@v2
     - name: Install dependencies
       run: |
-        DEBIAN_FRONTEND=noninteractive sudo apt install -qq clang-format enchant git
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        sudo apt install -qq clang-format enchant
+        python -m pip install --quiet --upgrade pip
+        pip install --quiet -r requirements.txt
     - name: Checks
       run: |
         pre-commit run --all
