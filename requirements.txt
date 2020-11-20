@@ -4,5 +4,5 @@
 pre-commit
 reuse
 Sphinx
-sphinx-book-theme
+git+https://github.com/executablebooks/sphinx-book-theme.git
 sphinxcontrib-spelling
