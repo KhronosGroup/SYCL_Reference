@@ -166,7 +166,9 @@ the type of information.
 
 .. _platform-example:
 
-.. rubric:: Example
+=======
+Example
+=======
 
 Enumerate the platforms and the devices they contain.
 
