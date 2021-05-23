@@ -24,21 +24,6 @@ A platform contains 1 or more SYCL devices, or a host device.
 
 .. seealso:: |SYCL_SPEC_PLATFORM|
 
-.. _platform-example:
-
-.. rubric:: Example
-
-Enumerate the platforms and the devices they contain.
-
-.. literalinclude:: /examples/get-platforms.cpp
-   :lines: 5-
-   :linenos:
-
-Output:
-
-.. literalinclude:: /examples/get-platforms.out
-   :lines: 5-
-
 
 (constructors)
 ==============
@@ -177,3 +162,21 @@ the type of information.
    * - extensions
      - vector_class<string_class>
      - Extension names supported by the platform
+
+
+.. _platform-example:
+
+=======
+Example
+=======
+
+Enumerate the platforms and the devices they contain.
+
+.. literalinclude:: /examples/get-platforms.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/get-platforms.out
+   :lines: 5-
