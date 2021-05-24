@@ -135,7 +135,7 @@ Returns True if device supports the extension.
    prop == info::partition_property::partition_equally*
 
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(size_t nbSubDev) const;
+  vector_class<device> create_sub_devices(size_t count) const;
 
   *Available only when:
    prop == info::partition_property::partition_by_counts*
@@ -162,8 +162,8 @@ property.
 .. rubric:: Parameters
 
 ==================  ===
-``nbSubDev``        Number of subdevices
-``counts``          Vector of sizes for the subdevices
+``count``           Number of compute units per sub-device
+``counts``          Vector with number of compute units for each sub-device
 ``affinityDomain``  See `sycl::info::partition_affinity_domain`_
 ==================  ===
 
