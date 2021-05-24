@@ -162,8 +162,8 @@ property.
 .. rubric:: Parameters
 
 ==================  ===
-``count``           Number of compute units per subdevice
-``counts``          Vector with number of compute units for each subdevice
+``count``           Number of compute units per sub-device
+``counts``          Vector with number of compute units for each sub-device
 ``affinityDomain``  See `sycl::info::partition_affinity_domain`_
 ==================  ===
 
