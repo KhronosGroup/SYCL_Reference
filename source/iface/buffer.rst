@@ -30,7 +30,7 @@
 ================  ==========
 
 Buffers are containers for data that can be read/written by both
-kernel and host.  Data in a buffer cannot be directly via
+kernel and host.  Data in a buffer cannot be directly accessed via
 pointers. Instead, a program creates an :ref:`buffer-accessor` that
 references the buffer. The accessor provides array-like interfaces to
 read/write actual data.  Accessors indicate when they read or write
