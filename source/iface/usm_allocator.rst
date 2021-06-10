@@ -27,7 +27,7 @@ declaring standard library containers (e.g. vector).
 
 =============  ===
 ``T``          Type of allocated element
-``AllocKind``  Type of allocation, see o
+``AllocKind``  Type of allocation, see :ref:`usm-alloc`
 ``Alignment``  Alignment of the allocation
 =============  ===
 
@@ -43,7 +43,7 @@ declaring standard library containers (e.g. vector).
 ``value_type``
 ==============  ===
 
-.. seealso:: |SYCL_SPEC_USM_ALLOCATOR|
+.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_c_allocator_interface>`__
 
 (constructors)
 ==============
