@@ -4,9 +4,9 @@
 
 .. _malloc_device:
 
-****************
-Malloc Functions
-****************
+********************
+``malloc`` Functions
+********************
 
 =======================
 ``sycl::malloc_device``
