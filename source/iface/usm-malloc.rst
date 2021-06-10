@@ -4,6 +4,10 @@
 
 .. _malloc_device:
 
+****************
+Malloc Functions
+****************
+
 =======================
 ``sycl::malloc_device``
 =======================
@@ -68,7 +72,7 @@ functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
 
 See :ref:`event-elapsed-time` for usage.
 
-.. seealso:: |SYCL_SPEC_MALLOC_DEVICE|
+.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_device_allocation_functions>`__
 
 .. _malloc_host:
 
@@ -126,7 +130,7 @@ and device may reference the memory.  Memory allocated by
 :ref:`sycl::free <sycl-free>` to avoid memory leaks. On failure,
 returns ``nullptr``.
 
-.. seealso:: |SYCL_SPEC_MALLOC_HOST|
+.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_host_allocation_functions>`__
 
 .. _malloc_shared:
 
@@ -187,7 +191,7 @@ between host and device to optimize access.  Memory allocated by
 host context, should behave as if calling :ref:`sycl::malloc_host
 <malloc_host>`. On failure, returns ``nullptr``.
 
-.. seealso:: |SYCL_SPEC_MALLOC_SHARED|
+.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_shared_allocation_functions>`__
 
 .. _sycl-free:
 
@@ -207,4 +211,4 @@ Free memory allocated by `sycl::malloc_device`_, `sycl::malloc_host`_, or
 
 See :ref:`event-elapsed-time` for usage.
 
-.. seealso:: |SYCL_SPEC_FREE|
+.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_memory_deallocation_functions>`__
