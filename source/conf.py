@@ -182,6 +182,7 @@ class_layout_pattern = (
 )
 
 class_ignore = [
+    'definition_list',
     'target',
     'transition',
     'block_quote',

@@ -44,19 +44,16 @@ execute asynchronously and in parallel, only requiring the program to
 specify the data dependencies.
 
 Initialization
-
   Buffers can be automatically initialized via host data, iterator, or
   as a slice of another buffer. The constructor determines the
   initialization method.
 
 Write back
-
   The destructor for a buffer can optionally write the data back to
   host memory, either by pointer or iterator. set_final_data_ and
   set_write_back_ control the write back of data.
 
 Memory allocation
-
   The SYCL runtimes uses the default allocator for buffer memory
   allocation, unless the constructor provides an allocator.
 
