@@ -70,7 +70,11 @@ Memory allocation
 ``allocator_type``   type of allocator for buffer data
 ===================  ==========
 
-.. seealso:: |SYCL_SPEC_BUFFER|
+.. seealso::
+
+   `Data Parallel C++ Guide <https://link.springer.com/content/pdf/10.1007%2F978-1-4842-5574-2.pdf#page=96>`__
+
+   `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#subsec:buffers>`__
 
 .. _buffer-constructors:
 
