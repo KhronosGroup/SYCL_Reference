@@ -1,0 +1,6 @@
+
+
+
+
+Caught asynchronous SYCL exception:
+Error: Work-group size is invalid (Local size exceeds the global work group size)
