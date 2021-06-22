@@ -8,7 +8,7 @@
  By-value Semantics
 ====================
 
-Types: :ref:`id`, :ref:`range`, :ref`item`, :ref:`nd_item`,
+Types: :ref:`id`, :ref:`range`, :ref:`item`, :ref:`nd_item`,
 :ref:`h_item`, :ref:`group` and :ref:`nd_range`.
 
 Classes with reference semantics support the following methods.
