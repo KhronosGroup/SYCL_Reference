@@ -1,6 +1,6 @@
-
-
-
+// SPDX-FileCopyrightText: 2020 The Khronos Group Inc.
+//
+// SPDX-License-Identifier: Apache-2.0
 
 #include <CL/sycl.hpp>
 
