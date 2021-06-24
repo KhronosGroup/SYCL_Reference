@@ -193,6 +193,61 @@ host context, should behave as if calling :ref:`sycl::malloc_host
 
 .. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_shared_allocation_functions>`__
 
+================
+``sycl::malloc``
+================
+
+::
+
+   void *malloc(size_t numBytes,
+                const sycl::device& syclDevice,
+                const sycl::context& syclContext,
+                sycl::usm::alloc kind,
+                const sycl::property_list &propList = {})
+   template <typename T>
+   T *malloc(size_t count,
+             const sycl::device& syclDevice,
+             const sycl::context& syclContext,
+             sycl::usm::alloc kind,
+             const sycl::property_list &propList = {})
+   void *malloc(size_t numBytes,
+                const sycl::queue& syclQueue,
+                sycl::usm::alloc kind,
+                const sycl::property_list &propList = {})
+   template <typename T>
+   T *malloc(size_t count,
+             const sycl::queue& syclQueue,
+             sycl::usm::alloc kind,
+             const sycl::property_list &propList = {})
+   void *aligned_alloc(size_t alignment,
+                       size_t numBytes,
+                       const sycl::device& syclDevice,
+                       const sycl::context& syclContext,
+                       sycl::usm::alloc kind,
+                       const sycl::property_list &propList = {})
+   template <typename T>
+   T* aligned_alloc(size_t alignment,
+                    size_t count,
+                    const sycl::device& syclDevice,
+                    const sycl::context& syclContext,
+                    sycl::usm::alloc kind,
+                    const sycl::property_list &propList = {})
+   void *aligned_alloc(size_t alignment,
+                       size_t numBytes,
+                       const sycl::queue& syclQueue,
+                       sycl::usm::alloc kind,
+                       const sycl::property_list &propList = {})
+   template <typename T>
+   T* aligned_alloc(size_t alignment,
+                    size_t count,
+                    const sycl::queue& syclQueue,
+                    sycl::usm::alloc kind,
+                    const sycl::property_list &propList = {})
+
+.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_parameterized_allocation_functions>`__
+
+
+
 .. _sycl-free:
 
 ==============
