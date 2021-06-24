@@ -22,7 +22,11 @@ An abstract class representing various models of SYCL devices. A
 device could be a GPU, CPU, or other type of accelerator. Devices
 execute kernel functions.
 
-.. seealso:: |SYCL_SPEC_DEVICE|
+.. seealso::
+
+   `Data Parallel C++ Guide <https://link.springer.com/content/pdf/10.1007%2F978-1-4842-5574-2.pdf#page=299>`__
+
+   `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#sec:device-class>`__
 
 (constructors)
 ==============
@@ -30,39 +34,26 @@ execute kernel functions.
 .. parsed-literal::
 
   device();
-  explicit device(cl_device_id deviceId);
-  explicit device(const device_selector &deviceSelector);
+  template <typename DeviceSelector>
+  explicit device(const DeviceSelector &deviceSelector);
 
 Construct a device.
 
 The default constructor creates a host device. A device can also be
-constructed from an OpenCL|trade| device or may be chosen by a
-:ref:`device-selectors`.
+chosen by a :ref:`device-selectors`.
 
 .. rubric:: Parameters
 
 ==================  =======================
-``deviceID``        OpenCL device id
 ``deviceSelector``  Device selector
 ==================  =======================
 
-``get``
-=======
+``get_backend``
+===============
 
 ::
 
-  cl_device_id get() const;
-
-Return the cl_device_id of the underlying OpenCL platform.
-
-``is_host``
-===========
-
-::
-
-  bool is_host() const;
-
-Returns True if the device is a host device, False otherwise.
+  backend get_backend() const noexcept;
 
 ``is_cpu``
 ==========
@@ -105,9 +96,8 @@ Returns the platform that contains the device.
 
 ::
 
-  template <info::device param>
-  typename info::param_traits<info::device, param>::return_type
-  get_info() const;
+  template <typename param>
+  typename param::return_type get_info() const;
 
 Returns information about the device as determined by ``param``. See
 `Device Info`_ for details.
@@ -115,6 +105,21 @@ Returns information about the device as determined by ``param``. See
 .. rubric:: Example
 
 See :ref:`platform-example`.
+
+``get_backend_info``
+====================
+
+::
+
+  template <typename param>
+  typename param::return_type get_backend_info() const;
+
+``has``
+=======
+
+::
+
+  bool has(aspect asp) const;
 
 ``has_extension``
 =================
@@ -131,23 +136,15 @@ Returns True if device supports the extension.
 
 .. parsed-literal::
 
-  *Available only when:
-   prop == info::partition_property::partition_equally*
-
+  // Available only when prop == info::partition_property::partition_equally
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(size_t count) const;
-
-  *Available only when:
-   prop == info::partition_property::partition_by_counts*
-
+  std::vector<device> create_sub_devices(size_t count) const;
+  // Available only when prop == info::partition_property::partition_by_counts
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(const vector_class<size_t> &counts) const;
-
-  *Available only when:
-   prop == info::partition_property::partition_by_affinity_domain*
-
+  std::vector<device> create_sub_devices(const std::vector<size_t> &counts) const;
+  // Available only when prop == info::partition_property::partition_by_affinity_domain
   template <info::partition_property prop>
-  vector_class<device> create_sub_devices(info::affinity_domain affinityDomain) const;
+  std::vector<device> create_sub_devices(info::partition_affinity_domain affinityDomain) const;
 
 Divide into sub-devices, according to the requested partition
 property.
@@ -205,164 +202,88 @@ Device Info
 
 ::
 
-  enum class device : int {
-    device_type,
-    vendor_id,
-    max_compute_units,
-    max_work_item_dimensions,
-    max_work_item_sizes,
-    max_work_group_size,
-    preferred_vector_width_char,
-    preferred_vector_width_short,
-    preferred_vector_width_int,
-    preferred_vector_width_long,
-    preferred_vector_width_float,
-    preferred_vector_width_double,
-    preferred_vector_width_half,
-    native_vector_width_char,
-    native_vector_width_short,
-    native_vector_width_int,
-    native_vector_width_long,
-    native_vector_width_float,
-    native_vector_width_double,
-    native_vector_width_half,
-    max_clock_frequency,
-    address_bits,
-    max_mem_alloc_size,
-    image_support,
-    max_read_image_args,
-    max_write_image_args,
-    image2d_max_height,
-    image2d_max_width,
-    image3d_max_height,
-    image3d_max_width,
-    image3d_max_depth,
-    image_max_buffer_size,
-    image_max_array_size,
-    max_samplers,
-    max_parameter_size,
-    mem_base_addr_align,
-    half_fp_config,
-    single_fp_config,
-    double_fp_config,
-    global_mem_cache_type,
-    global_mem_cache_line_size,
-    global_mem_cache_size,
-    global_mem_size,
-    max_constant_buffer_size,
-    max_constant_args,
-    local_mem_type,
-    local_mem_size,
-    error_correction_support,
-    host_unified_memory,
-    profiling_timer_resolution,
-    is_endian_little,
-    is_available,
-    is_compiler_available,
-    is_linker_available,
-    execution_capabilities,
-    queue_profiling,
-    built_in_kernels,
-    platform,
-    name,
-    vendor,
-    driver_version,
-    profile,
-    version,
-    opencl_c_version,
-    extensions,
-    printf_buffer_size,
-    preferred_interop_user_sync,
-    parent_device,
-    partition_max_sub_devices,
-    partition_properties,
-    partition_affinity_domains,
-    partition_type_property,
-    partition_type_affinity_domain,
-    reference_count
-  }
+   struct device_type;
+   struct vendor_id;
+   struct max_compute_units;
+   struct max_work_item_dimensions;
+   template<int dimensions = 3> struct max_work_item_sizes;
+   struct max_work_group_size;
+   struct preferred_vector_width_char;
+   struct preferred_vector_width_short;
+   struct preferred_vector_width_int;
+   struct preferred_vector_width_long;
+   struct preferred_vector_width_float;
+   struct preferred_vector_width_double;
+   struct preferred_vector_width_half;
+   struct native_vector_width_char;
+   struct native_vector_width_short;
+   struct native_vector_width_int;
+   struct native_vector_width_long;
+   struct native_vector_width_float;
+   struct native_vector_width_double;
+   struct native_vector_width_half;
+   struct max_clock_frequency;
+   struct address_bits;
+   struct max_mem_alloc_size;
+   struct image_support; // Deprecated
+   struct max_read_image_args;
+   struct max_write_image_args;
+   struct image2d_max_height;
+   struct image2d_max_width;
+   struct image3d_max_height;
+   struct image3d_max_width;
+   struct image3d_max_depth;
+   struct image_max_buffer_size;
+   struct max_samplers;
+   struct max_parameter_size;
+   struct mem_base_addr_align;
+   struct half_fp_config;
+   struct single_fp_config;
+   struct double_fp_config;
+   struct global_mem_cache_type;
+   struct global_mem_cache_line_size;
+   struct global_mem_cache_size;
+   struct global_mem_size;
+   struct max_constant_buffer_size; // Deprecated
+   struct max_constant_args; // Deprecated
+   struct local_mem_type;
+   struct local_mem_size;
+   struct error_correction_support;
+   struct host_unified_memory;
+   struct atomic_memory_order_capabilities;
+   struct atomic_fence_order_capabilities;
+   struct atomic_memory_scope_capabilities;
+   struct atomic_fence_scope_capabilities;
+   struct profiling_timer_resolution;
+   struct is_endian_little;
+   struct is_available;
+   struct is_compiler_available; // Deprecated
+   struct is_linker_available; // Deprecated
+   struct execution_capabilities;
+   struct queue_profiling; // Deprecated
+   struct built_in_kernels; // Deprecated
+   struct built_in_kernel_ids;
+   struct platform;
+   struct name;
+   struct vendor;
+   struct driver_version;
+   struct profile;
+   struct version;
+   struct backend_version;
+   struct aspects;
+   struct extensions; // Deprecated
+   struct printf_buffer_size;
+   struct preferred_interop_user_sync;
+   struct parent_device;
+   struct partition_max_sub_devices;
+   struct partition_properties;
+   struct partition_affinity_domains;
+   struct partition_type_property;
+   struct partition_type_affinity_domain;
 
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-======================================  ================  ===
-Descriptor                              Return type       Description
-======================================  ================  ===
-``device_type``
-``vendor_id``
-``max_compute_units``
-``max_work_item_dimensions``
-``max_work_item_sizes``
-``max_work_group_size``
-``preferred_vector_width_char``
-``preferred_vector_width_short``
-``preferred_vector_width_int``
-``preferred_vector_width_long``
-``preferred_vector_width_float``
-``preferred_vector_width_double``
-``preferred_vector_width_half``
-``native_vector_width_char``
-``native_vector_width_short``
-``native_vector_width_int``
-``native_vector_width_long``
-``native_vector_width_float``
-``native_vector_width_double``
-``native_vector_width_half``
-``max_clock_frequency``
-``address_bits``
-``max_mem_alloc_size``
-``image_support``
-``max_read_image_args``
-``max_write_image_args``
-``image2d_max_height``
-``image2d_max_width``
-``image3d_max_height``
-``image3d_max_width``
-``image3d_max_depth``
-``image_max_buffer_size``
-``image_max_array_size``
-``max_samplers``
-``max_parameter_size``
-``mem_base_addr_align``
-``half_fp_config``                      fp_config_
-``single_fp_config``                    fp_config_
-``double_fp_config``                    fp_config_
-``global_mem_cache_type``               cache_type_
-``global_mem_cache_line_size``
-``global_mem_cache_size``
-``global_mem_size``
-``max_constant_buffer_size``
-``max_constant_args``
-``local_mem_type``                      local_mem_type_
-``local_mem_size``
-``error_correction_support``
-``host_unified_memory``
-``profiling_timer_resolution``
-``is_endian_little``
-``is_available``
-``is_compiler_available``
-``is_linker_available``
-``execution_capabilities``              exec_capability_
-``queue_profiling``
-``built_in_kernels``
-``platform``
-``name``
-``vendor``
-``driver_version``
-``profile``
-``version``
-``opencl_c_version``
-``extensions``
-``printf_buffer_size``
-``preferred_interop_user_sync``
-``parent_device``
-``partition_max_sub_devices``
-``partition_properties``
-``partition_affinity_domains``
-``partition_type_property``
-``partition_type_affinity_domain``
-``reference_count``
-======================================  ================  ===
 
 .. _info-device_type:
 
