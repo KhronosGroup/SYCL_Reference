@@ -11,6 +11,7 @@ int main() {
     // device code
     auto out = sycl::stream(1024, 768, h);
     auto task = [=]() { out << "In a task\n"; };
-    h.single_task(task);
+    h.single_task<class stream_task>(task);
   });
+  q.wait();
 }
