@@ -206,6 +206,10 @@ is inferred from the type of ``cgf``.
 The runtime resubmits the command group to the secondary queue
 if an error occurs executing on the primary queue.
 
+.. rubric:: Example
+
+See `queue-example-1`_.
+
 ``wait``
 ========
 
@@ -214,6 +218,10 @@ if an error occurs executing on the primary queue.
   void wait();
 
 Wait for all enqueued tasks to complete.
+
+.. rubric:: Example
+
+See `queue-example-1`_.
 
 .. _queue-wait_and_throw:
 
@@ -226,6 +234,10 @@ Wait for all enqueued tasks to complete.
 
 Wait for all enqueued tasks and pass asynchronous errors to handler
 provided in :ref:`queue-constructors`.
+
+.. rubric:: Example
+
+See :ref:`exception-handling-example <exception-handling-example>`.
 
 .. _queue-throw_asynchronous:
 
@@ -289,6 +301,10 @@ See `queue-example-1`_.
                      const std::vector<event> &depEvents,
                      Rest&&... rest);
 
+.. rubric:: Example
+
+See `queue-example-2`_.
+
 .. _queue-memcpy:
 
 ``memcpy``
@@ -302,8 +318,11 @@ See `queue-example-1`_.
   event memcpy(void* dest, const void* src, size_t numBytes,
                const std::vector<event> &depEvents);
 
-Set memory allocated with :ref:`malloc_device`. For usage, see
-:ref:`event-elapsed-time`.
+Set memory allocated with :ref:`malloc_device`. 
+
+.. rubric:: Example
+
+See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 ``copy``
 ========
@@ -483,7 +502,7 @@ Constructs an enable_profiling property instance.
 
 .. rubric:: Example
 
-See :ref:`event-elapsed-time`.
+See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 .. rst-class:: api-class
 
@@ -514,7 +533,7 @@ Constructs an in_order property instance.
 Example 1
 =========
 
-Submission of a simple SYCL kernel function to the queue.
+Submission of a single task SYCL kernel function.
 
 .. literalinclude:: /examples/queue-single-task.cpp
    :lines: 5-
@@ -523,4 +542,22 @@ Submission of a simple SYCL kernel function to the queue.
 Output:
 
 .. literalinclude:: /examples/queue-single-task.out
+   :lines: 5-
+
+
+.. _queue-example-2:
+
+=========
+Example 2
+=========
+
+Submission of a parallel SYCL kernel function.
+
+.. literalinclude:: /examples/queue-parallel.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/queue-parallel.out
    :lines: 5-
