@@ -6,7 +6,6 @@
 Streams
 *******
 
-
 Kernels may not use std streams for input/output. ``sycl::stream``
 provides similar functionality.
 
@@ -123,7 +122,7 @@ Output text to the console in a kernel.
 .. literalinclude:: /examples/stream.cpp
    :linenos:
    :start-after: SPDX-License
-   
+
 Output:
 
 .. literalinclude:: /examples/stream.out

@@ -4,7 +4,6 @@
 
 .. _queues:
 
-
 ******
 Queues
 ******
@@ -162,7 +161,6 @@ queue_ for details.
 
   template <typename param>
   typename param::return_type get_backend_info() const;
-
 
 .. _queue-submit:
 
@@ -470,7 +468,6 @@ information.
      - ``cl_uint``
      - Reference count of the queue
 
-
 .. _queue-properties:
 
 ================
@@ -526,7 +523,6 @@ SYCL queue provides in-order semantics.
 
 Constructs an in_order property instance.
 
-
 .. _queue-example-1:
 
 =========
@@ -543,7 +539,6 @@ Output:
 
 .. literalinclude:: /examples/queue-single-task.out
    :lines: 5-
-
 
 .. _queue-example-2:
 
