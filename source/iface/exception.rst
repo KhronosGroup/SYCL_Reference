@@ -270,9 +270,11 @@ constructor. The SYCL runtime delivers asynchronous exceptions to the
 handler when :ref:`queue-wait_and_throw` or
 :ref:`queue-throw_asynchronous` is called.
 
-.. _exception-handling:
+.. _exception-handling-example:
 
-.. rubric:: Example
+=========
+Example 1
+=========
 
 Catching asynchronous exceptions for incorrect range construction.
 
