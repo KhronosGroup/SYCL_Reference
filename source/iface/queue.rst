@@ -252,6 +252,10 @@ Passes any asynchronous errors to handler provided in
   event single_task(const std::vector<event> &depEvents,
                     const KernelType &kernelFunc);
 
+.. rubric:: Example
+
+See `queue-example-1`_.
+
 ``parallel_for``
 ================
 
@@ -502,3 +506,21 @@ SYCL queue provides in-order semantics.
    in_order();
 
 Constructs an in_order property instance.
+
+
+.. _queue-example-1:
+
+=========
+Example 1
+=========
+
+Submission of a simple SYCL kernel function to the queue.
+
+.. literalinclude:: /examples/queue-single-task.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/queue-single-task.out
+   :lines: 5-
