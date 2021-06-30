@@ -43,7 +43,7 @@ Samplers
      normalized,
      unnormalized
   };
-  
+
 .. _sampler:
 
 .. rst-class:: api-class

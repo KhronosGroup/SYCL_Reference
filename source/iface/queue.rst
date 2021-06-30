@@ -109,7 +109,6 @@ invalid_object_error
 
 .. todo:: example exercise various constructors
 
-
 ``get_backend``
 ===============
 
@@ -316,7 +315,7 @@ See `queue-example-2`_.
   event memcpy(void* dest, const void* src, size_t numBytes,
                const std::vector<event> &depEvents);
 
-Set memory allocated with :ref:`malloc_device`. 
+Set memory allocated with :ref:`malloc_device`.
 
 .. rubric:: Example
 
