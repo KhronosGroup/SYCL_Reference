@@ -200,7 +200,9 @@ type of information.
      - Time in nanoseconds when :ref:`command_group` finished
        execution
 
-Kernel execution time can be found using ``command_start`` - ``command_end``, while total processing time for a command group (including runtime overhead) is found via ``command_submit`` - ``command_end``.
+Kernel execution time = ``command_start`` - ``command_end``
+
+Total command group processing time = ``command_submit`` - ``command_end``
 
 .. _event-elapsed-time:
 
