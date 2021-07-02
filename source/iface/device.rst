@@ -284,6 +284,7 @@ Device Info
 Used as a template parameter for get_info_ to determine the type of
 information.
 
+See `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_device_information_descriptors>`__ for further details on these structs.
 
 .. _info-device_type:
 
