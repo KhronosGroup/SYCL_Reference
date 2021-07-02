@@ -165,3 +165,21 @@ information.
 ===========================
 
 SYCL does not define any properties for context_.
+
+
+.. _context-example:
+
+=======
+Example
+=======
+
+Print out all the devices within a context.
+
+.. literalinclude:: /examples/context.cpp
+   :lines: 5-
+   :linenos:
+
+Potential Output:
+
+.. literalinclude:: /examples/context.out
+   :lines: 5-
