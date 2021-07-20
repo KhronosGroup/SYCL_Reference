@@ -5,7 +5,7 @@
 #include <CL/sycl.hpp>
 #include <iostream>
 
-const int count = 10;
+constexpr int count = 10;
 
 int main() {
 
