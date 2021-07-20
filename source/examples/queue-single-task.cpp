@@ -10,7 +10,7 @@ int main() {
 
   q.submit([&](sycl::handler &cgh) {
     auto os = sycl::stream{128, 128, cgh};
-    cgh.single_task<class hello_world>([=]() { os << "Hello World!\n"; });
+    cgh.single_task<class hello_world>([=] { os << "Hello World!\n"; });
   });
   q.wait();
 }
