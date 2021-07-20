@@ -28,7 +28,7 @@ int main() {
     q.wait();
   }
 
-  for (int i = 0; i < count; ++i) {
+  for (auto e : data)
     std::cout << data[i] << " ";
-  }
+  std::cout << std::endl;
 }
