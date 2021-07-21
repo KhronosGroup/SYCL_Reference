@@ -2,10 +2,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <CL/sycl.hpp>
+#include <sycl::/sycl.hpp>
 
 int main() {
   sycl::queue q;
+
   q.submit([&](sycl::handler &h) {
     // setup sycl stream class to print standard output from
     // device code
