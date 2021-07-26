@@ -2,8 +2,9 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <sycl/sycl.hpp>
 #include <iostream>
+#include <sycl/sycl.hpp>
+
 
 constexpr int count = 10;
 
