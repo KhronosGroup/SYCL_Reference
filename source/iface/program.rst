@@ -6,6 +6,8 @@
 Programs
 ********
 
+.. _program:
+
 .. rst-class:: api-class
 
 =================

@@ -22,7 +22,6 @@ Samplers
       none
   };
 
-
 ========================
 ``sycl::filtering_mode``
 ========================
@@ -44,6 +43,8 @@ Samplers
      normalized,
      unnormalized
   };
+
+.. _sampler:
 
 .. rst-class:: api-class
 
