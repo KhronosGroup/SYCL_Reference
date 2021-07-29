@@ -55,7 +55,7 @@ Returns OpenCL|trade| event associated with this event.
   bool is_host() const;
 
 
-Returns True if this a host event
+Returns True if this a host event.
 
 ``get_wait_list``
 =================
@@ -128,23 +128,6 @@ Returns information about the queue as determined by ``param``. See
 Returns information about the queue as determined by ``param``. See
 `sycl::info::event_profiling`_ for details.
 
-.. _event-elapsed-time:
-
-.. rubric:: Example
-
-Measure the elapsed time of a ``memcpy`` executed on a device with
-event profiling info.
-
-.. literalinclude:: /examples/event-elapsed-time.cpp
-   :lines: 5-
-   :linenos:
-
-Output:
-
-.. literalinclude:: /examples/event-elapsed-time.out
-   :lines: 5-
-
-
 =====================
 ``sycl::info::event``
 =====================
@@ -216,3 +199,25 @@ type of information.
      - ``cl_ulong``
      - Time in nanoseconds when :ref:`command_group` finished
        execution
+
+Kernel execution time = ``command_start`` - ``command_end``
+
+Total command group processing time = ``command_submit`` - ``command_end``
+
+.. _event-elapsed-time:
+
+=========
+Example 1
+=========
+
+Measure the elapsed time of a ``memcpy`` executed on a device with
+event profiling info.
+
+.. literalinclude:: /examples/event-elapsed-time.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/event-elapsed-time.out
+   :lines: 5-
