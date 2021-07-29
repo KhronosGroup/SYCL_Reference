@@ -166,9 +166,9 @@ the type of information.
 
 .. _platform-example:
 
-=======
-Example
-=======
+=========
+Example 1
+=========
 
 Enumerate the platforms and the devices they contain.
 
