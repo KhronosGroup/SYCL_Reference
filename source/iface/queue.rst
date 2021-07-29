@@ -4,7 +4,6 @@
 
 .. _queues:
 
-
 ******
 Queues
 ******
@@ -110,7 +109,6 @@ invalid_object_error
 
 .. todo:: example exercise various constructors
 
-
 ``get_backend``
 ===============
 
@@ -163,7 +161,6 @@ queue_ for details.
   template <typename param>
   typename param::return_type get_backend_info() const;
 
-
 .. _queue-submit:
 
 ``submit``
@@ -206,6 +203,10 @@ is inferred from the type of ``cgf``.
 The runtime resubmits the command group to the secondary queue
 if an error occurs executing on the primary queue.
 
+.. rubric:: Example
+
+See `queue-example-1`_.
+
 ``wait``
 ========
 
@@ -214,6 +215,10 @@ if an error occurs executing on the primary queue.
   void wait();
 
 Wait for all enqueued tasks to complete.
+
+.. rubric:: Example
+
+See `queue-example-1`_.
 
 .. _queue-wait_and_throw:
 
@@ -226,6 +231,10 @@ Wait for all enqueued tasks to complete.
 
 Wait for all enqueued tasks and pass asynchronous errors to handler
 provided in :ref:`queue-constructors`.
+
+.. rubric:: Example
+
+See :ref:`exception-handling-example <exception-handling-example>`.
 
 .. _queue-throw_asynchronous:
 
@@ -251,6 +260,10 @@ Passes any asynchronous errors to handler provided in
   template <typename KernelName, typename KernelType>
   event single_task(const std::vector<event> &depEvents,
                     const KernelType &kernelFunc);
+
+.. rubric:: Example
+
+See `queue-example-1`_.
 
 ``parallel_for``
 ================
@@ -285,6 +298,10 @@ Passes any asynchronous errors to handler provided in
                      const std::vector<event> &depEvents,
                      Rest&&... rest);
 
+.. rubric:: Example
+
+See `queue-example-2`_.
+
 .. _queue-memcpy:
 
 ``memcpy``
@@ -298,8 +315,11 @@ Passes any asynchronous errors to handler provided in
   event memcpy(void* dest, const void* src, size_t numBytes,
                const std::vector<event> &depEvents);
 
-Set memory allocated with :ref:`malloc_device`. For usage, see
-:ref:`event-elapsed-time`.
+Set memory allocated with :ref:`malloc_device`.
+
+.. rubric:: Example
+
+See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 ``copy``
 ========
@@ -447,7 +467,6 @@ information.
      - ``cl_uint``
      - Reference count of the queue
 
-
 .. _queue-properties:
 
 ================
@@ -479,7 +498,7 @@ Constructs an enable_profiling property instance.
 
 .. rubric:: Example
 
-See :ref:`event-elapsed-time`.
+See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 .. rst-class:: api-class
 
@@ -502,3 +521,37 @@ SYCL queue provides in-order semantics.
    in_order();
 
 Constructs an in_order property instance.
+
+.. _queue-example-1:
+
+=========
+Example 1
+=========
+
+Submission of a single task SYCL kernel function.
+
+.. literalinclude:: /examples/queue-single-task.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/queue-single-task.out
+   :lines: 5-
+
+.. _queue-example-2:
+
+=========
+Example 2
+=========
+
+Submission of a parallel SYCL kernel function.
+
+.. literalinclude:: /examples/queue-parallel.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/queue-parallel.out
+   :lines: 5-
