@@ -185,11 +185,7 @@ Returns vector of devices filtered by :ref:`info-device_type`.
 
 .. rubric:: Example
 
-Enumerate the GPU devices.
-
-.. literalinclude:: /examples/get_devices.cpp
-   :lines: 5-
-   :linenos:
+See get_devices-example_.
 
 ===========
 Device Info
@@ -391,3 +387,15 @@ See get_info_.
   };
 
 See get_info_.
+
+.. _get_devices-example:
+
+=========
+Example 1
+=========
+
+Enumerate the GPU devices.
+
+.. literalinclude:: /examples/get_devices.cpp
+   :lines: 5-
+   :linenos:
