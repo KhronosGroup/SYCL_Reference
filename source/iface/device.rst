@@ -104,7 +104,7 @@ Returns information about the device as determined by ``param``. See
 
 .. rubric:: Example
 
-See :ref:`platform-example`.
+See :ref:`platform-example <platform-example>`.
 
 ``get_backend_info``
 ====================
