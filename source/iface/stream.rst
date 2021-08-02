@@ -20,6 +20,8 @@ Output to console in a kernel.
    :linenos:
    :start-after: SPDX-License
 
+.. _stream:
+
 .. rst-class:: api-class
 
 ================
