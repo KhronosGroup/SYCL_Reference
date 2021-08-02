@@ -227,6 +227,10 @@ Wait for all enqueued tasks to complete.
 Wait for all enqueued tasks and pass asynchronous errors to handler
 provided in :ref:`queue-constructors`.
 
+.. rubric:: Example
+
+See :ref:`exception-handling-example <exception-handling-example>`.
+
 .. _queue-throw_asynchronous:
 
 ``throw_asynchronous``
