@@ -5,7 +5,6 @@
 #include <iostream>
 #include <sycl/sycl.hpp>
 
-
 constexpr int count = 10;
 
 int main() {
