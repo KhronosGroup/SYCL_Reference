@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #include <iostream>
-#include <sycl/sycl.hpp>
+#include <CL/sycl.hpp>
 
 constexpr int count = 10;
 
@@ -29,6 +29,6 @@ int main() {
   }
 
   for (auto e : data)
-    std::cout << data[i] << " ";
+    std::cout << e << " ";
   std::cout << std::endl;
 }
