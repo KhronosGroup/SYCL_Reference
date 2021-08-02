@@ -90,17 +90,17 @@ from asynchronous host tasks, construct the queue with an
 .. list-table::
 
    * - ``propList``
-     - See `queue-properties`_
+     - See `queue-properties`_.
    * - ``asyncHandler``
-     - Called for asynchronous exceptions, see :ref:`async_handler`
+     - Called for asynchronous exceptions, see :ref:`async_handler`.
    * - ``deviceSelector``
-     - Selects device for queue
+     - Selects device for queue.
    * - ``syclDevice``
-     - Device for queue
+     - Device for queue.
    * - ``syclContext``
-     - Associate queue with the context
+     - Associate queue with the context.
    * - ``clQueue``
-     - Associate queue with OpenCL|trade| queue
+     - Associate queue with OpenCL|trade| queue.
 
 .. rubric:: Exceptions
 
@@ -231,10 +231,6 @@ See `queue-example-1`_.
 
 Wait for all enqueued tasks and pass asynchronous errors to handler
 provided in :ref:`queue-constructors`.
-
-.. rubric:: Example
-
-See :ref:`exception-handling-example <exception-handling-example>`.
 
 .. _queue-throw_asynchronous:
 
