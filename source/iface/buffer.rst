@@ -8,6 +8,7 @@
  Buffers
 *********
 
+.. _buffer:
 
 .. rst-class:: api-class
 
