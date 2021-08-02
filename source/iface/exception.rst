@@ -261,7 +261,7 @@ Optional feature or extension is not available on the :ref:`device`.
 .. rubric:: Parameters
 
 =============  ===
-``e``          List of asynchronous exceptions. See `sycl::exception_list`_
+``e``          List of asynchronous exceptions. See `sycl::exception_list`_.
 =============  ===
 
 The SYCL runtime delivers asynchronous exceptions by invoking an
