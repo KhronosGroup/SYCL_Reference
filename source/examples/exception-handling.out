@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: 2020 The Khronos Group Inc.
+#
+# SPDX-License-Identifier: CC-BY-4.0
+
+Caught asynchronous SYCL exception:
+Error: Work-group size is invalid (Local size exceeds the global work group size)

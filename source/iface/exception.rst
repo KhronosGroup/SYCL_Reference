@@ -269,3 +269,20 @@ The SYCL runtime delivers asynchronous exceptions by invoking an
 constructor. The SYCL runtime delivers asynchronous exceptions to the
 handler when :ref:`queue-wait_and_throw` or
 :ref:`queue-throw_asynchronous` is called.
+
+.. _exception-handling-example:
+
+=========
+Example 1
+=========
+
+Catching asynchronous exceptions for incorrect range construction.
+
+.. literalinclude:: /examples/exception-handling.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/exception-handling.out
+   :lines: 5-
