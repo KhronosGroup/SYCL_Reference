@@ -8,6 +8,8 @@
 Images
 ******
 
+.. _image:
+
 .. rst-class:: api-class
 
 ===============
