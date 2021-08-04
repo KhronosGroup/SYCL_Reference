@@ -50,4 +50,3 @@ jobs:
         CXX=dpcpp cmake ..
         make -j
         ctest --label-exclude gpu
-        
