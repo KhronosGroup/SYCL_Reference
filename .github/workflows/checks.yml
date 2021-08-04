@@ -47,7 +47,7 @@ jobs:
         cd source/examples
         mkdir build
         cd build
-        cmake ..
+        CXX=dpcpp cmake ..
         make -j
         ctest --label-exclude gpu
         

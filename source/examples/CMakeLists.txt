@@ -6,7 +6,6 @@ cmake_minimum_required(VERSION 3.13)
 project(SYCL_Reference)
 
 enable_testing()
-set(CMAKE_CXX_COMPILER dpcpp)
 
 add_compile_options(-Wall -Wextra -Werror)
 
