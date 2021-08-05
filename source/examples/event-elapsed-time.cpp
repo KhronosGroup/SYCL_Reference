@@ -6,7 +6,7 @@
 
 int main() {
   sycl::property_list properties{sycl::property::queue::enable_profiling()};
-  auto q = sycl::queue(sycl::gpu_selector(), properties);
+  auto q = sycl::queue(sycl::default_selector(), properties);
 
   std::cout
       << "  Platform: "
