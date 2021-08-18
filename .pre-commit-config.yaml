@@ -35,6 +35,7 @@ repos:
     rev: v1.1.1
     hooks:
     -   id: clang-format
+        args: [-i]
 -   repo: https://github.com/fsfe/reuse-tool
     rev: v0.12.1
     hooks:
