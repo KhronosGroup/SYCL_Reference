@@ -4,15 +4,15 @@
 
 #include <vector>
 
-#include <sycl/sycl.hpp>
+#include <CL/sycl.hpp>
 
 constexpr int size = 10;
 
 int main() {
-  queue q;
+  sycl::queue q;
 
   // USM allocator for data of type int in shared memory
-  typedef usm_allocator<int, sycl::usm::alloc::shared> vec_alloc;
+  typedef sycl::usm_allocator<int, sycl::usm::alloc::shared> vec_alloc;
   // Create allocator for device associated with q
   vec_alloc myAlloc(q);
   // Create std vectors with the allocator
