@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <sycl/sycl.hpp>
+#include <CL/sycl.hpp>
 
 int main() {
   sycl::device d;

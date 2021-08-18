@@ -11,8 +11,6 @@ provides similar functionality.
 
 .. _stream:
 
-.. _stream:
-
 .. rst-class:: api-class
 
 ================
