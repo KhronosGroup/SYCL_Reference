@@ -6,9 +6,8 @@ cmake_minimum_required(VERSION 3.13)
 project(SYCL_Reference)
 
 enable_testing()
-set(CMAKE_CXX_COMPILER dpcpp)
 
-add_compile_options(-Wall -Wextra -pedantic -Werror)
+add_compile_options(-Wall -Wextra -Werror)
 
 
 function(add_example name)
@@ -20,9 +19,13 @@ add_example(host-task)
 add_example(gpu-platform)
 add_example(std-vector)
 add_example(event-elapsed-time)
+add_example(exception-handling)
 add_example(get-platforms)
 add_example(get_devices)
 add_example(stream)
 add_example(gpu-selector)
 add_example(queue-parallel)
 add_example(queue-single-task)
+
+set_tests_properties(gpu-platform PROPERTIES LABELS gpu)
+

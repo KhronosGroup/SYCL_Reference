@@ -103,20 +103,24 @@ device_selector_ as a base class.
     - Selects device according to implementation-defined heuristic or
       host device if no device can be found.
   * - ``gpu_selector``
-    - Select a GPU
+    - Select a GPU.
   * - ``accelerator_selector``
-    - Select an accelerator
+    - Select an accelerator.
   * - ``cpu_selector``
-    - Select a CPU device
+    - Select a CPU device.
   * - ``host_selector``
-    - Select the host device
+    - Select the host device.
 
 
 Create a device selector by copying another one.
 
 .. seealso:: |SYCL_SPEC_DEVICE_SELECTORS|
 
- .. rubric:: Example
+.. _device-selector-example:
+
+=========
+Example 1
+=========
 
 .. literalinclude:: /examples/gpu-selector.cpp
    :lines: 5-
