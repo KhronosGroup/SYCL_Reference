@@ -6,15 +6,13 @@
 
 #include <CL/sycl.hpp>
 
-using namespace sycl;
-
-const int size = 10;
+constexpr int size = 10;
 
 int main() {
-  queue q;
+  sycl::queue q;
 
   // USM allocator for data of type int in shared memory
-  typedef usm_allocator<int, usm::alloc::shared> vec_alloc;
+  typedef sycl::usm_allocator<int, sycl::usm::alloc::shared> vec_alloc;
   // Create allocator for device associated with q
   vec_alloc myAlloc(q);
   // Create std vectors with the allocator
@@ -32,9 +30,9 @@ int main() {
     c[i] = i;
   }
 
-  q.submit([&](handler &h) {
-     h.parallel_for(range<1>(size),
-                    [=](id<1> idx) { C[idx] = A[idx] + B[idx]; });
+  q.submit([&](sycl::handler &h) {
+     h.parallel_for(sycl::range<1>(size),
+                    [=](sycl::id<1> idx) { C[idx] = A[idx] + B[idx]; });
    }).wait();
 
   for (int i = 0; i < size; i++)
