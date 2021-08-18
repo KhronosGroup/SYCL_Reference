@@ -116,7 +116,11 @@ Create a device selector by copying another one.
 
 .. seealso:: |SYCL_SPEC_DEVICE_SELECTORS|
 
- .. rubric:: Example
+.. _device-selector-example:
+
+=========
+Example 1
+=========
 
 .. literalinclude:: /examples/gpu-selector.cpp
    :lines: 5-

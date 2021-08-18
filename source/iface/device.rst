@@ -104,7 +104,7 @@ Returns information about the device as determined by ``param``. See
 
 .. rubric:: Example
 
-See :ref:`platform-example`.
+See :ref:`platform-example <platform-example>`.
 
 ``get_backend_info``
 ====================
@@ -152,16 +152,16 @@ property.
 .. rubric:: Template parameters
 
 =================  ===
-``prop``           See `sycl::info::partition_property`_
+``prop``           See `sycl::info::partition_property`_.
 =================  ===
 
 
 .. rubric:: Parameters
 
 ==================  ===
-``count``           Number of compute units per sub-device
-``counts``          Vector with number of compute units for each sub-device
-``affinityDomain``  See `sycl::info::partition_affinity_domain`_
+``count``           Number of compute units per sub-device.
+``counts``          Vector with number of compute units for each sub-device.
+``affinityDomain``  See `sycl::info::partition_affinity_domain`_.
 ==================  ===
 
 .. rubric:: Exceptions
@@ -185,11 +185,7 @@ Returns vector of devices filtered by :ref:`info-device_type`.
 
 .. rubric:: Example
 
-Enumerate the GPU devices
-
-.. literalinclude:: /examples/get_devices.cpp
-   :lines: 5-
-   :linenos:
+See get_devices-example_.
 
 ===========
 Device Info
@@ -317,7 +313,7 @@ See platform :ref:`platform-get_devices` and device :ref:`device-get_devices`.
     partition_by_affinity_domain
   };
 
-See create_sub_devices_
+See create_sub_devices_.
 
 ``sycl::info::partition_affinity_domain``
 =========================================
@@ -334,7 +330,7 @@ See create_sub_devices_
     next_partitionable
   };
 
-See create_sub_devices_
+See create_sub_devices_.
 
 .. _local_mem_type:
 
@@ -345,7 +341,7 @@ See create_sub_devices_
 
   enum class local_mem_type : int { none, local, global };
 
-See get_info_
+See get_info_.
 
 .. _fp_config:
 
@@ -365,7 +361,7 @@ See get_info_
     soft_float
   };
 
-See get_info_
+See get_info_.
 
 .. _cache_type:
 
@@ -376,7 +372,7 @@ See get_info_
 
   enum class global_mem_cache_type : int { none, read_only, read_write };
 
-See get_info_
+See get_info_.
 
 .. _exec_capability:
 
@@ -390,4 +386,16 @@ See get_info_
     exec_native_kernel
   };
 
-See get_info_
+See get_info_.
+
+.. _get_devices-example:
+
+=========
+Example 1
+=========
+
+Enumerate the GPU devices.
+
+.. literalinclude:: /examples/get_devices.cpp
+   :lines: 5-
+   :linenos:

@@ -6,19 +6,8 @@
 Streams
 *******
 
-
 Kernels may not use std streams for input/output. ``sycl::stream``
 provides similar functionality.
-
-.. _stream-example:
-
-.. rubric:: Example
-
-Output to console in a kernel.
-
-.. literalinclude:: /examples/stream.cpp
-   :linenos:
-   :start-after: SPDX-License
 
 .. _stream:
 
@@ -121,3 +110,20 @@ compatibility.  get_max_statement_size() is a deprecated query.
    const sycl::stream_manipulator defaultfloat = sycl::stream_manipulator::defaultfloat;
    __precision_manipulator__ setprecision(int precision);
    __width_manipulator__ setw(int width);
+
+.. _stream-example:
+
+=========
+Example 1
+=========
+
+Output text to the console in a kernel.
+
+.. literalinclude:: /examples/stream.cpp
+   :linenos:
+   :start-after: SPDX-License
+
+Output:
+
+.. literalinclude:: /examples/stream.out
+   :lines: 5-

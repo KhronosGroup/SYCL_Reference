@@ -8,22 +8,6 @@
 exclude: reference|LICENSES
 
 repos:
--   repo: local
-    hooks:
-    - id: sphinx-html
-      name: sphinx-html
-      entry: python doc.py html
-      language: system
-      pass_filenames: false
-      always_run: true
--   repo: local
-    hooks:
-    - id: sphinx-spelling
-      name: sphinx-spelling
-      entry: python doc.py spelling
-      language: system
-      pass_filenames: false
-      always_run: true
 -   repo: https://github.com/psf/black
     rev: 21.5b1
     hooks:
@@ -55,3 +39,19 @@ repos:
     rev: v0.12.1
     hooks:
     -   id: reuse
+-   repo: local
+    hooks:
+    - id: sphinx-html
+      name: sphinx-html
+      entry: python doc.py html
+      language: system
+      pass_filenames: false
+      always_run: true
+-   repo: local
+    hooks:
+    - id: sphinx-spelling
+      name: sphinx-spelling
+      entry: python doc.py spelling
+      language: system
+      pass_filenames: false
+      always_run: true
