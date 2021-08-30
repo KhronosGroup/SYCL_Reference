@@ -15,6 +15,7 @@ function(add_example name)
   add_test(NAME ${name} COMMAND ${name})
 endfunction(add_example)
 
+add_example(atomic)
 add_example(host-task)
 add_example(gpu-platform)
 add_example(std-vector)
