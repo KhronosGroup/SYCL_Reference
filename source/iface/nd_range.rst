@@ -46,7 +46,7 @@ Construct an ``nd_range``.
 ==================  ===
 ``globalSize``      dimensions of the entire index space
 ``localSize``       dimensions of the work group
-``offset``          Origin of the index space
+``offset``          Origin of the index space [deprecated in SYCL 2020]
 ==================  ===
 
 ``get_global_range``
