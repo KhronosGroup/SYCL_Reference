@@ -23,7 +23,7 @@ int main() {
       // wait for device task to complete
       e.wait();
       auto host_task = [=]() { data[i + 1] = data[i] + 1; };
-      h.codeplay_host_task(host_task);
+      h.host_task(host_task);
     });
   }
   for (int i = 0; i < n; i++)
