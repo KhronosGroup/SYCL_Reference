@@ -19,8 +19,8 @@ struct List {
       atomic_top;
 #elif __INTEL_CLANG_COMPILER == 20210400
   sycl::ext::oneapi::atomic_ref<int *, sycl::ext::oneapi::memory_order::relaxed,
-                           sycl::ext::oneapi::memory_scope::work_group,
-                           sycl::access::address_space::global_space>
+                                sycl::ext::oneapi::memory_scope::work_group,
+                                sycl::access::address_space::global_space>
       atomic_top;
 #else
   // Not tested
