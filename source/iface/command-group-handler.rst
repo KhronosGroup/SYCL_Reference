@@ -268,3 +268,22 @@ Set memory allocated with :ref:`malloc_device`. For usage, see
 
 Set memory allocated with :ref:`malloc_device`. For usage, see
 :ref:`event-elapsed-time`.
+
+``host_task``
+=============
+
+::
+
+   void host_task(T &&hostTaskCallable);
+
+Queue a host task. See example1_.
+
+.. _example1:
+
+=========
+Example 1
+=========
+
+.. literalinclude:: /examples/host-task.cpp
+   :lines: 5-
+   :linenos:
