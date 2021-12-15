@@ -11,7 +11,7 @@
 Types: :ref:`id`, :ref:`range`, :ref:`item`, :ref:`nd_item`,
 :ref:`h_item`, :ref:`group`, `sub_group`, and :ref:`nd_range`.
 
-Classes with reference semantics support the following methods.
+Classes with value semantics support the following methods.
 
 ::
 
