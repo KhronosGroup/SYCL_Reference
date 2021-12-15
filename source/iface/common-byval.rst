@@ -16,6 +16,7 @@ Classes with reference semantics support the following methods.
 ::
 
   class T {
+  public:
     T(const T &rhs);
     T(T &&rhs);
     T &operator=(const T &rhs);
