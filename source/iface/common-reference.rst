@@ -8,10 +8,12 @@
  Reference Semantics
 =====================
 
-Classes: :ref:`device`, :ref:`context`, :ref:`queue`, :ref:`program`,
-:ref:`kernel`, :ref:`event`, :ref:`iface-buffers`, :ref:`image`,
-:ref:`sampler`, :ref:`sycl::accessor<iface-accessors>`, and
-:ref:`stream`.
+Classes: :ref:`sycl::accessor<iface-accessors>`,
+:ref:`sycl::buffer<iface-buffers>`, :ref:`context`, :ref:`device`,
+`device_image`, :ref:`event`, `host_accessor`, `host_sampled_image_accessor`,
+`host_unsampled_image_accessor`, :ref:`kernel`, `kernel_id`, `kernel_bundle`,
+`local_accessor`, :ref:`platform`, :ref:`queue`, `sampled_image`,
+`sampled_image_accessor`, `unsampled_image` and `unsampled_image_accessor`.
 
 Classes with reference semantics support the following methods. An
 instance that is constructed as a copy of another instance must behave
