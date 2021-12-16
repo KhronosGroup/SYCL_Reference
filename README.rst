@@ -56,7 +56,7 @@ To build as a PDF::
 
   python doc.py latexpdf
 
-To see the document, open evince build/latex/syclreference.pdf
+To see the document, open build/latex/syclreference.pdf
 
 Using SYCL spec headers
 =======================
