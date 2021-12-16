@@ -9,13 +9,14 @@
 ====================
 
 Types: :ref:`id`, :ref:`range`, :ref:`item`, :ref:`nd_item`,
-:ref:`h_item`, :ref:`group`, and :ref:`nd_range`.
+:ref:`h_item`, :ref:`group`, `sub_group`, and :ref:`nd_range`.
 
-Classes with reference semantics support the following methods.
+Classes with value semantics support the following methods.
 
 ::
 
   class T {
+  public:
     T(const T &rhs);
     T(T &&rhs);
     T &operator=(const T &rhs);

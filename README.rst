@@ -46,11 +46,17 @@ needed for C++ code formatting as part of the git pre-commit hook.
 Building
 ========
 
-To build::
+To build as HTML::
 
   python doc.py html
 
 To see the document, open build/html/index.html
+
+To build as a PDF::
+
+  python doc.py latexpdf
+
+To see the document, open build/latex/syclreference.pdf
 
 Using SYCL spec headers
 =======================
