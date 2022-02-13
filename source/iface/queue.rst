@@ -323,12 +323,12 @@ See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 ::
 
   template <typename T>
-  event copy(T* dest, const T *src, size_t count);
+  event copy(T* src, const T *dst, size_t count);
   template <typename T>
-  event copy(T* dest, const T *src, size_t count,
+  event copy(T* src, const T *dst, size_t count,
              event depEvent);
   template <typename T>
-  event copy(T* dest, const T *src, size_t count,
+  event copy(T* src, const T *dst, size_t count,
              const std::vector<event> &depEvents);
 
 .. _queue-memset:
