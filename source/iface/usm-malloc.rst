@@ -12,49 +12,47 @@
 ``sycl::malloc_device``
 =======================
 
-|2020|
-
 ::
 
-   void* malloc_device(size_t num_bytes,
-                       const queue& q);
-   void* aligned_alloc_device(size_t alignment,
-                              size_t num_bytes,
-                              const queue& q);
+   void* sycl::malloc_device(size_t numBytes,
+                             const device& syclDevice,
+                             const context& syclContext,
+                             const property_list &propList = {})
    template <typename T>
-   T* malloc_device(size_t count,
-                    const queue& q);
+   T* sycl::malloc_device(size_t count,
+                          const device& syclDevice,
+                          const context& syclContext,
+                          const property_list &propList = {})
+   void* sycl::malloc_device(size_t numBytes,
+                             const queue& syclQueue,
+                             const property_list &propList = {})
    template <typename T>
-   T* aligned_alloc_device(size_d alignment,
-                           size_t count,
-                           const queue& q);
+   T* sycl::malloc_device(size_t count,
+                          const queue& syclQueue,
+                          const property_list &propList = {})
+   void* sycl::aligned_alloc_device(size_t alignment,
+                                    size_t numBytes,
+                                    const device& syclDevice,
+                                    const context& syclContext,
+                                    const property_list &propList = {})
+   template <typename T>
+   T* sycl::aligned_alloc_device(size_t alignment,
+                                 size_t count,
+                                 const device& syclDevice,
+                                 const context& syclContext,
+                                 const property_list &propList = {})
 
-   void* malloc_device(size_t num_bytes,
-                       const sycl::device& dev,
-                       const sycl::context& ctxt);
-   void* aligned_alloc_device(size_t alignment,
-                              size_t num_bytes,
-                              const sycl::device& dev,
-                              const sycl::context& ctxt);
-   template <typename T>
-   T* malloc_device(size_t count,
-                    const sycl::device& dev,
-                    const sycl::context& ctxt);
-   template <typename T>
-   T* aligned_alloc_device(size_d alignment,
-                           size_t count,
-                           const sycl::device& dev,
-                           const sycl::context& ctxt);
 
 .. rubric:: Parameters
 
 ==================  ===
 ``alignment``       alignment of allocated data
-``num_bytes``       allocation size in bytes
+``numBytes``        allocation size in bytes
 ``count``           number of elements
-``dev``             See :ref:`device`
-``q``               See :ref:`queue`
-``ctxt``            See :ref:`context`
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``propList``
 ==================  ===
 
 Returns a pointer to the newly allocated memory on the specified
@@ -62,7 +60,8 @@ device on success. This memory is not accessible on the host. Memory
 allocated by :ref:`sycl::malloc_device <malloc_device>` must be
 deallocated with :ref:`sycl::free <sycl-free>` to avoid memory
 leaks. If ``ctxt`` is a host context, it should behave as if calling
-:ref:`sycl::malloc_host <malloc_host>`. On failure, returns ``nullptr``.
+:ref:`sycl::malloc_host <malloc_host>`. On failure, returns
+``nullptr``.
 
 The host may not directly reference the memory, but can read and write
 the memory with :ref:`queue` member functions (:ref:`queue-memset`,
@@ -80,48 +79,51 @@ See :ref:`event-elapsed-time` for usage.
 ``sycl::malloc_host``
 =====================
 
-|2020|
-
 ::
 
-   void* malloc_host(size_t num_bytes,
-                     const sycl::queue& q);
-   void* aligned_alloc_host(size_t alignment,
-                            size_t num_bytes,
-                            const sycl::queue& q);
+   void* sycl::malloc_host(size_t numBytes,
+                           const context& syclContext,
+                           const property_list &propList = {})
    template <typename T>
-   T* malloc_host(size_t count,
-                  const sycl::queue& q);
+   T* sycl::malloc_host(size_t count,
+                        const context& syclContext,
+                        const property_list &propList = {})
+   void* sycl::malloc_host(size_t numBytes,
+                           const queue& syclQueue,
+                           const property_list &propList = {})
    template <typename T>
-   T* aligned_alloc_host(size_d alignment,
-                         size_t count,
-                         const sycl::queue& q);
-
-   void* malloc_host(size_t num_bytes,
-                     const sycl::device& dev,
-                     const sycl::context& ctxt);
-   void* aligned_alloc_host(size_t alignment,
-                            size_t num_bytes,
-                            const sycl::device& dev,
-                            const sycl::context& ctxt);
+   T* sycl::malloc_host(size_t count,
+                        const queue& syclQueue,
+                        const property_list &propList = {})
+   void* sycl::aligned_alloc_host(size_t alignment,
+                                  size_t numBytes,
+                                  const context& syclContext,
+                                  const property_list &propList = {})
    template <typename T>
-   T* malloc_host(size_t count,
-                  const sycl::device& dev,
-                  const sycl::context& ctxt);
+   T* sycl::aligned_alloc_host(size_t alignment,
+                               size_t count,
+                               const context& syclContext,
+                               const property_list &propList = {})
+   void* sycl::aligned_alloc_host(size_t alignment,
+                                  size_t numBytes,
+                                  const queue& syclQueue,
+                                  const property_list &propList = {})
    template <typename T>
-   T* aligned_alloc_host(size_d alignment,
-                         size_t count,
-                         const sycl::device& dev,
-                         const sycl::context& ctxt);
+   void* sycl::aligned_alloc_host(size_t alignment,
+                                  size_t count,
+                                  const queue& syclQueue,
+                                  const property_list &propList = {})
 
 .. rubric:: Parameters
 
 ==================  ===
 ``alignment``       alignment of allocated data
-``num_bytes``       allocation size in bytes
+``numBytes``        allocation size in bytes
 ``count``           number of elements
-``dev``             See :ref:`device`
-``ctxt``            See :ref:`context`
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``propList``
 ==================  ===
 
 Returns a pointer to the newly allocated host memory on success. Host
@@ -138,48 +140,55 @@ returns ``nullptr``.
 ``sycl::malloc_shared``
 =======================
 
-|2020|
-
 ::
 
-   void* malloc_shared(size_t num_bytes,
-                       const queue& q);
-   void* aligned_alloc_shared(size_t alignment,
-                              size_t num_bytes,
-                              const sycl::queue& q);
+   void* sycl::malloc_shared(size_t numBytes,
+                             const device& syclDevice,
+                             const context& syclContext,
+                             const property_list &propList = {})
    template <typename T>
-   T* malloc_shared(size_t count,
-                    const sycl::queue& q);
+   T* sycl::malloc_shared(size_t count,
+                          const device& syclDevice,
+                          const context& syclContext,
+                          const property_list &propList = {})
+   void* sycl::malloc_shared(size_t numBytes,
+                             const queue& syclQueue,
+                             const property_list &propList = {})
    template <typename T>
-   T* aligned_alloc_shared(size_d alignment,
-                           size_t count,
-                           const sycl::queue& q);
-
-   void* malloc_shared(size_t num_bytes,
-                       const sycl::device& dev,
-                       const sycl::context& ctxt);
-   void* aligned_alloc_shared(size_t alignment,
-                              size_t num_bytes,
-                              const sycl::device& dev,
-                              const sycl::context& ctxt);
+   T* sycl::malloc_shared(size_t count,
+                          const queue& syclQueue,
+                          const property_list &propList = {})
+   void* sycl::aligned_alloc_shared(size_t alignment,
+                                    size_t numBytes,
+                                    const device& syclDevice,
+                                    const context& syclContext,
+                                    const property_list &propList = {})
    template <typename T>
-   T* malloc_shared(size_t count,
-                    const sycl::device& dev,
-                    const sycl::context& ctxt);
+   T* sycl::aligned_alloc_shared(size_t alignment,
+                                 size_t count,
+                                 const device& syclDevice,
+                                 const context& syclContext,
+                                 const property_list &propList = {})
+   void* sycl::aligned_alloc_shared(size_t alignment,
+                                    size_t numBytes,
+                                    const queue& syclQueue,
+                                    const property_list &propList = {})
    template <typename T>
-   T* aligned_alloc_shared(size_d alignment,
-                           size_t count,
-                           const sycl::device& dev,
-                           const sycl::context& ctxt);
+   T* sycl::aligned_alloc_shared(size_t alignment,
+                                 size_t count,
+                                 const queue& syclQueue,
+                                 const property_list &propList = {})
 
 .. rubric:: Parameters
 
 ==================  ===
 ``alignment``       alignment of allocated data
-``num_bytes``       allocation size in bytes
+``numBytes``        allocation size in bytes
 ``count``           number of elements
-``dev``             See :ref:`device`
-``ctxt``            See :ref:`context`
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``propList``
 ==================  ===
 
 
@@ -244,6 +253,19 @@ host context, should behave as if calling :ref:`sycl::malloc_host
                     sycl::usm::alloc kind,
                     const sycl::property_list &propList = {})
 
+.. rubric:: Parameters
+
+==================  ===
+``alignment``       alignment of allocated data
+``numBytes``        allocation size in bytes
+``count``           number of elements
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``kind``            See :ref:`usm-alloc`
+``propList``
+==================  ===
+
 .. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_parameterized_allocation_functions>`__
 
 
@@ -253,8 +275,6 @@ host context, should behave as if calling :ref:`sycl::malloc_host
 ==============
 ``sycl::free``
 ==============
-
-|2020|
 
 ::
 
