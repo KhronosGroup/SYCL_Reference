@@ -14,6 +14,9 @@
  SYCL Language Reference
 ==========================
 
+We have stopped maintaining this document. See `SYCL specification`_ for 
+reference documentation for SYCL.
+
 This repo contains the source for the SYCL reference manual published
 at ReadTheDocs_.
 
@@ -80,6 +83,7 @@ Doc sources::
   reuse addheader --copyright "The Khronos Group Inc." --year 2020 --license CC-BY-4.0 source/index.rst
 
 
+.. _`SYCL specification`: https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html
 .. _headers: reference/headers
 .. _`SYCL spec headers`: https://github.com/KhronosGroup/SYCL-Docs/tree/SYCL-1.2.1/master/latex/headers
 .. _ReadTheDocs: https://sycl.readthedocs.io
