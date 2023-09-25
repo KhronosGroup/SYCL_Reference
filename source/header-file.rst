@@ -6,6 +6,12 @@
  Header File
 =============
 
-A single header file must be included::
+SYCL provides one standard header file:
 
-  #include "CL/sycl.hpp"
+::
+
+   #include <sycl/sycl.hpp>
+
+which needs to be included in every translation unit that uses the SYCL programming API.
+
+.. seealso:: |SYCL_SPEC_HEADER_FILES|
