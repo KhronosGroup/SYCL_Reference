@@ -82,6 +82,7 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
+.. |SYCL_SPEC_HEADER_FILES| replace:: SYCL Specification `Section 4.3 <https://registry.khronos.org/SYCL/specs/sycl-2020-provisional.pdf#page=56&zoom=100,96,189>`__
 .. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
 .. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4

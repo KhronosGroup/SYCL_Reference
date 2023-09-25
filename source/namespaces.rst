@@ -11,3 +11,5 @@ For example: ``buffer`` is ``sycl::buffer``, and ``info::device::name`` is ``syc
 
 All SYCL backend-specific functionality is made available in the namespace ``sycl::<backend_name>`` where ``<backend_name>`` is the name of the SYCL
 backend as defined in the SYCL backend specification.
+
+.. seealso:: |SYCL_SPEC_HEADER_FILES|
