@@ -3,6 +3,7 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. _device-selectors:
+.. _device-selector:
 
 ****************
 Device selectors
@@ -73,6 +74,19 @@ Standard device selectors included with all SYCL implementations:
 
 The SYCL class constructor using ``gpu_selector_v``, ``accelerator_selector_v``, ``cpu_selector_v``, and ``aspect_selector``
 must throw an exception with the ``errc::runtime`` error code if no device matching the requirement can be found.
+
+.. _device-selector-SYCL121:
+
+==============================
+Device Selectors in SYCL 1.2.1
+==============================
+
+In SYCL 1.2.1 the predefined device selectors were types that had to be instantiated to be used.
+
+To simplify porting code using the old type instantiations, a backward-compatible API is still provided, such as ``sycl::default_selector``. 
+
+The new predefined device selectors have their new names appended with "_v" to avoid conflicts, thus following the naming style used by 
+traits in the C++ standard library.
 
 .. seealso:: |SYCL_SPEC_DEVICE_SELECTORS|
 
