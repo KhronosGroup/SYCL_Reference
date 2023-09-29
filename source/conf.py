@@ -71,11 +71,11 @@ exclude_patterns = [
     'iface/printf.rst',
 ]
 
-
+sycl_ref_url = 'https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html'
 prolog_template = string.Template(
     '.. _`SYCL Specification`: '
-    + 'https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf'
-    + """
+    + sycl_ref_url
+    + f"""
 .. |true| replace:: ``true``
 .. |false| replace:: ``false``
 .. |2020| replace:: *Since SYCL 2020*
@@ -98,7 +98,7 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_FREE| replace:: `SYCL Specification`_ Section 4.8.5.4
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
 .. |SYCL_SPEC_USM_ALLOC| replace:: `SYCL Specification`_ Section 4.8.3
-.. |SYCL_SPEC_DEVICE_SELECTORS| replace:: SYCL Specification `Section 4.6.1.1 <https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html#sec:device-selector>`__
+.. |SYCL_SPEC_DEVICE_SELECTORS| replace:: SYCL Specification `Section 4.6.1.1 <{sycl_ref_url}#sec:device-selector>`__
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
