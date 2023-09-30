@@ -2,51 +2,47 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-name: checks
+name: Checks
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
 
 jobs:
   checks:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - name: Install dependencies
-      run: |
-        sudo apt install -qq clang-format enchant
-        python -m pip install --quiet --upgrade pip
-        pip install --quiet -r requirements.txt
-    - name: Checks
-      run: |
-        pre-commit run --all
-        # Need to install dpcpp without blowing up time
-        # python doc.py examples
-
-  dpcpp:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Cache install
-      id: cache-dpcpp
-      uses: actions/cache@v2
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
       with:
-        path: /opt/intel/oneapi
-        key: oneapi-update3
-    - name: Install
-      if: steps.cache-dpcpp.outputs.cache-hit != 'true'
-      run: |
-        wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
-        sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB
-        echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-        sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/oneAPI.list" -o APT::Get::List-Cleanup="0"
-        sudo apt-get install -y intel-oneapi-compiler-dpcpp-cpp-and-cpp-classic
+        python-version: '3.10'
+        cache: 'pip'
+    - run: pip install -r requirements.txt
+    - name: Checks
+      uses: pre-commit/action@v3.0.0
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: docs
+        path: build
+
+  icpx:
+    runs-on: ubuntu-latest
+    env:
+        CXX: icpx
+    steps:
+    - uses: actions/checkout@v4
+    - uses: rscohn2/setup-oneapi@v0
+      with:
+        components: |
+          icx@2023.2.1
     - name: Build Examples
       run: |
         source /opt/intel/oneapi/setvars.sh
         cd source/examples
-        mkdir build
-        cd build
-        CXX=dpcpp cmake ..
-        make -j
-        ctest --label-exclude gpu
+        cmake -B build
+        make -j 2 -C build
+        ctest --test-dir build --label-exclude gpu
