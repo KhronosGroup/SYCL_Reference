@@ -23,6 +23,11 @@ jobs:
     - run: pip install -r requirements.txt
     - name: Checks
       uses: pre-commit/action@v3.0.0
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: docs
+        path: build
 
   icpx:
     runs-on: ubuntu-latest
