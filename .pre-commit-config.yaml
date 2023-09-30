@@ -62,7 +62,7 @@ repos:
   hooks:
   - id: sphinx
     name: sphinx
-    entry: make spelling html latexpdf linkcheck 
+    entry: make spelling html linkcheck
     language: system
     pass_filenames: false
     always_run: true

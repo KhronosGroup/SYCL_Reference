@@ -33,7 +33,7 @@ jobs:
     - uses: rscohn2/setup-oneapi@v0
       with:
         components: |
-          icx@2023.2.0
+          icx@2023.2.1
     - name: Build Examples
       run: |
         source /opt/intel/oneapi/setvars.sh
