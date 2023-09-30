@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 int main() {
   sycl::property_list properties{sycl::property::queue::enable_profiling()};
-  auto q = sycl::queue(sycl::default_selector(), properties);
+  auto q = sycl::queue(sycl::default_selector_v, properties);
 
   std::cout
       << "  Platform: "

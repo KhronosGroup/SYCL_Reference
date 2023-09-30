@@ -34,47 +34,47 @@ sys.path.append(os.path.abspath("./_ext"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'SYCL Reference'
-copyright = '2020, The Khronos Group Inc.'
-author = ''
+project = "SYCL Reference"
+copyright = "2020, The Khronos Group Inc."
+author = ""
 
 
 # -- General configuration ---------------------------------------------------
 
-master_doc = 'index'
+master_doc = "index"
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.todo',
-    'sphinxcontrib.spelling',
+    "sphinx.ext.todo",
+    "sphinxcontrib.spelling",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = [
-    'root/*.rst',
-    '*.inc.rst',
-    '**/*.inc.rst',
-    'iface/math.rst',
-    'iface/integer.rst',
-    'iface/common.rst',
-    'iface/geometric.rst',
-    'iface/relational.rst',
-    'iface/vector.rst',
-    'iface/synchronization.rst',
-    'iface/printf.rst',
+    "root/*.rst",
+    "*.inc.rst",
+    "**/*.inc.rst",
+    "iface/math.rst",
+    "iface/integer.rst",
+    "iface/common.rst",
+    "iface/geometric.rst",
+    "iface/relational.rst",
+    "iface/vector.rst",
+    "iface/synchronization.rst",
+    "iface/printf.rst",
 ]
 
 
 prolog_template = string.Template(
-    '.. _`SYCL Specification`: '
-    + 'https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf'
+    ".. _`SYCL Specification`: "
+    + "https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf"
     + """
 .. |true| replace:: ``true``
 .. |false| replace:: ``false``
@@ -118,7 +118,7 @@ prolog_template = string.Template(
 )
 
 rst_prolog = prolog_template.substitute({})
-primary_domain = 'cpp'
+primary_domain = "cpp"
 
 
 # -- Options for spelling extension -------------------------------------------
@@ -131,36 +131,36 @@ todo_include_todos = False
 
 # -- Options for HTML output -------------------------------------------------
 
-html_logo = '_static/Khronos_Group_SYCL_logo.svg'
-html_favicon = '_static/favicon.png'
+html_logo = "_static/Khronos_Group_SYCL_logo.svg"
+html_favicon = "_static/favicon.png"
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_book_theme'
+html_theme = "sphinx_book_theme"
 
 html_theme_options = {
-    'repository_url': 'https://github.com/KhronosGroup/SYCL_Reference',
-    'path_to_docs': 'source',
-    'use_issues_button': True,
-    'use_edit_page_button': True,
-    'repository_branch': 'main',
+    "repository_url": "https://github.com/KhronosGroup/SYCL_Reference",
+    "path_to_docs": "source",
+    "use_issues_button": True,
+    "use_edit_page_button": True,
+    "repository_branch": "main",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 
 # -- Options for latex output -------------------------------------------------
 
-latex_logo = '_static/Khronos_Group_SYCL_logo.pdf'
+latex_logo = "_static/Khronos_Group_SYCL_logo.pdf"
 
 # -- notfound extension ------------------------------------
 
-notfound_default_language = 'syclreference'
-notfound_default_version = ''
+notfound_default_language = "syclreference"
+notfound_default_version = ""
 
 # -- Add some directives for structure------------------------------------
 
@@ -168,144 +168,144 @@ notfound_default_version = ''
 logger = logging.getLogger(__name__)
 
 class_layout_pattern = (
-    ':title'
-    '(:rubric Template parameters:table)?'
-    '(:rubric Example)?'
-    '(:rubric Kernel dispatch:table)?'
-    '(:rubric Memory operations:table)?'
-    '(:rubric Member types:table)?'
-    '(:rubric Nonmember data:table)?'
-    '(:seealso)?'
-    '(:rubric Member and nonmember functions)?'
-    '(:rubric Example)?'
-    '(:section)*'
+    ":title"
+    "(:rubric Template parameters:table)?"
+    "(:rubric Example)?"
+    "(:rubric Kernel dispatch:table)?"
+    "(:rubric Memory operations:table)?"
+    "(:rubric Member types:table)?"
+    "(:rubric Nonmember data:table)?"
+    "(:seealso)?"
+    "(:rubric Member and nonmember functions)?"
+    "(:rubric Example)?"
+    "(:section)*"
 )
 
 class_ignore = [
-    'definition_list',
-    'target',
-    'transition',
-    'block_quote',
-    'todo_node',
-    'paragraph',
-    'literal_block',
-    'system_message',
+    "definition_list",
+    "target",
+    "transition",
+    "block_quote",
+    "todo_node",
+    "paragraph",
+    "literal_block",
+    "system_message",
 ]
 class_layout = re.compile(class_layout_pattern)
 
 class_section_layout_pattern = (
-    ':title'
-    '(:comment)?'
-    '(:rubric Template parameters:table)?'
-    '(:rubric Parameters:table)?'
-    '(:rubric Parameters:definition_list)?'
-    '(:rubric Returns)?'
-    '(:rubric Exceptions)?'
-    '(:rubric Exceptions:definition_list)?'
-    '(:rubric Example)?'
+    ":title"
+    "(:comment)?"
+    "(:rubric Template parameters:table)?"
+    "(:rubric Parameters:table)?"
+    "(:rubric Parameters:definition_list)?"
+    "(:rubric Returns)?"
+    "(:rubric Exceptions)?"
+    "(:rubric Exceptions:definition_list)?"
+    "(:rubric Example)?"
 )
 
 class_section_layout = re.compile(class_section_layout_pattern)
 
 
 def check_class(object_file, section):
-    enc = ''
+    enc = ""
     for n in section:
         name = type(n).__name__
-        if name == 'title':
+        if name == "title":
             class_name = n[0]
-            print('class:', class_name, file=object_file)
+            print("class:", class_name, file=object_file)
         if name in class_ignore:
             continue
-        enc += ':' + name
-        if name == 'rubric':
-            enc += ' ' + n[0]
+        enc += ":" + name
+        if name == "rubric":
+            enc += " " + n[0]
     if not class_layout.fullmatch(enc):
-        logger.warning('Class structure mismatch', location=n)
-        logger.warning('  got: %s' % enc)
-        logger.warning('  expected: %s' % class_layout_pattern)
+        logger.warning("Class structure mismatch", location=n)
+        logger.warning("  got: %s" % enc)
+        logger.warning("  expected: %s" % class_layout_pattern)
     for subsection in section.traverse(nodes.section, include_self=False):
         check_class_section(object_file, class_name, subsection)
 
 
 def check_class_section(object_file, class_name, section):
-    enc = ''
+    enc = ""
     for n in section:
         name = type(n).__name__
-        if name == 'title':
+        if name == "title":
             member_name = n[0]
-            print('  member:', member_name, file=object_file)
+            print("  member:", member_name, file=object_file)
         if name in class_ignore:
             continue
-        enc += ':' + name
-        if name == 'rubric':
-            enc += ' ' + n[0]
+        enc += ":" + name
+        if name == "rubric":
+            enc += " " + n[0]
     if not class_section_layout.fullmatch(enc):
-        logger.warning('Class section structure mismatch', location=n)
-        logger.warning('  got: %s' % enc)
-        logger.warning('  expected: %s' % class_section_layout_pattern)
+        logger.warning("Class section structure mismatch", location=n)
+        logger.warning("  got: %s" % enc)
+        logger.warning("  expected: %s" % class_section_layout_pattern)
 
 
 def check_doc(app, doctree, docname):
-    obj_path = join('build', 'objects', '%s.txt' % docname)
+    obj_path = join("build", "objects", "%s.txt" % docname)
     os.makedirs(os.path.dirname(obj_path), exist_ok=True)
-    with open(obj_path, 'w') as object_file:
+    with open(obj_path, "w") as object_file:
         for section in doctree.traverse(nodes.section, descend=True):
-            classes = section['classes']
-            if 'api-class' in classes:
+            classes = section["classes"]
+            if "api-class" in classes:
                 check_class(object_file, section)
 
 
 class TParamsDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Template parameters')]
+        return [nodes.rubric(text="Template parameters")]
 
 
 class ExceptionsDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Exceptions')]
+        return [nodes.rubric(text="Exceptions")]
 
 
 class ParamsDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Parameters')]
+        return [nodes.rubric(text="Parameters")]
 
 
 class ReturnsDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Return value')]
+        return [nodes.rubric(text="Return value")]
 
 
 class MemberFunctionsDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Member functions')]
+        return [nodes.rubric(text="Member functions")]
 
 
 class MemberTypesDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Member types')]
+        return [nodes.rubric(text="Member types")]
 
 
 class NonMemberFunctionsDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Non-member functions')]
+        return [nodes.rubric(text="Non-member functions")]
 
 
 class ExampleDirective(Directive):
     def run(self):
-        return [nodes.rubric(text='Example')]
+        return [nodes.rubric(text="Example")]
 
 
 def setup(app):
-    app.connect('doctree-resolved', check_doc)
+    app.connect("doctree-resolved", check_doc)
     if False:
-        app.add_directive('tparams', TParamsDirective)
-        app.add_directive('params', ParamsDirective)
-        app.add_directive('returns', ReturnsDirective)
-        app.add_directive('member-types', MemberTypesDirective)
-        app.add_directive('member-functions', MemberFunctionsDirective)
-        app.add_directive('non-member-functions', NonMemberFunctionsDirective)
-        app.add_directive('example', ExampleDirective)
-        app.add_directive('synopsis', ParsedLiteral)
-        app.add_directive('exceptions', ExceptionsDirective)
-    return {'version': '0.1'}
+        app.add_directive("tparams", TParamsDirective)
+        app.add_directive("params", ParamsDirective)
+        app.add_directive("returns", ReturnsDirective)
+        app.add_directive("member-types", MemberTypesDirective)
+        app.add_directive("member-functions", MemberFunctionsDirective)
+        app.add_directive("non-member-functions", NonMemberFunctionsDirective)
+        app.add_directive("example", ExampleDirective)
+        app.add_directive("synopsis", ParsedLiteral)
+        app.add_directive("exceptions", ExceptionsDirective)
+    return {"version": "0.1"}

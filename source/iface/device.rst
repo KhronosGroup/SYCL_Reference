@@ -24,9 +24,7 @@ execute kernel functions.
 
 .. seealso::
 
-   `Data Parallel C++ Guide <https://link.springer.com/content/pdf/10.1007%2F978-1-4842-5574-2.pdf#page=299>`__
-
-   `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#sec:device-class>`__
+   |SYCL_SPEC_DEVICE|
 
 (constructors)
 ==============
@@ -134,7 +132,7 @@ Returns True if device supports the extension.
 ``create_sub_devices``
 ======================
 
-.. parsed-literal::
+::
 
   // Available only when prop == info::partition_property::partition_equally
   template <info::partition_property prop>
@@ -169,7 +167,6 @@ property.
 feature_not_supported
   When device does not support the `sycl::info::partition_property`_
   specified by the ``prop`` template argument.
-
 
 .. _device-get_devices:
 
