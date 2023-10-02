@@ -38,8 +38,18 @@ To skip a single test, e.g. sphinx::
 
   SKIP=sphinx pre-commit run --all
 
-``pre-commit`` will automatically fix most issues. After ``pre-commit`` finds and fixes
-issues, do a ``git add`` to add the changes and run ``pre-commit`` or ``git commit`` 
-again. You must manually fix spelling errors, broken links, and long lines.
+``pre-commit`` will automatically fix most issues. After
+``pre-commit`` finds and fixes issues, do a ``git add`` to add the
+changes and run ``pre-commit`` or ``git commit`` again. You must
+manually fix spelling errors, broken links, and long lines.
+
+To resolve spelling errors, you can manually run the spell checker::
+
+  make spelling
+
+Unrecognized words ``spelling_wordlist.txt``. If the spell checker is
+warning about code, it means you have not properly delimited the code
+in the rst. Do not add it to ``spelling_wordlist.txt`` add, back
+quotes or other delimeters so it will be ignored.
 
 .. _`SYCL specification`: https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html
