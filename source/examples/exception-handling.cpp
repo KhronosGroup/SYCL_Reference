@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 int main() {
 
@@ -17,7 +17,7 @@ int main() {
     }
   };
 
-  auto q = sycl::queue(sycl::default_selector(), exception_handler);
+  auto q = sycl::queue(sycl::default_selector_v, exception_handler);
 
   try {
     q.submit([&](sycl::handler &cgh) {

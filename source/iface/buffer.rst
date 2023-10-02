@@ -69,9 +69,7 @@ Memory allocation
 
 .. seealso::
 
-   `Data Parallel C++ Guide <https://link.springer.com/content/pdf/10.1007%2F978-1-4842-5574-2.pdf#page=96>`__
-
-   `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#subsec:buffers>`__
+   |SYCL_SPEC_BUFFER|
 
 .. _buffer-constructors:
 
