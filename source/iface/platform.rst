@@ -20,7 +20,9 @@ Platforms
 
 Abstraction for SYCL platform.
 
-A platform contains 1 or more SYCL devices, or a host device.
+The SYCL platform class encapsulates a single SYCL platform on which SYCL kernel functions may be executed. A SYCL platform must be associated with a single SYCL backend.
+
+A SYCL platform is also associated with one or more SYCL devices associated with the same SYCL backend.
 
 .. seealso:: |SYCL_SPEC_PLATFORM|
 
@@ -36,7 +38,8 @@ A platform contains 1 or more SYCL devices, or a host device.
 
 Construct a SYCL platform instance.
 
-The default constructor creates a host platform. When passed a
+The default constructor create a SYCL platform instance that is a copy of the platform which 
+contains the device returned by default_selector_v. When passed a
 ``cl_platform_id``, an OpenCL|trade| platform is used to construct the
 platform. The ``cl_platform_id`` is retained and available via
 get_. When passed a :ref:`device_selector`, a platform is constructed
@@ -93,23 +96,15 @@ See `platform-example`_.
 
 .. _platform-has_extension:
 
-``has_extension``
+``has``
 =================
 
 ::
 
-  bool has_extension(const sycl::string_class &extension) const;
+  bool has(sycl::aspect asp) const
 
-Returns True if the platform has ``extension``.
+Returns true if all of the SYCL devices associated with this SYCL platform have the given aspect.
 
-``is_host``
-===========
-
-::
-
-  bool is_host() const;
-
-Returns True if the platform contains a SYCL host device
 
 ``get_platforms``
 =================
@@ -152,16 +147,16 @@ the type of information.
      - OpenCL profile
    * - version
      - string_class
-     - OpenCL software driver version
+     - Returns a backend-defined platform version.
    * - name
      - string_class
-     - Device name of the platform
+     - Returns the name of the platform.
    * - vendor
      - string_class
-     - Vendor name
+     - Returns the name of the vendor providing the platform.
    * - extensions
      - vector_class<string_class>
-     - Extension names supported by the platform
+     - Deprecated, use sycl::device::get_info() with sycl::info::device::aspects instead.
 
 
 .. _platform-example:
