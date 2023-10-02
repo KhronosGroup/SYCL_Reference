@@ -71,17 +71,18 @@ exclude_patterns = [
     "iface/printf.rst",
 ]
 
-
+sycl_ref_url = 'https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html'
 prolog_template = string.Template(
-    ".. _`SYCL Specification`: "
-    + "https://www.khronos.org/registry/SYCL/specs/sycl-2020-provisional.pdf"
-    + """
+    '.. _`SYCL Specification`: '
+    + sycl_ref_url
+    + f"""
 .. |true| replace:: ``true``
 .. |false| replace:: ``false``
 .. |2020| replace:: *Since SYCL 2020*
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
+.. |SYCL_SPEC_HEADER_FILES| replace:: SYCL Specification `Section 4.3 <{sycl_ref_url}#sec:headers-and-namespaces>`__
 .. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
 .. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4
