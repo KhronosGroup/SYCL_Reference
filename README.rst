@@ -7,7 +7,7 @@
 ==========================
 
 .. image:: https://github.com/KhronosGroup/SYCL_Reference/actions/workflows/checks.yml/badge.svg
-   :target: https://github.com/KhronosGroup/SYCL_Reference/actions/workflows/pr.yml
+   :target: https://github.com/KhronosGroup/SYCL_Reference/actions/workflows/checks.yml
 
 This document is incomplete and inconsistent in the current state, as
 work is ongoing to update it.  Please do not use as a reference or
