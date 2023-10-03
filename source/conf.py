@@ -78,6 +78,12 @@ prolog_template = string.Template(
     (
         f".. |SYCL_SPEC_HEADER_FILES| replace:: SYCL Specification "
         f"`Section 4.3 <{sycl_ref_url}#sec:headers-and-namespaces>`__"
+        f"\n"
+    )
+    + (
+        f".. |SYCL_SPEC_DEVICE_SELECTORS| replace:: SYCL Specification "
+        f"`Section 4.6.1.1 <{sycl_ref_url}#sec:device-selector>`__"
+        f"\n"
     )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
@@ -103,7 +109,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_FREE| replace:: `SYCL Specification`_ Section 4.8.5.4
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
 .. |SYCL_SPEC_USM_ALLOC| replace:: `SYCL Specification`_ Section 4.8.3
-.. |SYCL_SPEC_DEVICE_SELECTORS| replace:: SYCL Specification `Section 4.6.1.1 <{sycl_ref_url}#sec:device-selector>`__
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
