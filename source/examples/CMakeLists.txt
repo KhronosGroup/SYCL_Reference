@@ -7,8 +7,8 @@ project(SYCL_Reference)
 
 enable_testing()
 
-add_compile_options(-Wall -Wextra -Werror)
-
+add_compile_options(-fsycl -Wall -Wextra -Werror)
+add_link_options(-fsycl)
 
 function(add_example name)
   add_executable(${name} ${name}.cpp)

@@ -4,7 +4,7 @@
 
 #include <vector>
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 constexpr int size = 10;
 
