@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 const int lsize = 10;
 
@@ -12,22 +12,9 @@ struct List {
   int *top;
   int *data;
 
-#if __INTEL_CLANG_COMPILER == 20210300
-  sycl::ONEAPI::atomic_ref<int *, sycl::ONEAPI::memory_order::relaxed,
-                           sycl::ONEAPI::memory_scope::work_group,
-                           sycl::access::address_space::global_space>
-      atomic_top;
-#elif __INTEL_CLANG_COMPILER >= 20210400
-  sycl::ext::oneapi::atomic_ref<int *, sycl::ext::oneapi::memory_order::relaxed,
-                                sycl::ext::oneapi::memory_scope::work_group,
-                                sycl::access::address_space::global_space>
-      atomic_top;
-#else
-  // Not tested
   sycl::atomic_ref<int *, sycl::memory_order::relaxed,
                    sycl::memory_scope::work_group>
       atomic_top;
-#endif
 
   List(sycl::queue q, int size) : atomic_top(top) {
     data = sycl::malloc_shared<int>(size, q);

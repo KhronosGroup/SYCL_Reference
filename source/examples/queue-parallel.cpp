@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-#include <CL/sycl.hpp>
 #include <iostream>
+#include <sycl/sycl.hpp>
 
 constexpr int count = 10;
 
@@ -12,7 +12,7 @@ int main() {
   // Data initialized to zeros.
   int data[count] = {0};
 
-  auto q = sycl::queue(sycl::default_selector());
+  auto q = sycl::queue(sycl::default_selector_v);
   {
     sycl::buffer<int, 1> data_buffer(data, sycl::range<1>(count));
 
