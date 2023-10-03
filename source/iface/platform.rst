@@ -38,7 +38,7 @@ A SYCL platform is also associated with one or more SYCL devices associated with
 
 Construct a SYCL platform instance.
 
-The default constructor create a SYCL platform instance that is a copy of the platform which 
+The default constructor create a SYCL platform instance that is a copy of the platform which
 contains the device returned by default_selector_v. When passed a
 ``cl_platform_id``, an OpenCL|trade| platform is used to construct the
 platform. The ``cl_platform_id`` is retained and available via
