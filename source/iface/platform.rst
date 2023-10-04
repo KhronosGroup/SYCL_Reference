@@ -46,8 +46,8 @@ copy of the platform which
 contains the device returned by default_selector_v. When passed a
 ``cl_platform_id``, an OpenCL|trade| platform is used to construct the
 platform. The ``cl_platform_id`` is retained and available via
-get_. When passed a :ref:`device_selector`, a platform is constructed
-that includes the preferred device.
+get_. When passed a :ref:`device selector<device-selectors>`,
+a platform is constructed that includes the preferred device.
 
 
 ``get``
@@ -148,20 +148,21 @@ the type of information.
      - Return type
      - Description
    * - profile
-     - string_class
+     - std::string
      - OpenCL profile
    * - version
-     - string_class
+     - std::string
      - Returns a backend-defined platform version.
    * - name
-     - string_class
+     - std::string
      - Returns the name of the platform.
    * - vendor
-     - string_class
+     - std::string
      - Returns the name of the vendor providing the platform.
    * - extensions
-     - vector_class<string_class>
+     - std::vector<std::string>
      - Deprecated, use sycl::device::get_info() with sycl::info::device::aspects instead.
+       Returns the extensions supported by the platform.
 
 
 .. _platform-example:
