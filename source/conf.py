@@ -78,6 +78,12 @@ prolog_template = string.Template(
     (
         f".. |SYCL_SPEC_HEADER_FILES| replace:: SYCL Specification "
         f"`Section 4.3 <{sycl_ref_url}#sec:headers-and-namespaces>`__"
+        f"\n"
+    )
+    + (
+        f".. |SYCL_SPEC_DEVICE| replace:: SYCL Specification "
+        f"`Section 4.6.4 <{sycl_ref_url}#sec:device-class>`__"
+        f"\n"
     )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
@@ -89,7 +95,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
 .. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
 .. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
-.. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4
 .. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
 .. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
