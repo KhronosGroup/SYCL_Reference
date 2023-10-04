@@ -20,9 +20,12 @@ Platforms
 
 Abstraction for SYCL platform.
 
-The SYCL platform class encapsulates a single SYCL platform on which SYCL kernel functions may be executed. A SYCL platform must be associated with a single SYCL backend.
+The SYCL platform class encapsulates a single SYCL platform on which SYCL
+kernel functions may be executed. A SYCL platform must be associated
+with a single SYCL backend.
 
-A SYCL platform is also associated with one or more SYCL devices associated with the same SYCL backend.
+A SYCL platform is also associated with one or more SYCL devices
+associated with the same SYCL backend.
 
 .. seealso:: |SYCL_SPEC_PLATFORM|
 
@@ -38,7 +41,8 @@ A SYCL platform is also associated with one or more SYCL devices associated with
 
 Construct a SYCL platform instance.
 
-The default constructor create a SYCL platform instance that is a copy of the platform which
+The default constructor create a SYCL platform instance that is a
+copy of the platform which
 contains the device returned by default_selector_v. When passed a
 ``cl_platform_id``, an OpenCL|trade| platform is used to construct the
 platform. The ``cl_platform_id`` is retained and available via
@@ -103,7 +107,8 @@ See `platform-example`_.
 
   bool has(sycl::aspect asp) const
 
-Returns true if all of the SYCL devices associated with this SYCL platform have the given aspect.
+Returns true if all of the SYCL devices associated
+with this SYCL platform have the given aspect.
 
 
 ``get_platforms``
