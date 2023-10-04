@@ -23,7 +23,4 @@ Multipointer
 USM
 Namespaces
 namespace
-const
 instantiations
-aspectList
-denyList
