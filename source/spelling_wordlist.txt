@@ -11,6 +11,7 @@ dimensionality
 runtime
 runtimes
 subdevices
+sycl
 allocator
 enqueueing
 Todo
