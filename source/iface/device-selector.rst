@@ -3,89 +3,33 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. _device-selectors:
+.. _device_selector:
 
 ****************
 Device selectors
 ****************
 
-Devices selectors allow the SYCL runtime to choose the device.
+Device selectors allow the SYCL runtime to choose the device.
 
 A device selector can be passed to :ref:`queue`, :ref:`platform`, and
 other constructors to control the selection of a device. A program may
-use `Built-in Device Selectors`_ or define its own device_selector_
-for full control.
+use `Built-in Device Selectors`_ or define its own device_selector for
+full control.
 
-.. _device_selector:
+The interface for a device selector is any object that meets the C++ named
+requirement ``Callable`` taking a ``const`` :ref:`device` reference and
+returning a value implicitly convertible to a ``int``.
 
-.. rst-class:: api-class
+At any point where the SYCL runtime needs to select a SYCL device using
+a device selector, the system queries all root devices from all SYCL
+backends in the system, calls the device selector on each device and
+selects the one which returns the highest score. If the highest
+value is strictly negative no device is selected.
 
-=========================
-``sycl::device_selector``
-=========================
-
-::
-
-  class device_selector;
-
-Abstract class for device selectors.
-
-This is the base class for the `Built-in Device Selectors`_. To define
-a custom device selector, create a derived class that defines the ()
-operator.
-
-.. todo:: Example Custom device selector
-
-(constructors)
-==============
-
-::
-
-  device_selector();
-  device_selector(const sycl::device_selector &rhs);
-
-Construct a device_selector.
-
-A device selector can be created from another by passing ``rhs``.
-
-
-``select_device``
-=================
-
-::
-
-  sycl::device select_device() const;
-
-
-Returns the device with the highest score as determined by calling
-`operator()`_.
-
-.. rubric:: Exceptions
-
-Throws a runtime error if all devices have a negative score.
-
-``operator=``
-=============
-
-::
-
-  sycl::device_selector &operator=(const sycl::device_selector &rhs);
-
-Create a device selector by copying another one.
-
-
-``operator()``
-==============
-
-::
-
-  virtual int operator()(const sycl::device &device) const = 0;
-
-Scoring function for devices.
-
-All derived device selectors must define this
-operator. `select_device` calls this operator for every device, and
-selects the device with highest score. Return a negative score if a
-device should not be selected.
+In places where only one device has to be picked and the high score is
+obtained by more than one device, then one of the tied devices will be
+returned, but which one is not defined and may depend on enumeration
+order, for example, outside the control of the SYCL runtime.
 
 
 .. _built-in-device-selectors:
@@ -94,25 +38,59 @@ device should not be selected.
 Built-in Device Selectors
 ===========================
 
-SYCL provides built-in device selectors for convenience. They use
-device_selector_ as a base class.
+Standard device selectors included with all SYCL implementations:
 
 .. list-table::
 
-  * - ``default_selector``
-    - Selects device according to implementation-defined heuristic or
-      host device if no device can be found.
-  * - ``gpu_selector``
-    - Select a GPU.
-  * - ``accelerator_selector``
-    - Select an accelerator.
-  * - ``cpu_selector``
-    - Select a CPU device.
-  * - ``host_selector``
-    - Select the host device.
+  * - ``default_selector_v``
+    - Select a SYCL device from any supported SYCL backend based on an implementation-defined
+      heuristic. Since all implementations must support at least one device, this selector must always return a device.
+  * - ``gpu_selector_v``
+    - Select a SYCL device from any supported SYCL backend for which the device type is ``info::device_type::gpu``.
+  * - ``accelerator_selector_v``
+    - Select a SYCL device from any supported SYCL backend for which the device type is ``info::device_type::accelerator``.
+  * - ``cpu_selector_v``
+    - Select a SYCL device from any supported SYCL backend for which the device type is ``info::device_type::cpu``.
+  * - ::
 
+        __unspecified_callable__
+        aspect_selector(const std::vector<aspect>& aspectList,
+                        const std::vector<aspect>& denyList = {});
 
-Create a device selector by copying another one.
+        template <typename... AspectList>
+        __unspecified_callable__ aspect_selector(AspectList... aspectList);
+
+        template <aspect... AspectList>
+        __unspecified_callable__ aspect_selector();
+
+    - The free function ``aspect_selector`` has several overloads, each of which returns a selector object that selects a SYCL
+      device from any supported SYCL backend which contains all the requested aspects.
+      If no aspects are passed in, the generated selector behaves like ``default_selector``.
+
+      Required aspects can be passed in as a vector, as function arguments, or as template parameters, depending on the
+      function overload. The function overload that takes ``aspectList`` as a vector takes another vector argument ``denyList``
+      where the user can specify all the aspects that have to be avoided.
+
+The SYCL class constructor using ``gpu_selector_v``,
+``accelerator_selector_v``, ``cpu_selector_v``, or ``aspect_selector``
+must throw an exception with the ``errc::runtime`` error code if no
+device matching the requirement can be found.
+
+.. _device-selector-SYCL121:
+
+==============================
+Device Selectors in SYCL 1.2.1
+==============================
+
+In SYCL 1.2.1 the predefined device selectors were
+types that had to be instantiated to be used.
+
+To simplify porting code using the old type instantiations, a
+backward-compatible API is still provided, such as ``sycl::default_selector``.
+
+The new predefined device selectors have their new names appended
+with "_v" to avoid conflicts, thus following the naming style used by
+traits in the C++ standard library.
 
 .. seealso:: |SYCL_SPEC_DEVICE_SELECTORS|
 
