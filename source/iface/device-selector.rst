@@ -16,7 +16,7 @@ other constructors to control the selection of a device. A program may
 use `Built-in Device Selectors`_ or define its own device_selector for
 full control.
 
-Interface for a device selector is any object that meets the C++ named
+The interface for a device selector is any object that meets the C++ named
 requirement ``Callable`` taking a ``const`` :ref:`device` reference and
 returning a value implicitly convertible to a ``int``.
 
