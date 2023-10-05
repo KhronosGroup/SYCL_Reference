@@ -296,7 +296,8 @@ See `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/h
     all          // Maps to OpenCL CL_DEVICE_TYPE_ALL
   };
 
-See platform :ref:`platform-get_devices` and device :ref:`device-get_devices`.
+/*See platform :ref:`platform-get_devices` and device
+:ref:`device-get_devices`.*/
 
 ``sycl::info::partition_property``
 ==================================
