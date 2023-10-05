@@ -42,7 +42,7 @@ Construct a SYCL platform instance.
 
 The default constructor create a SYCL platform instance that is a
 copy of the platform which contains the device returned by
-default_selector_v. When passed a :ref:`device selector<device-selectors>`,
+``default_selector_v``. When passed a :ref:`device selector<device-selectors>`,
 constructs a SYCL platform instance that is a copy of the platform which
 contains the device returned by the device selector parameter.
 
@@ -114,7 +114,7 @@ with this SYCL platform have the given aspect.
 
   bool has_extension(const std::string& extension) const;
 
-Deprecated, use has() instead.
+Deprecated, use ``has()`` instead.
 
 Returns true if this SYCL platform supports the extension queried by
 the extension parameter. A SYCL platform can only support an extension
@@ -186,7 +186,8 @@ the type of information.
      - Returns the name of the vendor providing the platform.
    * - extensions
      - std::vector<std::string>
-     - Deprecated, use sycl::device::get_info() with sycl::info::device::aspects instead.
+     - Deprecated, use ``sycl::device::get_info()``
+       with ``sycl::info::device::aspects`` instead.
        Returns the extensions supported by the platform.
 
 
