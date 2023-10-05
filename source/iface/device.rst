@@ -18,33 +18,48 @@ Devices
 
    class device;
 
-An abstract class representing various models of SYCL devices. A
-device could be a GPU, CPU, or other type of accelerator. Devices
-execute kernel functions.
+The SYCL device class encapsulates a single SYCL device on
+which :ref:`kernels <kernel>` can be executed.
 
-.. seealso::
+All member functions of the device class are synchronous
+and errors are handled by throwing synchronous SYCL exceptions.
 
-   |SYCL_SPEC_DEVICE|
+The SYCL device class provides the
+:ref:`common reference semantics <common-reference>`.
+
+
+  .. An abstract class representing various models of SYCL devices. A
+  .. device could be a GPU, CPU, or other type of accelerator. Devices
+  .. execute kernel functions.
+
+.. seealso:: |SYCL_SPEC_DEVICE|
 
 (constructors)
 ==============
 
-.. parsed-literal::
+::
 
   device();
-  template <typename DeviceSelector>
-  explicit device(const DeviceSelector &deviceSelector);
+  template <typename DeviceSelector> explicit device(const DeviceSelector&);
 
-Construct a device.
+Construct a SYCL device instance.
 
-The default constructor creates a host device. A device can also be
-chosen by a :ref:`device-selectors`.
+The default constructor creates an instance that is a copy of
+the device returned by ``default_selector_v``.
 
-.. rubric:: Parameters
+A device can also be chosen by passing the
+:ref:`device selector <device-selectors>` parameter.
 
-==================  =======================
-``deviceSelector``  Device selector
-==================  =======================
+..
+  rubric:: Parameters
+  ==================  =======================
+  ``deviceSelector``  Device selector
+  ==================  =======================
+
+
+===============
+Member function
+===============
 
 ``get_backend``
 ===============
@@ -53,6 +68,20 @@ chosen by a :ref:`device-selectors`.
 
   backend get_backend() const noexcept;
 
+Returns a backend identifying the SYCL backend associated
+with this device.
+
+
+``get_platform``
+================
+
+::
+
+  platform get_platform() const noexcept;
+
+Returns the associated SYCL platform. The value returned
+must be equal to that returned by ``get_info<info::device::platform>()``.
+
 ``is_cpu``
 ==========
 
@@ -60,7 +89,8 @@ chosen by a :ref:`device-selectors`.
 
   bool is_cpu() const;
 
-Returns True if the device is a CPU, False otherwise.
+Returns the same value as ``has(aspect::cpu)``.
+.. TODO: add reference to aspect table
 
 ``is_gpu``
 ==========
@@ -69,7 +99,8 @@ Returns True if the device is a CPU, False otherwise.
 
   bool is_gpu() const;
 
-Returns True if the device is a GPU, False otherwise.
+Returns the same value as ``has(aspect::gpu)``.
+.. TODO: add reference to aspect table
 
 ``is_accelerator``
 ==================
@@ -78,39 +109,44 @@ Returns True if the device is a GPU, False otherwise.
 
   bool is_accelerator() const;
 
-Returns True if the device is an accelerator, False otherwise.
-
-``get_platform``
-================
-
-::
-
-  platform get_platform() const;
-
-Returns the platform that contains the device.
+Returns the same value as ``has(aspect::accelerator)``.
+.. TODO: add reference to aspect table
 
 ``get_info``
 ============
 
 ::
 
-  template <typename param>
-  typename param::return_type get_info() const;
+  template <typename Param> typename Param::return_type get_info() const;
 
-Returns information about the device as determined by ``param``. See
-`Device Info`_ for details.
+Queries this SYCL device for information requested by the
+template parameter ``Param``.
 
-.. rubric:: Example
+The type alias ``Param::return_type`` must be defined in
+accordance with the :ref:`info parameters <info-device>` to
+facilitate returning the type associated with the ``Param`` parameter.
 
-See :ref:`platform-example <platform-example>`.
+.. TODO: Update or modify example
+.. .. rubric:: Example
+
+.. See :ref:`platform-example <platform-example>`.
 
 ``get_backend_info``
 ====================
 
 ::
 
-  template <typename param>
-  typename param::return_type get_backend_info() const;
+  template <typename Param> typename Param::return_type get_backend_info() const;
+
+Queries this SYCL device for SYCL backend-specific information
+requested by the template parameter ``Param``.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the SYCL backend specification.
+
+Must throw an exception with the ``errc::backend_mismatch``
+error code if the SYCL backend that corresponds with ``Param`` is
+different from the SYCL backend that is associated with this device.
 
 ``has``
 =======
@@ -119,15 +155,25 @@ See :ref:`platform-example <platform-example>`.
 
   bool has(aspect asp) const;
 
+Returns true if this SYCL device has the given aspect.
+SYCL applications can use this member function to determine
+which optional features this device supports (if any).
+
 ``has_extension``
 =================
+
+.. TODO: Decide what to do with deprecated API
 
 ::
 
   bool has_extension(const string_class &extension) const;
 
-Returns True if device supports the extension.
+Deprecated, use ``has()`` instead.
 
+Returns true if this SYCL device supports the extension
+queried by the extension parameter.
+
+.. STOPED HERE
 
 ``create_sub_devices``
 ======================
