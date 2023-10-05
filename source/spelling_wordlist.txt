@@ -5,6 +5,7 @@
 accessor
 accessors
 backend
+backends
 destructor
 atomics
 dimensionality
@@ -23,7 +24,3 @@ Multipointer
 USM
 Namespaces
 namespace
-Param
-deviceType
-backends
-errc

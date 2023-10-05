@@ -69,9 +69,9 @@ this platform.
   typename Param::return_type get_info() const;
 
 Queries this SYCL platform for information requested by the template
-parameter Param. The type alias Param::return_type must be defined in
+parameter ``Param``. The type alias ``Param::return_type`` must be defined in
 accordance with the info parameters in :ref:`device descriptors<device>`
-to facilitate returning the type associated with the Param parameter.
+to facilitate returning the type associated with the ``Param`` parameter.
 
 ``get_backend_info``
 ====================
@@ -83,10 +83,10 @@ to facilitate returning the type associated with the Param parameter.
 
 
 Queries this SYCL platform for SYCL backend-specific information requested
-by the template parameter Param. The type alias Param::return_type must be
+by the template parameter ``Param``. The type alias ``Param::return_type`` must be
 defined in accordance with the SYCL backend specification. Must throw an
-exception with the errc::backend_mismatch error code if the SYCL backend
-that corresponds with Param is different from the SYCL backend that is
+exception with the ``errc::backend_mismatch`` error code if the SYCL backend
+that corresponds with ``Param`` is different from the SYCL backend that is
 associated with this platform.
 
 .. rubric:: Example
@@ -129,7 +129,7 @@ if all associated SYCL devices support that extension.
   get_devices(info::device_type deviceType = info::device_type::all) const;
 
 Returns a std::vector containing all the root devices associated with this
-SYCL platform which have the device type encapsulated by deviceType.
+SYCL platform which have the device type encapsulated by ``deviceType``.
 
 ======================
 Static member function
