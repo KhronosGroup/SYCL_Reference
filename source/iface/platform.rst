@@ -128,7 +128,7 @@ if all associated SYCL devices support that extension.
   std::vector<device>
   get_devices(info::device_type deviceType = info::device_type::all) const;
 
-Returns a std::vector containing all the root devices associated with this
+Returns a ``std::vector`` containing all the root devices associated with this
 SYCL platform which have the device type encapsulated by ``deviceType``.
 
 ======================
@@ -142,7 +142,7 @@ Static member function
 
   static std::vector<platform> get_platforms();
 
-Returns a std::vector containing all SYCL platforms from all SYCL backends
+Returns a ``std::vector`` containing all SYCL platforms from all SYCL backends
 available in the system.
 
 .. rubric:: Example
