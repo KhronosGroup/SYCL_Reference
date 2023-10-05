@@ -73,6 +73,10 @@ parameter ``Param``. The type alias ``Param::return_type`` must be defined in
 accordance with the info parameters in :ref:`device descriptors<device>`
 to facilitate returning the type associated with the ``Param`` parameter.
 
+.. rubric:: Example
+
+See `platform-example`_.
+
 ``get_backend_info``
 ====================
 
@@ -88,13 +92,6 @@ defined in accordance with the SYCL backend specification. Must throw an
 exception with the ``errc::backend_mismatch`` error code if the SYCL backend
 that corresponds with ``Param`` is different from the SYCL backend that is
 associated with this platform.
-
-.. rubric:: Example
-
-See `platform-example`_.
-
-
-.. _platform-get_info:
 
 
 ``has``
@@ -130,6 +127,10 @@ if all associated SYCL devices support that extension.
 
 Returns a ``std::vector`` containing all the root devices associated with this
 SYCL platform which have the device type encapsulated by ``deviceType``.
+
+.. rubric:: Example
+
+See `platform-example`_.
 
 ======================
 Static member function
