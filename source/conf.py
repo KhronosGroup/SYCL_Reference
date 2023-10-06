@@ -90,6 +90,11 @@ prolog_template = string.Template(
         f"`Section 4.6.2 <{sycl_ref_url}#sec:platform-class>`__"
         f"\n"
     )
+    + (
+        f".. |SYCL_SPEC_CONTEXT| replace:: SYCL Specification "
+        f"`Section 4.6.3 <{sycl_ref_url}#sec:interface.context.class>`__"
+        f"\n"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -98,7 +103,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4
 .. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
