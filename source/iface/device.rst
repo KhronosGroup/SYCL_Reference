@@ -27,12 +27,8 @@ and errors are handled by throwing synchronous SYCL exceptions.
 The SYCL device class provides the
 :ref:`common reference semantics <common-reference>`.
 
-
-  .. An abstract class representing various models of SYCL devices. A
-  .. device could be a GPU, CPU, or other type of accelerator. Devices
-  .. execute kernel functions.
-
 .. seealso:: |SYCL_SPEC_DEVICE|
+
 
 (constructors)
 ==============
@@ -57,9 +53,9 @@ A device can also be chosen by passing the
   ==================  =======================
 
 
-===============
-Member function
-===============
+================
+Member functions
+================
 
 ``get_backend``
 ===============
@@ -117,7 +113,8 @@ Returns the same value as ``has(aspect::accelerator)``.
 
 ::
 
-  template <typename Param> typename Param::return_type get_info() const;
+  template <typename Param>
+  typename Param::return_type get_info() const;
 
 Queries this SYCL device for information requested by the
 template parameter ``Param``.
@@ -136,7 +133,8 @@ facilitate returning the type associated with the ``Param`` parameter.
 
 ::
 
-  template <typename Param> typename Param::return_type get_backend_info() const;
+  template <typename Param>
+  typename Param::return_type get_backend_info() const;
 
 Queries this SYCL device for SYCL backend-specific information
 requested by the template parameter ``Param``.
@@ -173,10 +171,9 @@ Deprecated, use ``has()`` instead.
 Returns true if this SYCL device supports the extension
 queried by the extension parameter.
 
-.. STOPED HERE
-
 ``create_sub_devices``
 ======================
+.. TODO: Update create_sub_devices
 
 ::
 
@@ -214,6 +211,10 @@ feature_not_supported
   When device does not support the `sycl::info::partition_property`_
   specified by the ``prop`` template argument.
 
+=======================
+Static member functions
+=======================
+
 .. _device-get_devices:
 
 ``get_devices``
@@ -221,10 +222,11 @@ feature_not_supported
 
 ::
 
-  static vector_class<device> get_devices(
-      info::device_type deviceType = info::device_type::all);
+  static std::vector<device> get_devices(info::device_type deviceType = info::device_type::all);
 
-Returns vector of devices filtered by :ref:`info-device_type`.
+Returns a ``std::vector`` containing all the root devices from
+all SYCL backends available in the system which have the device
+type encapsulated by :ref:`info-device_type`.
 
 .. rubric:: Example
 
