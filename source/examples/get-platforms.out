@@ -5,8 +5,10 @@
 Platform: Intel(R) FPGA Emulation Platform for OpenCL(TM)
   Device: Intel(R) FPGA Emulation Device
 Platform: Intel(R) OpenCL
-  Device: Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz
-Platform: Intel(R) CPU Runtime for OpenCL(TM) Applications
-  Device: Intel(R) Core(TM) i5-7300U CPU @ 2.60GHz
-Platform: SYCL host platform
-  Device: SYCL host device
+  Device: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+Platform: Intel(R) OpenCL
+  Device: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+Platform: Intel(R) OpenCL HD Graphics
+  Device: Intel(R) Iris(R) Xe Graphics [0x9a49]
+Platform: Intel(R) Level-Zero
+  Device: Intel(R) Iris(R) Xe Graphics [0x9a49]
