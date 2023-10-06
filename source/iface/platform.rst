@@ -70,7 +70,7 @@ this platform.
 
 Queries this SYCL platform for information requested by the template
 parameter ``Param``. The type alias ``Param::return_type`` must be defined in
-accordance with the info parameters in :ref:`device descriptors<device>`
+accordance with the info parameters in `sycl::info::platform`_
 to facilitate returning the type associated with the ``Param`` parameter.
 
 .. rubric:: Example
