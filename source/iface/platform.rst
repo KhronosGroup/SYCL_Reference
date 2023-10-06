@@ -20,7 +20,12 @@ Platforms
 
 Abstraction for SYCL platform.
 
-A platform contains 1 or more SYCL devices, or a host device.
+The SYCL platform class encapsulates a single SYCL platform on which SYCL
+kernel functions may be executed. A SYCL platform must be associated
+with a single SYCL backend.
+
+A SYCL platform is also associated with one or more SYCL devices
+associated with the same SYCL backend.
 
 .. seealso:: |SYCL_SPEC_PLATFORM|
 
@@ -31,98 +36,123 @@ A platform contains 1 or more SYCL devices, or a host device.
 ::
 
   platform();
-  explicit platform(cl_platform_id platformID);
-  explicit platform(const sycl::device_selector &deviceSelector);
+  template <typename DeviceSelector> explicit platform(const DeviceSelector&);
 
 Construct a SYCL platform instance.
 
-The default constructor creates a host platform. When passed a
-``cl_platform_id``, an OpenCL|trade| platform is used to construct the
-platform. The ``cl_platform_id`` is retained and available via
-get_. When passed a :ref:`device_selector`, a platform is constructed
-that includes the preferred device.
+The default constructor create a SYCL platform instance that is a
+copy of the platform which contains the device returned by
+``default_selector_v``. When passed a :ref:`device selector<device-selectors>`,
+constructs a SYCL platform instance that is a copy of the platform which
+contains the device returned by the device selector parameter.
 
+===============
+Member function
+===============
 
-``get``
-=======
-
-::
-
-  cl_platform_id get() const;
-
-Returns the OpenCL device associated with the platform.
-
-Only call this when the platform constructor was passed a
-``cl_platform_id``.
-
-.. _platform-get_devices:
-
-``get_devices``
+``get_backend``
 ===============
 
 ::
 
-  sycl::vector_class<sycl::device> get_devices(
-     sycl::info::device_type = sycl::info::device_type::all) const;
+  backend get_backend() const noexcept;
 
-Returns vector of SYCL devices associated with the platform and
-filtered by :ref:`info-device_type`
-
-.. rubric:: Example
-
-See `platform-example`_.
-
-
-.. _platform-get_info:
+Returns a backend identifying the SYCL backend associated with
+this platform.
 
 ``get_info``
 ============
 
 ::
 
-  template< sycl::info::platform param >
-  typename sycl::info::param_traits<sycl::info::platform, param>::return_type get_info() const;
+  template <typename Param>
+  typename Param::return_type get_info() const;
 
-Returns information about the platform as determined by ``param``.
-
-See `sycl::info::platform`_ for details.
+Queries this SYCL platform for information requested by the template
+parameter ``Param``. The type alias ``Param::return_type`` must be defined in
+accordance with the info parameters in `sycl::info::platform`_
+to facilitate returning the type associated with the ``Param`` parameter.
 
 .. rubric:: Example
 
 See `platform-example`_.
 
-.. _platform-has_extension:
+``get_backend_info``
+====================
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_backend_info() const;
+
+
+Queries this SYCL platform for SYCL backend-specific information requested
+by the template parameter ``Param``. The type alias ``Param::return_type`` must be
+defined in accordance with the SYCL backend specification. Must throw an
+exception with the ``errc::backend_mismatch`` error code if the SYCL backend
+that corresponds with ``Param`` is different from the SYCL backend that is
+associated with this platform.
+
+
+``has``
+=======
+
+::
+
+  bool has(sycl::aspect asp) const;
+
+Returns true if all of the SYCL devices associated
+with this SYCL platform have the given aspect.
 
 ``has_extension``
 =================
 
 ::
 
-  bool has_extension(const sycl::string_class &extension) const;
+  bool has_extension(const std::string& extension) const;
 
-Returns True if the platform has ``extension``.
+Deprecated, use ``has()`` instead.
 
-``is_host``
-===========
+Returns true if this SYCL platform supports the extension queried by
+the extension parameter. A SYCL platform can only support an extension
+if all associated SYCL devices support that extension.
+
+``get_devices``
+===============
 
 ::
 
-  bool is_host() const;
+  std::vector<device>
+  get_devices(info::device_type deviceType = info::device_type::all) const;
 
-Returns True if the platform contains a SYCL host device
+Returns a ``std::vector`` containing all the root devices associated with this
+SYCL platform which have the device type encapsulated by ``deviceType``.
+
+.. rubric:: Example
+
+See `platform-example`_.
+
+======================
+Static member function
+======================
 
 ``get_platforms``
 =================
 
 ::
 
-  static sycl::vector_class<platform> get_platforms();
+  static std::vector<platform> get_platforms();
 
-Returns a vector_class containing SYCL platforms bound to the system.
+Returns a ``std::vector`` containing all SYCL platforms from all SYCL backends
+available in the system.
 
 .. rubric:: Example
 
 See `platform-example`_.
+
+=======================
+Information descriptors
+=======================
 
 ========================
 ``sycl::info::platform``
@@ -131,7 +161,6 @@ See `platform-example`_.
 ::
 
   enum class platform : unsigned int {
-    profile,
     version,
     name,
     vendor,
@@ -147,21 +176,20 @@ the type of information.
    * - Descriptor
      - Return type
      - Description
-   * - profile
-     - string_class
-     - OpenCL profile
    * - version
-     - string_class
-     - OpenCL software driver version
+     - std::string
+     - Returns a backend-defined platform version.
    * - name
-     - string_class
-     - Device name of the platform
+     - std::string
+     - Returns the name of the platform.
    * - vendor
-     - string_class
-     - Vendor name
+     - std::string
+     - Returns the name of the vendor providing the platform.
    * - extensions
-     - vector_class<string_class>
-     - Extension names supported by the platform
+     - std::vector<std::string>
+     - Deprecated, use ``sycl::device::get_info()``
+       with ``sycl::info::device::aspects`` instead.
+       Returns the extensions supported by the platform.
 
 
 .. _platform-example:

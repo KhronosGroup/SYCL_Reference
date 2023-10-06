@@ -87,6 +87,7 @@ def make_ref(ref_str, sec_num, section_ref):
 prolog_template = string.Template(
     make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "headers-and-namespaces")
     + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "device-selector")
+    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "platform-class")
     + make_ref("SYCL_SPEC_DEVICE", "4.6.4", "device-class")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
@@ -96,7 +97,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_PLATFORM| replace:: `SYCL Specification`_ Section 4.6.2
 .. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
