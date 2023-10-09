@@ -167,27 +167,80 @@ queried by the extension parameter.
 
 ``create_sub_devices``
 ======================
-.. TODO: Update create_sub_devices
 
 ::
 
-  // Available only when prop == info::partition_property::partition_equally
-  template <info::partition_property prop>
+  template <info::partition_property Prop>
   std::vector<device> create_sub_devices(size_t count) const;
-  // Available only when prop == info::partition_property::partition_by_counts
-  template <info::partition_property prop>
-  std::vector<device> create_sub_devices(const std::vector<size_t> &counts) const;
-  // Available only when prop == info::partition_property::partition_by_affinity_domain
-  template <info::partition_property prop>
-  std::vector<device> create_sub_devices(info::partition_affinity_domain affinityDomain) const;
 
-Divide into sub-devices, according to the requested partition
-property.
+Available only when Prop is
+``sycl::info::partition_property::partition_equally``.
+
+Returns a ``std::vector`` of sub devices partitioned
+from this SYCL device based on the ``count`` parameter.
+The returned vector contains as many sub devices as
+can be created such that each sub device contains
+``count`` compute units. If the device's total
+number of compute units (as returned by
+``sycl::info::device::max_compute_units``) is not evenly
+divided by count, then the remaining compute units are
+not included in any of the sub devices.
+
+::
+
+  template <info::partition_property Prop>
+  std::vector<device> create_sub_devices(const std::vector<size_t>& counts) const;
+
+Available only when Prop is
+``sycl::info::partition_property::partition_by_counts``.
+
+Returns a ``std::vector`` of sub devices partitioned from
+this SYCL device based on the ``counts`` parameter. For
+each non-zero value M in the ``counts`` vector, a sub
+device with M compute units is created.
+
+::
+
+  template <info::partition_property Prop>
+  std::vector<device> create_sub_devices(info::partition_affinity_domain domain) const;
+
+Available only when Prop is
+``sycl::info::partition_property::partition_by_affinity_domain``.
+
+Returns a ``std::vector`` of sub devices partitioned from this
+SYCL device by affinity ``domain`` based on the domain parameter,
+which must be one of the following values:
+
+.. list-table::
+
+  * - ``sycl::info::partition_affinity_domain::numa``
+    - Split the device into sub devices comprised
+      of compute units that share a NUMA node.
+  * - ``sycl::info::partition_affinity_domain::L4_cache``
+    - Split the device into sub devices comprised of
+      compute units that share a level 4 data cache.
+  * - ``sycl::info::partition_affinity_domain::L3_cache``
+    - Split the device into sub devices comprised of
+      compute units that share a level 3 data cache.
+  * - ``sycl::info::partition_affinity_domain::L2_cache``
+    - Split the device into sub devices comprised of
+      compute units that share a level 2 data cache.
+  * - ``sycl::info::partition_affinity_domain::L1_cache``
+    - Split the device into sub devices comprised of
+      compute units that share a level 1 data cache.
+  * - ``sycl::info::partition_affinity_domain::next_partitionable``
+    - Split the device along the next partitionable affinity domain.
+      The implementation shall find the first level along which the
+      device or sub device may be further subdivided in the order
+      ``numa``, ``L4_cache``, ``L3_cache``, ``L2_cache``, ``L1_cache``, and partition
+      the device into sub devices comprised of compute units that
+      share memory subsystems at this level. The user may determine
+      what happened via ``info::device::partition_type_affinity_domain``.
 
 .. rubric:: Template parameters
 
 =================  ===
-``prop``           See `sycl::info::partition_property`_.
+``Prop``           See `sycl::info::partition_property`_.
 =================  ===
 
 
@@ -196,14 +249,19 @@ property.
 ==================  ===
 ``count``           Number of compute units per sub-device.
 ``counts``          Vector with number of compute units for each sub-device.
-``affinityDomain``  See `sycl::info::partition_affinity_domain`_.
+``domain``          See `sycl::info::partition_affinity_domain`_.
 ==================  ===
 
 .. rubric:: Exceptions
 
-feature_not_supported
-  When device does not support the `sycl::info::partition_property`_
-  specified by the ``prop`` template argument.
+``errc::feature_not_supported``
+  If SYCL device does not support the `sycl::info::partition_property`_
+  specified by the ``Prop`` template argument.
+
+``errc::invalid``
+  If the device's maximum number of sub devices is less than ``count``,
+  number of non-zero values in ``counts`` or the total of all the values
+  in the ``counts`` vector.
 
 =======================
 Static member functions
@@ -237,93 +295,91 @@ Information descriptors
 
 ::
 
-  namespace device {
+  namespace sycl::info::device {
 
-   struct device_type;
-   struct vendor_id;
-   struct max_compute_units;
-   struct max_work_item_dimensions;
-   template<int dimensions = 3> struct max_work_item_sizes;
-   struct max_work_group_size;
-   struct preferred_vector_width_char;
-   struct preferred_vector_width_short;
-   struct preferred_vector_width_int;
-   struct preferred_vector_width_long;
-   struct preferred_vector_width_float;
-   struct preferred_vector_width_double;
-   struct preferred_vector_width_half;
-   struct native_vector_width_char;
-   struct native_vector_width_short;
-   struct native_vector_width_int;
-   struct native_vector_width_long;
-   struct native_vector_width_float;
-   struct native_vector_width_double;
-   struct native_vector_width_half;
-   struct max_clock_frequency;
-   struct address_bits;
-   struct max_mem_alloc_size;
-   struct image_support; // Deprecated
-   struct max_read_image_args;
-   struct max_write_image_args;
-   struct image2d_max_height;
-   struct image2d_max_width;
-   struct image3d_max_height;
-   struct image3d_max_width;
-   struct image3d_max_depth;
-   struct image_max_buffer_size;
-   struct max_samplers;
-   struct max_parameter_size;
-   struct mem_base_addr_align;
-   struct half_fp_config;
-   struct single_fp_config;
-   struct double_fp_config;
-   struct global_mem_cache_type;
-   struct global_mem_cache_line_size;
-   struct global_mem_cache_size;
-   struct global_mem_size;
-   struct max_constant_buffer_size; // Deprecated
-   struct max_constant_args; // Deprecated
-   struct local_mem_type;
-   struct local_mem_size;
-   struct error_correction_support;
-   struct host_unified_memory;
-   struct atomic_memory_order_capabilities;
-   struct atomic_fence_order_capabilities;
-   struct atomic_memory_scope_capabilities;
-   struct atomic_fence_scope_capabilities;
-   struct profiling_timer_resolution;
-   struct is_endian_little;
-   struct is_available;
-   struct is_compiler_available; // Deprecated
-   struct is_linker_available; // Deprecated
-   struct execution_capabilities;
-   struct queue_profiling; // Deprecated
-   struct built_in_kernels; // Deprecated
-   struct built_in_kernel_ids;
-   struct platform;
-   struct name;
-   struct vendor;
-   struct driver_version;
-   struct profile;
-   struct version;
-   struct backend_version;
-   struct aspects;
-   struct extensions; // Deprecated
-   struct printf_buffer_size;
-   struct preferred_interop_user_sync;
-   struct parent_device;
-   struct partition_max_sub_devices;
-   struct partition_properties;
-   struct partition_affinity_domains;
-   struct partition_type_property;
-   struct partition_type_affinity_domain;
+  struct device_type;
+  struct vendor_id;
+  struct max_compute_units;
+  struct max_work_item_dimensions;
+  template<int dimensions = 3> struct max_work_item_sizes;
+  struct max_work_group_size;
+  struct preferred_vector_width_char;
+  struct preferred_vector_width_short;
+  struct preferred_vector_width_int;
+  struct preferred_vector_width_long;
+  struct preferred_vector_width_float;
+  struct preferred_vector_width_double;
+  struct preferred_vector_width_half;
+  struct native_vector_width_char;
+  struct native_vector_width_short;
+  struct native_vector_width_int;
+  struct native_vector_width_long;
+  struct native_vector_width_float;
+  struct native_vector_width_double;
+  struct native_vector_width_half;
+  struct max_clock_frequency;
+  struct address_bits;
+  struct max_mem_alloc_size;
+  struct image_support; // Deprecated
+  struct max_read_image_args;
+  struct max_write_image_args;
+  struct image2d_max_height;
+  struct image2d_max_width;
+  struct image3d_max_height;
+  struct image3d_max_width;
+  struct image3d_max_depth;
+  struct image_max_buffer_size;
+  struct max_samplers;
+  struct max_parameter_size;
+  struct mem_base_addr_align;
+  struct half_fp_config;
+  struct single_fp_config;
+  struct double_fp_config;
+  struct global_mem_cache_type;
+  struct global_mem_cache_line_size;
+  struct global_mem_cache_size;
+  struct global_mem_size;
+  struct max_constant_buffer_size; // Deprecated
+  struct max_constant_args; // Deprecated
+  struct local_mem_type;
+  struct local_mem_size;
+  struct error_correction_support;
+  struct host_unified_memory;
+  struct atomic_memory_order_capabilities;
+  struct atomic_fence_order_capabilities;
+  struct atomic_memory_scope_capabilities;
+  struct atomic_fence_scope_capabilities;
+  struct profiling_timer_resolution;
+  struct is_endian_little;
+  struct is_available;
+  struct is_compiler_available; // Deprecated
+  struct is_linker_available; // Deprecated
+  struct execution_capabilities;
+  struct queue_profiling; // Deprecated
+  struct built_in_kernels; // Deprecated
+  struct built_in_kernel_ids;
+  struct platform;
+  struct name;
+  struct vendor;
+  struct driver_version;
+  struct profile;
+  struct version;
+  struct backend_version;
+  struct aspects;
+  struct extensions; // Deprecated
+  struct printf_buffer_size;
+  struct preferred_interop_user_sync;
+  struct parent_device;
+  struct partition_max_sub_devices;
+  struct partition_properties;
+  struct partition_affinity_domains;
+  struct partition_type_property;
+  struct partition_type_affinity_domain;
 
-  }
+  } // namespace sycl::info::device
 
 Used as a template parameter for get_info_ to determine the type of
 information.
-
-See `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_device_information_descriptors>`__ for further details on these types.
 
 .. _info-device_type:
 
@@ -342,9 +398,9 @@ See `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/h
     all          // Maps to OpenCL CL_DEVICE_TYPE_ALL
   };
 
-..
-  TODO See platform :ref:`platform-get_devices` and device
-  :ref:`device-get_devices`.
+.. rubric:: Example
+
+See :ref:`get_devices-example`.
 
 ``sycl::info::partition_property``
 ==================================
