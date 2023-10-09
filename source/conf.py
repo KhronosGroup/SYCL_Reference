@@ -76,19 +76,30 @@ sycl_ref_url = (
 )
 
 
-def make_ref(ref_str, sec_num, section_ref):
+def make_ref(ref_str, ref_num, ref_sufix):
     return (
         f".. |{ref_str}| replace:: SYCL Specification "
-        f"`Section {sec_num} <{sycl_ref_url}#sec:{section_ref}>`__"
+        f"`Section {ref_num} <{sycl_ref_url}{ref_sufix}>`__"
         f"\n"
     )
 
 
 prolog_template = string.Template(
-    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "headers-and-namespaces")
-    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "device-selector")
-    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "platform-class")
-    + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "interface.context.class")
+    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "#sec:headers-and-namespaces")
+    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "#sec:device-selector")
+    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "#sec:platform-class")
+    + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "#sec:interface.context.class")
+    + make_ref("SYCL_SPEC_QUEUE", "4.6.5", "#sec:interface.queue.class")
+    + make_ref(
+        "SYCL_SPEC_QUEUE_SHOURTCUT_FUNC", "Table 29", "#sec:queue-shortcuts"
+    )
+    + make_ref("SYCL_SPEC_QUEUE_INFO_DESC", "Table 30", "#table.queue.info")
+    + make_ref("SYCL_SPEC_ERROR_HANDLING", "4.13", "#table.queue.info")
+    + make_ref(
+        "SYCL_SPEC_WITHOUT_ASYC_HANDLER",
+        "4.13.1.2",
+        "#subsubsec:exception.nohandler",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -98,7 +109,6 @@ prolog_template = string.Template(
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
 .. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4
-.. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
 .. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
 .. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
