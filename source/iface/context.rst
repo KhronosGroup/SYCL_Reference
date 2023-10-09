@@ -29,12 +29,26 @@ API to interact with a group of devices associated with a platform.
 
 ::
 
-  explicit context(async_handler asyncHandler = {});
+  explicit context(const property_list& propList = {});
 
-  explicit context(const device& dev, async_handler asyncHandler = {});
+  explicit context(async_handler asyncHandler,
+                 const property_list& propList = {});
+
+  explicit context(const device& dev, const property_list& propList = {});
+
+  explicit context(const device& dev, async_handler asyncHandler,
+                 const property_list& propList = {});
+
+  explicit context(const platform &plt, const property_list &propList = {});
+
+  explicit context(const platform &plt, async_handler asyncHandler, const property_list &propList = {});
 
   explicit context(const std::vector<device>& deviceList,
-                 async_handler asyncHandler = {});
+                 const property_list& propList = {});
+
+  explicit context(const std::vector<device>& deviceList,
+                 async_handler asyncHandler,
+                 const property_list& propList = {});
 
 Construct a context.
 
@@ -54,7 +68,8 @@ or devices are supplied.
     - Constructed context contains device
   * - ``deviceList``
     - Constructed context contains devices
-
+  * - ``plt``
+    - Constructed context instance using the ``plt`` parameter as the associated SYCL platform
 
 
 .. todo:: Examples that combines the functions
