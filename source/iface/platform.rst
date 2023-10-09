@@ -36,6 +36,7 @@ associated with the same SYCL backend.
 ::
 
   platform();
+
   template <typename DeviceSelector> explicit platform(const DeviceSelector&);
 
 Construct a SYCL platform instance.
