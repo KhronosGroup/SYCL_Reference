@@ -147,6 +147,9 @@ Information descriptors
 Used as a template parameter for get_info_ to determine the type of
 information.
 
+.. list-table::
+   :header-rows: 1
+
    * - Descriptor
      - Return type
      - Description
