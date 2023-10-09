@@ -74,27 +74,21 @@ exclude_patterns = [
 sycl_ref_url = (
     "https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html"
 )
+
+
+def make_ref(ref_str, sec_num, section_ref):
+    return (
+        f".. |{ref_str}| replace:: SYCL Specification "
+        f"`Section {sec_num} <{sycl_ref_url}#sec:{section_ref}>`__"
+        f"\n"
+    )
+
+
 prolog_template = string.Template(
-    (
-        f".. |SYCL_SPEC_HEADER_FILES| replace:: SYCL Specification "
-        f"`Section 4.3 <{sycl_ref_url}#sec:headers-and-namespaces>`__"
-        f"\n"
-    )
-    + (
-        f".. |SYCL_SPEC_DEVICE_SELECTORS| replace:: SYCL Specification "
-        f"`Section 4.6.1.1 <{sycl_ref_url}#sec:device-selector>`__"
-        f"\n"
-    )
-    + (
-        f".. |SYCL_SPEC_PLATFORM| replace:: SYCL Specification "
-        f"`Section 4.6.2 <{sycl_ref_url}#sec:platform-class>`__"
-        f"\n"
-    )
-    + (
-        f".. |SYCL_SPEC_CONTEXT| replace:: SYCL Specification "
-        f"`Section 4.6.3 <{sycl_ref_url}#sec:interface.context.class>`__"
-        f"\n"
-    )
+    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "headers-and-namespaces")
+    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "device-selector")
+    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "platform-class")
+    + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "interface.context.class")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
