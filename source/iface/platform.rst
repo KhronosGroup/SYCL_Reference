@@ -161,12 +161,14 @@ Information descriptors
 
 ::
 
-  enum class platform : unsigned int {
-    version,
-    name,
-    vendor,
-    extensions
-  };
+  namespace sycl::info::platform {
+
+  version;
+  name;
+  vendor;
+  extensions;
+
+  }  // namespace sycl::info::platform
 
 Used as a template parameter for get_info_ to determine
 the type of information.

@@ -135,14 +135,16 @@ Information descriptors
 
 ::
 
-  enum class context : int {
-    platform,
-    devices,
-    atomic_memory_order_capabilities,
-    atomic_fence_order_capabilities,
-    atomic_memory_scope_capabilities,
-    atomic_fence_scope_capabilities
-  };
+  namespace sycl::info::context {
+
+  struct platform;
+  struct devices;
+  struct atomic_memory_order_capabilities;
+  struct atomic_fence_order_capabilities;
+  struct atomic_memory_scope_capabilities;
+  struct atomic_fence_scope_capabilities;
+
+  }  // namespace sycl::info::context
 
 Used as a template parameter for get_info_ to determine the type of
 information.
