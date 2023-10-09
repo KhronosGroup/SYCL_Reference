@@ -30,7 +30,9 @@ API to interact with a group of devices associated with a platform.
 ::
 
   explicit context(async_handler asyncHandler = {});
+
   explicit context(const device& dev, async_handler asyncHandler = {});
+
   explicit context(const std::vector<device>& deviceList,
                  async_handler asyncHandler = {});
 
