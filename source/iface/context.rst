@@ -18,12 +18,9 @@ Contexts
 
   class context;
 
-A context encapsulates a single SYCL platform and a collection of SYCL
-devices associated with the platform.
-
-A context may include a subset of the devices provided by the
-platform. The same platform may be associated with more than one
-context, but a device can only be part of a single context.
+The context class represents a SYCL context. A context represents
+the runtime data structures and state required by a SYCL backend
+API to interact with a group of devices associated with a platform.
 
 .. seealso:: |SYCL_SPEC_CONTEXT|
 
@@ -32,20 +29,27 @@ context, but a device can only be part of a single context.
 
 ::
 
-  explicit context(const sycl::property_list &propList = {});
-  context(sycl::async_handler asyncHandler,
-          const sycl::property_list &propList = {});
-  context(const sycl::device &dev, const sycl::property_list &propList = {});
-  context(const sycl::device &dev, sycl::async_handler asyncHandler,
-          const sycl::property_list &propList = {});
-  context(const sycl::platform &plt, const sycl::property_list &propList = {});
-  context(const sycl::platform &plt, sycl::async_handler asyncHandler,
-          const sycl::property_list &propList = {});
-  context(const sycl::vector_class<device> &deviceList,
-          const sycl::property_list &propList = {});
-  context(const sycl::vector_class<sycl::device> &deviceList,
-          sycl::async_handler asyncHandler, const sycl::property_list &propList = {});
-  context(cl_context clContext, sycl::async_handler asyncHandler = {});
+  explicit context(const property_list& propList = {});
+
+  explicit context(async_handler asyncHandler,
+                 const property_list& propList = {});
+
+  explicit context(const device& dev, const property_list& propList = {});
+
+  explicit context(const device& dev, async_handler asyncHandler,
+                 const property_list& propList = {});
+
+  explicit context(const platform &plt, const property_list &propList = {});
+
+  explicit context(const platform &plt, async_handler asyncHandler,
+                 const property_list &propList = {});
+
+  explicit context(const std::vector<device>& deviceList,
+                 const property_list& propList = {});
+
+  explicit context(const std::vector<device>& deviceList,
+                 async_handler asyncHandler,
+                 const property_list& propList = {});
 
 Construct a context.
 
@@ -59,74 +63,89 @@ or devices are supplied.
 
 .. list-table::
 
-  * - ``propList``
-    - See `sycl::property::context`_.
   * - ``asyncHandler``
-    - Called to report asynchronous SYCL exceptions for this context
+    - Called at specific times (see |SYCL_SPEC_EXCEPTION|)  to report asynchronous SYCL
+      exceptions for this context.
   * - ``dev``
-    - Constructed context contains device
+    - Constructed context contains device.
   * - ``deviceList``
-    - Constructed context contains devices
+    - Constructed context contains all devices in ``deviceList``,
+      which must all come from the same platform.
   * - ``plt``
-    - Constructed context contains platform
-  * - ``clContext``
-    - Constructed context contains cl_context
-
+    - Constructed context contains all devices in platform ``plt``.
 
 
 .. todo:: Examples that combines the functions
 
 
-Constructs a context
+===============
+Member function
+===============
 
-``get``
-=======
-
-::
-
-  cl_context get() const;
-
-Returns cl_context that was passed in constructor.
-
-``is_host``
-===========
-
-::
-
-  bool is_host() const;
-
-Returns True if this context is a host context.
-
-``get_platform``
-================
-
-::
-
-  sycl::platform get_platform() const;
-
-Return platform associated with this context.
-
-``get_devices``
+``get_backend``
 ===============
 
 ::
 
-  sycl::vector_class<sycl::device> get_devices() const;
+  backend get_backend() const noexcept;
 
-Returns vector of devices associated with this context.
+Returns a backend identifying the SYCL backend associated with this context.
 
 ``get_info``
 ============
 
 ::
 
-  template <sycl::info::context param>
-  typename sycl::info::param_traits<sycl::info::context, param>::return_type get_info() const;
+  template <typename Param>
+  typename Param::return_type get_info() const;
 
-Returns information about the context as determined by ``param``. See
-`sycl::info::context`_ for details.
+Queries this SYCL context for information requested by the template parameter
+``Param``. The type alias ``Param::return_type`` must be defined in accordance
+with the info parameters in `sycl::info::context`_ to facilitate returning the
+type associated with the ``Param`` parameter.
 
-.. include:: property_methods.inc.rst
+``get_backend_info``
+====================
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_backend_info() const;
+
+Queries this SYCL context for SYCL backend-specific information requested by
+the template parameter ``Param``. The type alias ``Param::return_type`` must
+be defined in accordance with the SYCL backend specification. Must throw an
+exception with the ``errc::backend_mismatch`` error code if the SYCL backend
+that corresponds with ``Param`` is different from the SYCL backend that is
+associated with this context.
+
+``get_platform``
+================
+
+::
+
+  platform get_platform() const;
+
+Returns the SYCL platform that is associated with this SYCL context.
+The value returned must be equal to that returned by
+``get_info<info::context::platform>()``.
+
+``get_devices``
+===============
+
+::
+
+  std::vector<device> get_devices() const;
+
+Returns a std::vector containing all SYCL devices that are associated with
+this SYCL context. The value returned must be equal to that returned by
+``get_info<info::context::devices>()``.
+
+
+=======================
+Information descriptors
+=======================
+
 
 =======================
 ``sycl::info::context``
@@ -134,11 +153,16 @@ Returns information about the context as determined by ``param``. See
 
 ::
 
-  enum class context : int {
-    reference_count,
-    platform,
-    devices
-  };
+  namespace sycl::info::context {
+
+  struct platform;
+  struct devices;
+  struct atomic_memory_order_capabilities;
+  struct atomic_fence_order_capabilities;
+  struct atomic_memory_scope_capabilities;
+  struct atomic_fence_scope_capabilities;
+
+  }  // namespace sycl::info::context
 
 Used as a template parameter for get_info_ to determine the type of
 information.
@@ -149,22 +173,46 @@ information.
    * - Descriptor
      - Return type
      - Description
-   * - reference_count
-     - ``cl_uint``
-     - Reference count of the underlying cl_context
    * - platform
      - :ref:`platform`
-     - SYCL platform for the context
+     - Returns the platform associated with the context.
    * - devices
-     - ``vector_class<device>``
-     - SYCL devices associated with this platform
+     - ``std::vector<device>``
+     - Returns all of the devices associated with the context.
+   * - atomic_memory_order_capabilities
+     - ``std::vector<memory_order>``
+     - This query applies only to the capabilities of atomic operations that are applied to memory that can be
+       concurrently accessed by multiple devices in the context. If these capabilities
+       are not uniform across all devices in the context, the query reports only the capabilities that are common for all devices.
 
+       Returns the set of memory orders supported by these atomic operations. When a context returns a "stronger" memory order in this set, it must also return all "weaker" memory orders. (See
+       |SYCL_SPEC_MEMORY_ORDERING| for a definition of "stronger" and "weaker" memory orders.) The memory orders ``memory_order::acquire``, ``emory_order::release``, and ``memory_order::acq_rel`` are all the same strength. If a context returns one of these, it must return them all.
+
+       At a minimum, each context must support ``memory_order::relaxed``.
+   * - atomic_fence_order_capabilities
+     - ``std::vector<memory_order>``
+     -  This query applies only to the capabilities of ``atomic_fence`` when applied to memory that can be
+        concurrently accessed by multiple devices in the context. If these capabilities are not uniform across all devices in the context, the query reports only the capabilities that are common for all devices.
+
+        Returns the set of memory orders supported by these ``atomic_fence`` operations. When a context returns a "stronger" memory order in this set, it must also return all "weaker" memory orders. (See |SYCL_SPEC_MEMORY_ORDERING| for a definition of "stronger" and "weaker" memory orders.)
+
+        At a minimum, each context must support ``memory_order::relaxed``, ``memory_order::acquire``, ``memory_order::release``, and ``memory_order::acq_rel``.
+   * - atomic_memory_scope_capabilities
+     - ``std::vector<memory_scope>``
+     -  Returns the set of memory scopes supported by atomic operations on all devices in the context. When a
+        context returns a "wider" memory scope in this set, it must also return all "narrower" memory scopes. (See |SYCL_SPEC_MEMORY_SCOPE| for a definition of "wider" and "narrower" scopes.) At a minimum, each context must support ``memory_scope::work_item``, ``memory_scope::sub_group``, and ``memory_scope::work_group``.
+   * - atomic_fence_scope_capabilities
+     - ``std::vector<memory_scope>``
+     -  Returns the set of memory orderings supported by ``atomic_fence`` on all devices in the context.
+        When a context returns a "wider" memory scope in this set, it must also return all "narrower" memory scopes. (See |SYCL_SPEC_MEMORY_SCOPE| for a definition of "wider" and "narrower" scopes.)
+        At a minimum, each context must support ``memory_scope::work_item``, ``memory_scope::sub_group``, and ``memory_scope::work_group``.
 
 ===========================
 ``sycl::property::context``
 ===========================
 
-SYCL does not define any properties for context_.
+The ``property_list`` constructor parameters are present for
+future extensibility.
 
 
 .. _context-example:

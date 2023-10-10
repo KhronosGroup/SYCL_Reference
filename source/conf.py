@@ -74,22 +74,23 @@ exclude_patterns = [
 sycl_ref_url = (
     "https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html"
 )
+
+
+def make_ref(ref_str, ref_num, ref_sufix):
+    return (
+        f".. |{ref_str}| replace:: SYCL Specification "
+        f"`Section {ref_num} <{sycl_ref_url}{ref_sufix}>`__"
+        f"\n"
+    )
+
+
 prolog_template = string.Template(
-    (
-        f".. |SYCL_SPEC_HEADER_FILES| replace:: SYCL Specification "
-        f"`Section 4.3 <{sycl_ref_url}#sec:headers-and-namespaces>`__"
-        f"\n"
-    )
-    + (
-        f".. |SYCL_SPEC_DEVICE_SELECTORS| replace:: SYCL Specification "
-        f"`Section 4.6.1.1 <{sycl_ref_url}#sec:device-selector>`__"
-        f"\n"
-    )
-    + (
-        f".. |SYCL_SPEC_PLATFORM| replace:: SYCL Specification "
-        f"`Section 4.6.2 <{sycl_ref_url}#sec:platform-class>`__"
-        f"\n"
-    )
+    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "#sec:headers-and-namespaces")
+    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "#sec:device-selector")
+    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "#sec:platform-class")
+    + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "#sec:interface.context.class")
+    + make_ref("SYCL_SPEC_MEMORY_ORDERING", "4.8.3.1", "#_memory_ordering")
+    + make_ref("SYCL_SPEC_MEMORY_SCOPE", "4.8.3.2", "#_memory_scope")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -98,7 +99,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_DEVICE| replace:: `SYCL Specification`_ Section 4.6.4
 .. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
