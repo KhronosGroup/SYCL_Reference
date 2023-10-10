@@ -76,28 +76,39 @@ sycl_ref_url = (
 )
 
 
-def make_ref(ref_str, ref_num, ref_sufix):
+def make_ref(ref_str, ref_view, ref_sufix):
     return (
         f".. |{ref_str}| replace:: SYCL Specification "
-        f"`Section {ref_num} <{sycl_ref_url}{ref_sufix}>`__"
+        f"`{ref_view} <{sycl_ref_url}{ref_sufix}>`__"
         f"\n"
     )
 
 
 prolog_template = string.Template(
-    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "#sec:headers-and-namespaces")
-    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "#sec:device-selector")
-    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "#sec:platform-class")
-    + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "#sec:interface.context.class")
-    + make_ref("SYCL_SPEC_QUEUE", "4.6.5", "#sec:interface.queue.class")
+    make_ref(
+        "SYCL_SPEC_HEADER_FILES", "Section 4.3", "#sec:headers-and-namespaces"
+    )
     + make_ref(
-        "SYCL_SPEC_QUEUE_SHOURTCUT_FUNC", "Table 29", "#sec:queue-shortcuts"
+        "SYCL_SPEC_DEVICE_SELECTORS", "Section 4.6.1.1", "#sec:device-selector"
+    )
+    + make_ref("SYCL_SPEC_PLATFORM", "Section 4.6.2", "#sec:platform-class")
+    + make_ref(
+        "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
+    )
+    + make_ref(
+        "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
+    )
+    + make_ref(
+        "SYCL_SPEC_QUEUE_SHOURTCUT_FUNC", "Table 29", "#table.queue.shortcuts"
     )
     + make_ref("SYCL_SPEC_QUEUE_INFO_DESC", "Table 30", "#table.queue.info")
-    + make_ref("SYCL_SPEC_ERROR_HANDLING", "4.13", "#table.queue.info")
+    + make_ref(
+        "SYCL_SPEC_QUEUE_PROPERTIES", "Table 31", "#table.properties.queue"
+    )
+    + make_ref("SYCL_SPEC_ERROR_HANDLING", "Section 4.13", "#error-handling")
     + make_ref(
         "SYCL_SPEC_WITHOUT_ASYC_HANDLER",
-        "4.13.1.2",
+        "Section 4.13.1.2",
         "#subsubsec:exception.nohandler",
     )
     + f"""

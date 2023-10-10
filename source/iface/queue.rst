@@ -20,13 +20,14 @@ Queues
 
    class queue;
 
-Queues connect a host program to a single device. Programs ``submit``
-tasks to a device via the ``queue`` and may monitor the ``queue`` for
-completion. A program initiates the task by submitting a command group
-to a ``queue``. The command group defines a kernel function, the
-prerequisites to execute the kernel function, and an invocation of the
-kernel function on an index space. After submitting the command group,
-a program may use the ``queue`` to monitor the completion of the task for
+The SYCL ``queue`` connect a host program to a single device.
+Programs ``submit`` tasks to a device via the ``queue`` and may
+monitor the ``queue`` for completion. A program initiates the
+task by submitting a command group to a ``queue``. The command
+group defines a kernel function, the prerequisites to execute the
+kernel function, and an invocation of the kernel function on an
+index space. After submitting the command group, a program may
+use the ``queue`` to monitor the completion of the task for
 completion and errors. A SYCL queue can wait for all command groups that
 it has submitted by calling ``wait`` or ``wait_and_throw``.
 
@@ -77,14 +78,15 @@ it has submitted by calling ``wait`` or ``wait_and_throw``.
 
 Construct a queue.
 
-The default constructor of the SYCL queue class will construct
-a queue based on the SYCL device returned from the :ref:`device_selector`.
-All other constructors construct a queue as determined by the parameters
-provided. All constructors will implicitly construct a SYCL :ref:`platform`,
-:ref:`device` and :ref:`context` in order to facilitate the construction
-of the queue. Each constructor takes as the last parameter an optional SYCL
-``property_list`` to provide properties to the SYCL ``queue``.
-Each constructor takes as the last parameter an optional SYCL ``property_list``
+The default constructor of the SYCL ``queue`` class will construct
+a queue based on the SYCL ``device`` returned from the
+``default_selector_v`` (see |SYCL_SPEC_DEVICE_SELECTORS|).
+All other constructors construct a queue as determined by the
+parameters provided. All constructors will implicitly construct a SYCL
+``platform``, ``device`` and ``context`` in order to
+facilitate the construction of the queue.
+
+Each constructor takes as the last parameter an optional SYCL ``property_lis``
 to provide properties to the SYCL ``queue``.
 
 The SYCL runtime may execute tasks asynchronously. To catch exceptions
@@ -223,10 +225,9 @@ to facilitate returning the type associated with the ``Param`` parameter.
 
 ::
 
-  template <typename T>
-  event submit(T cgf);
-  template <typename T>
-  event submit(T cgf, const queue &secondaryQueue);
+  template <typename T> event submit(T cgf);
+
+  template <typename T> event submit(T cgf, queue& secondaryQueue);
 
 Submit a command group function object to the queue, in order to be scheduled
 for execution on the device. On a kernel error, this command group function
@@ -245,7 +246,7 @@ is being enqueued on.
 Queries this SYCL ``queue`` for SYCL backend-specific information requested by
 the template parameter ``Param``. The type alias ``Param::return_type``
 must defined in accordance with the SYCL backend specification. Must throw
-an ``exception``with the ``errc::backend_mismatch`` error code if the SYCL
+an ``exception`` with the ``errc::backend_mismatch`` error code if the SYCL
 backend that corresponds with ``Param`` is different from the SYCL backend
 that is associated with this ``queue``.
 
@@ -525,12 +526,14 @@ information.
 Queue properties
 ================
 
-Queue properties are specified in the queue constructor.
+The properties that can be provided when constructing the SYCL ``queue``
+class are describe in |SYCL_SPEC_QUEUE_PROPERTIES|.
 
 .. rst-class:: api-class
 
 ``sycl::property::queue::enable_profiling``
 ===========================================
+
 
 The ``enable_profiling`` property adds the requirement that the SYCL runtime
 must capture profiling information for the command groups that are submitted
@@ -548,7 +551,7 @@ error code.
 
    enable_profiling();
 
-Constructs a SYCL enable_profiling property instance.
+Constructs a SYCL ``enable_profiling`` property instance.
 
 .. rubric:: Example
 
@@ -558,6 +561,7 @@ See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 ``sycl::property::queue::in_order``
 ===================================
+
 
 The ``in_order`` property adds the requirement that a SYCL ``queue`` provides
 in-order semantics whereby commands submitted to said ``queue`` are executed
@@ -574,7 +578,7 @@ of commands submitted to different queues with respect to each other.
 
    in_order();
 
-Constructs a SYCL in_order property instance.
+Constructs a SYCL ``in_order`` property instance.
 
 .. _queue-example-1:
 
