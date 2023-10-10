@@ -75,12 +75,14 @@ sycl_ref_url = (
     "https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html"
 )
 
+
 def make_ref(ref_str, ref_view, ref_sufix):
     return (
         f".. |{ref_str}| replace:: SYCL Specification "
         f"`{ref_view} <{sycl_ref_url}{ref_sufix}>`__"
         f"\n"
     )
+
 
 prolog_template = string.Template(
     make_ref(
@@ -93,6 +95,10 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
     )
+    + make_ref(
+        "SYCL_SPEC_MEMORY_ORDERING", "Section 4.8.3.1", "#_memory_ordering"
+    )
+    + make_ref("SYCL_SPEC_MEMORY_SCOPE", "Section 4.8.3.2", "#_memory_scope")
     + make_ref(
         "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
     )
