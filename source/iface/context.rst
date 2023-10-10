@@ -68,9 +68,10 @@ or devices are supplied.
   * - ``dev``
     - Constructed context contains device
   * - ``deviceList``
-    - Constructed context contains devices
+    - Constructed context contains all devices in ``deviceList``,
+      which must all come from the same platform.
   * - ``plt``
-    - Constructed context instance using the ``plt`` parameter as the associated SYCL platform
+    - Constructed context contains all devices in platform ``plt``.
 
 
 .. todo:: Examples that combines the functions
