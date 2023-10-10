@@ -383,488 +383,961 @@ Information descriptors
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-.. list-table::
-   :header-rows: 1
-
-  * - Descriptor
-    - Return type
-    - Description
-  * - ``device_type``
-    - :ref:`info-device_type`
-    - Returns the device type associated with the device.
-      May not return ``info::device_type::all``.
-  * - ``vendor_id``
-    - ``uint32_t``
-    - Returns a unique vendor device identifier.
-  * - ``max_compute_units``
-    - ``uint32_t``
-    - Returns the number of parallel compute units available
-      to the device. The minimum value is 1.
-  * - ``max_work_item_dimensions``
-    - ``uint32_t``
-    - Returns the maximum dimensions that specify the global
-      and local work-item IDs used by the data parallel execution
-      model. The minimum value is 3 if this SYCL device is not of
-      device type ``info::device_type::custom``.
-  * - ``max_work_item_sizes<1>``
-    - :ref:`range\<1\> <range>`
-    - Returns the maximum number of work-items that are permitted
-      in a work-group for a kernel running in a one-dimensional index
-      space.
-
-      The minimum value is ``(1)`` for devices that are not of
-      device type ``info::device_type::custom``.
-  * - ``max_work_item_sizes<2>``
-    - :ref:`range\<2\> <range>`
-    - Returns the maximum number of work-items that are permitted in
-      each dimension of a work-group for a kernel running in a two-dimensional
-      index space.
-
-      The minimum value is ``(1, 1)`` for devices that are not of
-      device type ``info::device_type::custom``.
-  * - ``max_work_item_sizes<3>``
-    - :ref:`range\<3\> <range>`
-    - Returns the maximum number of work-items that are permitted in
-      each dimension of a work-group for a kernel running in a three-dimensional
-      index space.
-
-      The minimum value is ``(1, 1, 1)`` for devices that are not of
-      device type ``info::device_type::custom``.
-  * - ``max_work_group_size``
-    - ``size_t``
-    - Returns the maximum number of work-items that are permitted in a
-      work-group executing a kernel on a single compute unit.
-
-      The minimum value is 1.
-  * - ``max_num_sub_groups``
-    - ``uint32_t``
-    - Returns the maximum number of sub-groups in a work-group for
-      any kernel executed on the device.
-
-      The minimum value is 1.
-  * - ``sub_group_sizes``
-    - ``std::vector<size_t>``
-    - Returns a ``std::vector`` of ``size_t`` containing the
-      set of sub-group sizes supported by the device.
-  * - ::
-
-        preferred_vector_width_char
-        preferred_vector_width_short
-        preferred_vector_width_int
-        preferred_vector_width_long
-        preferred_vector_width_float
-        preferred_vector_width_double
-        preferred_vector_width_half
-
-    - ``uint32_t``
-    - Returns the preferred native vector width size for built-in
-      scalar types that can be put into vectors. The vector width
-      is defined as the number of scalar elements that can be stored
-      in the vector.
-
-      Must return 0 for ``preferred_vector_width_double``
-      if the device does not have ``aspect::fp64``.
-
-      Must return 0 for ``preferred_vector_width_half`` if
-      the device does not have ``aspect::fp16``.
-  * - ::
-
-        native_vector_width_char
-        native_vector_width_short
-        native_vector_width_int
-        native_vector_width_long
-        native_vector_width_float
-        native_vector_width_double
-        native_vector_width_half
-
-    - ``uint32_t``
-    - Returns the native ISA vector width.
-      The vector width is defined as the number
-      of scalar elements that can be stored in the vector.
-
-      Must return 0 for ``native_vector_width_double``
-      if the device does not have ``aspect::fp64``.
-
-      Must return 0 for ``native_vector_width_half`` if
-      the device does not have ``aspect::fp16``.
-  * - ``max_clock_frequency``
-    - ``uint32_t``
-    - Returns the maximum configured clock frequency of this
-      SYCL device in MHz.
-  * - ``address_bits``
-    - ``uint32_t``
-    - Returns the default compute device address space size
-      specified as an unsigned integer value in bits.
-
-      Must return either 32 or 64.
-  * - ``max_mem_alloc_size``
-    - ``uint64_t``
-    - Returns the maximum size of memory object allocation in bytes.
-
-      The minimum value is max between ``1/4th`` of ``info::device::global_mem_size``
-      and 128*1024*1024, if this SYCL device is not of device
-      type ``info::device_type::custom``.
-  * - ``image_support``
-    - ``bool``
-    - Returns the default compute device address space size
-      specified as an unsigned integer value in bits.
-  * - ``address_bits``
-    - ``uint32_t``
-    - Deprecated.
-
-      Returns the same value as ``has(aspect::image)``.
-  * - ``max_read_image_args``
-    - ``uint32_t``
-    - Returns the maximum number of simultaneous image objects
-      that can be read from by a kernel.
-
-      The minimum value is 128 if the SYCL device has ``aspect::image``.
-  * - ``max_write_image_args``
-    - ``uint32_t``
-    - Returns the maximum number of simultaneous image objects
-      that can be read from by a kernel.
-
-      The minimum value is 8 if the SYCL device has ``aspect::image``.
-  * - ``image2d_max_width``
-    - ``size_t``
-    - Returns the maximum width of a 2D image or 1D image in pixels.
-
-      The minimum value is 8192 if the SYCL device has ``aspect::image``.
-  * - ``image2d_max_height``
-    - ``size_t``
-    - Returns the maximum height of a 2D image in pixels.
-
-      The minimum value is 8192 if the SYCL device has ``aspect::image``.
-  * - ``image3d_max_width``
-    - ``size_t``
-    - Returns the maximum width of a 3D image in pixels.
-
-      The minimum value is 2048 if the SYCL device has ``aspect::image``.
-  * - ``image3d_max_height``
-    - ``size_t``
-    - Returns the maximum height of a 3D image in pixels.
-
-      The minimum value is 2048 if the SYCL device has ``aspect::image``.
-  * - ``image3d_max_depth``
-    - ``size_t``
-    - Returns the maximum depth of a 3D image in pixels.
-
-      The minimum value is 2048 if the SYCL device has ``aspect::image``.
-  * - ``image_max_buffer_size``
-    - ``size_t``
-    - Returns the number of pixels for a 1D image created from a buffer object.
-
-      The minimum value is 65536 if the SYCL device has ``aspect::image``.
-
-      Note that this information is intended for OpenCL interoperability only
-      as this feature is not supported in SYCL.
-  * - ``max_samplers``
-    - ``uint32_t``
-    - Returns the maximum number of samplers that can be used in a kernel.
-
-      The minimum value is 16 if the SYCL device has ``aspect::image``.
-  * - ``max_parameter_size``
-    - ``size_t``
-    - Returns the maximum size in bytes of the arguments that can be passed to a kernel.
-
-      The minimum value is 1024 if this SYCL device is not of
-      device type ``info::device_type::custom``. For this minimum value, only a maximum
-      of 128 arguments can be passed to a kernel.
-  * - ``mem_base_addr_align``
-    - ``uint32_t``
-    - Returns the minimum value in bits of the largest supported SYCL built-in data
-      type if this SYCL device is not of device type ``info::device_type::custom``.
-  * - ``half_fp_config``
-    - ``std::vector<info::fp_config>``
-    - Returns a ``std::vector`` of `sycl::info::fp_config`_ describing the
-      half precision floating-point capability of this SYCL device.
-      The ``std::vector`` must contain zero or more of the `sycl::info::fp_config`_ values.
-
-      If half precision is supported by this SYCL device
-      (i.e. the device has ``aspect::fp16``) there is no minimum floating-point
-      capability.
-
-      If half support is not supported the returned ``std::vector`` must be empty.
-  * - ``single_fp_config``
-    - ``std::vector<info::fp_config>``
-    - Returns a ``std::vector`` of `sycl::info::fp_config`_ describing the
-      single precision floating-point capability of this SYCL device.
-      The ``std::vector`` must contain one or more of the `sycl::info::fp_config`_ values.
-
-      If this SYCL device is not of type ``info::device_type::custom``
-      then the minimum floating-point capability must be:
-      ``info::fp_config::round_to_nearest`` and ``info::fp_config::inf_nan``.
-  * - ``double_fp_config``
-    - ``std::vector<info::fp_config>``
-    - Returns a ``std::vector`` of `sycl::info::fp_config`_ describing the double precision
-      floating-point capability of this SYCL device. The ``std::vector``
-      may contain zero or more of the `sycl::info::fp_config`_ values.
-
-      If double precision is supported by this SYCL device (i.e. the device
-      has ``aspect::fp64``) and this SYCL device is not of type ``info::device_type::custom``
-      then the minimum floating-point capability must be: ``info::fp_config::fma``,
-      ``info::fp_config::round_to_nearest``, ``info::fp_config::round_to_zero``,
-      ``info::fp_config::round_to_inf``, ``info::fp_config::inf_nan`` and ``info::fp_config::denorm``.
-
-      If double support is not supported the returned ``std::vector`` must be empty.
-  * - ``global_mem_cache_type``
-    - `sycl::info::global_mem_cache_type`_
-    - Returns the type of global memory cache supported.
-  * - ``global_mem_cache_line_size``
-    - ``uint32_t``
-    - Returns the size of global memory cache line in bytes.
-  * - ``global_mem_cache_size``
-    - ``uint64_t``
-    - Returns the size of global memory cache in bytes.
-  * - ``global_mem_size``
-    - ``uint64_t``
-    - Returns the size of global device memory in bytes.
-  * - ``max_constant_buffer_size``
-    - ``uint64_t``
-    - Deprecated in SYCL 2020.
-
-      Returns the maximum size in bytes of a constant buffer allocation.
-
-      The minimum value is 64 KB if this SYCL device is not of type ``info::device_type::custom``.
-  * - ``max_constant_args``
-    - ``uint32_t``
-    - Deprecated in SYCL 2020.
-
-      Returns the maximum number of constant arguments that can be declared in a kernel.
-
-      The minimum value is 8 if this SYCL device is not of type ``info::device_type::custom``.
-  * - ``local_mem_type``
-    - `sycl::info::local_mem_type`_
-    - Returns the type of local memory supported. This can be ``info::local_mem_type::local``
-      implying dedicated local memory storage such as SRAM, or ``info::local_mem_type::global``.
-
-      If this SYCL device is of type ``info::device_type::custom``
-      this can also be ``info::local_mem_type::none``,
-      indicating local memory is not supported.
-  * - ``local_mem_size``
-    - ``uint64_t``
-    - Returns the size of local memory arena in bytes.
-
-      The minimum value is 32 KB if this SYCL device is not of type ``info::device_type::custom``.
-  * - ``error_correction_support``
-    - ``bool``
-    - Returns true if the device implements error correction for all accesses to compute
-      device memory (global and constant).
-
-      Returns false if the device does not implement such error correction.
-  * - ``host_unified_memory``
-    - ``bool``
-    - Deprecated, use ``device::has()`` with one of the ``aspect::usm_*`` aspects instead.
-
-      Returns true if the device and the host have a unified memory subsystem and returns false otherwise.
-  * - ``atomic_memory_order_capabilities``
-    - ``std::vector<memory_order>``
-    - Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|) supported by atomic
-      operations on the device.
-
-      When a device returns a "stronger" memory order in this set, it must also return all
-      "weaker" memory orders. The memory orders ``memory_order::acquire``, ``memory_order::release``,
-      and ``memory_order::acq_rel`` are all the same strength. If a device returns one of these,
-      it must return them all.
-
-      At a minimum, each device must support ``memory_order::relaxed``.
-  * - ``atomic_fence_order_capabilities``
-    - ``std::vector<memory_order>``
-    - Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|) supported by
-      ``atomic_fence`` on the device.
-
-      When a device returns a "stronger" memory order in this set,
-      it must also return all "weaker" memory orders.
-
-      At a minimum, each device must support ``memory_order::relaxed``,
-      ``memory_order::acquire``, ``memory_order::release``, and ``memory_order::acq_rel``.
-  * - ``atomic_memory_scope_capabilities``
-    - ``std::vector<memory_scope>``
-    - Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
-      atomic operations on the device.
-
-      When a device returns a "wider" memory scope in this set,
-      it must also return all "narrower" memory scopes.
-
-      At a minimum, each device must support ``memory_scope::work_item``,
-      ``memory_scope::sub_group``, and ``memory_scope::work_group``.
-  * - ``atomic_fence_scope_capabilities``
-    - ``std::vector<memory_scope>``
-    - Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
-      ``atomic_fence`` on the device.
-
-      When a device returns a "wider" memory scope in this set,
-      it must also return all "narrower" memory scopes.
-
-      At a minimum, each device must support ``memory_scope::work_item``,
-      ``memory_scope::sub_group``, and ``memory_scope::work_group``.
-  * - ``profiling_timer_resolution``
-    - ``size_t``
-    - Returns the resolution of device timer in nanoseconds.
-  * - ``is_endian_little``
-    - ``bool``
-    - Deprecated. Check the byte order of the host system instead.
-      The host and device are required to have the same byte order.
-
-      Returns true if this SYCL device is a little endian device and
-      returns false otherwise.
-  * - ``is_available``
-    - ``bool``
-    - Returns true if the SYCL device is available and returns false
-      if the device is not available.
-  * - ``is_compiler_available``
-    - ``bool``
-    - Deprecated.
-
-      Returns the same value as ``has(aspect::online_compiler)``.
-  * - ``is_linker_available``
-    - ``bool``
-    - Deprecated.
-
-      Returns the same value as ``has(aspect::online_linker)``.
-  * - ``execution_capabilities``
-    - ::
-
-        std::vector<
-          info::execution_capability
-        >
-
-    - Returns a ``std::vector`` of the `sycl::info::execution_capability`_ describing the
-      supported execution capabilities.
-
-      Note that this information is intended for OpenCL interoperability only
-      as SYCL only supports ``execution_capability::exec_kernel``.
-  * - ``platform``
-    - ``platform``
-    - Returns the SYCL platform associated with this SYCL device.
-  * - ``name``
-    - ``std::string``
-    - Returns the device name of this SYCL device.
-  * - ``vendor``
-    - ``std::string``
-    - Returns the vendor of this SYCL device.
-  * - ``driver_version``
-    - ``std::string``
-    - Returns a vendor-defined string describing the
-      version of the underlying backend software driver.
-  * - ``profile``
-    - ``std::string``
-    - Deprecated in SYCL 2020.
-
-      Returns a vendor-defined string describing the
-      version of the underlying backend software driver.
-
-      Only supported when using the OpenCL backend.
-      Throws an exception with the ``errc::invalid`` error code if
-      used with a device whose backend is not OpenCL.
-
-      The value returned can be one of the following strings:
-      ``FULL_PROFILE``, ``EMBEDDED_PROFILE``.
-  * - ``version``
-    - ``std::string``
-    - Returns a backend-defined device version.
-  * - ``backend_version``
-    - ``std::string``
-    - Returns a string describing the version of the SYCL backend
-      associated with the device.
-
-      Returns a string describing the version of the SYCL backend
-      associated with the device.
-  * - ``aspects``
-    - ``std::vector<aspect>``
-    - Returns a ``std::vector`` of aspect values supported by this SYCL device.
-  * - ``extensions``
-    - ``std::vector<std::string>``
-    - Deprecated, use ``info::device::aspects`` instead.
-
-      Returns a ``std::vector`` of extension names
-      (the extension names do not contain any spaces) supported by this SYCL device.
-
-      The extension names returned can be vendor supported extension names and one or
-      more of the following Khronos approved extension names.
-  * - ``printf_buffer_size``
-    - ``size_t``
-    - Deprecated in SYCL 2020.
-
-      Returns the maximum size of the internal buffer that holds the output of ``printf``
-      calls from a kernel. The minimum value is 1 MB if ``info::device::profile`` returns
-      true for this SYCL device.
-  * - ``preferred_interop_user_sync``
-    - ``bool``
-    - Deprecated in SYCL 2020. Only supported when using the OpenCL backend.
-      Throws an exception with the ``errc::invalid`` error code if used with
-      a device whose backend is not OpenCL.
-
-      Returns true if the preference for this SYCL device is for the user to
-      be responsible for synchronization, when sharing memory objects between
-      OpenCL and other APIs such as DirectX, false if the device/implementation
-      has a performant path for performing synchronization of memory object shared
-      between OpenCL and other APIs.
-  * - ``parent_device``
-    - ``device``
-    - Returns the parent SYCL device to which this sub-device is a child if this is
-      a sub-device.
-
-      Must throw an exception with the ``errc::invalid`` error code if
-      this SYCL device is not a sub device.
-  * - ``partition_max_sub_devices``
-    - ``uint32_t``
-    - Returns the maximum number of sub-devices that can be created when this SYCL
-      device is partitioned.
-
-      The value returned cannot exceed the value returned by
-      ``info::device::device_max_compute_units``.
-
-      .. Overflow
-
-  * - ``partition_properties``
-    - ::
-
-        std::vector<
-          info::partition_property
-        >
-
-    - Returns the partition properties supported by this SYCL device; a vector
-      of ``info::partition_property``.
-
-      An element is returned in this vector only if the device can be partitioned
-      into at least two sub devices along that partition property.
-  * - ``partition_affinity_domains``
-    - ::
-
-        std::vector<
-          info::partition_affinity_domain
-        >
-
-    - Returns a std::vector of the partition affinity domains supported by this
-      SYCL device when partitioning with
-      ``info::partition_property::partition_by_affinity_domain``.
-
-      An element is returned in this vector only if the device can be partitioned
-      into at least two sub devices along that affinity domain.
-  * - ``partition_type_property``
-    - `sycl::info::partition_property`_
-    - Returns the partition property of this SYCL device.
-
-      If this SYCL device is not a sub device then the return
-      value must be ``info::partition_property::no_partition``,
-      otherwise it must be one of the following values:
-      ``info::partition_property::partition_equally``,
-      ``info::partition_property::partition_by_counts``,
-      ``info::partition_property::partition_by_affinity_domain``.
-  * - ``partition_type_property``
-    - `sycl::info::partition_affinity_domain`_
-    - Returns the partition affinity domain of this SYCL device.
-
-      If this SYCL device is not a sub device or the sub device was not partitioned
-      with ``info::partition_type::partition_by_affinity_domain``
-      then the return value must be ``info::partition_affinity_domain::not_applicable``,
-      otherwise it must be one of the following values:
-      ``info::partition_affinity_domain::numa``,
-      ``info::partition_affinity_domain::L4_cache``,
-      ``info::partition_affinity_domain::L3_cache``,
-      ``info::partition_affinity_domain::L2_cache``,
-      ``info::partition_affinity_domain::L1_cache``.
+``sycl::info::device::device_type``
+-----------------------------------
+
+Returns the device type associated with the device.
+May not return ``sycl::info::device_type::all``.
+
+.. rubric:: Return type
+
+:ref:`info-device_type`
+
+
+``sycl::info::device::vendor_id``
+---------------------------------
+
+Returns a unique vendor device identifier.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_compute_units``
+-----------------------------------------
+
+Returns the number of parallel compute units available
+to the device. The minimum value is 1.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_work_item_dimensions``
+------------------------------------------------
+
+Returns the maximum dimensions that specify the global
+and local work-item IDs used by the data parallel execution
+model. The minimum value is 3 if this SYCL device is not of
+device type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_work_item_sizes<1>``
+----------------------------------------------
+
+Returns the maximum number of work-items that are permitted
+in a work-group for a kernel running in a one-dimensional index
+space.
+
+The minimum value is ``(1)`` for devices that are not of
+device type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+:ref:`sycl::range\<1\> <range>`
+
+
+``sycl::info::device::max_work_item_sizes<2>``
+----------------------------------------------
+
+Returns the maximum number of work-items that are permitted in
+each dimension of a work-group for a kernel running in a two-dimensional
+index space.
+
+The minimum value is ``(1, 1)`` for devices that are not of
+device type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+:ref:`sycl::range\<2\> <range>`
+
+
+``sycl::info::device::max_work_item_sizes<3>``
+----------------------------------------------
+
+Returns the maximum number of work-items that are permitted in
+each dimension of a work-group for a kernel running in a three-dimensional
+index space.
+
+The minimum value is ``(1, 1, 1)`` for devices that are not of
+device type ``info::device_type::custom``.
+
+.. rubric:: Return type
+
+:ref:`sycl::range\<3\> <range>`
+
+
+``sycl::info::device::max_work_group_size``
+-------------------------------------------
+
+Returns the maximum number of work-items that are permitted in a
+work-group executing a kernel on a single compute unit.
+
+The minimum value is 1.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::max_num_sub_groups``
+------------------------------------------
+
+Returns the maximum number of sub-groups in a work-group for
+any kernel executed on the device.
+
+The minimum value is 1.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::sub_group_sizes``
+---------------------------------------
+
+Returns a ``std::vector`` of ``size_t`` containing the
+set of sub-group sizes supported by the device.
+
+.. rubric:: Return type
+
+``std::vector<size_t>``
+
+
+``sycl::info::device::preferred_vector_width_<type>``
+-----------------------------------------------------
+
+::
+
+  sycl::info::device::preferred_vector_width_char
+  sycl::info::device::preferred_vector_width_short
+  sycl::info::device::preferred_vector_width_int
+  sycl::info::device::preferred_vector_width_long
+  sycl::info::device::preferred_vector_width_float
+  sycl::info::device::preferred_vector_width_double
+  sycl::info::device::preferred_vector_width_half
+
+Returns the preferred native vector width size for built-in
+scalar types that can be put into vectors. The vector width
+is defined as the number of scalar elements that can be stored
+in the vector.
+
+Must return 0 for ``sycl::info::device::preferred_vector_width_double``
+if the device does not have ``sycl::aspect::fp64``.
+
+Must return 0 for ``sycl::info::device::preferred_vector_width_half`` if
+the device does not have ``sycl::aspect::fp16``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::native_vector_width_<type>``
+--------------------------------------------------
+
+::
+
+  sycl::info::device::native_vector_width_char
+  sycl::info::device::native_vector_width_short
+  sycl::info::device::native_vector_width_int
+  sycl::info::device::native_vector_width_long
+  sycl::info::device::native_vector_width_float
+  sycl::info::device::native_vector_width_double
+  sycl::info::device::native_vector_width_half
+
+Returns the native ISA vector width.
+The vector width is defined as the number
+of scalar elements that can be stored in the vector.
+
+Must return 0 for ``sycl::info::device::native_vector_width_double``
+if the device does not have ``sycl::aspect::fp64``.
+
+Must return 0 for ``sycl::info::device::native_vector_width_half`` if
+the device does not have ``sycl::aspect::fp16``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_clock_frequency``
+-------------------------------------------
+
+Returns the maximum configured clock frequency of this
+SYCL device in MHz.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::address_bits``
+------------------------------------
+
+Returns the default compute device address space size
+specified as an unsigned integer value in bits.
+
+Must return either 32 or 64.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_mem_alloc_size``
+------------------------------------------
+
+Returns the maximum size of memory object allocation in bytes.
+
+The minimum value is max between ``1/4th`` of
+``sycl::info::device::global_mem_size``
+and 128*1024*1024, if this SYCL device is not of device
+type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+``uint64_t``
+
+
+``sycl::info::device::image_support``
+-------------------------------------
+
+Deprecated.
+
+Returns the same value as ``sycl::device::has(sycl::aspect::image)``.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::max_read_image_args``
+-------------------------------------------
+
+Returns the maximum number of simultaneous image objects
+that can be read from by a kernel.
+
+The minimum value is 128 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_write_image_args``
+--------------------------------------------
+
+Returns the maximum number of simultaneous image objects
+that can be written to by a kernel.
+
+The minimum value is 8 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::image2d_max_width``
+-----------------------------------------
+
+Returns the maximum width of a 2D image or 1D image in pixels.
+
+The minimum value is 8192 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::image2d_max_height``
+------------------------------------------
+
+Returns the maximum height of a 2D image in pixels.
+
+The minimum value is 8192 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::image3d_max_width``
+-----------------------------------------
+
+Returns the maximum width of a 3D image in pixels.
+
+The minimum value is 2048 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::image3d_max_height``
+------------------------------------------
+
+Returns the maximum height of a 3D image in pixels.
+
+The minimum value is 2048 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::image3d_max_depth``
+-----------------------------------------
+
+Returns the maximum depth of a 3D image in pixels.
+
+The minimum value is 2048 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::image_max_buffer_size``
+---------------------------------------------
+
+Returns the number of pixels for a 1D image created from a buffer object.
+
+The minimum value is 65536 if the SYCL device has ``sycl::aspect::image``.
+
+Note that this information is intended for OpenCL interoperability only
+as this feature is not supported in SYCL.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::max_samplers``
+------------------------------------
+
+Returns the maximum number of samplers that can be used in a kernel.
+
+The minimum value is 16 if the SYCL device has ``sycl::aspect::image``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::max_parameter_size``
+------------------------------------------
+
+Returns the maximum size in bytes of the arguments
+that can be passed to a kernel.
+
+The minimum value is 1024 if this SYCL device is not of
+device type ``sycl::info::device_type::custom``.
+For this minimum value, only a maximum
+of 128 arguments can be passed to a kernel.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::mem_base_addr_align``
+-------------------------------------------
+
+Returns the minimum value in bits of the largest
+supported SYCL built-in data
+type if this SYCL device is not of device type
+``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::half_fp_config``
+--------------------------------------
+
+Returns a ``std::vector`` of `sycl::info::fp_config`_ describing the
+half precision floating-point capability of this SYCL device.
+The ``std::vector`` must contain zero or more of the
+`sycl::info::fp_config`_ values.
+
+If half precision is supported by this SYCL device
+(i.e. the device has ``sycl::aspect::fp16``) there is no minimum floating-point
+capability.
+
+If half support is not supported the returned ``std::vector`` must be empty.
+
+.. rubric:: Return type
+
+``std::vector<sycl::info::fp_config>``
+
+
+``sycl::info::device::single_fp_config``
+----------------------------------------
+
+Returns a ``std::vector`` of `sycl::info::fp_config`_ describing the
+single precision floating-point capability of this SYCL device.
+The ``std::vector`` must contain one or more of the
+`sycl::info::fp_config`_ values.
+
+If this SYCL device is not of type ``sycl::info::device_type::custom``
+then the minimum floating-point capability must be:
+``sycl::info::fp_config::round_to_nearest`` and
+``sycl::info::fp_config::inf_nan``.
+
+.. rubric:: Return type
+
+``std::vector<sycl::info::fp_config>``
+
+
+``sycl::info::device::double_fp_config``
+----------------------------------------
+
+Returns a ``std::vector`` of `sycl::info::fp_config`_
+describing the double precision
+floating-point capability of this SYCL device. The ``std::vector``
+may contain zero or more of the `sycl::info::fp_config`_ values.
+
+If double precision is supported by this SYCL device (i.e. the device
+has ``aspect::fp64``) and this SYCL device is not of type
+``sycl::info::device_type::custom``
+then the minimum floating-point capability must be:
+``sycl::info::fp_config::fma``,
+``sycl::info::fp_config::round_to_nearest``,
+``sycl::info::fp_config::round_to_zero``,
+``sycl::info::fp_config::round_to_inf``,
+``sycl::info::fp_config::inf_nan``
+and ``sycl::info::fp_config::denorm``.
+
+If double support is not supported the returned ``std::vector`` must be empty.
+
+.. rubric:: Return type
+
+``std::vector<sycl::info::fp_config>``
+
+
+``sycl::info::device::global_mem_cache_type``
+---------------------------------------------
+
+Returns the type of global memory cache supported.
+
+.. rubric:: Return type
+
+`sycl::info::global_mem_cache_type`_
+
+
+``sycl::info::device::global_mem_cache_line_size``
+--------------------------------------------------
+
+Returns the size of global memory cache line in bytes.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::global_mem_cache_size``
+---------------------------------------------
+
+Returns the size of global memory cache in bytes.
+
+.. rubric:: Return type
+
+``uint64_t``
+
+
+``sycl::info::device::global_mem_size``
+---------------------------------------
+
+Returns the size of global device memory in bytes.
+
+.. rubric:: Return type
+
+``uint64_t``
+
+
+``sycl::info::device::max_constant_buffer_size``
+------------------------------------------------
+
+Deprecated in SYCL 2020.
+
+Returns the maximum size in bytes of a constant buffer allocation.
+
+The minimum value is 64 KB if this SYCL device is
+not of type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+``uint64_t``
+
+
+``sycl::info::device::max_constant_args``
+-----------------------------------------
+
+Deprecated in SYCL 2020.
+
+Returns the maximum number of constant arguments
+that can be declared in a kernel.
+
+The minimum value is 8 if this SYCL device is not
+of type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::local_mem_type``
+--------------------------------------
+
+Returns the type of local memory supported.
+This can be ``sycl::info::local_mem_type::local``
+implying dedicated local memory storage such
+as SRAM, or ``sycl::info::local_mem_type::global``.
+
+If this SYCL device is of type ``sycl::info::device_type::custom``
+this can also be ``sycl::info::local_mem_type::none``,
+indicating local memory is not supported.
+
+.. rubric:: Return type
+
+`sycl::info::local_mem_type`_
+
+
+``sycl::info::device::local_mem_size``
+--------------------------------------
+
+Returns the size of local memory arena in bytes.
+
+The minimum value is 32 KB if this SYCL device
+is not of type ``sycl::info::device_type::custom``.
+
+.. rubric:: Return type
+
+``uint64_t``
+
+
+``sycl::info::device::error_correction_support``
+------------------------------------------------
+
+Returns true if the device implements error
+correction for all accesses to compute
+device memory (global and constant).
+
+Returns false if the device does not implement such error correction.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::host_unified_memory``
+-------------------------------------------
+
+Deprecated, use ``sycl::device::has()`` with one
+of the ``sycl::aspect::usm_*`` aspects instead.
+
+Returns true if the device and the host have a
+unified memory subsystem and returns false otherwise.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::atomic_memory_order_capabilities``
+--------------------------------------------------------
+
+Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|)
+supported by atomic operations on the device.
+
+When a device returns a "stronger" memory order
+in this set, it must also return all
+"weaker" memory orders. The memory orders
+``sycl::memory_order::acquire``, ``sycl::memory_order::release``,
+and ``sycl::memory_order::acq_rel`` are all
+the same strength. If a device returns one of these,
+it must return them all.
+
+At a minimum, each device must support ``sycl::memory_order::relaxed``.
+
+.. rubric:: Return type
+
+``std::vector<sycl::memory_order>``
+
+
+``sycl::info::device::atomic_fence_order_capabilities``
+-------------------------------------------------------
+
+Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|) supported by
+``atomic_fence`` on the device.
+
+When a device returns a "stronger" memory order in this set,
+it must also return all "weaker" memory orders.
+
+At a minimum, each device must support ``sycl::memory_order::relaxed``,
+``sycl::memory_order::acquire``, ``sycl::memory_order::release``,
+and ``sycl::memory_order::acq_rel``.
+
+.. rubric:: Return type
+
+``std::vector<sycl::memory_order>``
+
+
+``sycl::info::device::atomic_memory_scope_capabilities``
+--------------------------------------------------------
+
+Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
+atomic operations on the device.
+
+When a device returns a "wider" memory scope in this set,
+it must also return all "narrower" memory scopes.
+
+At a minimum, each device must support ``sycl::memory_scope::work_item``,
+``sycl::memory_scope::sub_group``, and ``sycl::memory_scope::work_group``.
+
+.. rubric:: Return type
+
+``std::vector<sycl::memory_scope>``
+
+
+``sycl::info::device::atomic_fence_scope_capabilities``
+-------------------------------------------------------
+
+Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
+``atomic_fence`` on the device.
+
+When a device returns a "wider" memory scope in this set,
+it must also return all "narrower" memory scopes.
+
+At a minimum, each device must support ``sycl::memory_scope::work_item``,
+``sycl::memory_scope::sub_group``, and ``sycl::memory_scope::work_group``.
+
+.. rubric:: Return type
+
+``std::vector<sycl::memory_scope>``
+
+
+``sycl::info::device::profiling_timer_resolution``
+--------------------------------------------------
+
+Returns the resolution of device timer in nanoseconds.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::is_endian_little``
+----------------------------------------
+
+Deprecated. Check the byte order of the host system instead.
+The host and device are required to have the same byte order.
+
+Returns true if this SYCL device is a little endian device and
+returns false otherwise.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::is_available``
+------------------------------------
+
+Returns true if the SYCL device is available and returns false
+if the device is not available.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::is_compiler_available``
+---------------------------------------------
+
+Deprecated.
+
+Returns the same value as ``sycl::device::has(sycl::aspect::online_compiler)``.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::is_linker_available``
+-------------------------------------------
+
+Deprecated.
+
+Returns the same value as ``sycl::device::has(sycl::aspect::online_linker)``.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::execution_capabilities``
+----------------------------------------------
+
+Returns a ``std::vector`` of the `sycl::info::execution_capability`_
+describing the supported execution capabilities.
+
+Note that this information is intended for OpenCL interoperability only
+as SYCL only supports ``sycl::info::execution_capability::exec_kernel``.
+
+.. rubric:: Return type
+
+``std::vector<sycl::info::execution_capability>``
+
+
+``sycl::info::device::platform``
+--------------------------------
+
+Returns the SYCL platform associated with this SYCL device.
+
+.. rubric:: Return type
+
+``sycl::platform``
+
+
+``sycl::info::device::name``
+----------------------------
+
+Returns the device name of this SYCL device.
+
+.. rubric:: Return type
+
+``std::string``
+
+
+``sycl::info::device::vendor``
+------------------------------
+
+Returns the vendor of this SYCL device.
+
+.. rubric:: Return type
+
+``std::string``
+
+
+``sycl::info::device::driver_version``
+--------------------------------------
+
+Returns a vendor-defined string describing the
+version of the underlying backend software driver.
+
+.. rubric:: Return type
+
+``std::string``
+
+
+``sycl::info::device::profile``
+-------------------------------
+
+Deprecated in SYCL 2020.
+
+Returns a vendor-defined string describing the
+version of the underlying backend software driver.
+
+Only supported when using the OpenCL backend.
+Throws an exception with the ``errc::invalid`` error code if
+used with a device whose backend is not OpenCL.
+
+The value returned can be one of the following strings:
+``FULL_PROFILE``, ``EMBEDDED_PROFILE``.
+
+.. rubric:: Return type
+
+``std::string``
+
+
+``sycl::info::device::version``
+-------------------------------
+
+Returns a backend-defined device version.
+
+.. rubric:: Return type
+
+``std::string``
+
+
+``sycl::info::device::backend_version``
+---------------------------------------
+
+Returns a string describing the version of the SYCL backend
+associated with the device.
+
+The possible values are specified in the SYCL backend
+specification of the SYCL backend associated with the device.
+
+.. rubric:: Return type
+
+``std::string``
+
+
+``sycl::info::device::aspects``
+-------------------------------
+
+Returns a ``std::vector`` of :ref:`aspect <device-aspects>`
+values supported by this SYCL device.
+
+.. rubric:: Return type
+
+``std::vector<sycl::aspect>``
+
+
+``sycl::info::device::extensions``
+----------------------------------
+
+Deprecated, use ``sycl::info::device::aspects`` instead.
+
+Returns a ``std::vector`` of extension names
+(the extension names do not contain any spaces) supported by
+this SYCL device.
+
+The extension names returned can be vendor supported extension names
+and one or more of the following Khronos approved extension names.
+
+.. rubric:: Return type
+
+``std::vector<std::string>``
+
+
+``sycl::info::device::printf_buffer_size``
+------------------------------------------
+
+Deprecated in SYCL 2020.
+
+Returns the maximum size of the internal buffer that holds the
+output of ``printf`` calls from a kernel. The minimum value is
+1 MB if ``sycl::info::device::profile`` returns true for this SYCL device.
+
+.. rubric:: Return type
+
+``size_t``
+
+
+``sycl::info::device::preferred_interop_user_sync``
+---------------------------------------------------
+
+Deprecated in SYCL 2020. Only supported when using the OpenCL backend.
+Throws an exception with the ``errc::invalid`` error code if used with
+a device whose backend is not OpenCL.
+
+Returns true if the preference for this SYCL device is for the user to
+be responsible for synchronization, when sharing memory objects between
+OpenCL and other APIs such as DirectX, false if the device/implementation
+has a performant path for performing synchronization of memory object shared
+between OpenCL and other APIs.
+
+.. rubric:: Return type
+
+``bool``
+
+
+``sycl::info::device::parent_device``
+-------------------------------------
+
+Returns the parent SYCL device to which this sub-device is a child if this is
+a sub-device.
+
+Must throw an exception with the ``errc::invalid`` error code if
+this SYCL device is not a sub device.
+
+.. rubric:: Return type
+
+``sycl::device``
+
+
+``sycl::info::device::partition_max_sub_devices``
+-------------------------------------------------
+
+Returns the maximum number of sub-devices that can be created when this SYCL
+device is partitioned.
+
+The value returned cannot exceed the value returned by
+``sycl::info::device::device_max_compute_units``.
+
+.. rubric:: Return type
+
+``uint32_t``
+
+
+``sycl::info::device::partition_properties``
+--------------------------------------------
+
+Returns the partition properties supported by this SYCL device; a vector
+of ``sycl::info::partition_property``.
+
+An element is returned in this vector only if the device can be partitioned
+into at least two sub devices along that partition property.
+
+.. rubric:: Return type
+
+``std::vector<sycl::info::partition_property>``
+
+
+``sycl::info::device::partition_affinity_domains``
+--------------------------------------------------
+
+Returns a std::vector of the partition affinity domains supported by this
+SYCL device when partitioning with
+``sycl::info::partition_property::partition_by_affinity_domain``.
+
+An element is returned in this vector only if the device can be partitioned
+into at least two sub devices along that affinity domain.
+
+.. rubric:: Return type
+
+``std::vector<sycl::info::partition_affinity_domain>``
+
+
+``sycl::info::device::partition_type_property``
+-----------------------------------------------
+
+Returns the partition property of this SYCL device.
+
+If this SYCL device is not a sub device then the return
+value must be ``sycl::info::partition_property::no_partition``,
+otherwise it must be one of the following values:
+``sycl::info::partition_property::partition_equally``,
+``sycl::info::partition_property::partition_by_counts``,
+``sycl::info::partition_property::partition_by_affinity_domain``.
+
+.. rubric:: Return type
+
+`sycl::info::partition_property`_
+
+
+``sycl::info::device::partition_type_affinity_domain``
+------------------------------------------------------
+
+Returns the partition affinity domain of this SYCL device.
+
+If this SYCL device is not a sub device or the sub device was not partitioned
+with ``sycl::info::partition_type::partition_by_affinity_domain``
+then the return value must be
+``sycl::info::partition_affinity_domain::not_applicable``,
+otherwise it must be one of the following values:
+``sycl::info::partition_affinity_domain::numa``,
+``sycl::info::partition_affinity_domain::L4_cache``,
+``sycl::info::partition_affinity_domain::L3_cache``,
+``sycl::info::partition_affinity_domain::L2_cache``,
+``sycl::info::partition_affinity_domain::L1_cache``.
+
+.. rubric:: Return type
+
+`sycl::info::partition_affinity_domain`_
+
+
 
 Return types
 ============
