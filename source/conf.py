@@ -75,14 +75,12 @@ sycl_ref_url = (
     "https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html"
 )
 
-
 def make_ref(ref_str, ref_view, ref_sufix):
     return (
         f".. |{ref_str}| replace:: SYCL Specification "
         f"`{ref_view} <{sycl_ref_url}{ref_sufix}>`__"
         f"\n"
     )
-
 
 prolog_template = string.Template(
     make_ref(
