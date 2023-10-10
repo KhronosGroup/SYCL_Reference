@@ -381,12 +381,28 @@ Information descriptors
 Used as a template parameter for get_info_ to determine the type of
 information.
 
+.. list-table::
+   :header-rows: 1
+
+   * - Descriptor
+     - Return type
+     - Description
+   * -
+     - 
+     - 
+
+====================================
+Information descriptors return types
+====================================
+
 .. _info-device_type:
 
 ``sycl::info::device_type``
 ===========================
 
 ::
+
+  namespace sycl::info {
 
   enum class device_type : unsigned int {
     cpu,         // Maps to OpenCL CL_DEVICE_TYPE_CPU
@@ -398,6 +414,8 @@ information.
     all          // Maps to OpenCL CL_DEVICE_TYPE_ALL
   };
 
+  } // namespace sycl::info
+
 .. rubric:: Example
 
 See :ref:`get_devices-example`.
@@ -407,6 +425,8 @@ See :ref:`get_devices-example`.
 
 ::
 
+  namespace sycl::info {
+
   enum class partition_property : int {
     no_partition,
     partition_equally,
@@ -414,12 +434,16 @@ See :ref:`get_devices-example`.
     partition_by_affinity_domain
   };
 
+  } // namespace sycl::info
+
 See create_sub_devices_.
 
 ``sycl::info::partition_affinity_domain``
 =========================================
 
 ::
+
+  namespace sycl::info {
 
   enum class partition_affinity_domain : int {
     not_applicable,
@@ -431,6 +455,8 @@ See create_sub_devices_.
     next_partitionable
   };
 
+  } // namespace sycl::info
+
 See create_sub_devices_.
 
 .. _local_mem_type:
@@ -440,7 +466,15 @@ See create_sub_devices_.
 
 ::
 
-  enum class local_mem_type : int { none, local, global };
+  namespace sycl::info {
+
+  enum class local_mem_type : int { 
+    none, 
+    local, 
+    global 
+  };
+
+  } // namespace sycl::info
 
 See get_info_.
 
@@ -450,6 +484,8 @@ See get_info_.
 =========================
 
 ::
+
+  namespace sycl::info {
 
   enum class fp_config : int {
     denorm,
@@ -462,6 +498,8 @@ See get_info_.
     soft_float
   };
 
+  } // namespace sycl::info
+
 See get_info_.
 
 .. _cache_type:
@@ -471,7 +509,15 @@ See get_info_.
 
 ::
 
-  enum class global_mem_cache_type : int { none, read_only, read_write };
+  namespace sycl::info {
+
+  enum class global_mem_cache_type : int { 
+    none, 
+    read_only, 
+    read_write 
+  };
+
+  } // namespace sycl::info
 
 See get_info_.
 
@@ -482,10 +528,14 @@ See get_info_.
 
 ::
 
+  namespace sycl::info {
+
   enum class execution_capability : unsigned int {
     exec_kernel,
     exec_native_kernel
   };
+
+  } // namespace sycl::info
 
 See get_info_.
 
