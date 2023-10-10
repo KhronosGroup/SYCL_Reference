@@ -580,8 +580,6 @@ information.
       half precision floating-point capability of this SYCL device.
       The ``std::vector`` must contain zero or more of the `sycl::info::fp_config`_ values.
 
-      .. TODO: Add to info::fp_config
-
       If half precision is supported by this SYCL device
       (i.e. the device has ``aspect::fp16``) there is no minimum floating-point
       capability.
@@ -593,8 +591,6 @@ information.
       single precision floating-point capability of this SYCL device.
       The ``std::vector`` must contain one or more of the `sycl::info::fp_config`_ values.
 
-      .. TODO: Add to info::fp_config
-
       If this SYCL device is not of type ``info::device_type::custom``
       then the minimum floating-point capability must be:
       ``info::fp_config::round_to_nearest`` and ``info::fp_config::inf_nan``.
@@ -603,8 +599,6 @@ information.
     - Returns a ``std::vector`` of `sycl::info::fp_config`_ describing the double precision
       floating-point capability of this SYCL device. The ``std::vector``
       may contain zero or more of the `sycl::info::fp_config`_ values.
-
-      .. TODO: Add to info::fp_config
 
       If double precision is supported by this SYCL device (i.e. the device
       has ``aspect::fp64``) and this SYCL device is not of type ``info::device_type::custom``
@@ -979,6 +973,25 @@ See get_info_.
   };
 
   } // namespace sycl::info
+
+.. list-table::
+
+  * - ``sycl::info::fp_config::denorm``
+    - ``Denorms`` are supported.
+  * - ``sycl::info::fp_config::inf_nan``
+    - ``INF`` and ``NaNs`` are supported.
+  * - ``sycl::info::fp_config::round_to_nearest``
+    - Round to nearest even rounding mode is supported.
+  * - ``sycl::info::fp_config::round_to_zero``
+    - Round to zero rounding mode is supported.
+  * - ``sycl::info::fp_config::round_to_inf``
+    - Round to positive and negative infinity rounding modes are supported.
+  * - ``sycl::info::fp_config::fma``
+    - IEEE754-2008 fused multiply-add is supported.
+  * - ``sycl::info::fp_config::soft_float``
+    - Basic floating-point operations (such as addition, subtraction,
+      multiplication) are implemented in software.
+
 
 See get_info_.
 
