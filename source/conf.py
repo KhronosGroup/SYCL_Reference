@@ -76,19 +76,21 @@ sycl_ref_url = (
 )
 
 
-def make_ref(ref_str, sec_num, section_ref):
+def make_ref(ref_str, ref_num, ref_sufix):
     return (
         f".. |{ref_str}| replace:: SYCL Specification "
-        f"`Section {sec_num} <{sycl_ref_url}#sec:{section_ref}>`__"
+        f"`Section {ref_num} <{sycl_ref_url}{ref_sufix}>`__"
         f"\n"
     )
 
 
 prolog_template = string.Template(
-    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "headers-and-namespaces")
-    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "device-selector")
-    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "platform-class")
-    + make_ref("SYCL_SPEC_DEVICE", "4.6.4", "device-class")
+    make_ref("SYCL_SPEC_HEADER_FILES", "4.3", "#sec:headers-and-namespaces")
+    + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "#sec:device-selector")
+    + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "#sec:platform-class")
+    + make_ref("SYCL_SPEC_DEVICE", "4.6.4", "#sec:device-class")
+    + make_ref("SYCL_MEMORY_ORDERING", "3.8.3.1", "#_memory_ordering")
+    + make_ref("SYCL_MEMORY_SCOPE", "3.8.3.2", "#_memory_scope")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
