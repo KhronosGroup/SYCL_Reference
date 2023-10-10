@@ -64,9 +64,10 @@ or devices are supplied.
 .. list-table::
 
   * - ``asyncHandler``
-    - Called to report asynchronous SYCL exceptions for this context
+    - Called at specific times (see |SYCL_SPEC_EXCEPTION|)  to report asynchronous SYCL
+      exceptions for this context.
   * - ``dev``
-    - Constructed context contains device
+    - Constructed context contains device.
   * - ``deviceList``
     - Constructed context contains all devices in ``deviceList``,
       which must all come from the same platform.
@@ -100,7 +101,7 @@ Returns a backend identifying the SYCL backend associated with this context.
 
 Queries this SYCL context for information requested by the template parameter
 ``Param``. The type alias ``Param::return_type`` must be defined in accordance
-with the info parameters in `sycl::info::context`_ facilitate returning the
+with the info parameters in `sycl::info::context`_ to facilitate returning the
 type associated with the ``Param`` parameter.
 
 ``get_backend_info``
@@ -210,7 +211,8 @@ information.
 ``sycl::property::context``
 ===========================
 
-The ``property_list`` constructor parameters are present for extensibility.
+The ``property_list`` constructor parameters are present for
+future extensibility.
 
 
 .. _context-example:
