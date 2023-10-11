@@ -955,7 +955,7 @@ unified memory subsystem and returns false otherwise.
 ``sycl::info::device::atomic_memory_order_capabilities``
 --------------------------------------------------------
 
-Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|)
+Returns the set of memory orders (See |SYCL_SPEC_MEMORY_ORDERING|)
 supported by atomic operations on the device.
 
 When a device returns a "stronger" memory order
@@ -976,7 +976,7 @@ At a minimum, each device must support ``sycl::memory_order::relaxed``.
 ``sycl::info::device::atomic_fence_order_capabilities``
 -------------------------------------------------------
 
-Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|) supported by
+Returns the set of memory orders (See |SYCL_SPEC_MEMORY_ORDERING|) supported by
 ``atomic_fence`` on the device.
 
 When a device returns a "stronger" memory order in this set,
@@ -994,7 +994,7 @@ and ``sycl::memory_order::acq_rel``.
 ``sycl::info::device::atomic_memory_scope_capabilities``
 --------------------------------------------------------
 
-Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
+Returns the set of memory scopes (See |SYCL_SPEC_MEMORY_SCOPE|) supported by
 atomic operations on the device.
 
 When a device returns a "wider" memory scope in this set,
@@ -1011,7 +1011,7 @@ At a minimum, each device must support ``sycl::memory_scope::work_item``,
 ``sycl::info::device::atomic_fence_scope_capabilities``
 -------------------------------------------------------
 
-Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
+Returns the set of memory scopes (See |SYCL_SPEC_MEMORY_SCOPE|) supported by
 ``atomic_fence`` on the device.
 
 When a device returns a "wider" memory scope in this set,

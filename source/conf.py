@@ -89,8 +89,8 @@ prolog_template = string.Template(
     + make_ref("SYCL_SPEC_DEVICE_SELECTORS", "4.6.1.1", "#sec:device-selector")
     + make_ref("SYCL_SPEC_PLATFORM", "4.6.2", "#sec:platform-class")
     + make_ref("SYCL_SPEC_DEVICE", "4.6.4", "#sec:device-class")
-    + make_ref("SYCL_MEMORY_ORDERING", "3.8.3.1", "#_memory_ordering")
-    + make_ref("SYCL_MEMORY_SCOPE", "3.8.3.2", "#_memory_scope")
+    + make_ref("SYCL_SPEC_MEMORY_ORDERING", "3.8.3.1", "#_memory_ordering")
+    + make_ref("SYCL_SPEC_MEMORY_SCOPE", "3.8.3.2", "#_memory_scope")
     + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "#sec:interface.context.class")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
