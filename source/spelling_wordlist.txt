@@ -9,6 +9,7 @@ backends
 destructor
 atomics
 dimensionality
+extensibility
 runtime
 runtimes
 subdevices

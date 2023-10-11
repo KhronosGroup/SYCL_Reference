@@ -91,6 +91,7 @@ prolog_template = string.Template(
     + make_ref("SYCL_SPEC_DEVICE", "4.6.4", "#sec:device-class")
     + make_ref("SYCL_MEMORY_ORDERING", "3.8.3.1", "#_memory_ordering")
     + make_ref("SYCL_MEMORY_SCOPE", "3.8.3.2", "#_memory_scope")
+    + make_ref("SYCL_SPEC_CONTEXT", "4.6.3", "#sec:interface.context.class")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -99,7 +100,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_CONTEXT| replace:: `SYCL Specification`_ Section 4.6.3
 .. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
 .. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
