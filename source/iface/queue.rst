@@ -107,8 +107,6 @@ from asynchronous host tasks, construct the queue with an
      - Device for queue.
    * - ``syclContext``
      - Associate queue with the context.
-   * - ``clQueue``
-     - Associate queue with OpenCL|trade| queue.
 
 .. rubric:: Exceptions
 
@@ -138,9 +136,8 @@ associated with this ``queue``.
 
   context get_context() const;
 
-Returns the SYCL queue’s context. Reports errors using SYCL exception classes.
-The value returned must be equal to that returned by
-``get_info<info::queue::context>()``.
+Returns the SYCL queue’s context. The value returned must
+be equal to that returned by ``get_info<info::queue::context>()``.
 
 ``get_device``
 ==============
@@ -149,9 +146,9 @@ The value returned must be equal to that returned by
 
   device get_device() const;
 
-Returns the SYCL device the queue is associated with. Reports errors using
-SYCL exception classes. The value returned must be equal to that returned
-by ``get_info<info::queue::device>()``.
+Returns the SYCL device the queue is associated with.
+The value returned must be equal to that returned by
+``get_info<info::queue::device>()``.
 
 ``is_in_order``
 ===============
@@ -215,7 +212,7 @@ errors, as described in |SYCL_SPEC_WITHOUT_ASYC_HANDLER|.
 
 Queries this SYCL ``queue`` for information requested by the template
 parameter ``Param``. The type alias ``Param::return_type`` must be defined
-in accordance with the info parameters in |SYCL_SPEC_QUEUE_INFO_DESC|
+in accordance with the info parameters in `sycl::info::queue`_
 to facilitate returning the type associated with the ``Param`` parameter.
 
 .. _queue-submit:
@@ -230,25 +227,11 @@ to facilitate returning the type associated with the ``Param`` parameter.
   template <typename T> event submit(T cgf, queue& secondaryQueue);
 
 Submit a command group function object to the queue, in order to be scheduled
-for execution on the device. On a kernel error, this command group function
-object is then scheduled for execution on the secondary queue. Returns
-an event, which corresponds to the queue the command group function object
+for execution on the device. In the context of the second overload,
+if a kernel error occurs, this command group function object is then
+scheduled for execution on the secondary queue. Returns an event,
+which corresponds to the queue the command group function object
 is being enqueued on.
-
-``get_backend_info``
-====================
-
-::
-
-  template <typename Param>
-  typename Param::return_type get_backend_info() const;
-
-Queries this SYCL ``queue`` for SYCL backend-specific information requested by
-the template parameter ``Param``. The type alias ``Param::return_type``
-must defined in accordance with the SYCL backend specification. Must throw
-an ``exception`` with the ``errc::backend_mismatch`` error code if the SYCL
-backend that corresponds with ``Param`` is different from the SYCL backend
-that is associated with this ``queue``.
 
 .. rubric:: Template parameters
 
@@ -284,13 +267,33 @@ if an error occurs executing on the primary queue.
 
 See `queue-example-1`_.
 
+``get_backend_info``
+====================
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_backend_info() const;
+
+Queries this SYCL ``queue`` for SYCL backend-specific information requested by
+the template parameter ``Param``. The type alias ``Param::return_type``
+must defined in accordance with the SYCL backend specification. Must throw
+an ``exception`` with the ``errc::backend_mismatch`` error code if the SYCL
+backend that corresponds with ``Param`` is different from the SYCL backend
+that is associated with this ``queue``.
+
 
 ==================
 Shortcut functions
 ==================
 
-The full list of queue shortcuts is
-defined in |SYCL_SPEC_QUEUE_SHOURTCUT_FUNC|.
+Queue shortcut functions are part of the queue class and simplify command
+group creation. They generate a command group with a single command,
+invoke a corresponding member function in the handler, and submit the group.
+The key distinction is that handler member functions return void,
+while queue shortcuts return an event object representing the submitted
+command group. You can specify a list of events to wait on, just like
+using handler::depends_on for the implicit command group.
 
 ``single_task``
 ===============

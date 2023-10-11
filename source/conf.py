@@ -103,10 +103,6 @@ prolog_template = string.Template(
         "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
     )
     + make_ref(
-        "SYCL_SPEC_QUEUE_SHOURTCUT_FUNC", "Table 29", "#table.queue.shortcuts"
-    )
-    + make_ref("SYCL_SPEC_QUEUE_INFO_DESC", "Table 30", "#table.queue.info")
-    + make_ref(
         "SYCL_SPEC_QUEUE_PROPERTIES", "Table 31", "#table.properties.queue"
     )
     + make_ref("SYCL_SPEC_ERROR_HANDLING", "Section 4.13", "#error-handling")
