@@ -659,7 +659,7 @@ information.
       Returns true if the device and the host have a unified memory subsystem and returns false otherwise.
   * - ``atomic_memory_order_capabilities``
     - ``std::vector<memory_order>``
-    - Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|) supported by atomic
+    - Returns the set of memory orders (See |SYCL_SPEC_MEMORY_ORDERING|) supported by atomic
       operations on the device.
 
       When a device returns a "stronger" memory order in this set, it must also return all
@@ -670,7 +670,7 @@ information.
       At a minimum, each device must support ``memory_order::relaxed``.
   * - ``atomic_fence_order_capabilities``
     - ``std::vector<memory_order>``
-    - Returns the set of memory orders (See |SYCL_MEMORY_ORDERING|) supported by
+    - Returns the set of memory orders (See |SYCL_SPEC_MEMORY_ORDERING|) supported by
       ``atomic_fence`` on the device.
 
       When a device returns a "stronger" memory order in this set,
@@ -680,7 +680,7 @@ information.
       ``memory_order::acquire``, ``memory_order::release``, and ``memory_order::acq_rel``.
   * - ``atomic_memory_scope_capabilities``
     - ``std::vector<memory_scope>``
-    - Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
+    - Returns the set of memory scopes (See |SYCL_SPEC_MEMORY_SCOPE|) supported by
       atomic operations on the device.
 
       When a device returns a "wider" memory scope in this set,
@@ -690,7 +690,7 @@ information.
       ``memory_scope::sub_group``, and ``memory_scope::work_group``.
   * - ``atomic_fence_scope_capabilities``
     - ``std::vector<memory_scope>``
-    - Returns the set of memory scopes (See |SYCL_MEMORY_SCOPE|) supported by
+    - Returns the set of memory scopes (See |SYCL_SPEC_MEMORY_SCOPE|) supported by
       ``atomic_fence`` on the device.
 
       When a device returns a "wider" memory scope in this set,
