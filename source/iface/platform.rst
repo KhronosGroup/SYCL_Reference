@@ -155,7 +155,6 @@ See `platform-example`_.
 Information descriptors
 =======================
 
-========================
 ``sycl::info::platform``
 ========================
 
@@ -173,27 +172,42 @@ Information descriptors
 Used as a template parameter for get_info_ to determine
 the type of information.
 
-.. list-table::
-   :header-rows: 1
+.. rubric:: ``sycl::info::platform::version``
 
-   * - Descriptor
-     - Return type
-     - Description
-   * - version
-     - std::string
-     - Returns a backend-defined platform version.
-   * - name
-     - std::string
-     - Returns the name of the platform.
-   * - vendor
-     - std::string
-     - Returns the name of the vendor providing the platform.
-   * - extensions
-     - std::vector<std::string>
-     - Deprecated, use ``sycl::device::get_info()``
-       with ``sycl::info::device::aspects`` instead.
-       Returns the extensions supported by the platform.
+Returns a backend-defined platform version.
 
++--------------------------------------+
+| Return type: ``std::string``         |
++--------------------------------------+
+
+
+.. rubric:: ``sycl::info::platform::name``
+
+Returns the name of the platform.
+
++--------------------------------------+
+| Return type: ``std::string``         |
++--------------------------------------+
+
+
+.. rubric:: ``sycl::info::platform::vendor``
+
+Returns the name of the vendor providing the platform.
+
++--------------------------------------+
+| Return type: ``std::string``         |
++--------------------------------------+
+
+
+.. rubric:: ``sycl::info::platform::extensions``
+
+Deprecated, use ``sycl::device::get_info()``
+with ``sycl::info::device::aspects`` instead.
+Returns the extensions supported by the platform.
+
++---------------------------------------------------+
+| Return type: ``std::vector<std::string>``         |
++---------------------------------------------------+
 
 .. _platform-example:
 
