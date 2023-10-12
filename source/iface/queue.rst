@@ -85,12 +85,13 @@ All other constructors construct a queue as determined by the
 parameters provided. All constructors will implicitly construct a SYCL
 ``platform``, ``device`` and ``context`` in order to
 facilitate the construction of the queue.
-Each constructor takes as the last parameter an optional SYCL ``property_lis``
+Each constructor takes as the last parameter an optional SYCL ``property_list``
 to provide properties to the SYCL ``queue``.
 
 The SYCL runtime may execute tasks asynchronously. To catch exceptions
 from asynchronous host tasks, construct the queue with an
-``asyncHandler`` and call wait_ or wait_and_throw_.
+``asyncHandler`` and call ``queue::wait_and_throw()``,
+``queue::throw_asynchronous()`` or ``event::wait_and_throw()``.
 
 .. rubric:: Parameters
 
