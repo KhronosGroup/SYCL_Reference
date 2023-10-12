@@ -64,7 +64,7 @@ or devices are supplied.
 .. list-table::
 
   * - ``asyncHandler``
-    - Called at specific times (see |SYCL_SPEC_EXCEPTION|)  to report asynchronous SYCL
+    - Called at specific times (see |SYCL_SPEC_ERROR_HANDLING|)  to report asynchronous SYCL
       exceptions for this context.
   * - ``dev``
     - Constructed context contains device.
