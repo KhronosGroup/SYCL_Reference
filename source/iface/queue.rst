@@ -85,7 +85,6 @@ All other constructors construct a queue as determined by the
 parameters provided. All constructors will implicitly construct a SYCL
 ``platform``, ``device`` and ``context`` in order to
 facilitate the construction of the queue.
-
 Each constructor takes as the last parameter an optional SYCL ``property_lis``
 to provide properties to the SYCL ``queue``.
 
@@ -233,12 +232,6 @@ scheduled for execution on the secondary queue. Returns an event,
 which corresponds to the queue the command group function object
 is being enqueued on.
 
-.. rubric:: Template parameters
-
-=================  ===
-``T``
-=================  ===
-
 .. rubric:: Parameters
 
 .. list-table::
@@ -293,7 +286,7 @@ invoke a corresponding member function in the handler, and submit the group.
 The key distinction is that handler member functions return void,
 while queue shortcuts return an event object representing the submitted
 command group. You can specify a list of events to wait on, just like
-using handler::depends_on for the implicit command group.
+using ``handler::depends_on`` for the implicit command group.
 
 ``single_task``
 ===============
