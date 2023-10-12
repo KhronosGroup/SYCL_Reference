@@ -78,9 +78,9 @@ or devices are supplied.
 .. todo:: Examples that combines the functions
 
 
-===============
-Member function
-===============
+================
+Member functions
+================
 
 ``get_backend``
 ===============
