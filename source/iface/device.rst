@@ -589,7 +589,7 @@ The minimum value is one of two values:
 * 1/4 of ``sycl::info::device::global_mem_size``
 * 128 * 1024 * 1024
 
-whichever is larger, if this SYCL device 
+whichever is larger, if this SYCL device
 is not of device type ``sycl::info::device_type::custom``.
 
 +-----------------------------+
@@ -1057,7 +1057,7 @@ as SYCL only supports ``sycl::info::execution_capability::exec_kernel``.
 
 Deprecated.
 
-Returns the same value as 
+Returns the same value as
 ``sycl::device::has(sycl::aspect::queue_profiling)``.
 
 +----------------------------+
@@ -1067,7 +1067,7 @@ Returns the same value as
 
 .. rubric:: ``sycl::info::device::built_in_kernel_ids``
 
-Returns a ``std::vector`` of identifiers for the 
+Returns a ``std::vector`` of identifiers for the
 built-in kernels supported by this SYCL device.
 
 +----------------------------------------------------+
@@ -1077,10 +1077,10 @@ built-in kernels supported by this SYCL device.
 
 .. rubric:: ``sycl::info::device::built_in_kernels``
 
-Deprecated. 
+Deprecated.
 Use ``sycl::info::device::built_in_kernel_ids`` instead.
 
-Returns a ``std::vector`` of built-in OpenCL 
+Returns a ``std::vector`` of built-in OpenCL
 kernels supported by this SYCL device.
 
 +------------------------------------------------+
