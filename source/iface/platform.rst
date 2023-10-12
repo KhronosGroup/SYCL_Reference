@@ -47,9 +47,9 @@ copy of the platform which contains the device returned by
 constructs a SYCL platform instance that is a copy of the platform which
 contains the device returned by the device selector parameter.
 
-===============
-Member function
-===============
+================
+Member functions
+================
 
 ``get_backend``
 ===============
@@ -133,9 +133,9 @@ SYCL platform which have the device type encapsulated by ``deviceType``.
 
 See `platform-example`_.
 
-======================
-Static member function
-======================
+=======================
+Static member functions
+=======================
 
 ``get_platforms``
 =================
@@ -162,10 +162,10 @@ Information descriptors
 
   namespace sycl::info::platform {
 
-  version;
-  name;
-  vendor;
-  extensions;
+  struct version;
+  struct name;
+  struct vendor;
+  struct extensions;
 
   }  // namespace sycl::info::platform
 

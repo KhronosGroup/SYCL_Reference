@@ -261,9 +261,12 @@ which must be one of the following values:
   specified by the ``Prop`` template argument.
 
 ``errc::invalid``
-  If the device's maximum number of sub devices is less than ``count``,
-  number of non-zero values in ``counts`` or the total of all the values
-  in the ``counts`` vector.
+  In the following cases:
+
+  * If the ``count`` parameter is greater than the number of compute units in the device (``sycl::info::device::max_compute_units``).
+  * If the sum of the values in the ``counts`` vector is greater than the number of compute units in the device (``sycl::info::device::max_compute_units``).
+  * If the number of non-zero elements in the ``counts`` vector is greater than the maximum number of sub-devices for the device (``sycl::info::device::partition_max_sub_devices``).
+
 
 =======================
 Static member functions
@@ -581,10 +584,13 @@ Must return either 32 or 64.
 
 Returns the maximum size of memory object allocation in bytes.
 
-The minimum value is max between ``1/4th`` of
-``sycl::info::device::global_mem_size``
-and 128*1024*1024, if this SYCL device is not of device
-type ``sycl::info::device_type::custom``.
+The minimum value is one of two values:
+
+* 1/4 of ``sycl::info::device::global_mem_size``
+* 128 * 1024 * 1024
+
+whichever is larger, if this SYCL device 
+is not of device type ``sycl::info::device_type::custom``.
 
 +-----------------------------+
 | Return type: ``uint64_t``   |
@@ -1047,6 +1053,41 @@ as SYCL only supports ``sycl::info::execution_capability::exec_kernel``.
 +---------------------------------------------------------------------+
 
 
+.. rubric:: ``sycl::info::device::queue_profiling``
+
+Deprecated.
+
+Returns the same value as 
+``sycl::device::has(sycl::aspect::queue_profiling)``.
+
++----------------------------+
+| Return type: ``bool``      |
++----------------------------+
+
+
+.. rubric:: ``sycl::info::device::built_in_kernel_ids``
+
+Returns a ``std::vector`` of identifiers for the 
+built-in kernels supported by this SYCL device.
+
++----------------------------------------------------+
+| Return type: ``std::vector<sycl::kernel_id>``      |
++----------------------------------------------------+
+
+
+.. rubric:: ``sycl::info::device::built_in_kernels``
+
+Deprecated. 
+Use ``sycl::info::device::built_in_kernel_ids`` instead.
+
+Returns a ``std::vector`` of built-in OpenCL 
+kernels supported by this SYCL device.
+
++------------------------------------------------+
+| Return type: ``std::vector<std::string>``      |
++------------------------------------------------+
+
+
 .. rubric:: ``sycl::info::device::platform``
 
 Returns the SYCL platform associated with this SYCL device.
@@ -1143,8 +1184,7 @@ Returns a ``std::vector`` of extension names
 (the extension names do not contain any spaces) supported by
 this SYCL device.
 
-The extension names returned can be vendor supported extension names
-and one or more of the following Khronos approved extension names.
+The extension names returned can be vendor supported extension names.
 
 +----------------------------------------------------+
 | Return type: ``std::vector<sycl::string>``         |
@@ -1278,7 +1318,7 @@ Return types
 
   namespace sycl::info {
 
-  enum class device_type : unsigned int {
+  enum class device_type : /* unspecified */ {
     cpu,         // Maps to OpenCL CL_DEVICE_TYPE_CPU
     gpu,         // Maps to OpenCL CL_DEVICE_TYPE_GPU
     accelerator, // Maps to OpenCL CL_DEVICE_TYPE_ACCELERATOR
@@ -1301,7 +1341,7 @@ See :ref:`get_devices-example`.
 
   namespace sycl::info {
 
-  enum class partition_property : int {
+  enum class partition_property : /* unspecified */ {
     no_partition,
     partition_equally,
     partition_by_counts,
@@ -1319,7 +1359,7 @@ See create_sub_devices_.
 
   namespace sycl::info {
 
-  enum class partition_affinity_domain : int {
+  enum class partition_affinity_domain : /* unspecified */ {
     not_applicable,
     numa,
     L4_cache,
@@ -1342,7 +1382,7 @@ See create_sub_devices_.
 
   namespace sycl::info {
 
-  enum class local_mem_type : int {
+  enum class local_mem_type : /* unspecified */ {
     none,
     local,
     global
@@ -1361,7 +1401,7 @@ See get_info_.
 
   namespace sycl::info {
 
-  enum class fp_config : int {
+  enum class fp_config : /* unspecified */ {
     denorm,
     inf_nan,
     round_to_nearest,
@@ -1404,7 +1444,7 @@ See get_info_.
 
   namespace sycl::info {
 
-  enum class global_mem_cache_type : int {
+  enum class global_mem_cache_type : /* unspecified */ {
     none,
     read_only,
     read_write
@@ -1423,7 +1463,7 @@ See get_info_.
 
   namespace sycl::info {
 
-  enum class execution_capability : unsigned int {
+  enum class execution_capability : /* unspecified */ {
     exec_kernel,
     exec_native_kernel
   };
