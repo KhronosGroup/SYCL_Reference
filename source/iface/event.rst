@@ -17,13 +17,24 @@ Events
 
 ::
 
-   class event;
+  class event;
 
-Events support the explicit control of scheduling of kernels, and
-querying status of a running kernel. Operations like
-:ref:`queue-submit` that queue a kernel for execution may accept an
-event to wait on and return an event associated with the queued
-kernel.
+An event in SYCL is an object that represents the
+status of an operation that is being executed by
+the SYCL runtime.
+
+Although an event represents the status of a particular
+operation, the dependencies of a certain event can be
+used to keep track of multiple steps required to
+synchronize said operation.
+
+A SYCL event is returned by the submission of a command group.
+The dependencies of the event returned via the submission of
+the command group are the implementation-defined commands
+associated with the command group execution.
+
+The SYCL event class provides the
+:ref:`common reference semantics <common-reference>`.
 
 .. seealso:: |SYCL_SPEC_EVENT|
 
@@ -33,39 +44,44 @@ kernel.
 ::
 
   event();
-  event(cl_event clEvent, const sycl::context& syclContext);
 
-Construct an event.
+Constructs an event that is immediately ready.
 
-``cl_event_get``
+The event has no dependencies and no associated commands.
+
+Waiting on this event will return immediately and querying
+its status will return ``sycl::info::event_command_status::complete``.
+
+The event is constructed as though it was created
+from a default-constructed queue.
+Therefore, its backend is the same as the backend from the default device.
+
+
+================
+Member functions
 ================
 
-::
-
-  cl_event get();
-
-
-Returns OpenCL|trade| event associated with this event.
-
-``is_host``
-===========
+``get_backend``
+===============
 
 ::
 
-  bool is_host() const;
+  backend get_backend() const noexcept;
 
-
-Returns True if this a host event.
+Returns a backend identifying the SYCL backend associated with this event.
 
 ``get_wait_list``
 =================
 
 ::
 
-  sycl::vector_class<sycl::event> get_wait_list();
+  std::vector<sycl::event> get_wait_list();
 
+Return the list of events that this event waits for in the dependence graph.
 
-Returns vector of events that this events waits on.
+Only direct dependencies are returned, and not transitive dependencies that
+direct dependencies wait on. Whether already completed events are included
+in the returned list is implementation-defined.
 
 ``wait``
 ========
@@ -74,16 +90,7 @@ Returns vector of events that this events waits on.
 
   void wait();
 
-Wait for the associated command to complete.
-
-``wait``
-========
-
-::
-
-  static void wait(const sycl::vector_class<sycl::event> &eventList);
-
-Wait for vector of events to complete.
+Wait for the event and the command associated with it to complete.
 
 ``wait_and_throw``
 ==================
@@ -92,117 +99,253 @@ Wait for vector of events to complete.
 
   void wait_and_throw();
 
-Wait for an event to complete, and pass asynchronous errors to handler
-associated with the command.
+Wait for the event and the command associated with it to complete.
+
+Any unconsumed asynchronous errors from any context that the event
+was waiting on executions from will be passed to the ``async_handler``
+associated with the context. If no user defined ``async_handler`` is
+associated with the context, then an implementation-defined default
+``async_handler`` is called to handle any errors.
+
+=======================
+Static member functions
+=======================
+
+``wait``
+========
+
+::
+
+  static void wait(const std::vector<event>& eventList);
+
+Synchronously wait on a list of events.
 
 ``wait_and_throw``
 ==================
 
 ::
 
-  static void wait_and_throw(const sycl::vector_class<sycl::event> &eventList);
+  static void wait_and_throw(const std::vector<event>& eventList);
 
-Wait for a vector of events to complete, and pass asynchronous errors
-to handlers associated with the commands.
+Synchronously wait on a list of events.
+
+Any unconsumed asynchronous errors from any context that the event
+was waiting on executions from will be passed to the ``async_handler``
+associated with the context. If no user defined ``async_handler`` is
+associated with the context, then an implementation-defined default
+``async_handler`` is called to handle any errors.
 
 ``get_info``
 ============
 
 ::
 
-  template <sycl::info::event param>
-  typename sycl::info::param_traits<sycl::info::event, param>::return_type get_info() const;
+  template <typename Param>
+  typename Param::return_type get_info() const;
 
-Returns information about the queue as determined by ``param``. See
-`sycl::info::event`_ for details.
 
+Queries this SYCL event for information requested by the template
+parameter ``Param``.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the :ref:`information parameters <event_descriptors>` to
+facilitate returning the type associated with the ``Param`` parameter.
+
+``get_backend_info``
+====================
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_backend_info() const;
+
+Queries this SYCL event for SYCL backend-specific information requested
+by the template parameter ``Param``.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the SYCL backend specification.
+
+.. rubric:: Exceptions
+
+``errc::backend_mismatch``
+  If the SYCL backend that corresponds with ``Param`` is different from
+  the SYCL backend that is associated with this event.
 
 ``get_profiling_info``
 ======================
 
 ::
 
-  template <sycl::info::event_profiling param>
-  typename sycl::info::param_traits<sycl::info::event_profiling, param>::return_type get_profiling_info() const;
+  template <typename Param>
+  typename Param::return_type get_profiling_info() const;
 
-Returns information about the queue as determined by ``param``. See
-`sycl::info::event_profiling`_ for details.
+Queries this SYCL event for profiling information requested by the
+parameter ``Param``.
 
-=====================
+If the requested profiling information is unavailable when
+``get_profiling_info`` is called due to incompletion of
+command groups associated with the event, then the call
+to ``get_profiling_info`` will block until the requested
+profiling information is available.
+
+An example is asking for ``sycl::info::event_profiling::command_end``
+when the associated command group action has yet to finish execution.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the :ref:`information profiling parameters <event_profiling_descriptors>`
+to facilitate returning the type associated with the ``Param`` parameter.
+
+.. rubric:: Exceptions
+
+``errc::invalid``
+  if the SYCL queue which submitted the command group this SYCL event
+  is associated with was not constructed with the
+  ``sycl::property::queue::enable_profiling`` property.
+
+.. rubric:: Example
+
+See `event-elapsed-time`_.
+
+=====================================
+Information and profiling descriptors
+=====================================
+
+.. _event_descriptors:
+
 ``sycl::info::event``
 =====================
 
 ::
 
-   enum class event: int {
-     command_execution_status,
-     reference_count
-   };
+  namespace sycl::info::event {
+
+  struct command_execution_status;
+
+  } // namespace sycl::info::event
 
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-.. list-table::
-   :header-rows: 1
+.. rubric:: ``sycl::info::event::command_execution_status``
 
-   * - Descriptor
-     - Return type
-     - Description
-   * - ``command_execution_status``
-     - ``sycl::info::event_command_status``
-     - See `sycl::info::event_command_status`_
-   * - ``reference_count``
-     - ``cl_uint``
-     - Reference count of the event
+Returns the event status of the command group and contained
+action (e.g. kernel invocation) associated with this SYCL event.
 
-====================================
++---------------------------------------------------------+
+| Return type: `sycl::info::event_command_status`_        |
++---------------------------------------------------------+
+
+Return types
+============
+
 ``sycl::info::event_command_status``
-====================================
+------------------------------------
 
 ::
 
-   enum class event_command_status : int {
-     submitted,
-     running,
-     complete
-   };
+  namespace sycl::info {
 
+  enum class event_command_status : /* unspecified */ {
+    submitted,
+    running,
+    complete
+  };
 
-===============================
+  } // namespace sycl::info
+
+.. list-table::
+
+  * - ``sycl::info::event_command_status::submitted``
+    - Indicates that the command has been submitted to the SYCL
+      queue but has not yet started running on the device.
+  * - ``sycl::info::event_command_status::running``
+    - Indicates that the command has started running on the device
+      but has not yet completed.
+  * - ``sycl::info::event_command_status::complete``
+    - Indicates that the command has finished running on the device.
+      Attempting to wait on such an event will not block.
+
+.. _event_profiling_descriptors:
+
 ``sycl::info::event_profiling``
 ===============================
 
 ::
 
-   enum class event_profiling : int {
-     command_submit,
-     command_start,
-     command_end
-   };
+  namespace sycl::info::event_profiling  {
+
+  struct command_submit;
+  struct command_start;
+  struct command_end;
+
+  } // namespace sycl::info::event_profiling
 
 Used as a template parameter for get_profiling_info_ to determine the
 type of information.
 
-.. list-table::
-   :header-rows: 1
+Each profiling descriptor returns a 64-bit timestamp
+that represents the number of nanoseconds that have
+elapsed since some implementation-defined timebase.
 
-   * - Descriptor
-     - Return type
-     - Description
-   * - command_submit
-     - ``cl_ulong``
-     - Time in nanoseconds when :ref:`command_group` was submitted
-   * - command_start
-     - ``cl_ulong``
-     - Time in nanoseconds when :ref:`command_group` started execution
-   * - command_end
-     - ``cl_ulong``
-     - Time in nanoseconds when :ref:`command_group` finished
-       execution
+All events that share the same backend are guaranteed
+to share the same timebase, therefore the difference
+between two timestamps from the same backend yields
+the number of nanoseconds that have elapsed between
+those events.
 
-Kernel execution time = ``command_start`` - ``command_end``
+.. rubric:: ``sycl::info::event_profiling::command_submit``
 
-Total command group processing time = ``command_submit`` - ``command_end``
+Returns a timestamp telling when the associated command group
+was submitted to the :ref:`queue`.
+
+This is always some time after the command group function
+object returns and before the associated call
+to ``sycl::queue::submit`` returns.
+
++----------------------------------+
+| Return type: ``uint64_t``        |
++----------------------------------+
+
+
+.. rubric:: ``sycl::info::event_profiling::command_start``
+
+Querying this profiling descriptor blocks until the event's state
+becomes either ``sycl::info::event_command_status::running``
+or ``sycl::info::event_command_status::complete``.
+
+The returned timestamp tells when the action associated with the
+command group (e.g. kernel invocation) started executing on the device.
+
+For any given event, this timestamp is always greater than or equal to
+the ``sycl::info::event_profiling::command_submit`` timestamp.
+
+Implementations are encouraged to return a timestamp that is as close
+as possible to the point when the action starts running on the device,
+but there is no specific accuracy that is guaranteed.
+
++----------------------------------+
+| Return type: ``uint64_t``        |
++----------------------------------+
+
+
+.. rubric:: ``sycl::info::event_profiling::command_end``
+
+Querying this profiling descriptor blocks until the event's state
+becomes ``sycl::info::event_command_status::complete``.
+
+The returned timestamp tells when the action associated with the
+command group (e.g. kernel invocation) finished executing on the device.
+
+For any given event, this timestamp is always greater than or equal
+to the ``sycl::info::event_profiling::command_start`` timestamp.
+
++----------------------------------+
+| Return type: ``uint64_t``        |
++----------------------------------+
+
+.. rubric:: Example
+
+See `event-elapsed-time`_.
 
 .. _event-elapsed-time:
 
@@ -217,7 +360,7 @@ event profiling info.
    :lines: 5-
    :linenos:
 
-Output:
+Output example:
 
 .. literalinclude:: /examples/event-elapsed-time.out
    :lines: 5-
