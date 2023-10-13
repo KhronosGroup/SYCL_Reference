@@ -102,11 +102,11 @@ Wait for the event and the command associated with it to complete.
 
 Wait for the event and the command associated with it to complete.
 
-Any unconsumed asynchronous errors from any context that the event
-was waiting on executions from will be passed to the ``async_handler``
-associated with the context. If no user defined ``async_handler`` is
-associated with the context, then an implementation-defined default
-``async_handler`` is called to handle any errors.
+Any unconsumed asynchronous errors from the event's queue will be
+passed to the ``async_handler`` that is associated with the queue or
+with the queue's context. If neither the queue nor the context has
+a user defined ``async_handler``, then an implementation-defined
+default ``async_handler`` is called to handle any errors.
 
 
 ``get_info``
@@ -203,11 +203,11 @@ Synchronously wait on a list of events.
 
 Synchronously wait on a list of events.
 
-Any unconsumed asynchronous errors from any context that the event
-was waiting on executions from will be passed to the ``async_handler``
-associated with the context. If no user defined ``async_handler`` is
-associated with the context, then an implementation-defined default
-``async_handler`` is called to handle any errors.
+Any unconsumed asynchronous errors from the event's queue will be
+passed to the ``async_handler`` that is associated with the queue or
+with the queue's context. If neither the queue nor the context has
+a user defined ``async_handler``, then an implementation-defined
+default ``async_handler`` is called to handle any errors.
 
 
 =====================================
