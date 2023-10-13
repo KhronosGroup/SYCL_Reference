@@ -19,7 +19,7 @@ Events
 
   class event;
 
-An event in SYCL is an object that represents the
+An ``event`` in SYCL is an object that represents the
 status of an operation that is being executed by
 the SYCL runtime.
 
@@ -33,7 +33,7 @@ The dependencies of the event returned via the submission of
 the command group are the implementation-defined commands
 associated with the command group execution.
 
-The SYCL event class provides the
+The SYCL ``event`` class provides the
 :ref:`common reference semantics <common-reference>`.
 
 .. seealso:: |SYCL_SPEC_EVENT|
@@ -45,15 +45,15 @@ The SYCL event class provides the
 
   event();
 
-Constructs an event that is immediately ready.
+Constructs an ``event`` that is immediately ready.
 
-The event has no dependencies and no associated commands.
+The ``event`` has no dependencies and no associated commands.
 
-Waiting on this event will return immediately and querying
+Waiting on this ``event`` will return immediately and querying
 its status will return ``sycl::info::event_command_status::complete``.
 
-The event is constructed as though it was created
-from a default-constructed queue.
+The ``sycl::event`` is constructed as though it was created
+from a default-constructed :ref:`queue`.
 Therefore, its backend is the same as the backend from the default device.
 
 
@@ -68,14 +68,15 @@ Member functions
 
   backend get_backend() const noexcept;
 
-Returns a backend identifying the SYCL backend associated with this event.
+Returns a ``sycl::backend`` identifying the SYCL backend
+associated with this ``sycl::event``.
 
 ``get_wait_list``
 =================
 
 ::
 
-  std::vector<sycl::event> get_wait_list();
+  std::vector<event> get_wait_list();
 
 Return the list of events that this event waits for in the dependence graph.
 
@@ -107,6 +108,79 @@ associated with the context. If no user defined ``async_handler`` is
 associated with the context, then an implementation-defined default
 ``async_handler`` is called to handle any errors.
 
+
+``get_info``
+============
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_info() const;
+
+
+Queries this SYCL ``event`` for information requested by the template
+parameter ``Param``.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the :ref:`information parameters <event_descriptors>` to
+facilitate returning the type associated with the ``Param`` parameter.
+
+``get_backend_info``
+====================
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_backend_info() const;
+
+Queries this SYCL ``event`` for SYCL backend-specific information requested
+by the template parameter ``Param``.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the SYCL backend specification.
+
+.. rubric:: Exceptions
+
+``errc::backend_mismatch``
+  If the SYCL backend that corresponds with ``Param`` is different from
+  the SYCL backend that is associated with this event.
+
+``get_profiling_info``
+======================
+
+::
+
+  template <typename Param>
+  typename Param::return_type get_profiling_info() const;
+
+Queries this SYCL ``event`` for profiling information requested by the
+parameter ``Param``.
+
+If the requested profiling information is unavailable when
+``get_profiling_info`` is called due to incompletion of
+command groups associated with the event, then the call
+to ``get_profiling_info`` will block until the requested
+profiling information is available.
+
+An example is asking for ``sycl::info::event_profiling::command_end``
+when the associated command group action has yet to finish execution.
+
+The type alias ``Param::return_type`` must be defined in accordance
+with the :ref:`information profiling parameters <event_profiling_descriptors>`
+to facilitate returning the type associated with the ``Param`` parameter.
+
+.. rubric:: Exceptions
+
+``errc::invalid``
+  if the SYCL queue which submitted the command group this SYCL event
+  is associated with was not constructed with the
+  ``sycl::property::queue::enable_profiling`` property.
+
+.. rubric:: Example
+
+See `event-elapsed-time`_.
+
+
 =======================
 Static member functions
 =======================
@@ -135,76 +209,6 @@ associated with the context. If no user defined ``async_handler`` is
 associated with the context, then an implementation-defined default
 ``async_handler`` is called to handle any errors.
 
-``get_info``
-============
-
-::
-
-  template <typename Param>
-  typename Param::return_type get_info() const;
-
-
-Queries this SYCL event for information requested by the template
-parameter ``Param``.
-
-The type alias ``Param::return_type`` must be defined in accordance
-with the :ref:`information parameters <event_descriptors>` to
-facilitate returning the type associated with the ``Param`` parameter.
-
-``get_backend_info``
-====================
-
-::
-
-  template <typename Param>
-  typename Param::return_type get_backend_info() const;
-
-Queries this SYCL event for SYCL backend-specific information requested
-by the template parameter ``Param``.
-
-The type alias ``Param::return_type`` must be defined in accordance
-with the SYCL backend specification.
-
-.. rubric:: Exceptions
-
-``errc::backend_mismatch``
-  If the SYCL backend that corresponds with ``Param`` is different from
-  the SYCL backend that is associated with this event.
-
-``get_profiling_info``
-======================
-
-::
-
-  template <typename Param>
-  typename Param::return_type get_profiling_info() const;
-
-Queries this SYCL event for profiling information requested by the
-parameter ``Param``.
-
-If the requested profiling information is unavailable when
-``get_profiling_info`` is called due to incompletion of
-command groups associated with the event, then the call
-to ``get_profiling_info`` will block until the requested
-profiling information is available.
-
-An example is asking for ``sycl::info::event_profiling::command_end``
-when the associated command group action has yet to finish execution.
-
-The type alias ``Param::return_type`` must be defined in accordance
-with the :ref:`information profiling parameters <event_profiling_descriptors>`
-to facilitate returning the type associated with the ``Param`` parameter.
-
-.. rubric:: Exceptions
-
-``errc::invalid``
-  if the SYCL queue which submitted the command group this SYCL event
-  is associated with was not constructed with the
-  ``sycl::property::queue::enable_profiling`` property.
-
-.. rubric:: Example
-
-See `event-elapsed-time`_.
 
 =====================================
 Information and profiling descriptors
