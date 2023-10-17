@@ -10,6 +10,6 @@
 .. toctree::
    :maxdepth: 1
 
-   iface/usm-malloc
-   iface/usm_allocator
-   iface/usm
+   iface/usm_basic_concept
+   iface/usm_allocations
+   iface/usm_pointer_queries
