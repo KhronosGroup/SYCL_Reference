@@ -78,9 +78,9 @@ or devices are supplied.
 .. todo:: Examples that combines the functions
 
 
-===============
-Member function
-===============
+================
+Member functions
+================
 
 ``get_backend``
 ===============
@@ -147,7 +147,6 @@ Information descriptors
 =======================
 
 
-=======================
 ``sycl::info::context``
 =======================
 
@@ -167,45 +166,115 @@ Information descriptors
 Used as a template parameter for get_info_ to determine the type of
 information.
 
-.. list-table::
-   :header-rows: 1
+.. rubric:: ``sycl::info::context::platform``
 
-   * - Descriptor
-     - Return type
-     - Description
-   * - platform
-     - :ref:`platform`
-     - Returns the platform associated with the context.
-   * - devices
-     - ``std::vector<device>``
-     - Returns all of the devices associated with the context.
-   * - atomic_memory_order_capabilities
-     - ``std::vector<memory_order>``
-     - This query applies only to the capabilities of atomic operations that are applied to memory that can be
-       concurrently accessed by multiple devices in the context. If these capabilities
-       are not uniform across all devices in the context, the query reports only the capabilities that are common for all devices.
+Returns the platform associated with the context.
 
-       Returns the set of memory orders supported by these atomic operations. When a context returns a "stronger" memory order in this set, it must also return all "weaker" memory orders. (See
-       |SYCL_SPEC_MEMORY_ORDERING| for a definition of "stronger" and "weaker" memory orders.) The memory orders ``memory_order::acquire``, ``emory_order::release``, and ``memory_order::acq_rel`` are all the same strength. If a context returns one of these, it must return them all.
++--------------------------------------+
+| Return type: :ref:`platform`         |
++--------------------------------------+
 
-       At a minimum, each context must support ``memory_order::relaxed``.
-   * - atomic_fence_order_capabilities
-     - ``std::vector<memory_order>``
-     -  This query applies only to the capabilities of ``atomic_fence`` when applied to memory that can be
-        concurrently accessed by multiple devices in the context. If these capabilities are not uniform across all devices in the context, the query reports only the capabilities that are common for all devices.
 
-        Returns the set of memory orders supported by these ``atomic_fence`` operations. When a context returns a "stronger" memory order in this set, it must also return all "weaker" memory orders. (See |SYCL_SPEC_MEMORY_ORDERING| for a definition of "stronger" and "weaker" memory orders.)
+.. rubric:: ``sycl::info::context::devices``
 
-        At a minimum, each context must support ``memory_order::relaxed``, ``memory_order::acquire``, ``memory_order::release``, and ``memory_order::acq_rel``.
-   * - atomic_memory_scope_capabilities
-     - ``std::vector<memory_scope>``
-     -  Returns the set of memory scopes supported by atomic operations on all devices in the context. When a
-        context returns a "wider" memory scope in this set, it must also return all "narrower" memory scopes. (See |SYCL_SPEC_MEMORY_SCOPE| for a definition of "wider" and "narrower" scopes.) At a minimum, each context must support ``memory_scope::work_item``, ``memory_scope::sub_group``, and ``memory_scope::work_group``.
-   * - atomic_fence_scope_capabilities
-     - ``std::vector<memory_scope>``
-     -  Returns the set of memory orderings supported by ``atomic_fence`` on all devices in the context.
-        When a context returns a "wider" memory scope in this set, it must also return all "narrower" memory scopes. (See |SYCL_SPEC_MEMORY_SCOPE| for a definition of "wider" and "narrower" scopes.)
-        At a minimum, each context must support ``memory_scope::work_item``, ``memory_scope::sub_group``, and ``memory_scope::work_group``.
+Returns all of the devices associated with the context.
+
++----------------------------------------------------+
+| Return type: ``std::vector<sycl::device>``         |
++----------------------------------------------------+
+
+
+.. rubric:: ``sycl::info::context::atomic_memory_order_capabilities``
+
+This query applies only to the capabilities of atomic
+operations that are applied to memory that can be
+concurrently accessed by multiple devices in the context.
+
+If these capabilities are not uniform across all devices in
+the context, the query reports only the capabilities that
+are common for all devices.
+
+Returns the set of memory orders supported by these atomic
+operations. When a context returns a "stronger" memory order
+in this set, it must also return all "weaker" memory orders.
+(See |SYCL_SPEC_MEMORY_ORDERING| for a definition of "stronger"
+and "weaker" memory orders.)
+
+The memory orders ``sycl::memory_order::acquire``,
+``sycl::memory_order::release``, and ``sycl::memory_order::acq_rel``
+are all the same strength. If a context
+returns one of these, it must return them all.
+
+At a minimum, each context must support ``sycl::memory_order::relaxed``.
+
++----------------------------------------------------------+
+| Return type: ``std::vector<sycl::memory_order>``         |
++----------------------------------------------------------+
+
+
+.. rubric:: ``sycl::info::context::atomic_fence_order_capabilities``
+
+This query applies only to the capabilities of
+``atomic_fence`` when applied to memory that can be
+concurrently accessed by multiple devices in the context.
+
+If these capabilities are not uniform across all devices
+in the context, the query reports only the capabilities
+that are common for all devices.
+
+Returns the set of memory orders supported by these
+``atomic_fence`` operations. When a context returns
+a "stronger" memory order in this set, it must also
+return all "weaker" memory orders.
+(See |SYCL_SPEC_MEMORY_ORDERING| for a definition of
+"stronger" and "weaker" memory orders.)
+
+At a minimum, each context must support
+``sycl::memory_order::relaxed``, ``sycl::memory_order::acquire``,
+``sycl::memory_order::release``, and ``sycl::memory_order::acq_rel``.
+
++----------------------------------------------------------+
+| Return type: ``std::vector<sycl::memory_order>``         |
++----------------------------------------------------------+
+
+
+.. rubric:: ``sycl::info::context::atomic_memory_scope_capabilities``
+
+Returns the set of memory scopes supported by atomic
+operations on all devices in the context.
+
+When a context returns a "wider" memory scope in this
+set, it must also return all "narrower" memory scopes.
+(See |SYCL_SPEC_MEMORY_SCOPE| for a definition of "wider"
+and "narrower" scopes.)
+
+At a minimum, each context must support
+``sycl::memory_scope::work_item``,
+``sycl::memory_scope::sub_group``,
+and ``sycl::memory_scope::work_group``.
+
++----------------------------------------------------------+
+| Return type: ``std::vector<sycl::memory_scope>``         |
++----------------------------------------------------------+
+
+.. rubric:: ``sycl::info::context::atomic_memory_scope_capabilities``
+
+Returns the set of memory orderings supported by
+``atomic_fence`` on all devices in the context.
+
+When a context returns a "wider" memory scope in this
+set, it must also return all "narrower" memory scopes.
+(See |SYCL_SPEC_MEMORY_SCOPE| for a definition of "wider"
+and "narrower" scopes.)
+
+At a minimum, each context must support
+``sycl::memory_scope::work_item``,
+``sycl::memory_scope::sub_group``, and
+``sycl::memory_scope::work_group``.
+
++----------------------------------------------------------+
+| Return type: ``std::vector<sycl::memory_scope>``         |
++----------------------------------------------------------+
 
 ===========================
 ``sycl::property::context``

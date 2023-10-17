@@ -47,9 +47,9 @@ copy of the platform which contains the device returned by
 constructs a SYCL platform instance that is a copy of the platform which
 contains the device returned by the device selector parameter.
 
-===============
-Member function
-===============
+================
+Member functions
+================
 
 ``get_backend``
 ===============
@@ -133,9 +133,9 @@ SYCL platform which have the device type encapsulated by ``deviceType``.
 
 See `platform-example`_.
 
-======================
-Static member function
-======================
+=======================
+Static member functions
+=======================
 
 ``get_platforms``
 =================
@@ -155,7 +155,6 @@ See `platform-example`_.
 Information descriptors
 =======================
 
-========================
 ``sycl::info::platform``
 ========================
 
@@ -163,37 +162,52 @@ Information descriptors
 
   namespace sycl::info::platform {
 
-  version;
-  name;
-  vendor;
-  extensions;
+  struct version;
+  struct name;
+  struct vendor;
+  struct extensions;
 
   }  // namespace sycl::info::platform
 
 Used as a template parameter for get_info_ to determine
 the type of information.
 
-.. list-table::
-   :header-rows: 1
+.. rubric:: ``sycl::info::platform::version``
 
-   * - Descriptor
-     - Return type
-     - Description
-   * - version
-     - std::string
-     - Returns a backend-defined platform version.
-   * - name
-     - std::string
-     - Returns the name of the platform.
-   * - vendor
-     - std::string
-     - Returns the name of the vendor providing the platform.
-   * - extensions
-     - std::vector<std::string>
-     - Deprecated, use ``sycl::device::get_info()``
-       with ``sycl::info::device::aspects`` instead.
-       Returns the extensions supported by the platform.
+Returns a backend-defined platform version.
 
++--------------------------------------+
+| Return type: ``std::string``         |
++--------------------------------------+
+
+
+.. rubric:: ``sycl::info::platform::name``
+
+Returns the name of the platform.
+
++--------------------------------------+
+| Return type: ``std::string``         |
++--------------------------------------+
+
+
+.. rubric:: ``sycl::info::platform::vendor``
+
+Returns the name of the vendor providing the platform.
+
++--------------------------------------+
+| Return type: ``std::string``         |
++--------------------------------------+
+
+
+.. rubric:: ``sycl::info::platform::extensions``
+
+Deprecated, use ``sycl::device::get_info()``
+with ``sycl::info::device::aspects`` instead.
+Returns the extensions supported by the platform.
+
++---------------------------------------------------+
+| Return type: ``std::vector<std::string>``         |
++---------------------------------------------------+
 
 .. _platform-example:
 

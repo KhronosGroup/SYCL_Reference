@@ -26,3 +26,8 @@ USM
 Namespaces
 namespace
 instantiations
+partitionable
+endian
+Khronos
+performant
+DirectX
