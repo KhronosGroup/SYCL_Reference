@@ -17,8 +17,8 @@ int main() {
     sycl::buffer<int, 1> data_buffer(data, sycl::range<1>(count));
 
     q.submit([&](sycl::handler &cgh) {
-      auto data_accessor =
-          data_buffer.get_access<sycl::access::mode::read_write>(cgh);
+      sycl::accessor data_accessor{data_buffer, cgh};
+
       cgh.parallel_for<class add_five>(sycl::range<1>(count),
                                        [=](sycl::item<1> item) {
                                          auto index = item.get_id(0);
