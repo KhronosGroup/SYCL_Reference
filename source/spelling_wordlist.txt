@@ -28,3 +28,8 @@ namespace
 instantiations
 timebase
 incompletion
+partitionable
+endian
+Khronos
+performant
+DirectX
