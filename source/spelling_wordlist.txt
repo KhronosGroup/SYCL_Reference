@@ -26,6 +26,8 @@ USM
 Namespaces
 namespace
 instantiations
+timebase
+incompletion
 partitionable
 endian
 Khronos

@@ -4,6 +4,9 @@
 
 #include <sycl/sycl.hpp>
 
+#include <cstdlib>
+#include <cstring>
+
 int main() {
   sycl::property_list properties{sycl::property::queue::enable_profiling()};
   auto q = sycl::queue(sycl::default_selector_v, properties);
@@ -18,8 +21,8 @@ int main() {
   const int alignment = 8;
 
   // Alloc memory on host
-  auto src = aligned_alloc(alignment, num_bytes);
-  memset(src, 1, num_bytes);
+  auto src = std::aligned_alloc(alignment, num_bytes);
+  std::memset(src, 1, num_bytes);
 
   // Alloc memory on device
   auto dst = sycl::malloc_device<int>(num_ints, q);

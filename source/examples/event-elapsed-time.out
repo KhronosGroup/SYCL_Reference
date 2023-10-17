@@ -2,5 +2,5 @@
 #
 # SPDX-License-Identifier: CC-BY-4.0
 
-  Platform: Intel(R) Level-Zero
-Elapsed time: 7.6692e-05 seconds
+  Platform: Intel(R) OpenCL
+Elapsed time: 0.0003652 seconds

@@ -112,6 +112,7 @@ prolog_template = string.Template(
         "Section 4.13.1.2",
         "#subsubsec:exception.nohandler",
     )
+    + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -120,7 +121,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_EVENT| replace:: `SYCL Specification`_ Section 4.6.6
 .. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
 .. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
 .. |SYCL_SPEC_BUFFER_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.9
