@@ -94,11 +94,23 @@ prolog_template = string.Template(
     + make_ref("SYCL_SPEC_PLATFORM", "Section 4.6.2", "#sec:platform-class")
     + make_ref("SYCL_SPEC_DEVICE", "Section 4.6.4", "#sec:device-class")
     + make_ref(
+        "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
+    )
+    + make_ref(
         "SYCL_SPEC_MEMORY_ORDERING", "Section 3.8.3.1", "#_memory_ordering"
     )
     + make_ref("SYCL_SPEC_MEMORY_SCOPE", "Section 3.8.3.2", "#_memory_scope")
     + make_ref(
-        "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
+        "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
+    )
+    + make_ref(
+        "SYCL_SPEC_QUEUE_PROPERTIES", "Table 31", "#table.properties.queue"
+    )
+    + make_ref("SYCL_SPEC_ERROR_HANDLING", "Section 4.13", "#error-handling")
+    + make_ref(
+        "SYCL_SPEC_WITHOUT_ASYC_HANDLER",
+        "Section 4.13.1.2",
+        "#subsubsec:exception.nohandler",
     )
     + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
     + f"""
@@ -109,7 +121,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_QUEUE| replace:: `SYCL Specification`_ Section 4.6.5
 .. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
 .. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
 .. |SYCL_SPEC_BUFFER_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.9
