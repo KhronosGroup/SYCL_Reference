@@ -113,6 +113,7 @@ prolog_template = string.Template(
         "#subsubsec:exception.nohandler",
     )
     + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
+    + make_ref("SYCL_SPEC_USM", "Section 4.8", "#sec:usm")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``

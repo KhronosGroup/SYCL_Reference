@@ -3,6 +3,8 @@
   SPDX-License-Identifier: CC-BY-4.0
 
 .. _usm_allocator:
+.. temp ref
+.. _malloc_device:
 
 .. rst-class:: api-class
 

@@ -2,288 +2,66 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. _malloc_device:
+.. _usm_basic_concept:
 
-********************
-``malloc`` Functions
-********************
+*****************
+USM Basic Concept
+*****************
 
-=======================
-``sycl::malloc_device``
-=======================
+Unified Shared Memory (USM) provides a pointer-based
+alternative to the buffer programming model.
 
-::
+USM enables:
 
-   void* sycl::malloc_device(size_t numBytes,
-                             const device& syclDevice,
-                             const context& syclContext,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_device(size_t count,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list &propList = {})
-   void* sycl::malloc_device(size_t numBytes,
-                             const queue& syclQueue,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_device(size_t count,
-                          const queue& syclQueue,
-                          const property_list &propList = {})
-   void* sycl::aligned_alloc_device(size_t alignment,
-                                    size_t numBytes,
-                                    const device& syclDevice,
-                                    const context& syclContext,
-                                    const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_device(size_t alignment,
-                                 size_t count,
-                                 const device& syclDevice,
-                                 const context& syclContext,
-                                 const property_list &propList = {})
+* Easier integration into existing code bases by representing
+  allocations as pointers rather than buffers, with full
+  support for pointer arithmetic into allocations.
+* Fine-grain control over ownership and accessibility of
+  allocations, to optimally choose between performance
+  and programmer convenience.
+* A simpler programming model, by automatically migrating
+  some allocations between SYCL devices and the host.
 
+.. seealso:: |SYCL_SPEC_USM|
 
-.. rubric:: Parameters
+==================
+Unified addressing
+==================
 
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
-==================  ===
+Unified Addressing guarantees that all devices will use a
+unified address space.
 
-Returns a pointer to the newly allocated memory on the specified
-device on success. This memory is not accessible on the host. Memory
-allocated by :ref:`sycl::malloc_device <malloc_device>` must be
-deallocated with :ref:`sycl::free <sycl-free>` to avoid memory
-leaks. If ``ctxt`` is a host context, it should behave as if calling
-:ref:`sycl::malloc_host <malloc_host>`. On failure, returns
-``nullptr``.
+Pointer values in the unified address space will always
+refer to the same location in memory. The unified address
+space encompasses the host and one or more devices.
 
-The host may not directly reference the memory, but can read and write
-the memory with :ref:`queue` member functions (:ref:`queue-memset`,
-:ref:`queue-memcpy`, :ref:`queue-fill`) or :ref:`handler` member
-functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
-:ref:`handler-fill`).
-
-See :ref:`event-elapsed-time` for usage.
-
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_device_allocation_functions>`__
-
-.. _malloc_host:
-
-=====================
-``sycl::malloc_host``
-=====================
-
-::
-
-   void* sycl::malloc_host(size_t numBytes,
-                           const context& syclContext,
-                           const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_host(size_t count,
-                        const context& syclContext,
-                        const property_list &propList = {})
-   void* sycl::malloc_host(size_t numBytes,
-                           const queue& syclQueue,
-                           const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_host(size_t count,
-                        const queue& syclQueue,
-                        const property_list &propList = {})
-   void* sycl::aligned_alloc_host(size_t alignment,
-                                  size_t numBytes,
-                                  const context& syclContext,
-                                  const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_host(size_t alignment,
-                               size_t count,
-                               const context& syclContext,
-                               const property_list &propList = {})
-   void* sycl::aligned_alloc_host(size_t alignment,
-                                  size_t numBytes,
-                                  const queue& syclQueue,
-                                  const property_list &propList = {})
-   template <typename T>
-   void* sycl::aligned_alloc_host(size_t alignment,
-                                  size_t count,
-                                  const queue& syclQueue,
-                                  const property_list &propList = {})
-
-.. rubric:: Parameters
-
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
-==================  ===
-
-Returns a pointer to the newly allocated host memory on success. Host
-and device may reference the memory.  Memory allocated by
-:ref:`sycl::malloc_host <malloc_host>` must be deallocated with
-:ref:`sycl::free <sycl-free>` to avoid memory leaks. On failure,
-returns ``nullptr``.
-
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_host_allocation_functions>`__
-
-.. _malloc_shared:
-
-=======================
-``sycl::malloc_shared``
-=======================
-
-::
-
-   void* sycl::malloc_shared(size_t numBytes,
-                             const device& syclDevice,
-                             const context& syclContext,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_shared(size_t count,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list &propList = {})
-   void* sycl::malloc_shared(size_t numBytes,
-                             const queue& syclQueue,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_shared(size_t count,
-                          const queue& syclQueue,
-                          const property_list &propList = {})
-   void* sycl::aligned_alloc_shared(size_t alignment,
-                                    size_t numBytes,
-                                    const device& syclDevice,
-                                    const context& syclContext,
-                                    const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_shared(size_t alignment,
-                                 size_t count,
-                                 const device& syclDevice,
-                                 const context& syclContext,
-                                 const property_list &propList = {})
-   void* sycl::aligned_alloc_shared(size_t alignment,
-                                    size_t numBytes,
-                                    const queue& syclQueue,
-                                    const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_shared(size_t alignment,
-                                 size_t count,
-                                 const queue& syclQueue,
-                                 const property_list &propList = {})
-
-.. rubric:: Parameters
-
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
-==================  ===
-
-
-Returns a pointer to the newly allocated shared memory on the
-specified device on success. The SYCL runtime may migrate the data
-between host and device to optimize access.  Memory allocated by
-:ref:`sycl::malloc_shared <malloc_shared>` must be deallocated with
-:ref:`sycl::free <sycl-free>` to avoid memory leaks. If ``ctxt`` is a
-host context, should behave as if calling :ref:`sycl::malloc_host
-<malloc_host>`. On failure, returns ``nullptr``.
-
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_shared_allocation_functions>`__
-
-================
-``sycl::malloc``
-================
-
-::
-
-   void *malloc(size_t numBytes,
-                const sycl::device& syclDevice,
-                const sycl::context& syclContext,
-                sycl::usm::alloc kind,
-                const sycl::property_list &propList = {})
-   template <typename T>
-   T *malloc(size_t count,
-             const sycl::device& syclDevice,
-             const sycl::context& syclContext,
-             sycl::usm::alloc kind,
-             const sycl::property_list &propList = {})
-   void *malloc(size_t numBytes,
-                const sycl::queue& syclQueue,
-                sycl::usm::alloc kind,
-                const sycl::property_list &propList = {})
-   template <typename T>
-   T *malloc(size_t count,
-             const sycl::queue& syclQueue,
-             sycl::usm::alloc kind,
-             const sycl::property_list &propList = {})
-   void *aligned_alloc(size_t alignment,
-                       size_t numBytes,
-                       const sycl::device& syclDevice,
-                       const sycl::context& syclContext,
-                       sycl::usm::alloc kind,
-                       const sycl::property_list &propList = {})
-   template <typename T>
-   T* aligned_alloc(size_t alignment,
-                    size_t count,
-                    const sycl::device& syclDevice,
-                    const sycl::context& syclContext,
-                    sycl::usm::alloc kind,
-                    const sycl::property_list &propList = {})
-   void *aligned_alloc(size_t alignment,
-                       size_t numBytes,
-                       const sycl::queue& syclQueue,
-                       sycl::usm::alloc kind,
-                       const sycl::property_list &propList = {})
-   template <typename T>
-   T* aligned_alloc(size_t alignment,
-                    size_t count,
-                    const sycl::queue& syclQueue,
-                    sycl::usm::alloc kind,
-                    const sycl::property_list &propList = {})
-
-.. rubric:: Parameters
-
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``kind``            See :ref:`usm-alloc`
-``propList``
-==================  ===
-
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_parameterized_allocation_functions>`__
+Note that this does not require addresses in the unified
+address space to be accessible on all devices, just that
+pointer values will be consistent.
 
 
 
-.. _sycl-free:
+.. _usm-example-1:
 
-==============
-``sycl::free``
-==============
+=========
+Example 1
+=========
 
-::
+Example of how shared memory can be used between host and device:
 
-   void free(void* ptr, sycl::context& context);
-   void free(void* ptr, sycl::queue& q);
+.. literalinclude:: /examples/usm-shared.cpp
+   :lines: 5-
+   :linenos:
 
-Free memory allocated by `sycl::malloc_device`_, `sycl::malloc_host`_, or
-`sycl::malloc_shared`_.
+.. _usm-example-2:
 
-See :ref:`event-elapsed-time` for usage.
+=========
+Example 2
+=========
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_memory_deallocation_functions>`__
+Example of using less capable device memory, which requires
+an explicit copy between the device and the host:
+
+.. literalinclude:: /examples/usm-device.cpp
+   :lines: 5-
+   :linenos:
