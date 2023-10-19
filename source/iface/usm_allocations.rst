@@ -20,9 +20,6 @@ and they behave similarly to ``std::aligned_alloc`` by returning ``nullptr``
 when the alignment exceeds the implementation's capabilities. Some allocation
 functions are templated on the allocated type ``T``, while others are not.
 
-For alignment guarantees
-for each category check link below:
-
 .. seealso:: |SYCL_SPEC_USM_ALLOC|
 
 ***********************
@@ -62,8 +59,6 @@ of its underlying ``value_type`` or at the alignment specified by
 ``Alignment``  Alignment of the allocation
 =============  ===
 
-.. todo change ref:`usm-alloc`
-
 There is no specialization for ``usm::alloc::device`` because an ``Allocator``
 is required to allocate memory that is accessible on the host.
 
@@ -77,6 +72,28 @@ is required to allocate memory that is accessible on the host.
 
   usm_allocator(const queue& syclQueue, const property_list& propList = {});
 
+Constructs a ``usm_allocator`` instance that allocates USM for the provided
+context and device presented with first constructor.
+The second constructor present simplified form where ``syclQueue`` provides
+the ``device`` and ``context``.
+
+.. rubric:: Exceptions
+
+``errc::invalid``
+  If ``syclContext`` does not encapsulate the SYCL ``device`` returned
+  by ``deviceSelector``.
+
+``errc::feature_not_supported``
+  If ``AllocKind`` is ``usm::alloc::host``, the first constructor throws a synchronous
+  ``exception`` with this error code if no device in ``syclContext`` has
+  ``aspect::usm_host_allocations``. The ``syclDevice`` is ignored for this allocation kind.
+
+  If ``AllocKind`` is ``usm::alloc::shared``, the first constructor throws a synchronous
+  ``exception`` with this error code if the ``syclDevice``
+  does not have ``aspect::usm_shared_allocations``.
+
+.. seealso:: `C++ Allocator <https://en.cppreference.com/w/cpp/named_req/Allocator>`__
+
 .. rubric:: Example 1
 
 .. literalinclude:: /examples/std-vector.cpp
@@ -87,26 +104,3 @@ Output:
 
 .. literalinclude:: /examples/std-vector.out
    :lines: 5-
-
-.. rubric:: Member types
-
-.. todo check why this mentoined in synopsis of the usm_allocator class
-  file:///home/mvucic/Downloads/spec-outputs/html/sycl-2020.html#_c_allocator_interface
-
-``allocate``
-============
-
-::
-
-  T *allocate(size_t Size);
-
-Allocates memory
-
-``deallocate``
-==============
-
-::
-
-  void deallocate(T *Ptr, size_t size);
-
-Deallocates memory
