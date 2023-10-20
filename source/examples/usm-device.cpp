@@ -12,7 +12,7 @@ int main() {
 
   // Allocate shared memory bound to the device and context associated to the
   // queue
-  int* data = sycl::malloc_device<int>(1024, myQueue);
+  int *data = sycl::malloc_device<int>(1024, myQueue);
 
   myQueue.parallel_for(1024, [=](sycl::id<1> idx) {
     // Initialize each buffer element with its own rank number starting at 0

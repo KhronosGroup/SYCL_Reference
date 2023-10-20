@@ -33,3 +33,8 @@ endian
 Khronos
 performant
 DirectX
+Migratable
+dereference
+dereferencing
+dereferences
+pinnable
