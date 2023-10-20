@@ -180,6 +180,10 @@ The member functions to copy and initialize data are found in
 and these functions may be used on device allocations if a device
 supports ``sycl::aspect::usm_device_allocations``.
 
+.. rubric:: Example
+
+See `usm-example-2`_.
+
 
 Host allocations
 ----------------
@@ -252,9 +256,41 @@ Whether a device supports concurrent access with atomic modification of
 shared allocations can be queried through the aspect
 ``sycl::aspect::usm_atomic_shared_allocations``.
 
+.. note::
 
-.. TODO: add performance hints explanation
+  In the most capable systems, users do not need to use SYCL USM
+  allocation functions to create shared allocations. The system
+  allocator (``malloc``/``new``) may instead be used.
+  Likewise, ``std::free`` and ``delete`` are used instead of ``sycl::free``.
 
+  Note that host and device allocations are unaffected by this change and
+  must still be allocated using their respective USM functions in order to
+  guarantee their behavior. Users may query the device to determine if
+  system allocations are supported for use on the device,
+  through ``sycl::aspect::usm_system_allocations``.
+
+.. rubric:: Performance hints
+
+1. Performance hints for shared allocations may be specified by
+   the user by enqueueing ``prefetch`` operations on a device.
+   These operations inform the SYCL runtime that the specified
+   shared allocation is likely to be accessed on the device in
+   the future, and that it is free to migrate the allocation to
+   the device. If a device supports concurrent access to shared
+   allocations, then ``prefetch`` operations may be overlapped with
+   kernel execution. More about ``prefetch`` is found in
+   :ref:`sycl::queue shortcut functions <queue_shortcut>` and `Table 132`
+2. Users also may use the ``mem_advise`` member function to
+   annotate shared allocations with ``advice``. Valid ``advice`` is defined
+   by the device and its associated backend.
+   See :ref:`sycl::queue shortcut functions <queue_shortcut>`
+   and `Table 132` for more information.
+
+.. Future update: after updating "Expressing parallelism" add ref to Table 132
+
+.. rubric:: Example
+
+See `usm-example-1`_.
 
 .. _usm-example-1:
 
