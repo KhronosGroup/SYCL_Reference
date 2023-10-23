@@ -304,6 +304,104 @@ passed to ``sycl::free`` to avoid a memory leak.
 
 See :ref:`usm-implicit-data-movement` for usage.
 
+
+==================================
+Parameterized allocation functions
+==================================
+
+The functions bellow take a ``kind`` parameter that specifies the type of
+USM to allocate. When ``kind`` is ``usm::alloc::device``, then the
+allocation device must have ``aspect::usm_device_allocations``.
+When kind is ``usm::alloc::host``, at least one device in the allocation
+context must have ``aspect::usm_host_allocations``. When ``kind`` is
+``usm::alloc::shared``, the allocation device must have
+``aspect::usm_shared_allocations``. If these requirements are violated,
+the allocation function throws a synchronous ``exception`` with the
+``errc::feature_not_supported`` error code.
+
+================
+``sycl::malloc``
+================
+
+::
+
+   void* sycl::malloc(size_t numBytes, const device& syclDevice,
+                   const context& syclContext, usm::alloc kind,
+                   const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc(size_t count, const device& syclDevice,
+                   const context& syclContext, usm::alloc kind,
+                   const property_list& propList = {});
+
+   void* sycl::malloc(size_t numBytes, const queue& syclQueue, usm::alloc kind,
+                   const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc(size_t count, const queue& syclQueue, usm::alloc kind,
+                   const property_list& propList = {});
+
+   void* sycl::aligned_alloc(size_t alignment, size_t numBytes,
+                    const device& syclDevice, const context& syclContext,
+                    usm::alloc kind, const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc(size_t alignment, size_t count, const device& syclDevice,
+                    const context& syclContext, usm::alloc kind,
+                    const property_list& propList = {});
+
+   void* sycl::aligned_alloc(size_t alignment, size_t numBytes,
+                    const queue& syclQueue, usm::alloc kind,
+                    const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc(size_t alignment, size_t count, const queue& syclQueue,
+                    usm::alloc kind, const property_list& propList = {});
+
+
+On successful USM shared allocation, these functions return a pointer to the
+newly allocated memory, which must eventually be deallocated with
+``sycl::free`` in order to avoid a memory leak. If there are not enough
+resources to allocate the requested memory, these functions return ``nullptr``.
+
+.. rubric:: Parameters
+
+==================  ===
+``alignment``       alignment of allocated data
+``numBytes``        allocation size in bytes
+``count``           number of elements
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``kind``            See `usm-alloc`
+``propList``
+==================  ===
+
+=============================
+Memory deallocation functions
+=============================
+
+==============
+``sycl::free``
+==============
+
+::
+
+   void sycl::free(void* ptr, const context& syclContext);
+
+   void sycl::free(void* ptr, const queue& syclQueue);
+
+Frees an allocation. The memory pointed to by ``ptr`` must have been
+allocated using one of the USM allocation routines. ``syclContext``
+must be the same ``context`` that was used to allocate the memory.
+The memory is freed without waiting for commands operating on
+it to be completed. If commands that use this memory are
+in-progress or are enqueued the behavior is undefined.
+The second function presented alternate form where
+``syclQueue`` provides the ``context``.
+
+See :ref:`event-elapsed-time` for usage.
+
 .. rubric:: Example 1
 
 .. literalinclude:: /examples/std-vector.cpp
