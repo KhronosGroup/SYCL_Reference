@@ -74,7 +74,7 @@ is required to allocate memory that is accessible on the host.
 
 Constructs a ``usm_allocator`` instance that allocates USM for the provided
 context and device presented with first constructor.
-The second constructor present simplified form where ``syclQueue`` provides
+The second constructor present a simplified form where ``syclQueue`` provides
 the ``device`` and ``context``.
 
 .. rubric:: Exceptions
@@ -84,11 +84,11 @@ the ``device`` and ``context``.
   by ``deviceSelector``.
 
 ``errc::feature_not_supported``
-  If ``AllocKind`` is ``usm::alloc::host``, the first constructor throws a synchronous
+  If ``AllocKind`` is ``usm::alloc::host``, the constructors throws a synchronous
   ``exception`` with this error code if no device in ``syclContext`` has
   ``aspect::usm_host_allocations``. The ``syclDevice`` is ignored for this allocation kind.
 
-  If ``AllocKind`` is ``usm::alloc::shared``, the first constructor throws a synchronous
+  If ``AllocKind`` is ``usm::alloc::shared``, the constructors throws a synchronous
   ``exception`` with this error code if the ``syclDevice``
   does not have ``aspect::usm_shared_allocations``.
 
