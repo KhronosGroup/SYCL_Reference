@@ -22,9 +22,9 @@ functions are templated on the allocated type ``T``, while others are not.
 
 .. seealso:: |SYCL_SPEC_USM_ALLOC|
 
-***********************
+=======================
 C++ allocator interface
-***********************
+=======================
 
 .. _allocator_interface:
 
@@ -94,6 +94,199 @@ the ``device`` and ``context``.
 
 .. seealso:: `C++ Allocator <https://en.cppreference.com/w/cpp/named_req/Allocator>`__
 
+
+.. _allocation_functions :
+
+====================
+Allocation functions
+====================
+
+=======================
+``sycl::malloc_device``
+=======================
+
+::
+
+   void* sycl::malloc_device(size_t numBytes, const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc_device(size_t count, const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   void* sycl::malloc_device(size_t numBytes, const queue& syclQueue,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc_device(size_t count, const queue& syclQueue,
+                          const property_list& propList = {});
+
+   void* sycl::aligned_alloc_device(size_t alignment, size_t numBytes,
+                          const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc_device(size_t alignment, size_t count,
+                          const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   void* sycl::aligned_alloc_device(size_t alignment, size_t numBytes,
+                          const queue& syclQueue,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc_device(size_t alignment, size_t count,
+                          const queue& syclQueue,
+                          const property_list& propList = {})
+
+.. rubric:: Parameters
+
+==================  ===
+``alignment``       alignment of allocated data
+``numBytes``        allocation size in bytes
+``count``           number of elements
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``propList``
+==================  ===
+
+On success USM device allocation, these functions return a pointer to the newly
+allocated memory, which must eventually be deallocated with ``sycl::free`` in
+order to avoid a memory leak. If there are not enough resources to allocate the
+requested memory, these functions return ``nullptr``.
+
+When the allocation size is zero bytes (``numBytes`` or ``count`` is zero),
+these functions behave in a manor consistent with C++ ``std::malloc``.
+The value returned is unspecified in this case, and the returned pointer
+may not be used to access storage. If this pointer is not null, it must be
+passed to ``sycl::free`` to avoid a memory leak.
+
+See :ref:`event-elapsed-time` for usage.
+
+
+=====================
+``sycl::malloc_host``
+=====================
+
+::
+
+   void* sycl::malloc_host(size_t numBytes, const context& syclContext,
+                        const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc_host(size_t count, const context& syclContext,
+                        const property_list& propList = {});
+
+   void* sycl::malloc_host(size_t numBytes, const queue& syclQueue,
+                        const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc_host(size_t count, const queue& syclQueue,
+                        const property_list& propList = {});
+
+   void* sycl::aligned_alloc_host(size_t alignment, size_t numBytes,
+                        const context& syclContext,
+                        const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc_host(size_t alignment, size_t count,
+                        const context& syclContext,
+                        const property_list& propList = {});
+
+   void* sycl::aligned_alloc_host(size_t alignment, size_t numBytes,
+                        const queue& syclQueue,
+                        const property_list& propList = {});
+
+   template <typename T>
+   void* sycl::aligned_alloc_host(size_t alignment, size_t count,
+                        const queue& syclQueue,
+                        const property_list& propList = {});
+
+.. rubric:: Parameters
+
+==================  ===
+``alignment``       alignment of allocated data
+``numBytes``        allocation size in bytes
+``count``           number of elements
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``propList``
+==================  ===
+
+On success USM host allocation, these functions return a pointer to the newly
+allocated memory, which must eventually be deallocated with ``sycl::free``
+in order to avoid a memory leak. If there are not enough resources to
+allocate the requested memory, these functions return ``nullptr``.
+
+See :ref:`usm-implicit-data-movement` for usage.
+
+=======================
+``sycl::malloc_shared``
+=======================
+
+::
+
+   void* sycl::malloc_shared(size_t numBytes, const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc_shared(size_t count, const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   void* sycl::malloc_shared(size_t numBytes, const queue& syclQueue,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::malloc_shared(size_t count, const queue& syclQueue,
+                          const property_list& propList = {});
+
+   void* sycl::aligned_alloc_shared(size_t alignment, size_t numBytes,
+                          const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc_shared(size_t alignment, size_t count,
+                          const device& syclDevice,
+                          const context& syclContext,
+                          const property_list& propList = {});
+
+   void* sycl::aligned_alloc_shared(size_t alignment, size_t numBytes,
+                          const queue& syclQueue,
+                          const property_list& propList = {});
+
+   template <typename T>
+   T* sycl::aligned_alloc_shared(size_t alignment, size_t count,
+                          const queue& syclQueue,
+                          const property_list& propList = {});
+
+.. rubric:: Parameters
+
+==================  ===
+``alignment``       alignment of allocated data
+``numBytes``        allocation size in bytes
+``count``           number of elements
+``syclDevice``      See :ref:`device`
+``syclQueue``       See :ref:`queue`
+``syclContext``     See :ref:`context`
+``propList``
+==================  ===
+
+On success USM shared allocation, these functions return a pointer to the
+newly allocated memory, which must eventually be deallocated with
+``sycl::free`` in order to avoid a memory leak. If there are not enough
+resources to allocate the requested memory, these functions return ``nullptr``.
+
+See :ref:`usm-implicit-data-movement` for usage.
+
 .. rubric:: Example 1
 
 .. literalinclude:: /examples/std-vector.cpp
@@ -103,4 +296,26 @@ the ``device`` and ``context``.
 Output:
 
 .. literalinclude:: /examples/std-vector.out
+   :lines: 5-
+
+.. _usm-implicit-data-movement:
+
+.. rubric:: Example 2
+
+In this example created two arrays, ``hostArray`` and ``sharedArray``,
+that are host and shared allocations, respectively. While both host
+and shared allocations are directly accessible in host code, we only
+initialize ``hostArray`` here. Similarly, it can be directly accessed
+inside the kernel, performing remote reads of the data. The runtime
+ensures that ``sharedArray`` is available on the device before the
+kernel accesses it and that it is moved back when it is later read
+by the host code, all without programmer intervention.
+
+.. literalinclude:: /examples/usm-implicit-data-movement.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/usm-implicit-data-movement.out
    :lines: 5-
