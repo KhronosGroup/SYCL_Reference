@@ -89,39 +89,8 @@ function to determine the level of USM support for a device
 
 .. seealso:: |SYCL_SPEC_USM_KINDS|
 
-Characteristics of the different kinds of USM allocation
---------------------------------------------------------
-
-.. list-table::
-  :header-rows: 1
-
-  * - Allocation Type
-    - Initial Location
-    - Accessible By
-    - Migratable To
-  * - ``device``
-    - ``device``
-    - * ``host`` - No
-      * ``device`` - Yes
-      * Another ``device`` - Optional (P2P)
-    - * ``host`` - No
-      * ``device`` - N/A
-      * Another ``device`` - No
-  * - ``host``
-    - ``host``
-    - * ``host`` - Yes
-      * Any ``device`` - Yes
-    - * ``host`` - N/A
-      * ``device`` - No
-  * - ``shared``
-    - Unspecified
-    - * ``host`` - Yes
-      * ``device`` - Yes
-      * Another ``device`` - Optional
-    - * ``host`` - Yes
-      * ``device`` - Yes
-      * Another ``device`` - Optional
-
+Rules of USM allocations
+------------------------
 
 Each USM allocation has an associated SYCL context, and any access to
 that memory must use the same context.
@@ -150,6 +119,32 @@ similar restriction.
   Passing a USM pointer to one of the explicit memory functions where
   the pointer is not accessible to the device generally results in
   undefined behavior.
+
+
+Host allocations
+----------------
+
+Host allocations allow devices to directly read and write host
+memory inside of a kernel.
+
+Host allocations must also be obtained using SYCL routines
+instead of system allocation routines. While a device may remotely
+read and write a host allocation, the allocation does not migrate
+to the device - it remains in host memory.
+
+.. warning::
+
+  Users should take care to properly synchronize access to
+  host allocations between host execution and kernels.
+
+The total size of host allocations will be limited by the amount
+of pinnable-memory on the host on most systems.
+
+Support for host allocations on a specific device can be queried
+through ``sycl::aspect::usm_host_allocations``.
+
+Support for atomic modification of host allocations on a specific
+device can be queried through ``sycl::aspect::usm_atomic_host_allocations``.
 
 
 Device allocations
@@ -183,32 +178,6 @@ supports ``sycl::aspect::usm_device_allocations``.
 .. rubric:: Example
 
 See `usm-example-2`_.
-
-
-Host allocations
-----------------
-
-Host allocations allow devices to directly read and write host
-memory inside of a kernel.
-
-Host allocations must also be obtained using SYCL routines
-instead of system allocation routines. While a device may remotely
-read and write a host allocation, the allocation does not migrate
-to the device - it remains in host memory.
-
-.. warning::
-
-  Users should take care to properly synchronize access to
-  host allocations between host execution and kernels.
-
-The total size of host allocations will be limited by the amount
-of pinnable-memory on the host on most systems.
-
-Support for host allocations on a specific device can be queried
-through ``sycl::aspect::usm_host_allocations``.
-
-Support for atomic modification of host allocations on a specific
-device can be queried through ``sycl::aspect::usm_atomic_host_allocations``.
 
 
 Shared allocations
@@ -256,19 +225,6 @@ Whether a device supports concurrent access with atomic modification of
 shared allocations can be queried through the aspect
 ``sycl::aspect::usm_atomic_shared_allocations``.
 
-.. note::
-
-  In the most capable systems, users do not need to use SYCL USM
-  allocation functions to create shared allocations. The system
-  allocator (``malloc``/``new``) may instead be used.
-  Likewise, ``std::free`` and ``delete`` are used instead of ``sycl::free``.
-
-  Note that host and device allocations are unaffected by this change and
-  must still be allocated using their respective USM functions in order to
-  guarantee their behavior. Users may query the device to determine if
-  system allocations are supported for use on the device,
-  through ``sycl::aspect::usm_system_allocations``.
-
 .. rubric:: Performance hints
 
 1. Performance hints for shared allocations may be specified by
@@ -291,6 +247,24 @@ shared allocations can be queried through the aspect
 .. rubric:: Example
 
 See `usm-example-1`_.
+
+
+System allocations
+------------------
+
+In the most capable systems, users do not need to use SYCL USM
+allocation functions to create shared allocations. The system
+allocator (``malloc``/``new``) may instead be used.
+Likewise, ``std::free`` and ``delete`` are used instead of ``sycl::free``.
+
+.. note::
+
+  Host and device allocations are unaffected by this change and
+  must still be allocated using their respective USM functions in order to
+  guarantee their behavior. Users may query the device to determine if
+  system allocations are supported for use on the device,
+  through ``sycl::aspect::usm_system_allocations``.
+
 
 .. _usm-example-1:
 
