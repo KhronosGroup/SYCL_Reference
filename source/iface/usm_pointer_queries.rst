@@ -2,33 +2,62 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. _usm-alloc:
+.. _usm-pointer_queries:
 
-====================
-``sycl::usm::alloc``
-====================
+*******************
+USM Pointer Queries
+*******************
 
-|2020|
+Since USM pointers look like raw C++ pointers, users
+cannot deduce what kind of USM allocation a given
+pointer may be from examining its type.
+
+Two functions are defined that let users query the
+type of a USM allocation and, if applicable, the
+:ref:`device` on which it was allocated.
+
+.. note::
+
+  These query functions are only supported on the host.
+
+.. seealso:: |SYCL_USM_POINTER_QUERIES|
+
+=======================
+Pointer query functions
+=======================
+
+``get_pointer_type``
+====================
 
 ::
 
-   enum class alloc {
-     host,
-     device,
-     shared,
-     unknown
-   };
+  sycl::usm::alloc get_pointer_type(const void* ptr, const sycl::context& syclContext);
 
-Identifies type of USM memory in calls to USM-related API.
+Returns the USM allocation type for ``ptr`` if ``ptr`` falls
+inside a valid USM allocation for the context ``syclContext``.
 
-host
-  Resides on host and also accessible by device
+Returns ``sycl::usm::alloc::unknown`` if ``ptr`` does
+not point within a valid USM allocation from ``syclContext``.
 
-device
-  Resides on device and only accessible by device
 
-shared
-  SYCL runtime may move data between host and device. Accessible by
-  host and device.
+``get_pointer_device``
+======================
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_kinds_of_unified_shared_memory>`__
+::
+
+  sycl::device get_pointer_device(const void* ptr, const sycl::context& syclContext);
+
+Returns the :ref:`device` associated with the USM allocation.
+
+If ``ptr`` points within a device USM allocation or
+a shared USM allocation for the context ``syclContext``,
+returns the same device that was passed when allocating the memory.
+
+If ``ptr`` points within a host USM allocation for the
+context ``syclContext``, returns the first device in ``syclContext``.
+
+.. rubric:: Exceptions
+
+``errc::invalid``
+  If ``ptr`` does not point within a valid
+  USM allocation from ``syclContext``.

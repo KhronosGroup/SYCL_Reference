@@ -27,7 +27,7 @@ declaring standard library containers (e.g. vector).
 
 =============  ===
 ``T``          Type of allocated element
-``AllocKind``  Type of allocation, see :ref:`usm-alloc`
+``AllocKind``  Type of allocation, see `usm-alloc`
 ``Alignment``  Alignment of the allocation
 =============  ===
 

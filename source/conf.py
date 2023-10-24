@@ -97,9 +97,11 @@ prolog_template = string.Template(
         "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
     )
     + make_ref(
-        "SYCL_SPEC_MEMORY_ORDERING", "Section 3.8.3.1", "#_memory_ordering"
+        "SYCL_SPEC_MEMORY_ORDERING", "Section 3.8.3.1", "#sec:memory-ordering"
     )
-    + make_ref("SYCL_SPEC_MEMORY_SCOPE", "Section 3.8.3.2", "#_memory_scope")
+    + make_ref(
+        "SYCL_SPEC_MEMORY_SCOPE", "Section 3.8.3.2", "#sec:memory-scope"
+    )
     + make_ref(
         "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
     )
@@ -113,6 +115,11 @@ prolog_template = string.Template(
         "#subsubsec:exception.nohandler",
     )
     + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
+    + make_ref(
+        "SYCL_USM_POINTER_QUERIES",
+        "Section 4.8.4",
+        "#_unified_shared_memory_pointer_queries",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
