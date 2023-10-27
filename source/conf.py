@@ -180,6 +180,7 @@ html_theme_options = {
     "use_issues_button": True,
     "use_edit_page_button": True,
     "repository_branch": "main",
+    "navigation_with_keys": False,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
