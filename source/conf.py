@@ -97,9 +97,11 @@ prolog_template = string.Template(
         "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
     )
     + make_ref(
-        "SYCL_SPEC_MEMORY_ORDERING", "Section 3.8.3.1", "#_memory_ordering"
+        "SYCL_SPEC_MEMORY_ORDERING", "Section 3.8.3.1", "#sec:memory-ordering"
     )
-    + make_ref("SYCL_SPEC_MEMORY_SCOPE", "Section 3.8.3.2", "#_memory_scope")
+    + make_ref(
+        "SYCL_SPEC_MEMORY_SCOPE", "Section 3.8.3.2", "#sec:memory-scope"
+    )
     + make_ref(
         "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
     )
@@ -113,6 +115,7 @@ prolog_template = string.Template(
         "#subsubsec:exception.nohandler",
     )
     + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
+    + make_ref("SYCL_SPEC_USM_ALLOC", "Section 4.8.3", "#_usm_allocations")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -131,7 +134,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MALLOC_SHARED| replace:: `SYCL Specification`_ Section 4.8.5.2
 .. |SYCL_SPEC_FREE| replace:: `SYCL Specification`_ Section 4.8.5.4
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
-.. |SYCL_SPEC_USM_ALLOC| replace:: `SYCL Specification`_ Section 4.8.3
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
@@ -178,6 +180,7 @@ html_theme_options = {
     "use_issues_button": True,
     "use_edit_page_button": True,
     "repository_branch": "main",
+    "navigation_with_keys": False,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
