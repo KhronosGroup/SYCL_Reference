@@ -74,7 +74,7 @@ types of allocations inside of a SYCL program:
   * - USM allocation type
     - Description
   * - ``host``
-    - Allocations in host memory that are accessible by a device.
+    - Allocations in host memory that are accessible by a device (in addition to the host).
   * - ``device``
     - Allocations in device memory that are not accessible by the host.
   * - ``shared``
@@ -89,8 +89,8 @@ function to determine the level of USM support for a device
 
 .. seealso:: |SYCL_SPEC_USM_KINDS|
 
-Rules of USM allocations
-------------------------
+USM accesses must be within the ``sycl::context`` used for allocation
+---------------------------------------------------------------------
 
 Each USM allocation has an associated SYCL context, and any access to
 that memory must use the same context.
@@ -100,15 +100,9 @@ with the same context that was used to allocate that memory.
 The explicit memory operation commands that take USM pointers have a
 similar restriction.
 
-.. warning::
-
-  Violations of these requirements result in undefined behavior.
-
-.. note::
-
-  There are no similar restrictions for dereferencing a USM pointer in a
-  host task. This is legal regardless of which queue the host task
-  was submitted to so long as the USM pointer is accessible on the host.
+There are no similar restrictions for dereferencing a USM pointer in a
+host task. This is legal regardless of which queue the host task
+was submitted to so long as the USM pointer is accessible on the host.
 
 .. warning::
 
@@ -159,7 +153,7 @@ or C++ ``new``.
 Device allocations are not accessible on the host, but the pointer
 values remain consistent on account of :ref:`unified_addressing`.
 
-With device allocations data directly allocated in the device memory
+With device allocations data is directly allocated in the device memory
 and it must be explicitly copied between the host and a device.
 
 The size of device allocations will be limited by the amount of
@@ -257,14 +251,15 @@ allocation functions to create shared allocations. The system
 allocator (``malloc``/``new``) may instead be used.
 Likewise, ``std::free`` and ``delete`` are used instead of ``sycl::free``.
 
+Users may query the device to determine if
+system allocations are supported for use on the device,
+through ``sycl::aspect::usm_system_allocations``.
+
 .. note::
 
   Host and device allocations are unaffected by this change and
   must still be allocated using their respective USM functions in order to
-  guarantee their behavior. Users may query the device to determine if
-  system allocations are supported for use on the device,
-  through ``sycl::aspect::usm_system_allocations``.
-
+  guarantee their behavior.
 
 .. _usm-example-1:
 
