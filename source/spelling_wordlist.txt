@@ -27,6 +27,7 @@ Namespaces
 namespace
 instantiations
 timebase
+templated
 incompletion
 partitionable
 endian

@@ -121,6 +121,7 @@ prolog_template = string.Template(
         "Section 4.8.2",
         "#_kinds_of_unified_shared_memory",
     )
+    + make_ref("SYCL_SPEC_USM_ALLOC", "Section 4.8.3", "#_usm_allocations")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -139,7 +140,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MALLOC_SHARED| replace:: `SYCL Specification`_ Section 4.8.5.2
 .. |SYCL_SPEC_FREE| replace:: `SYCL Specification`_ Section 4.8.5.4
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
-.. |SYCL_SPEC_USM_ALLOC| replace:: `SYCL Specification`_ Section 4.8.3
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
