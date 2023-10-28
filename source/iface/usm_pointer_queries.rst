@@ -10,7 +10,7 @@ USM Pointer Queries
 
 Since USM pointers look like raw C++ pointers, users
 cannot deduce what kind of USM allocation a given
-pointer may be from examining its type.
+pointer may be from by examining its type.
 
 Two functions are defined that let users query the
 type of a USM allocation and, if applicable, the
