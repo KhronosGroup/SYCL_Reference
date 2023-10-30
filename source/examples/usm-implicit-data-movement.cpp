@@ -4,7 +4,6 @@
 
 #include <sycl/sycl.hpp>
 
-using namespace sycl;
 constexpr int N = 42;
 
 int main() {
@@ -25,7 +24,7 @@ int main() {
   }
 
   q.submit([&](sycl::handler &h) {
-    h.parallel_for(N, [=](id<1> i) {
+    h.parallel_for(N, [=](sycl::id<1> i) {
       // access sharedArray and hostArray on device
       shared_array[i] = host_array[i] + 1;
     });
