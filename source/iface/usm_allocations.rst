@@ -58,7 +58,7 @@ of its underlying ``value_type`` or at the alignment specified by
 
 =============  ===
 ``T``          Type of allocated element
-``AllocKind``  Type of allocation, see :ref:`usm-alloc`
+``AllocKind``  Type of allocation, see `usm-alloc`
 ``Alignment``  Alignment of the allocation
 =============  ===
 
