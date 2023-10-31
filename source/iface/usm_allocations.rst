@@ -155,13 +155,14 @@ Allocation functions
 ``propList``
 ==================  ===
 
-On success USM device allocation, these functions return a pointer to the newly
-allocated memory, which must eventually be deallocated with ``sycl::free`` in
-order to avoid a memory leak. If there are not enough resources to allocate the
-requested memory, these functions return ``nullptr``.
+On successful USM device allocation, these functions return a pointer to
+the newly allocated memory, which must eventually be deallocated with
+``sycl::free`` in order to avoid a memory leak. If there are not enough
+resources to allocate the requested memory, these functions
+return ``nullptr``.
 
 When the allocation size is zero bytes (``numBytes`` or ``count`` is zero),
-these functions behave in a manor consistent with C++ ``std::malloc``.
+these functions behave in a manner consistent with C++ ``std::malloc``.
 The value returned is unspecified in this case, and the returned pointer
 may not be used to access storage. If this pointer is not null, it must be
 passed to ``sycl::free`` to avoid a memory leak.
@@ -203,7 +204,7 @@ See :ref:`event-elapsed-time` for usage.
                         const property_list& propList = {});
 
    template <typename T>
-   void* sycl::aligned_alloc_host(size_t alignment, size_t count,
+   T* sycl::aligned_alloc_host(size_t alignment, size_t count,
                         const queue& syclQueue,
                         const property_list& propList = {});
 
@@ -219,10 +220,17 @@ See :ref:`event-elapsed-time` for usage.
 ``propList``
 ==================  ===
 
-On success USM host allocation, these functions return a pointer to the newly
-allocated memory, which must eventually be deallocated with ``sycl::free``
-in order to avoid a memory leak. If there are not enough resources to
-allocate the requested memory, these functions return ``nullptr``.
+On successful USM host allocation, these functions return a pointer
+to the newly allocated memory, which must eventually be deallocated
+with ``sycl::free`` in order to avoid a memory leak. If there are
+not enough resources to allocate the requested memory, these functions
+return ``nullptr``.
+
+When the allocation size is zero bytes (``numBytes`` or ``count`` is zero),
+these functions behave in a manner consistent with C++ ``std::malloc``.
+The value returned is unspecified in this case, and the returned pointer
+may not be used to access storage. If this pointer is not null, it must be
+passed to ``sycl::free`` to avoid a memory leak.
 
 See :ref:`usm-implicit-data-movement` for usage.
 
@@ -280,10 +288,16 @@ See :ref:`usm-implicit-data-movement` for usage.
 ``propList``
 ==================  ===
 
-On success USM shared allocation, these functions return a pointer to the
+On successful USM shared allocation, these functions return a pointer to the
 newly allocated memory, which must eventually be deallocated with
 ``sycl::free`` in order to avoid a memory leak. If there are not enough
 resources to allocate the requested memory, these functions return ``nullptr``.
+
+When the allocation size is zero bytes (``numBytes`` or ``count`` is zero),
+these functions behave in a manner consistent with C++ ``std::malloc``.
+The value returned is unspecified in this case, and the returned pointer
+may not be used to access storage. If this pointer is not null, it must be
+passed to ``sycl::free`` to avoid a memory leak.
 
 See :ref:`usm-implicit-data-movement` for usage.
 
@@ -302,13 +316,13 @@ Output:
 
 .. rubric:: Example 2
 
-In this example created two arrays, ``hostArray`` and ``sharedArray``,
+In this example two arrays are created, ``hostArray`` and ``sharedArray``,
 that are host and shared allocations, respectively. While both host
 and shared allocations are directly accessible in host code, we only
 initialize ``hostArray`` here. Similarly, it can be directly accessed
 inside the kernel, performing remote reads of the data. The runtime
 ensures that ``sharedArray`` is available on the device before the
-kernel accesses it and that it is moved back when it is later read
+kernel accesses it and that it is later available
 by the host code, all without programmer intervention.
 
 .. literalinclude:: /examples/usm-implicit-data-movement.cpp
