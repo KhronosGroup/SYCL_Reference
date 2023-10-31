@@ -115,6 +115,11 @@ prolog_template = string.Template(
         "#subsubsec:exception.nohandler",
     )
     + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
+    + make_ref(
+        "SYCL_USM_POINTER_QUERIES",
+        "Section 4.8.4",
+        "#_unified_shared_memory_pointer_queries",
+    )
     + make_ref("SYCL_SPEC_USM_ALLOC", "Section 4.8.3", "#_usm_allocations")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}

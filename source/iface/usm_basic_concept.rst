@@ -262,7 +262,7 @@ host context, should behave as if calling :ref:`sycl::malloc_host
 ``syclDevice``      See :ref:`device`
 ``syclQueue``       See :ref:`queue`
 ``syclContext``     See :ref:`context`
-``kind``            See :ref:`usm-alloc`
+``kind``            See `usm-alloc`
 ``propList``
 ==================  ===
 

@@ -158,7 +158,7 @@ which optional features this device supports (if any).
 
 ::
 
-  bool has_extension(const string_class &extension) const;
+  bool has_extension(const std::string& extension) const;
 
 Deprecated, use ``has()`` instead.
 
