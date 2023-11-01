@@ -2,288 +2,286 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. _malloc_device:
+.. _usm_basic_concept:
 
-********************
-``malloc`` Functions
-********************
+*****************
+USM Basic Concept
+*****************
 
-=======================
-``sycl::malloc_device``
-=======================
+Unified Shared Memory (USM) provides a pointer-based
+alternative to the buffer programming model.
 
-::
+USM enables:
 
-   void* sycl::malloc_device(size_t numBytes,
-                             const device& syclDevice,
-                             const context& syclContext,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_device(size_t count,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list &propList = {})
-   void* sycl::malloc_device(size_t numBytes,
-                             const queue& syclQueue,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_device(size_t count,
-                          const queue& syclQueue,
-                          const property_list &propList = {})
-   void* sycl::aligned_alloc_device(size_t alignment,
-                                    size_t numBytes,
-                                    const device& syclDevice,
-                                    const context& syclContext,
-                                    const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_device(size_t alignment,
-                                 size_t count,
-                                 const device& syclDevice,
-                                 const context& syclContext,
-                                 const property_list &propList = {})
+* Easier integration into existing code bases by representing
+  allocations as pointers rather than buffers, with full
+  support for pointer arithmetic into allocations.
+* Fine-grain control over ownership and accessibility of
+  allocations, to optimally choose between performance
+  and programmer convenience.
+* A simpler programming model, by automatically migrating
+  some allocations between SYCL devices and the host.
 
+.. seealso:: |SYCL_SPEC_USM|
 
-.. rubric:: Parameters
+.. _unified_addressing:
 
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
-==================  ===
+==================
+Unified addressing
+==================
 
-Returns a pointer to the newly allocated memory on the specified
-device on success. This memory is not accessible on the host. Memory
-allocated by :ref:`sycl::malloc_device <malloc_device>` must be
-deallocated with :ref:`sycl::free <sycl-free>` to avoid memory
-leaks. If ``ctxt`` is a host context, it should behave as if calling
-:ref:`sycl::malloc_host <malloc_host>`. On failure, returns
-``nullptr``.
+Unified Addressing guarantees that all devices will use a
+unified address space.
 
-The host may not directly reference the memory, but can read and write
-the memory with :ref:`queue` member functions (:ref:`queue-memset`,
-:ref:`queue-memcpy`, :ref:`queue-fill`) or :ref:`handler` member
-functions (:ref:`handler-memset`, :ref:`handler-memcpy`, and
-:ref:`handler-fill`).
+Pointer values in the unified address space will always
+refer to the same location in memory. The unified address
+space encompasses the host and one or more devices.
 
-See :ref:`event-elapsed-time` for usage.
+Note that this does not require addresses in the unified
+address space to be accessible on all devices, just that
+pointer values will be consistent.
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_device_allocation_functions>`__
+.. _usm-types:
 
-.. _malloc_host:
+============
+Kinds of USM
+============
 
-=====================
-``sycl::malloc_host``
-=====================
+USM builds upon Unified Addressing to define a shared
+address space where pointer values in this space always
+refer to the same location in memory. USM defines three
+types of memory allocations: ``host``, ``device``, and ``shared``.
+
+The following ``enum`` is used to refer to the different
+types of allocations inside of a SYCL program:
 
 ::
 
-   void* sycl::malloc_host(size_t numBytes,
-                           const context& syclContext,
-                           const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_host(size_t count,
-                        const context& syclContext,
-                        const property_list &propList = {})
-   void* sycl::malloc_host(size_t numBytes,
-                           const queue& syclQueue,
-                           const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_host(size_t count,
-                        const queue& syclQueue,
-                        const property_list &propList = {})
-   void* sycl::aligned_alloc_host(size_t alignment,
-                                  size_t numBytes,
-                                  const context& syclContext,
-                                  const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_host(size_t alignment,
-                               size_t count,
-                               const context& syclContext,
-                               const property_list &propList = {})
-   void* sycl::aligned_alloc_host(size_t alignment,
-                                  size_t numBytes,
-                                  const queue& syclQueue,
-                                  const property_list &propList = {})
-   template <typename T>
-   void* sycl::aligned_alloc_host(size_t alignment,
-                                  size_t count,
-                                  const queue& syclQueue,
-                                  const property_list &propList = {})
+  namespace sycl::usm {
 
-.. rubric:: Parameters
+  enum class alloc : /* unspecified */ {
+    host,
+    device,
+    shared,
+    unknown
+  };
 
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
-==================  ===
+  } // namespace sycl::usm
 
-Returns a pointer to the newly allocated host memory on success. Host
-and device may reference the memory.  Memory allocated by
-:ref:`sycl::malloc_host <malloc_host>` must be deallocated with
-:ref:`sycl::free <sycl-free>` to avoid memory leaks. On failure,
-returns ``nullptr``.
+.. list-table::
+  :header-rows: 1
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_host_allocation_functions>`__
+  * - USM allocation type
+    - Description
+  * - ``host``
+    - Allocations in host memory that are accessible by a device (in addition to the host).
+  * - ``device``
+    - Allocations in device memory that are not accessible by the host.
+  * - ``shared``
+    - Allocations in shared memory that are accessible by both host and device.
 
-.. _malloc_shared:
+USM is an optional feature which may not be supported by all devices, and
+devices that support USM may not support all types of USM allocation.
 
-=======================
-``sycl::malloc_shared``
-=======================
+A SYCL application can use the ``sycl::device::has()``
+function to determine the level of USM support for a device
+(See :ref:`device-aspects`).
 
-::
+.. seealso:: |SYCL_SPEC_USM_KINDS|
 
-   void* sycl::malloc_shared(size_t numBytes,
-                             const device& syclDevice,
-                             const context& syclContext,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_shared(size_t count,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list &propList = {})
-   void* sycl::malloc_shared(size_t numBytes,
-                             const queue& syclQueue,
-                             const property_list &propList = {})
-   template <typename T>
-   T* sycl::malloc_shared(size_t count,
-                          const queue& syclQueue,
-                          const property_list &propList = {})
-   void* sycl::aligned_alloc_shared(size_t alignment,
-                                    size_t numBytes,
-                                    const device& syclDevice,
-                                    const context& syclContext,
-                                    const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_shared(size_t alignment,
-                                 size_t count,
-                                 const device& syclDevice,
-                                 const context& syclContext,
-                                 const property_list &propList = {})
-   void* sycl::aligned_alloc_shared(size_t alignment,
-                                    size_t numBytes,
-                                    const queue& syclQueue,
-                                    const property_list &propList = {})
-   template <typename T>
-   T* sycl::aligned_alloc_shared(size_t alignment,
-                                 size_t count,
-                                 const queue& syclQueue,
-                                 const property_list &propList = {})
+USM accesses must be within the ``sycl::context`` used for allocation
+---------------------------------------------------------------------
 
-.. rubric:: Parameters
+Each USM allocation has an associated SYCL context, and any access to
+that memory must use the same context.
+Specifically, any SYCL kernel function that dereferences a pointer to
+a USM allocation must be submitted to a :ref:`queue` that was constructed
+with the same context that was used to allocate that memory.
+The explicit memory operation commands that take USM pointers have a
+similar restriction.
 
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
-==================  ===
+There are no similar restrictions for dereferencing a USM pointer in a
+host task. This is legal regardless of which queue the host task
+was submitted to so long as the USM pointer is accessible on the host.
+
+.. warning::
+
+  Each type of USM allocation has different rules for where that memory
+  is accessible. Attempting to dereference a USM pointer on the host or
+  on a device in violation of these rules results in undefined behavior.
+
+  Passing a USM pointer to one of the explicit memory functions where
+  the pointer is not accessible to the device generally results in
+  undefined behavior.
 
 
-Returns a pointer to the newly allocated shared memory on the
-specified device on success. The SYCL runtime may migrate the data
-between host and device to optimize access.  Memory allocated by
-:ref:`sycl::malloc_shared <malloc_shared>` must be deallocated with
-:ref:`sycl::free <sycl-free>` to avoid memory leaks. If ``ctxt`` is a
-host context, should behave as if calling :ref:`sycl::malloc_host
-<malloc_host>`. On failure, returns ``nullptr``.
+Host allocations
+----------------
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_shared_allocation_functions>`__
+Host allocations allow devices to directly read and write host
+memory inside of a kernel.
 
-================
-``sycl::malloc``
-================
+Host allocations must also be obtained using SYCL routines
+instead of system allocation routines. While a device may remotely
+read and write a host allocation, the allocation does not migrate
+to the device - it remains in host memory.
 
-::
+.. warning::
 
-   void *malloc(size_t numBytes,
-                const sycl::device& syclDevice,
-                const sycl::context& syclContext,
-                sycl::usm::alloc kind,
-                const sycl::property_list &propList = {})
-   template <typename T>
-   T *malloc(size_t count,
-             const sycl::device& syclDevice,
-             const sycl::context& syclContext,
-             sycl::usm::alloc kind,
-             const sycl::property_list &propList = {})
-   void *malloc(size_t numBytes,
-                const sycl::queue& syclQueue,
-                sycl::usm::alloc kind,
-                const sycl::property_list &propList = {})
-   template <typename T>
-   T *malloc(size_t count,
-             const sycl::queue& syclQueue,
-             sycl::usm::alloc kind,
-             const sycl::property_list &propList = {})
-   void *aligned_alloc(size_t alignment,
-                       size_t numBytes,
-                       const sycl::device& syclDevice,
-                       const sycl::context& syclContext,
-                       sycl::usm::alloc kind,
-                       const sycl::property_list &propList = {})
-   template <typename T>
-   T* aligned_alloc(size_t alignment,
-                    size_t count,
-                    const sycl::device& syclDevice,
-                    const sycl::context& syclContext,
-                    sycl::usm::alloc kind,
-                    const sycl::property_list &propList = {})
-   void *aligned_alloc(size_t alignment,
-                       size_t numBytes,
-                       const sycl::queue& syclQueue,
-                       sycl::usm::alloc kind,
-                       const sycl::property_list &propList = {})
-   template <typename T>
-   T* aligned_alloc(size_t alignment,
-                    size_t count,
-                    const sycl::queue& syclQueue,
-                    sycl::usm::alloc kind,
-                    const sycl::property_list &propList = {})
+  Users should take care to properly synchronize access to
+  host allocations between host execution and kernels.
 
-.. rubric:: Parameters
+The total size of host allocations will be limited by the amount
+of pinnable-memory on the host on most systems.
 
-==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``kind``            See `usm-alloc`
-``propList``
-==================  ===
+Support for host allocations on a specific device can be queried
+through ``sycl::aspect::usm_host_allocations``.
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_parameterized_allocation_functions>`__
+Support for atomic modification of host allocations on a specific
+device can be queried through ``sycl::aspect::usm_atomic_host_allocations``.
 
 
+Device allocations
+------------------
 
-.. _sycl-free:
+Device allocations are used for explicitly managing device memory.
 
-==============
-``sycl::free``
-==============
+Device allocations are obtained through SYCL device USM allocation
+routines instead of system allocation routines like ``std::malloc``
+or C++ ``new``.
 
-::
+Device allocations are not accessible on the host, but the pointer
+values remain consistent on account of :ref:`unified_addressing`.
 
-   void free(void* ptr, sycl::context& context);
-   void free(void* ptr, sycl::queue& q);
+With device allocations data is directly allocated in the device memory
+and it must be explicitly copied between the host and a device.
 
-Free memory allocated by `sycl::malloc_device`_, `sycl::malloc_host`_, or
-`sycl::malloc_shared`_.
+The size of device allocations will be limited by the amount of
+memory in a device.
 
-See :ref:`event-elapsed-time` for usage.
+Support for device allocations on a specific
+device can be queried through ``sycl::aspect::usm_device_allocations``.
 
-.. seealso:: `SYCL Specification <https://www.khronos.org/registry/SYCL/specs/sycl-2020/html/sycl-2020.html#_memory_deallocation_functions>`__
+.. Future update: after updating "Expressing parallelism" add ref to Table 132
+
+The member functions to copy and initialize data are found in
+:ref:`sycl::queue shortcut functions <queue_shortcut>` and `Table 132`,
+and these functions may be used on device allocations if a device
+supports ``sycl::aspect::usm_device_allocations``.
+
+.. rubric:: Example
+
+See `usm-example-2`_.
+
+
+Shared allocations
+------------------
+
+Shared allocations implicitly share data between the host and devices.
+
+Data may move to where it is being used without the programmer explicitly
+informing the runtime. It is up to the runtime and backends to make sure
+that a shared allocation is available where it is used.
+
+Shared allocations must also be obtained using SYCL allocation routines
+instead of the system allocator.
+
+The maximum size of a shared allocation on a specific
+device, and the total size of all shared allocations
+in a context, are implementation-defined.
+
+Support for shared allocations on a specific device can be
+queried through ``sycl::aspect::usm_shared_allocations``.
+
+.. warning::
+
+  Not all devices may support concurrent access of a shared allocation with the host.
+
+If a device does not support this, host execution and device
+code must take turns accessing the allocation, so the host
+must not access a shared allocation while a kernel is executing.
+
+.. warning::
+
+  Host access to a shared allocation which is also accessed by an executing
+  kernel on a device that does not support concurrent access results in
+  undefined behavior.
+
+  If a device does support concurrent access, both the host and and
+  the device may atomically modify the same data inside an allocation.
+
+Allocations, or pieces of allocations, are now free to migrate to different
+devices in the same context that also support this capability.
+Additionally, many devices that support concurrent access may support
+a working set of shared allocations larger than device memory.
+
+Whether a device supports concurrent access with atomic modification of
+shared allocations can be queried through the aspect
+``sycl::aspect::usm_atomic_shared_allocations``.
+
+.. rubric:: Performance hints
+
+1. Performance hints for shared allocations may be specified by
+   the user by enqueueing ``prefetch`` operations on a device.
+   These operations inform the SYCL runtime that the specified
+   shared allocation is likely to be accessed on the device in
+   the future, and that it is free to migrate the allocation to
+   the device. If a device supports concurrent access to shared
+   allocations, then ``prefetch`` operations may be overlapped with
+   kernel execution. More about ``prefetch`` is found in
+   :ref:`sycl::queue shortcut functions <queue_shortcut>` and `Table 132`
+2. Users also may use the ``mem_advise`` member function to
+   annotate shared allocations with ``advice``. Valid ``advice`` is defined
+   by the device and its associated backend.
+   See :ref:`sycl::queue shortcut functions <queue_shortcut>`
+   and `Table 132` for more information.
+
+.. Future update: after updating "Expressing parallelism" add ref to Table 132
+
+.. rubric:: Example
+
+See `usm-example-1`_.
+
+
+System allocations
+------------------
+
+In the most capable systems, users do not need to use SYCL USM
+allocation functions to create shared allocations. The system
+allocator (``malloc``/``new``) may instead be used.
+Likewise, ``std::free`` and ``delete`` are used instead of ``sycl::free``.
+
+Users may query the device to determine if
+system allocations are supported for use on the device,
+through ``sycl::aspect::usm_system_allocations``.
+
+.. note::
+
+  Host and device allocations are unaffected by this change and
+  must still be allocated using their respective USM functions in order to
+  guarantee their behavior.
+
+.. _usm-example-1:
+
+=========
+Example 1
+=========
+
+Example of how shared memory can be used between host and device:
+
+.. literalinclude:: /examples/usm-shared.cpp
+   :lines: 5-
+   :linenos:
+
+.. _usm-example-2:
+
+=========
+Example 2
+=========
+
+Example of using less capable device memory, which requires
+an explicit copy between the device and the host:
+
+.. literalinclude:: /examples/usm-device.cpp
+   :lines: 5-
+   :linenos:

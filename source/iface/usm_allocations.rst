@@ -2,6 +2,9 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
+.. temp ref
+.. _malloc_device:
+
 ***************
 USM allocations
 ***************

@@ -276,6 +276,7 @@ an ``exception`` with the ``errc::backend_mismatch`` error code if the SYCL
 backend that corresponds with ``Param`` is different from the SYCL backend
 that is associated with this ``queue``.
 
+.. _queue_shortcut:
 
 ==================
 Shortcut functions
