@@ -364,6 +364,12 @@ newly allocated memory, which must eventually be deallocated with
 ``sycl::free`` in order to avoid a memory leak. If there are not enough
 resources to allocate the requested memory, these functions return ``nullptr``.
 
+When the allocation size is zero bytes (``numBytes`` or ``count`` is zero),
+these functions behave in a manner consistent with C++ ``std::malloc``.
+The value returned is unspecified in this case, and the returned pointer
+may not be used to access storage. If this pointer is not null, it must be
+passed to ``sycl::free`` to avoid a memory leak.
+
 .. rubric:: Parameters
 
 ==================  ===
