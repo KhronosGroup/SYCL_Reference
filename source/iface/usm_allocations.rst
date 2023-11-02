@@ -309,7 +309,7 @@ See :ref:`usm-implicit-data-movement` for usage.
 Parameterized allocation functions
 ==================================
 
-The functions bellow take a ``kind`` parameter that specifies the type of
+The functions below take a ``kind`` parameter that specifies the type of
 USM to allocate. When ``kind`` is ``usm::alloc::device``, then the
 allocation device must have ``aspect::usm_device_allocations``.
 When kind is ``usm::alloc::host``, at least one device in the allocation
@@ -403,10 +403,10 @@ must be the same ``context`` that was used to allocate the memory.
 The memory is freed without waiting for commands operating on
 it to be completed. If commands that use this memory are
 in-progress or are enqueued the behavior is undefined.
-The second function presented alternate form where
-``syclQueue`` provides the ``context``.
+In the second form the context is automatically extracted from the
+``syclQueue`` that is passed in, as a convenience.
 
-See :ref:`event-elapsed-time` for usage.
+See :ref:`usm-implicit-data-movement` for usage.
 
 .. rubric:: Example 1
 
