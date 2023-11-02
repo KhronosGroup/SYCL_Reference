@@ -9,6 +9,7 @@ backends
 destructor
 atomics
 dimensionality
+deallocation
 extensibility
 runtime
 runtimes
