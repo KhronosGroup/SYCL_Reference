@@ -9,6 +9,7 @@ backends
 destructor
 atomics
 dimensionality
+deallocation
 extensibility
 runtime
 runtimes
@@ -39,4 +40,5 @@ dereference
 dereferencing
 dereferences
 pinnable
+constructible
 unsampled
