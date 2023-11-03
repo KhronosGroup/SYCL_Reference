@@ -132,6 +132,9 @@ prolog_template = string.Template(
         "Section 4.5.2",
         "#sec:reference-semantics",
     )
+    + make_ref(
+        "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
