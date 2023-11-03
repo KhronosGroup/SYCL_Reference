@@ -6,9 +6,9 @@
 
 .. _buffer-accessor:
 
-===========================
-``sycl::accessor`` (buffer)
-===========================
+******************
+``sycl::accessor``
+******************
 
 ::
 
@@ -278,7 +278,7 @@ the ``accessMode`` is ``access::mode::atomic``.
 
 Returns pointer to memory in a host buffer.
 
-======================================
+
 ``sycl::accessor`` (buffer) properties
 ======================================
 
