@@ -13,19 +13,19 @@ Common by-value Semantics
 Each of the following SYCL runtime classes:
 :ref:`id`, :ref:`range`, :ref:`item`, :ref:`nd_item`,
 :ref:`h_item`, :ref:`group`, `sub_group`, and :ref:`nd_range`
-must follow the following statements, where ``T`` is the
+must obey the following statements, where ``T`` is the
 runtime class type:
 
 * ``T`` must be default copy constructible and copy assignable
-  on the host application (in the case where ``T`` is available on
+  in the host application (in the case where ``T`` is available on
   the host) and within SYCL kernel functions.
-* ``T`` must be default destructible on the host application
+* ``T`` must be default destructible in the host application
   (in the case where ``T`` is available on the host) and
   within SYCL kernel functions.
 * ``T`` must be default move constructible and default move
-  assignable on the host application (in the case where ``T``
+  assignable in the host application (in the case where ``T``
   is available on the host) and within SYCL kernel functions.
-* ``T`` must be equality comparable on the host application
+* ``T`` must be equality comparable in the host application
   (in the case where ``T`` is available on the host) and
   within SYCL kernel functions. Equality between two
   instances of ``T`` (i.e. ``a == b``) must be true if the
