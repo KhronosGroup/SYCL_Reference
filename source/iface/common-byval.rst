@@ -5,7 +5,7 @@
 .. _common-byval:
 
 *************************
-Common by-value Semantics
+Common By-value Semantics
 *************************
 
 .. Add sup_group ref after creating Data Access chapter structure
