@@ -127,6 +127,11 @@ prolog_template = string.Template(
         "#_unified_shared_memory_pointer_queries",
     )
     + make_ref("SYCL_SPEC_USM_ALLOC", "Section 4.8.3", "#_usm_allocations")
+    + make_ref(
+        "SYCL_SPEC_COMMON_REFERENCE",
+        "Section 4.5.2",
+        "#sec:reference-semantics",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
