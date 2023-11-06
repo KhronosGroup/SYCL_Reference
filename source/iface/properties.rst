@@ -25,29 +25,7 @@ The example below illustrates how using properties does not affect the
 type of the object, thus, does not prevent the usage of SYCL objects
 in containers.
 
-.. _ buffer-properties-example:
-
-``buffer-properties-example``
-=============================
-
-::
-
-  {
-    context myContext;
-
-    std::vector<buffer<int, 1>> bufferList {
-      buffer<int, 1> { ptr, rng },
-      buffer<int, 1> { ptr, rng, property::use_host_ptr {} },
-      buffer<int, 1> { ptr, rng, property::context_bound { myContext } }
-    };
-
-    for (auto& buf : bufferList) {
-      if (buf.has_property<property::context_bound>()) {
-        auto prop = buf.get_property<property::context_bound>();
-        assert(myContext == prop.get_context());
-      }
-    }
-  }
+See `buffer-properties-example`_.
 
 .. seealso:: |SYCL_BUFF_PROP|
 
@@ -69,6 +47,7 @@ A synopsis of the common properties interface, the SYCL ``property_list``
 class and the SYCL property classes is provided below.
 
 ::
+
 
   namespace sycl {
 
@@ -114,7 +93,6 @@ Construct a SYCL ``property_list`` with zero or more properties.
 
 .. _traits_for_properties :
 
-=====================
 Traits for properties
 =====================
 
@@ -165,7 +143,6 @@ properties defined by an implementation. All other specializations of
 
 Variable containing value of ``is_property_of<Property, SyclObject>``.
 
-================
 Member functions
 ================
 
@@ -190,3 +167,27 @@ Returns a copy of the property of type ``Property`` that ``T`` was
 constructed with. Must throw an ``exception`` with the
 ``errc::invalid`` error code if ``T`` was not constructed
 with the ``Property`` property.
+
+.. _ buffer-properties-example:
+
+``buffer-properties-example``
+=============================
+
+::
+
+  {
+    context myContext;
+
+    std::vector<buffer<int, 1>> bufferList {
+      buffer<int, 1> { ptr, rng },
+      buffer<int, 1> { ptr, rng, property::use_host_ptr {} },
+      buffer<int, 1> { ptr, rng, property::context_bound { myContext } }
+    };
+
+    for (auto& buf : bufferList) {
+      if (buf.has_property<property::context_bound>()) {
+        auto prop = buf.get_property<property::context_bound>();
+        assert(myContext == prop.get_context());
+      }
+    }
+  }
