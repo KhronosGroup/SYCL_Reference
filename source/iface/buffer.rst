@@ -23,9 +23,9 @@ Buffers
 .. rubric:: Template parameters
 
 ================  ==========
-``T``             Type of data in buffer
-``Dimensions``    Dimensionality of data: 1, 2, or 3
-``AllocatorT``    Allocator for buffer data
+``T``             Type of data in buffer.
+``Dimensions``    Dimensionality of data: 1, 2, or 3.
+``AllocatorT``    Allocator for buffer data.
 ================  ==========
 
 The ``sycl::buffer`` class defines a shared array of one,
@@ -89,9 +89,9 @@ Each constructor takes as the last parameter an optional
 ``sycl::property_list`` to provide properties to the ``sycl::buffer``.
 
 For the overloads that do copy objects from host memory, the ``hostData``
-pointer must point to at least _N_ bytes of memory where _N_ is
+pointer must point to at least `N` bytes of memory where `N` is
 ``sizeof(T) * bufferRange.size()``.
-If _N_ is zero, ``hostData`` is permitted to be a null pointer.
+If `N` is zero, ``hostData`` is permitted to be a null pointer.
 
 .. parsed-literal::
 
@@ -157,20 +157,68 @@ Member functions
 ``get_range``
 =============
 
+::
+
+  sycl::range<Dimensions> get_range() const;
+
+Return a :ref:`range` object representing the size of the
+buffer in terms of number of elements in each dimension as
+passed to the constructor.
+
+
 ``size``
-=============
+========
+
+::
+
+  size_t size() const noexcept;
+
+Returns the total number of elements in the buffer.
+
+Equal to ``get_range()[0] * ... * get_range()[Dimensions-1]``.
+
 
 ``get_count``
 =============
 
+::
+
+  size_t get_count() const;
+
+Deprecated. Returns the same value as size().
+
+
 ``byte_size``
 =============
+
+::
+
+  size_t byte_size() const noexcept;
+
+Returns the size of the buffer storage in bytes.
+
+Equal to ``size()*sizeof(T)``.
+
 
 ``get_size``
 ============
 
+::
+
+  size_t get_size() const;
+
+Deprecated. Returns the same value as ``byte_size()``.
+
+
 ``get_allocator``
 =================
+
+::
+
+  AllocatorT get_allocator() const
+
+Returns the allocator provided to the buffer.
+
 
 .. _buffer-get_access:
 
@@ -179,38 +227,102 @@ Member functions
 
 ::
 
-  template <sycl::access::mode mode, sycl::access::target target = sycl::access::target::global_buffer>
-  accessor<T, dimensions, mode, target> get_access(
-      sycl::handler &commandGroupHandler);
-  template <sycl::access::mode mode>
-  accessor<T, dimensions, mode, sycl::access::target::host_buffer> get_access();
-  template <sycl::access::mode mode, sycl::access::target target = sycl::access::target::global_buffer>
-  accessor<T, dimensions, mode, target> get_access(
-      sycl::handler &commandGroupHandler, sycl::range<dimensions> accessRange,
-      id<dimensions> accessOffset = {});
-  template <sycl::access::mode mode>
-  accessor<T, dimensions, mode, sycl::access::target::host_buffer> get_access(
-    sycl::range<dimensions> accessRange, sycl::id<dimensions> accessOffset = {});
+  template <sycl::access_mode Mode = sycl::access_mode::read_write,
+            sycl::target Targ = sycl::target::device>
+  sycl::accessor<T, Dimensions, Mode, Targ> get_access(sycl::handler& commandGroupHandler);
 
-Returns a accessor to the buffer.
+Returns a valid :ref:`command-accessor` to the buffer with the specified access
+mode and target in the command group buffer.
+
+The value of target can be ``sycl::target::device`` or
+``sycl::target::constant_buffer``.
+
+::
+
+  template <sycl::access_mode Mode>
+  sycl::accessor<T, Dimensions, Mode, sycl::target::host_buffer> get_access();
+
+Deprecated in SYCL 2020. Use ``get_host_access()`` instead.
+
+Returns a valid host ``sycl::accessor`` to the buffer with the
+specified access mode and target.
+
+::
+
+  template <sycl::access_mode Mode = sycl::access_mode::read_write,
+            sycl::target Targ = sycl::target::device>
+  sycl::accessor<T, Dimensions, Mode, Targ> get_access(sycl::handler& commandGroupHandler,
+                                                       sycl::range<Dimensions> accessRange,
+                                                       sycl::id<Dimensions> accessOffset = {});
+
+Returns a valid :ref:`command-accessor` to the buffer with the specified
+access mode and target in the command group buffer.
+The accessor is a ranged accessor, where the range starts at the given
+offset from the beginning of the buffer.
+
+The value of target can be ``sycl::target::device`` or
+``sycl::target::constant_buffer``.
+
+::
+
+  template <sycl::access_mode Mode>
+  sycl::accessor<T, Dimensions, Mode, sycl::target::host_buffer>
+  get_access(sycl::range<Dimensions> accessRange,
+             sycl::id<Dimensions> accessOffset = {});
+
+Deprecated in SYCL 2020. Use ``get_host_access()`` instead.
+
+Returns a valid host ``sycl::accessor`` to the buffer with the specified
+access mode and target.
+The accessor is a ranged accessor, where the range starts at the given
+offset from the beginning of the buffer.
+
+The value of target can only be ``sycl::target::host_buffer``.
+
+::
+
+  template <typename... Ts>
+  auto get_access(Ts... args);
+
+Returns a valid :ref:`command-accessor` as if constructed via passing the
+buffer and all provided arguments to the ``sycl::accessor`` constructor.
+
+Possible implementation: ``return sycl::accessor{*this, args...};``
 
 .. rubric:: Template parameters
 
 ================  ==========
-``mode``          See :ref:`access-mode`
-``target``        See :ref:`access-target`
+``mode``          See :ref:`access-mode`.
+``target``        See :ref:`access-target`.
 ================  ==========
 
 .. rubric:: Parameters
 
 =======================  ==========
-``commandGroupHandler``  Command group that uses the accessor
-``accessRange``          Dimensions of the sub-buffer that is accessed
-``accessOffset``         Origin of the sub-buffer that is accessed
+``commandGroupHandler``  Command group that uses the accessor.
+``accessRange``          Dimensions of the sub-buffer that is accessed.
+``accessOffset``         Origin of the sub-buffer that is accessed.
 =======================  ==========
+
+.. rubric:: Exceptions
+
+``errc::invalid``
+  If the sum of ``accessRange`` and ``accessOffset`` exceeds
+  the range of the buffer in any dimension.
+
 
 ``get_host_access``
 ===================
+
+::
+
+  template <typename... Ts>
+  auto get_host_access(Ts... args);
+
+Returns a valid :ref:`host_accessor` as if constructed via passing the
+buffer and all provided arguments to the ``sycl::host_accessor`` constructor.
+
+Possible implementation: ``return sycl::host_accessor{*this, args...};``
 
 ``set_final_data``
 ==================
@@ -220,24 +332,47 @@ Returns a accessor to the buffer.
   template <typename Destination = std::nullptr_t>
   void set_final_data(Destination finalData = nullptr);
 
+The ``finalData`` points to where the outcome of all the buffer
+processing is going to be copied to at destruction time, if the buffer
+was involved with a write accessor
+
+Note that a raw pointer is a special case of output iterator and thus
+defines the host memory to which the result is to be copied.
+
+In the case of a weak pointer, the output is not updated if the weak
+pointer has expired.
+
+If ``Destination`` is ``std::nullptr_t``, then the copy back will not happen.
+
 .. rubric:: Template parameters
 
 ===================  ==========
-``Destination``      ``std::weak_ptr<T>`` or output iterator
+``Destination``      Output iterator or ``std::weak_ptr<T>``.
 ===================  ==========
 
 .. rubric:: Parameters
 
 ===================  ==========
-``finalData``        Indicates where data is copied at destruction time
+``finalData``        Indicates where data is copied at destruction time.
 ===================  ==========
-
-Set the final data location. Final data controls the location for
-write back when the buffer is destroyed.
 
 
 ``set_write_back``
 ==================
+
+::
+
+  void set_write_back(bool flag = true);
+
+This member function allows dynamically forcing or canceling the
+write-back of the data of a buffer on destruction according to
+the value of ``flag``.
+
+Forcing the write-back is similar to what happens during a normal write-back.
+
+If there is nowhere to write-back, using this function does
+not have any effect.
+
 
 ``is_sub_buffer``
 =================
@@ -246,39 +381,79 @@ write back when the buffer is destroyed.
 
   bool is_sub_buffer() const;
 
-Returns True if this is a sub-buffer.
+Returns ``true`` if this ``sycl::buffer`` is a sub-buffer,
+otherwise returns ``false``.
 
 
 ``reinterpret``
 ===============
 
+A ``sycl::buffer`` can construct an instance of a ``sycl::buffer``
+that reinterprets the original ``sycl::buffer`` with a different
+type, dimensionality and range using the member function ``reinterpret``.
+
 ::
 
   template <typename ReinterpretT, int ReinterpretDim>
-  buffer<ReinterpretT, ReinterpretDim, AllocatorT>
-  reinterpret(range<ReinterpretDim> reinterpretRange) const;
+  sycl::buffer<ReinterpretT, ReinterpretDim,
+               typename std::allocator_traits<AllocatorT>::template rebind_alloc<
+                   std::remove_const_t<ReinterpretT>>>
+  reinterpret(sycl::range<ReinterpretDim> reinterpretRange) const;
+
+Creates and returns a reinterpreted ``sycl::buffer`` with the
+type specified by ``ReinterpretT``, dimensions specified by
+``ReinterpretDim`` and range specified by ``reinterpretRange``.
+
+The buffer object being reinterpreted can be a SYCL sub-buffer
+that was created from a ``sycl::buffer``.
+
+Reinterpreting a sub-buffer provides a reinterpreted view of the
+sub-buffer only, and does not change the offset or size of the
+sub-buffer view (in bytes) relative to the parent ``sycl::buffer``.
+
+::
+
+  template <typename ReinterpretT, int ReinterpretDim = Dimensions>
+  sycl::buffer<ReinterpretT, ReinterpretDim,
+               typename std::allocator_traits<AllocatorT>::template rebind_alloc<
+                   std::remove_const_t<ReinterpretT>>>
+  reinterpret() const;
+
+Creates and returns a reinterpreted ``sycl::buffer`` with the type specified by
+``ReinterpretT`` and dimensions specified by ``ReinterpretDim``.
+
+Only valid when ``(ReinterpretDim == 1)`` or when
+``((ReinterpretDim == Dimensions) && (sizeof(ReinterpretT) == sizeof(T)))``.
+
+The buffer object being reinterpreted can be a SYCL sub-buffer that was created
+from a SYCL buffer.
+
+Reinterpreting a sub-buffer provides a reinterpreted view of the
+sub-buffer only, and does not change the offset or size of the
+sub-buffer view (in bytes) relative to the parent ``sycl::buffer``.
 
 .. rubric:: Template parameters
 
 ===================  ==========
-``ReinterpretT``     Type of new buffer element
-``ReinterpretDim``   Dimensions of new buffer
+``ReinterpretT``     Type of the new buffer element.
+``ReinterpretDim``   Dimensions of the new buffer.
 ===================  ==========
 
 .. rubric:: Parameters
 
 ====================  ==========
-``ReinterpretRange``  Dimensionality of new buffer
+``reinterpretRange``  Dimensionality of the new buffer.
 ====================  ==========
-
-Creates a new buffer with the requested element type and
-dimensionality, containing the data of the passed buffer or
-sub-buffer.
 
 .. rubric:: Exceptions
 
-``errc::invalid_object_error``
-  Size in bytes of new buffer does not match original buffer.
+``errc::invalid``
+  1. If the total size in bytes represented by the type and range of
+     the reinterpreted ``sycl::buffer`` (or sub-buffer) does not equal
+     the total size in bytes represented by the type and range of this
+     ``sycl::buffer`` (or sub-buffer).
+  2. If the total size in bytes represented by this ``sycl::buffer``
+     (or sub-buffer) is not evenly divisible by ``sizeof(ReinterpretT)``.
 
 =================
 Buffer properties
