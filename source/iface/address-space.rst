@@ -4,9 +4,9 @@
 
 .. _multipointer:
 
-**************
- Multipointer
-**************
+*********************
+Address space classes
+*********************
 
 ===============================
 ``sycl::access::address_space``
