@@ -4,12 +4,11 @@
 
 .. _iface-buffers:
 
-*********
- Buffers
-*********
+*******
+Buffers
+*******
 
-
-.. rst-class:: api-class
+.. _buffer:
 
 ================
 ``sycl::buffer``
@@ -17,64 +16,82 @@
 
 ::
 
-   template <typename T, int dimensions = 1,
-             typename AllocatorT = sycl::buffer_allocator>
-   class buffer;
+  template <typename T, int Dimensions = 1,
+            typename AllocatorT = sycl::buffer_allocator<std::remove_const_t<T>>>
+  class buffer;
 
 .. rubric:: Template parameters
 
 ================  ==========
 ``T``             Type of data in buffer
-``dimensions``    Dimensionality of data: 1, 2, or 3
+``Dimensions``    Dimensionality of data: 1, 2, or 3
 ``AllocatorT``    Allocator for buffer data
 ================  ==========
 
-Buffers are containers for data that can be read/written by both
-kernel and host.  Data in a buffer cannot be directly accessed via
-pointers. Instead, a program creates an :ref:`buffer-accessor` that
-references the buffer. The accessor provides array-like interfaces to
-read/write actual data.  Accessors indicate when they read or write
-data. When a program creates an accessor for a buffer, the SYCL
-runtime copies the data to where it is needed, either the host or the
-device. If the accessor is part of a device command group, then the
-runtime delays execution of the kernel until the data movement is
-complete. If the host creates an accessor, it will pause until the
-data is available on the host. As a result data and kernels can
-execute asynchronously and in parallel, only requiring the program to
-specify the data dependencies.
+The ``sycl::buffer`` class defines a shared array of one,
+two or three dimensions that can be used by the SYCL kernel
+and has to be accessed using :ref:`accessor classes <iface-accessors>`.
+Buffers are templated on both the type of their data, and the number
+of dimensions that the data is stored and accessed through.
 
-Initialization
-  Buffers can be automatically initialized via host data, iterator, or
-  as a slice of another buffer. The constructor determines the
-  initialization method.
+A ``sycl::buffer`` does not map to only one underlying backend object,
+and all SYCL backend memory objects may be temporary for use within a
+command group on a specific device.
 
-Write back
-  The destructor for a buffer can optionally write the data back to
-  host memory, either by pointer or iterator. set_final_data_ and
-  set_write_back_ control the write back of data.
+The underlying data type of a buffer ``T`` must be device copyable.
+Some overloads of the ``sycl::buffer`` constructor initialize the buffer
+contents by copying objects from host memory while other overloads
+construct the buffer without copying objects from the host. For the
+overloads that do not copy host objects, the initial state of the
+objects in the buffer depends on whether ``T`` is an implicit-lifetime
+type (as defined in the C++ core language).
 
-Memory allocation
-  The SYCL runtimes uses the default allocator for buffer memory
-  allocation, unless the constructor provides an allocator.
+* If ``T`` is an implicit-lifetime type, objects of that type are
+  implicitly created in the buffer with indeterminate values.
+* For other types, these constructor overloads merely allocate uninitialized
+  memory, and the application is responsible for constructing objects by
+  calling placement-new and for destroying them later by manually calling
+  the object's destructor.
 
+The SYCL buffer class template provides the :ref:`common-reference`.
 
-.. rubric:: Member types
+The ``sycl::buffer`` class template takes a template parameter ``AllocatorT``
+for specifying an allocator which is used by the SYCL runtime when allocating
+temporary memory on the host. If no template argument is provided,
+then the default allocator for the ``sycl::buffer``
+class ``buffer_allocator<T>`` will be used.
 
-===================  ==========
-``value_type``       type of buffer element
-``reference``        reference type of buffer element
-``const_reference``  ``const`` reference type of buffer element
-``allocator_type``   type of allocator for buffer data
-===================  ==========
+.. seealso:: |SYCL_SPEC_BUFFER|
 
-.. seealso::
+Member Types
+============
 
-   |SYCL_SPEC_BUFFER|
+.. list-table::
+  :header-rows: 1
+
+  * - Type
+    - Description
+  * - ``value_type``
+    - Type of buffer elements (``T``).
+  * - ``reference``
+    - Reference type of buffer elements (``value_type&``).
+  * - ``const_reference``
+    - Constant reference type of buffer element (``const value_type&``).
+  * - ``allocator_type``
+    - Type of allocator for buffer data (``AllocatorT``).
 
 .. _buffer-constructors:
 
 (constructors)
 ==============
+
+Each constructor takes as the last parameter an optional
+``sycl::property_list`` to provide properties to the ``sycl::buffer``.
+
+For the overloads that do copy objects from host memory, the ``hostData``
+pointer must point to at least _N_ bytes of memory where _N_ is
+``sizeof(T) * bufferRange.size()``.
+If _N_ is zero, ``hostData`` is permitted to be a null pointer.
 
 .. parsed-literal::
 
@@ -111,18 +128,7 @@ Memory allocation
   buffer(cl_mem clMemObject, const sycl::context &syclContext,
          event availableEvent = {});
 
-Construct a buffer.
 
-Buffers can be initialized by a host data pointer. While the buffer
-exists, it *owns* the host data and direct access of the host data
-pointer during that time is undefined. The SYCL runtime performs a
-write back of the buffer data back to the host data pointer when the
-buffer is destroyed.  Buffers can also be initialized as a slice of
-another buffer, by specifying the origin of the data and the
-dimensions.
-
-A constructor can also accept ``cl_mem`` or iterators to initialize a
-buffer.
 
 .. rubric:: Template parameters
 
@@ -144,47 +150,27 @@ buffer.
 ``subRange``      Dimensions of sub-buffer
 ================  ==========
 
+================
+Member functions
+================
 
 ``get_range``
 =============
 
-::
-
-  sycl::range<dimensions> get_range() const;
-
-
-Returns the dimensions of the buffer.
+``size``
+=============
 
 ``get_count``
 =============
 
-::
-
-  size_t get_count() const;
-
-Returns the total number of elements in the buffer.
-
+``byte_size``
+=============
 
 ``get_size``
 ============
 
-::
-
-  size_t get_size() const;
-
-
-Returns the size of the buffer storage in bytes.
-
-
 ``get_allocator``
 =================
-
-::
-
-  AllocatorT get_allocator() const;
-
-
-Returns the allocator provided to the buffer.
 
 .. _buffer-get_access:
 
@@ -223,6 +209,8 @@ Returns a accessor to the buffer.
 ``accessOffset``         Origin of the sub-buffer that is accessed
 =======================  ==========
 
+``get_host_access``
+===================
 
 ``set_final_data``
 ==================
@@ -250,18 +238,6 @@ write back when the buffer is destroyed.
 
 ``set_write_back``
 ==================
-
-::
-
-  void set_write_back(bool flag = true);
-
-.. rubric:: Parameters
-
-===================  ==========
-``flag``             True to force write back
-===================  ==========
-
-Set the write back.
 
 ``is_sub_buffer``
 =================
@@ -304,21 +280,54 @@ sub-buffer.
 ``errc::invalid_object_error``
   Size in bytes of new buffer does not match original buffer.
 
-==================
- Buffer properties
-==================
+=================
+Buffer properties
+=================
 
-.. rst-class:: api-class
-
-``sycl::property::buffer:use_host_ptr``
-=======================================
+The properties that can be provided when
+constructing the ``sycl::buffer``.
 
 ::
 
-   class use_host_ptr;
+  namespace sycl::property {
 
-Use the provided host pointer and do not allocate new data on the
-host.
+  namespace buffer {
+
+  class use_host_ptr;
+
+  class use_mutex;
+
+  class context_bound;
+
+  } // namespace buffer
+
+  } // namespace sycl::property
+
+
+``sycl::property::buffer::use_host_ptr``
+========================================
+
+::
+
+  namespace sycl::property::buffer {
+
+  class use_host_ptr {
+  public:
+    use_host_ptr() = default;
+  };
+
+  } // namespace sycl::property::buffer
+
+The ``sycl::property::buffer::use_host_ptr`` property adds the requirement
+that the SYCL runtime must not allocate any memory for the ``sycl::buffer``
+and instead uses the provided host pointer directly. This prevents the SYCL
+runtime from allocating additional temporary storage on the host.
+
+This property has a special guarantee for buffers that are constructed
+from a ``hostData`` pointer. If a ``sycl::host_accessor`` is constructed from
+such a buffer, then the address of the reference type returned from the
+accessor's member functions such as ``operator[](id<>)`` will be the same
+as the corresponding ``hostData`` address.
 
 .. _use_host_ptr-constructors:
 
@@ -327,21 +336,37 @@ host.
 
 ::
 
-   use_host_ptr();
+  sycl::property::buffer::use_host_ptr::use_host_ptr();
+
+Constructs a ``sycl::property::buffer::use_host_ptr`` property instance.
 
 
-.. rst-class:: api-class
-
-``sycl::property::use_mutex``
-=============================
+``sycl::property::buffer::use_mutex``
+=====================================
 
 ::
 
-   class use_mutex;
+  namespace sycl::property::buffer {
 
-Adds the requirement that the memory owned by the SYCL buffer can be
-shared with the application via a ``std::mutex`` provided to the
-property.
+  class use_mutex {
+  public:
+    use_mutex(std::mutex& mutexRef);
+
+    std::mutex* get_mutex_ptr() const;
+  };
+
+  } // namespace sycl::property::buffer
+
+The ``sycl::property::buffer::use_mutex`` property is valid for the
+``sycl::buffer``, `unsampled_image` and `sampled_image` classes.
+
+The property adds the requirement that the memory which is owned by
+the ``sycl::buffer`` can be shared with the application via a
+``std::mutex`` provided to the property.
+
+The mutex is locked by the runtime whenever the data is in use and
+unlocked otherwise. Data is synchronized with ``hostData``, when
+the mutex is unlocked by the runtime.
 
 .. _use_mutex-constructors:
 
@@ -350,43 +375,65 @@ property.
 
 ::
 
-   use_mutex();
+  sycl::property::buffer::use_mutex::use_mutex(std::mutex& mutexRef);
 
+Constructs a ``sycl::property::buffer::use_mutex`` property instance
+with a reference to ``mutexRef`` parameter provided.
 
 ``get_mutex_ptr``
 -----------------
 
 ::
 
-   sycl::mutex_class *get_mutex_ptr() const;
+  std::mutex* sycl::property::buffer::use_mutex::get_mutex_ptr() const;
+
+Returns the ``std::mutex`` which was specified when constructing
+this ``sycl::property::buffer::use_mutex`` property.
 
 
 ``sycl::property::buffer::context_bound``
 =========================================
 
-
 ::
 
-   class context_bound;
+  namespace sycl::property::buffer {
+
+  class context_bound {
+  public:
+    context_bound(context boundContext);
+
+    context get_context() const;
+  };
+
+  } // namespace sycl::property::buffer
 
 
-The buffer can only be associated with a single SYCL context provided
-to the property.
+The ``sycl::property::buffer::context_bound`` property adds the
+requirement that the ``sycl::buffer`` can only be associated
+with a single :ref:`context` that is provided to the property.
 
 .. _context_bound-constructors:
 
 (constructors)
 --------------
 
-
 ::
 
-   use_mutex();
+  sycl::property::buffer::context_bound(sycl::context boundContext);
 
+Constructs a ``sycl::property::buffer::context_bound`` property
+instance with a copy of a :ref:`context`.
 
 ``get_context``
 ---------------
 
 ::
 
-   sycl::context get_context() const;
+  sycl::context sycl::property::buffer::context_bound::get_context() const;
+
+Returns the :ref:`context` which was specified when constructing
+this ``sycl::property::buffer::context_bound`` property.
+
+============================
+Buffer synchronization rules
+============================

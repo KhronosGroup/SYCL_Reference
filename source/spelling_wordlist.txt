@@ -41,3 +41,5 @@ dereferencing
 dereferences
 pinnable
 constructible
+copyable
+mutex
