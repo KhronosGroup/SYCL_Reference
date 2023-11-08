@@ -360,6 +360,10 @@ device, otherwise this exception is thrown.
      when constructing a sub-buffer.
   3. If ``b`` is a sub-buffer.
 
+.. rubric:: Example
+
+See :ref:`creating_sub_buf_example`.
+
 ================
 Member functions
 ================
@@ -824,3 +828,138 @@ this ``sycl::property::buffer::context_bound`` property.
 ============================
 Buffer synchronization rules
 ============================
+
+Buffer lifetime and destruction
+===============================
+
+Buffers are reference-counted. When a buffer value is constructed
+from another buffer, the two values reference the same buffer and
+a reference count is incremented. When a buffer value is destroyed,
+the reference count is decremented. Only when there are no more
+buffer values that reference a specific buffer is the actual buffer
+destroyed and the buffer destruction behavior defined below is followed.
+
+If any error occurs on buffer destruction, it is reported via the
+associated queue's asynchronous error handling mechanism.
+
+The basic rule for the blocking behavior of a buffer destructor is that
+it blocks if there is some data to write back because a write accessor
+on it has been created, or if the buffer was constructed with attached
+host memory and is still in use.
+
+More precisely:
+
+  1. A buffer can be constructed from a :ref:`range`
+     (and without a ``hostData`` pointer). The memory
+     management for this type of buffer is entirely handled
+     by the SYCL system. The destructor for this type of buffer
+     does not need to block, even if work on the buffer has not
+     completed. Instead, the SYCL system frees any storage
+     required for the buffer asynchronously when it is no longer
+     in use in queues. The initial contents of the buffer are unspecified.
+  2. A buffer can be constructed from a ``hostData`` pointer. The buffer
+     will use this host memory for its full lifetime, but the contents of
+     this host memory are unspecified for the lifetime of the buffer.
+     If the host memory is modified on the host or if it is used to
+     construct another buffer or image during the lifetime of this
+     buffer, then the results are undefined. The initial contents of
+     the buffer will be the contents of the host memory at the time
+     of construction.
+
+     When the buffer is destroyed, the destructor will block until all
+     work in queues on the buffer have completed, then copy the contents
+     of the buffer back to the host memory (if required) and then return.
+
+     a. If the type of the host data is ``const``, then the buffer is
+        read-only; only read accessors are allowed on the buffer and
+        no-copy-back to host memory is performed (although the host
+        memory must still be kept available for use by SYCL). When
+        using the default buffer allocator, the constantness of the
+        type will be removed in order to allow host allocation of
+        memory, which will allow temporary host copies of the data
+        by the SYCL runtime, for example for speeding up host accesses.
+     b. If the type of the host data is not ``const`` but the pointer
+        to host data is ``const``, then the read-only restriction
+        applies only on host and not on device accesses.
+
+        When the buffer is destroyed, the destructor will block until
+        all work in queues on the buffer have completed.
+  3. A buffer can be constructed using a ``std::shared_ptr`` to host
+     data. This pointer is shared between the SYCL application and
+     the runtime. In order to allow synchronization between the
+     application and the runtime a ``std::mutex`` is used which will be
+     locked by the runtime whenever the data is in use, and unlocked
+     when it is no longer needed.
+
+     The ``std::shared_ptr`` reference counting is used in order to
+     prevent destroying the buffer host data prematurely. If the
+     ``std::shared_ptr`` is deleted from the user application
+     before buffer destruction, the buffer can continue securely
+     because the pointer hasn't been destroyed yet. It will not
+     copy data back to the host before destruction, however, as
+     the application side has already deleted its copy.
+
+     .. note::
+       Since there is an implicit conversion of a ``std::unique_ptr``
+       to a ``std::shared_ptr``, a ``std::unique_ptr`` can also be
+       used to pass the ownership to the SYCL runtime.
+  4. A buffer can be constructed from a pair of iterator values. In this
+     case, the buffer construction will copy the data from the data range
+     defined by the iterator pair. The destructor will not copy back any
+     data and does not need to block.
+  5. A buffer can be constructed from a container on which
+     ``std::data(container)`` and ``std::size(container)`` are well-formed.
+     The initial contents of the buffer will be the contents of the
+     container at the time of construction.
+
+     The buffer may use the memory within the container for its
+     full lifetime, and the contents of this memory are unspecified
+     for the lifetime of the buffer. If the container memory is modified
+     by the host during the lifetime of this buffer, then the results are
+     undefined.
+
+     When the buffer is destroyed, the destructor will block until all
+     work in queues on the buffer have completed. If the return type of
+     ``std::data(container)`` is not ``const`` then the destructor will
+     also copy the contents of the buffer to the container (if required).
+
+If ``set_final_data()`` is used to change where to write the data
+back to, then the destructor of the buffer will block if a write
+accessor on it has been created.
+
+Sub-buffers
+===========
+
+A sub-buffer object can be created, which is a sub-range reference
+to a base buffer. This sub-buffer can be used to create accessors
+to the base buffer, which have access to the range specified at
+time of construction of the sub-buffer. Sub-buffers cannot be
+created from sub-buffers, but only from a base buffer which is
+not already a sub-buffer.
+
+Sub-buffers must be constructed from a contiguous region of
+memory in a buffer. This requirement is potentially non-intuitive
+when working with buffers that have dimensionality larger than one,
+but maps to one-dimensional SYCL backend native allocations without
+performance cost due to index mapping computation.
+
+.. rubric:: Example
+
+See :ref:`creating_sub_buf_example`.
+
+.. _creating_sub_buf_example:
+
+=========
+Example 1
+=========
+
+An example of creating sub-buffers from a parent buffer:
+
+.. literalinclude:: /examples/creating-sub-buffers.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/creating-sub-buffers.out
+   :lines: 5-

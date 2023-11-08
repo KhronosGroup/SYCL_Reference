@@ -44,3 +44,4 @@ constructible
 unsampled
 copyable
 mutex
+constantness
