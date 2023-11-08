@@ -87,68 +87,278 @@ Member Types
 
 Each constructor takes as the last parameter an optional
 ``sycl::property_list`` to provide properties to the ``sycl::buffer``.
+Zero or more properties can be provided to the
+constructed ``sycl::buffer`` via an instance of ``sycl::property_list``.
 
 For the overloads that do copy objects from host memory, the ``hostData``
 pointer must point to at least `N` bytes of memory where `N` is
 ``sizeof(T) * bufferRange.size()``.
 If `N` is zero, ``hostData`` is permitted to be a null pointer.
 
-.. parsed-literal::
+.. rubric:: Constructors 1-2
 
-  buffer(const sycl::range<dimensions> &bufferRange,
-         const sycl::property_list &propList = {});
-  buffer(const sycl::range<dimensions> &bufferRange, AllocatorT allocator,
-         const sycl::property_list &propList = {});
-  buffer(T *hostData, const sycl::range<dimensions> &bufferRange,
-         const sycl::property_list &propList = {});
-  buffer(T *hostData, const sycl::range<dimensions> &bufferRange,
-         AllocatorT allocator, const sycl::property_list &propList = {});
-  buffer(const T *hostData, const sycl::range<dimensions> &bufferRange,
-         const sycl::property_list &propList = {});
-  buffer(const T *hostData, const sycl::range<dimensions> &bufferRange,
-         AllocatorT allocator, const sycl::property_list &propList = {});
-  buffer(const shared_ptr_class<T> &hostData,
-         const sycl::range<dimensions> &bufferRange, AllocatorT allocator,
-         const sycl::property_list &propList = {});
-  buffer(const shared_ptr_class<T> &hostData,
-         const sycl::range<dimensions> &bufferRange,
-         const sycl::property_list &propList = {});
-  buffer(buffer<T, dimensions, AllocatorT> b, const id<dimensions> &baseIndex,
-         const sycl::range<dimensions> &subRange);
+::
 
-  *Available only when:
-   dimensions == 1*
+  buffer(const sycl::range<Dimensions>& bufferRange,
+         const sycl::property_list& propList = {});
 
-  template <class InputIterator>
-  buffer<T, 1>(InputIterator first, InputIterator last, AllocatorT allocator,
-               const sycl::property_list &propList = {});
-  template <class InputIterator>
-  buffer<T, 1>(InputIterator first, InputIterator last,
-               const sycl::property_list &propList = {});
-  buffer(cl_mem clMemObject, const sycl::context &syclContext,
-         event availableEvent = {});
+  buffer(const sycl::range<Dimensions>& bufferRange,
+         AllocatorT allocator,
+         const sycl::property_list& propList = {});
+
+Construct a ``sycl::buffer`` instance with uninitialized memory.
+
+The constructed ``sycl::buffer`` will use the ``allocator``
+parameter provided when allocating memory on the host.
+If this parameter is not specified, the constructed
+``sycl::buffer`` will use a default constructed
+``AllocatorT`` when allocating memory on the host.
+
+Data is not written back to the host on destruction of the buffer
+unless the buffer has a valid non-null pointer specified via
+the member function ``set_final_data()``.
 
 
+.. rubric:: Constructors 3-4
+
+::
+
+  buffer(T* hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         const sycl::property_list& propList = {});
+
+  buffer(T* hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         AllocatorT allocator,
+         const sycl::property_list& propList = {});
+
+Construct a ``sycl::buffer`` instance with the
+``hostData`` parameter provided.
+The buffer is initialized with the memory specified by ``hostData``,
+and the buffer assumes exclusive access to this memory for the
+duration of its lifetime.
+
+The constructed ``sycl::buffer`` will use the ``allocator``
+parameter provided when allocating memory on the host.
+If this parameter is not specified, the constructed
+``sycl::buffer`` will use a default constructed
+``AllocatorT`` when allocating memory on the host.
+
+
+.. rubric:: Constructors 5-6
+
+::
+
+  buffer(const T* hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         const sycl::property_list& propList = {});
+
+  buffer(const T* hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         AllocatorT allocator,
+         const sycl::property_list& propList = {});
+
+Construct a ``sycl::buffer`` instance with the ``hostData`` parameter
+provided. The buffer assumes exclusive access to this memory for
+the duration of its lifetime.
+
+The constructed ``sycl::buffer`` will use the ``allocator``
+parameter provided when allocating memory on the host.
+If this parameter is not specified, the constructed
+``sycl::buffer`` will use a default constructed
+``AllocatorT`` when allocating memory on the host.
+
+The host address is ``const T``, so the host accesses can be
+read-only. However, the ``typename T`` is not ``const`` so the
+device accesses can be both read and write accesses.
+
+Since the ``hostData`` is ``const``, this buffer is only initialized
+with this memory and there is no write back after its destruction,
+unless the ``sycl::buffer`` has another valid non-null final data
+address specified via the member function ``set_final_data()``
+after construction of the ``sycl::buffer``.
+
+
+.. rubric:: Constructors 7-8
+
+::
+
+  template <typename Container>
+  buffer(Container& container,
+         const sycl::property_list& propList = {});
+
+  template <typename Container>
+  buffer(Container& container,
+         AllocatorT allocator,
+         const sycl::property_list& propList = {});
+
+Construct a one dimensional ``sycl::buffer`` instance from the
+elements starting at ``std::data(container)`` and containing
+``std::size(container)`` number of elements.
+The buffer is initialized with the contents of ``container``,
+and the buffer assumes exclusive access to ``container`` for
+the duration of its lifetime.
+
+Data is written back to ``container`` before the completion of
+``sycl::buffer`` destruction if the return type of
+``std::data(container)`` is not ``const``.
+
+The constructed ``sycl::buffer`` will use the ``allocator``
+parameter provided when allocating memory on the host.
+If this parameter is not specified, the constructed
+``sycl::buffer`` will use a default constructed
+``AllocatorT`` when allocating memory on the host.
+
+This constructor is only defined for a buffer parameterized
+with ``Dimensions == 1``, and when ``std::data(container)``
+is convertible to ``T*``.
+
+
+.. rubric:: Constructors 9-12
+
+::
+
+  buffer(const std::shared_ptr<T>& hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         const sycl::property_list& propList = {});
+
+  buffer(const std::shared_ptr<T[]>& hostData,
+         const sycl::range<Dimensions>&  bufferRange,
+         const sycl::property_list& propList = {});
+
+  buffer(const std::shared_ptr<T>& hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         AllocatorT allocator,
+         const sycl::property_list& propList = {});
+
+  buffer(const std::shared_ptr<T[]>& hostData,
+         const sycl::range<Dimensions>& bufferRange,
+         AllocatorT allocator,
+         const sycl::property_list& propList = {});
+
+When ``hostData`` is not empty, construct a ``sycl::buffer``
+with the contents of its stored pointer. The buffer assumes
+exclusive access to this memory for the duration of its lifetime.
+
+The buffer also creates its own internal copy of the ``std::shared_ptr``
+that shares ownership of the ``hostData`` memory, which means the
+application can safely release ownership of this ``std::shared_ptr``
+when the constructor returns.
+
+When ``hostData`` is empty, construct a SYCL
+buffer with uninitialized memory.
+
+The constructed ``sycl::buffer`` will use the ``allocator``
+parameter provided when allocating memory on the host.
+If this parameter is not specified, the constructed
+``sycl::buffer`` will use a default constructed
+``AllocatorT`` when allocating memory on the host.
+
+
+.. rubric:: Constructors 13-14
+
+::
+
+  template <typename InputIterator>
+  buffer(InputIterator first, InputIterator last,
+         const sycl::property_list& propList = {});
+
+  template <typename InputIterator>
+  buffer(InputIterator first, InputIterator last,
+         AllocatorT allocator = {},
+         const sycl::property_list& propList = {});
+
+Create a new allocated one dimension ``sycl::buffer`` initialized
+from the given elements ranging from ``first`` up to one before ``last``.
+
+The data is copied to an intermediate memory position by the runtime.
+
+Data is not written back to the same iterator set provided.
+However, if the ``sycl::buffer`` has a valid non-constant iterator
+specified via the member function ``set_final_data()``,
+data will be copied back to that iterator.
+
+The constructed ``sycl::buffer`` will use the ``allocator``
+parameter provided when allocating memory on the host.
+If this parameter is not specified, the constructed
+``sycl::buffer`` will use a default constructed
+``AllocatorT`` when allocating memory on the host.
+
+
+.. rubric:: Constructor 15
+
+::
+
+  buffer(sycl::buffer& b,
+         const sycl::id<Dimensions>& baseIndex,
+         const sycl::range<Dimensions>& subRange)
+
+Create a new sub-buffer without allocation to have
+separate accessors later.
+
+``b`` is the buffer with the real data, which must not
+be a sub-buffer.
+
+``baseIndex`` specifies the origin of the sub-buffer
+inside the buffer ``b``.
+``subRange`` specifies the size of the sub-buffer.
+The offset and range specified by ``baseIndex`` and ``subRange``
+together must represent a contiguous region of the
+original ``sycl::buffer``.
+
+The origin (based on ``baseIndex``) of the sub-buffer being
+constructed must be a multiple of the memory base address
+alignment of each :ref:`device` which accesses data from
+the buffer. This value is retrievable via the :ref:`device`
+class info query ``sycl::info::device::mem_base_addr_align``.
+
+Violating this requirement causes the implementation to throw
+an ``exception`` with the ``errc::invalid`` error code from
+the :ref:`command-accessor` constructor (if the accessor
+is not a placeholder) or from ``sycl::handler::require()``
+(if the accessor is a placeholder).
+If the accessor is bound to a command group with a secondary
+queue, the sub-buffer's alignment must be compatible with
+both the primary queue's device and the secondary queue's
+device, otherwise this exception is thrown.
 
 .. rubric:: Template parameters
 
 =================  ==========
-``InputIterator``  type of iterator used to initialize the buffer
+``Container``      Type of the ``container`` used to
+                   initialize the buffer.
+``InputIterator``  Type of iterator used to initialize the buffer.
 =================  ==========
 
 .. rubric:: Parameters
 
 ================  ==========
-``bufferRange``   :ref:`range` specifies the dimensions of the buffer
-``allocator``     Allocator for buffer data
-``propList``      See `Buffer properties`_
-``hostData``      Pointer to host memory to hold data
-``first``         Iterator to initialize buffer
-``last``          Iterator to initialize buffer
-``b``             Buffer used to initialize this buffer
-``baseIndx``      Origin of sub-buffer
-``subRange``      Dimensions of sub-buffer
+``bufferRange``   :ref:`range` specifies the dimensions of the buffer.
+``allocator``     Allocator for the buffer data. In case this parameter
+                  is absent, the ``sycl::buffer`` will use a default
+                  constructed ``AllocatorT`` when allocating memory
+                  on the host.
+``propList``      See `Buffer properties`_.
+``hostData``      Pointer to host memory to hold data.
+``first``         Beginning iterator to initialize the buffer.
+``last``          Ending iterator to initialize the buffer.
+``b``             Parent buffer used to initialize this buffer.
+``baseIndx``      Origin of the sub-buffer.
+``subRange``      Dimensions of the sub-buffer.
 ================  ==========
+
+.. rubric:: Exceptions
+
+``errc::invalid``
+  An exception with this error code will be thrown in
+  the constructor 15 in such cases:
+
+  1. If the sum of ``baseIndex`` and ``subRange`` in any dimension
+     exceeds the parent buffer (``b``) size (``bufferRange``)
+     in that dimension.
+  2. If a non-contiguous region of a buffer is requested
+     when constructing a sub-buffer.
+  3. If ``b`` is a sub-buffer.
 
 ================
 Member functions
@@ -239,16 +449,6 @@ The value of target can be ``sycl::target::device`` or
 
 ::
 
-  template <sycl::access_mode Mode>
-  sycl::accessor<T, Dimensions, Mode, sycl::target::host_buffer> get_access();
-
-Deprecated in SYCL 2020. Use ``get_host_access()`` instead.
-
-Returns a valid host ``sycl::accessor`` to the buffer with the
-specified access mode and target.
-
-::
-
   template <sycl::access_mode Mode = sycl::access_mode::read_write,
             sycl::target Targ = sycl::target::device>
   sycl::accessor<T, Dimensions, Mode, Targ> get_access(sycl::handler& commandGroupHandler,
@@ -265,6 +465,28 @@ The value of target can be ``sycl::target::device`` or
 
 ::
 
+  template <typename... Ts>
+  auto get_access(Ts... args);
+
+Returns a valid :ref:`command-accessor` as if constructed via passing the
+buffer and all provided arguments to the ``sycl::accessor`` constructor.
+
+Possible implementation: ``return sycl::accessor{*this, args...};``
+
+.. rubric:: Deprecated in SYCL 2020
+
+::
+
+  template <sycl::access_mode Mode>
+  sycl::accessor<T, Dimensions, Mode, sycl::target::host_buffer> get_access();
+
+Deprecated in SYCL 2020. Use ``get_host_access()`` instead.
+
+Returns a valid host ``sycl::accessor`` to the buffer with the
+specified access mode and target.
+
+::
+
   template <sycl::access_mode Mode>
   sycl::accessor<T, Dimensions, Mode, sycl::target::host_buffer>
   get_access(sycl::range<Dimensions> accessRange,
@@ -278,16 +500,6 @@ The accessor is a ranged accessor, where the range starts at the given
 offset from the beginning of the buffer.
 
 The value of target can only be ``sycl::target::host_buffer``.
-
-::
-
-  template <typename... Ts>
-  auto get_access(Ts... args);
-
-Returns a valid :ref:`command-accessor` as if constructed via passing the
-buffer and all provided arguments to the ``sycl::accessor`` constructor.
-
-Possible implementation: ``return sycl::accessor{*this, args...};``
 
 .. rubric:: Template parameters
 
