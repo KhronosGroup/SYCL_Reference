@@ -4,7 +4,7 @@
 
 .. rst-class:: api-class
 
-.. _buffer-accessor:
+.. _command-accessor:
 
 ******************
 ``sycl::accessor``
@@ -18,6 +18,8 @@
    class accessor;
 
 Description
+
+.. _access-target:
 
 .. rubric:: Template parameters
 
