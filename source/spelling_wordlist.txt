@@ -42,3 +42,4 @@ dereferences
 pinnable
 constructible
 unsampled
+linearizes
