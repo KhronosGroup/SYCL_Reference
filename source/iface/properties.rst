@@ -21,7 +21,7 @@ a particular feature. Each of those classes must also provide
 ``has_property`` and ``get_property`` member functions
 for querying for a particular property.
 
-The example below illustrates how using properties does not affect the
+Using properties does not affect the
 type of the object, thus, does not prevent the usage of SYCL objects
 in containers.
 
@@ -65,8 +65,8 @@ class and the SYCL property classes is provided below.
   class T {
     ...
 
-        template <typename Property>
-        bool has_property() const noexcept;
+    template <typename Property>
+    bool has_property() const noexcept;
 
     template <typename Property> Property get_property() const;
 
@@ -79,8 +79,8 @@ class and the SYCL property classes is provided below.
   };
   } // namespace sycl
 
-(constructor)
-==============
+(constructor) of `sycl::property_list`
+======================================
 
 ::
 
@@ -143,8 +143,8 @@ properties defined by an implementation. All other specializations of
 
 Variable containing value of ``is_property_of<Property, SyclObject>``.
 
-Member functions
-================
+Member functions of the SYCL common property interface
+======================================================
 
 ``has_property``
 ================
@@ -170,8 +170,8 @@ with the ``Property`` property.
 
 .. _ buffer-properties-example:
 
-``buffer-properties-example``
-=============================
+buffer-properties-example
+=========================
 
 ::
 
