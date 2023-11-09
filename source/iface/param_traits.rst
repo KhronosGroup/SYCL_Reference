@@ -6,28 +6,36 @@
 Backend interoperability
 ************************
 
-There are three forms of interoperability with |SYCL_RUNTIME| classes:
-interoperability on the |SYCL_APP| with the |SYCL_BCK_API|, interoperability
-within a |SYCL_KERNEL_FUNCTION| with the equivalent kernel language types of
-the |SYCL_BCK|, and interoperability within a |SYCL_HOST_TASK|
-with the ``interop_handle``.
+Many of the SYCL runtime classes may be implemented such that they
+encapsulate an object unique to the SYCL backend that underpins the
+functionality of that class. Where appropriate, these classes may
+provide an interface for interoperating between the SYCL runtime
+object and the native backend object in order to support
+interoperability within an application between SYCL and the
+associated SYCL backend API.
 
-|SYCL_APP| interoperability, |SYCL_KERNEL_FUNCTION| interoperability
-and |SYCL_HOST_TASK| interoperability are provided via different
-interfaces and may have different behavior for the same SYCL object.
+There are three forms of interoperability with SYCL runtime classes:
+interoperability on the SYCL application with the SYCL backend API,
+interoperability within a SYCL kernel function with the equivalent
+kernel language types of the SYCL backend, and interoperability
+within a host task with the ``interop_handle``.
 
-|SYCL_APP| interoperability may be provided for ``buffer``, ``context``,
+SYCL application interoperability, SYCL kernel function interoperability
+and host task interoperability are provided via different interfaces
+and may have different behavior for the same SYCL object.
+
+SYCL application interoperability may be provided for ``buffer``, ``context``,
 ``device``, ``device_image``, ``event``,`` kernel``, ``kernel_bundle``,
 ``platform``, ``queue``, ``sampled_image``, and ``unsampled_image``.
 
-|SYCL_KERNEL_FUNCTION| interoperability may be provided for ``accessor``,
+SYCL kernel function interoperability may be provided for ``accessor``,
 ``device_event``, ``local_accessor``, ``sampled_image_accessor``, ``tream``
-and ``unsampled_image_accessor`` inside |SYCL_KERNEL_SCOPE| only and
+and ``unsampled_image_accessor`` inside kernel scope only and
 is not available outside of that scope.
 
-|SYCL_HOST_TASK| interoperability may be provided for ``accessor``,
+host task interoperability may be provided for ``accessor``,
 ``sampled_image_accessor``, ``unsampled_image_accessor``, ``queue``,
-``device``, ``context`` inside the scope of a |SYCL_HOST_TASK| only.
+``device``, ``context`` inside the scope of a host task only.
 
 .. seealso:: |SYCL_SPEC_HOST_TASK|
 
@@ -59,11 +67,11 @@ is not available outside of that scope.
 
   } // namespace sycl
 
-A series of type traits are provided for |SYCL_BCK| interoperability,
+A series of type traits are provided for SYCL backend interoperability,
 defined in the ``backend_traits`` class.
 
 A specialization of ``backend_traits`` must be provided for each named
-|SYCL_BCK| enumerated in the enum class ``backend`` that is
+SYCL backend enumerated in the enum class ``backend`` that is
 available at compile time.
 
 The type alias ``backend_input_t`` is provided to enable less verbose access
@@ -176,13 +184,13 @@ object does not match the target backend.
 
   } // namespace sycl
 
-For each |SYCL_RUNTIME| class ``T`` which supports |SYCL_APP| interoperability,
-a specialization of the appropriate template function
+For each SYCL runtime class ``T`` which supports SYCL application
+interoperability, a specialization of the appropriate template function
 ``make_{sycl_class}`` where ``{sycl_class}`` is the class name of
-``T``, must be defined, which takes a |SYCL_APP| interoperability
+``T``, must be defined, which takes a SYCL application interoperability
 ``native backend object`` and constructs and returns an instance of
 ``T``. The availability and behavior of these template functions
-is defined by the |SYCL_BCK| specification document.
+is defined by the SYCL backend specification document.
 
 Overloads of the ``make_{sycl_class}`` function which take a SYCL
 ``context`` object as an argument must throw an ``exception`` with the

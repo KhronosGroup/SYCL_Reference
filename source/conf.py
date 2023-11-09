@@ -130,15 +130,6 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
-    + make_ref("SYCL_RUNTIME", "SYCL runtime", "#sycl-runtime")
-    + make_ref("SYCL_APP", "SYCL application ", "#sycl-application")
-    + make_ref("SYCL_BCK_API", "SYCL backend API", "#backend-api")
-    + make_ref(
-        "SYCL_KERNEL_FUNCTION", "SYCL kernel function", "#sycl-kernel-function"
-    )
-    + make_ref("SYCL_BCK", "SYCL backend", "#backend")
-    + make_ref("SYCL_HOST_TASK", "host task", "#host-task")
-    + make_ref("SYCL_KERNEL_SCOPE", "kernel scope", "#kernel-scope")
     + make_ref(
         "SYCL_SPEC_HOST_TASK", "Section 4.10", "#subsec:interfaces.hosttasks"
     )
