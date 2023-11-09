@@ -12,8 +12,10 @@
    :maxdepth: 1
 
    iface/buffer
-   iface/image
+   iface/host-allocation
    iface/accessors
+   iface/synchronization-primitives
    iface/address-space
    iface/private_memory
-   iface/sampler
+   iface/image
+   iface/image-sampler

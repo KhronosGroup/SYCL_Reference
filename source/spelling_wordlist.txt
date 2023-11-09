@@ -40,3 +40,5 @@ dereference
 dereferencing
 dereferences
 pinnable
+constructible
+unsampled

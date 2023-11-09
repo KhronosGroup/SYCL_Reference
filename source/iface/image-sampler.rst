@@ -2,9 +2,9 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-********
-Samplers
-********
+**************
+Image samplers
+**************
 
 .. seealso:: |SYCL_SPEC_SAMPLER|
 

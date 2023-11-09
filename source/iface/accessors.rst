@@ -14,7 +14,9 @@ or to shared local memory allocated by the runtime.
 .. toctree::
    :maxdepth: 1
 
-   buffer-accessor
-   local-accessor
-   image-accessor
-   accessor-enums
+   accessor-concept
+   command-accessor
+   host_accessor
+   local_accessor
+   unsampled-image-accessor
+   sampled-image-accessor
