@@ -107,10 +107,10 @@ Common special member functions for reference semantics
   * - Special member function
     - Description
   * - ``T(const T& rhs);``
-    - Constructs a ``T`` instance as a copy of the RHS SYCL 
+    - Constructs a SYCL ``T`` instance as a copy of the RHS SYCL 
       ``T`` in accordance with the requirements set out above.
   * - ``T(T&& rhs);``
-    - Constructs a ``T`` instance as a copy of the RHS SYCL 
+    - Constructs a SYCL ``T`` instance as a move of the RHS SYCL 
       ``T`` in accordance with the requirements set out above.
   * - ``T& operator=(const T& rhs);``
     - Assigns this SYCL ``T`` instance with a copy of the RHS 
