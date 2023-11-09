@@ -362,7 +362,7 @@ device, otherwise this exception is thrown.
 
 .. rubric:: Example
 
-See :ref:`creating_sub_buf_example`.
+See :ref:`sub_buf_example`.
 
 ================
 Member functions
@@ -945,9 +945,9 @@ performance cost due to index mapping computation.
 
 .. rubric:: Example
 
-See :ref:`creating_sub_buf_example`.
+See :ref:`sub_buf_example`.
 
-.. _creating_sub_buf_example:
+.. _sub_buf_example:
 
 =========
 Example 1
