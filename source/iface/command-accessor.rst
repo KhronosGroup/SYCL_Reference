@@ -25,6 +25,22 @@ the following values for the ``AccessMode`` template parameter:
 
 .. seealso:: SYCL Specification |SYCL_SPEC_BUFFER_ACCESSOR|
 
+.. _access-targets:
+
+==============
+Access targets
+==============
+
+.. list-table::
+  :header-rows: 1
+
+  * - Accessor target
+    - Meaning
+  * - ``target::device``
+    - Access a buffer from a SYCL kernel function via device global memory.
+  * - ``target::host_task``
+    - Access a buffer from a host task.
+
 ============
 Member types
 ============
@@ -243,13 +259,13 @@ The permissible values for this parameter are listed in table below.
 
   * - Data type
     - Access mode
-  * - not const-qualified
+  * - ``not const-qualified``
     - ``access_mode::read``
-  * - const-qualified
+  * - ``const-qualified``
     - ``access_mode::read``
 
 The specializations of ``accessor`` with
-``target::device or target::host_task`` that are read-only accessors.
+``target::device`` or ``target::host_task`` that are read-only accessors.
 There is an implicit conversion between any of these specializations,
 provided that all other template parameters are the same.
 
@@ -261,7 +277,7 @@ provided that all other template parameters are the same.
 
   * - Data type
     - Access mode
-  * - not const-qualified
+  * - ``not const-qualified``
     - ``access_mode::read_write``
 
 The table present an implicit conversion from
