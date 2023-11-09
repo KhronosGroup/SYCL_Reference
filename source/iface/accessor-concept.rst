@@ -79,9 +79,9 @@ See :ref:`local_accessor` page for it's allowed ``DataT`` types.
 
 .. _access-mode:
 
-======================
-``sycl::access::mode``
-======================
+=====================
+``sycl::access_mode``
+=====================
 
 Most accessors have an ``AccessMode`` template parameter which
 specifies whether the accessor can read or write the underlying data.
