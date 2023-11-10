@@ -129,6 +129,11 @@ prolog_template = string.Template(
     + make_ref("SYCL_SPEC_USM_ALLOC", "Section 4.8.3", "#_usm_allocations")
     + make_ref("SYCL_BUFF_PROP", "Section 4.7.2.2", "#sec:buffer-properties")
     + make_ref(
+        "SYCL_SPEC_COMMON_REFERENCE",
+        "Section 4.5.2",
+        "#sec:reference-semantics",
+    )
+    + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
     + f"""
