@@ -8,6 +8,12 @@
 
 .. rst-class:: api-class
 
+.. toctree::
+   :maxdepth: 1
+
+   iface/device-event
+
+
 ``sycl::atomic_ref``
 ====================
 

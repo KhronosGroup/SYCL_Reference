@@ -4,11 +4,9 @@
 
 .. _handler:
 
-.. rst-class:: api-class
-
-=================
+*****************
 ``sycl::handler``
-=================
+*****************
 
 ::
 
@@ -21,8 +19,12 @@ A ``handler`` can only be constructed by the SYCL runtime and is
 passed as an argument to the command group function. The command group
 function is an argument to :ref:`queue-submit`.
 
-
 .. seealso:: |SYCL_SPEC_HANDLER|
+
+
+=================
+Member functions
+=================
 
 ``require``
 ===========
@@ -70,7 +72,6 @@ Defines and invokes a kernel function. See :ref:`stream-example` for
 usage.
 
 .. _handler-parallel_for:
-
 
 ``parallel_for``
 ================
