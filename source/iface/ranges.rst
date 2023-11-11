@@ -12,4 +12,4 @@ Range Classes
    :maxdepth: 1
 
    range
-   nd_range 
+   nd_range
