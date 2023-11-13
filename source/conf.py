@@ -131,7 +131,9 @@ prolog_template = string.Template(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
     + make_ref(
-        "SYCL_SPEC_HOST_TASK", "Section 4.10", "#subsec:interfaces.hosttasks"
+        "SYCL_SPEC_BCK_INTEROP",
+        "Section 4.5.1",
+        "#sec:backend-interoperability",
     )
     + make_ref(
         "SYCL_SPEC_BCK_TRAITS",

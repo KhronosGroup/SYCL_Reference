@@ -37,7 +37,7 @@ host task interoperability may be provided for ``accessor``,
 ``sampled_image_accessor``, ``unsampled_image_accessor``, ``queue``,
 ``device``, ``context`` inside the scope of a host task only.
 
-.. seealso:: |SYCL_SPEC_HOST_TASK|
+.. seealso:: |SYCL_SPEC_BCK_INTEROP|
 
 
 
@@ -73,6 +73,22 @@ defined in the ``backend_traits`` class.
 A specialization of ``backend_traits`` must be provided for each named
 SYCL backend enumerated in the enum class ``backend`` that is
 available at compile time.
+
+For each SYCL runtime class ``T`` which supports SYCL application
+interoperability, a specialization of ``get_native`` must be defined,
+which takes an instance of ``T`` and returns a SYCL application
+interoperability native backend object associated with ``syclObject``
+which can be used for SYCL application interoperability. The lifetime
+of the object returned are backend-defined and specified
+in the backend specification.
+
+For each SYCL runtime class ``T`` which supports kernel function
+interoperability, a specialization of ``get_native`` must be defined,
+which takes an instance of ``T`` and returns the kernel function
+interoperability native backend object associated with ``syclObject``
+which can be used for kernel function interoperability. The availability
+and behavior of these template functions is defined
+by the SYCL backend specification document.
 
 The type alias ``backend_input_t`` is provided to enable less verbose access
 to the ``input_type`` type within ``backend_traits`` for a specific SYCL
