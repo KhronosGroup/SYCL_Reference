@@ -41,23 +41,6 @@ Access targets
   * - ``target::host_task``
     - Access a buffer from a host task.
 
-============
-Member types
-============
-
-``accessor_ptr``
-================
-
-::
-
-  template <access::decorated IsDecorated> accessor_ptr
-
-If ``(AccessTarget == target::device):
-multi_ptr<value_type, access::address_space::global_space, IsDecorated>.``
-
-The definition of this type is not specified when
-``(AccessTarget == target::host_task)``.
-
 
 (constructors)
 ==============
@@ -181,6 +164,19 @@ constructed ``id<Dimensions>{}``.
 
 Deprecated in SYCL 2020. Use ``get_multi_ptr`` instead.
 
+::
+
+  std::add_pointer_t<value_type> get_pointer() const noexcept
+
+Available only when ``(AccessTarget == target::host_task)``.
+
+Returns a pointer to the start of this accessor’s underlying buffer,
+even if this is a ranged accessor whose range does not start at
+the beginning of the buffer. The return value
+is unspecified if the accessor is empty.
+
+This function may only be called from within a command.
+
 ``get_multi_ptr``
 =================
 
@@ -215,11 +211,28 @@ Assignment to the single element that is accessed by this accessor.
 
 This function may only be called from within a command.
 
+============
+Member types
+============
+
+``accessor_ptr``
+================
+
+::
+
+  template <access::decorated IsDecorated> accessor_ptr
+
+If ``(AccessTarget == target::device):
+multi_ptr<value_type, access::address_space::global_space, IsDecorated>.``
+
+The definition of this type is not specified when
+``(AccessTarget == target::host_task)``.
+
 .. _tags_buff_accessors:
 
-=============================
-Buffer command accessors tags
-=============================
+====================
+Buffer accessor tags
+====================
 
 Some ``accessor`` constructors take a ``TagT`` parameter,
 which is used to deduce template arguments.
