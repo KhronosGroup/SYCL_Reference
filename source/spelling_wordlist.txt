@@ -43,3 +43,6 @@ pinnable
 constructible
 unsampled
 linearizes
+copyable
+mutex
+constantness
