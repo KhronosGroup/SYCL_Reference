@@ -74,22 +74,6 @@ A specialization of ``backend_traits`` must be provided for each named
 SYCL backend enumerated in the enum class ``backend`` that is
 available at compile time.
 
-For each SYCL runtime class ``T`` which supports SYCL application
-interoperability, a specialization of ``get_native`` must be defined,
-which takes an instance of ``T`` and returns a SYCL application
-interoperability native backend object associated with ``syclObject``
-which can be used for SYCL application interoperability. The lifetime
-of the object returned are backend-defined and specified
-in the backend specification.
-
-For each SYCL runtime class ``T`` which supports kernel function
-interoperability, a specialization of ``get_native`` must be defined,
-which takes an instance of ``T`` and returns the kernel function
-interoperability native backend object associated with ``syclObject``
-which can be used for kernel function interoperability. The availability
-and behavior of these template functions is defined
-by the SYCL backend specification document.
-
 The type alias ``backend_input_t`` is provided to enable less verbose access
 to the ``input_type`` type within ``backend_traits`` for a specific SYCL
 object of type ``T``. The type alias ``backend_return_t`` is provided to
@@ -111,6 +95,22 @@ enable less verbose access to the ``return_type`` type within
   backend_return_t<Backend, T> get_native(const T& syclObject);
 
   } // namespace sycl
+
+For each SYCL runtime class ``T`` which supports SYCL application
+interoperability, a specialization of ``get_native`` must be defined,
+which takes an instance of ``T`` and returns a SYCL application
+interoperability native backend object associated with ``syclObject``
+which can be used for SYCL application interoperability. The lifetime
+of the object returned are backend-defined and specified
+in the backend specification.
+
+For each SYCL runtime class ``T`` which supports kernel function
+interoperability, a specialization of ``get_native`` must be defined,
+which takes an instance of ``T`` and returns the kernel function
+interoperability native backend object associated with ``syclObject``
+which can be used for kernel function interoperability. The availability
+and behavior of these template functions is defined
+by the SYCL backend specification document.
 
 The ``get_native`` function must throw an ``exception`` with the
 ``errc::backend_mismatch`` error code if the backend of the SYCL
