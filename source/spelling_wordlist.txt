@@ -4,6 +4,7 @@
 
 accessor
 accessors
+adaptor
 backend
 backends
 destructor

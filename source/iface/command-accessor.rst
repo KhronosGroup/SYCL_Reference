@@ -296,13 +296,351 @@ provided that all other template parameters are the same.
 The table present an implicit conversion from
 the read-write specialization.
 
-========================
-Common types and members
-========================
+===================
+Common member types
+===================
 
-The ``accessor``, ``host_accessor``, and ``local_accessor``
-classes have many member types and member functions with the
-same name and meaning.
+``value_type``
+==============
 
-|SYCL_ACCESSOR_COMMON_TYPES| describes these common types and
-|SYCL_ACCESSOR_COMMON_MEMBERS| describes the common member functions.
+If the accessor is read-only, equal to ``const DataT``,
+otherwise equal to ``DataT``.
+
+See |SYCL_ACCESSOR_READ_ONLY_BUFF_CMD|, |SYCL_ACCESSOR_READ_ONLY_BUFF_HOST|
+and |SYCL_ACCESSOR_READ_ONLY_LOCAL| for which accessors
+are considered read-only.
+
+``reference``
+=============
+
+Equal to ``value_type&``.
+
+``const_reference``
+===================
+
+Equal to ``const DataT&``.
+
+``iterator``
+============
+
+Iterator that can provide ranged access. Cannot be written to if the
+``accessor`` is read-only. The underlying pointer is address space
+qualified for accessor specializations with
+``target::device`` and for ``local_accessor``.
+
+``const_iterator``
+==================
+
+Iterator that can provide ranged access. Cannot be written to.
+The underlying pointer is address space qualified for ``accessor``
+specializations with ``target::device`` and for ``local_accessor``.
+
+``reverse_iterator``
+====================
+
+Iterator adaptor that reverses the direction of ``iterator``.
+
+``const_reverse_iterator``
+==========================
+
+Iterator adaptor that reverses the direction of ``const_iterator``.
+
+``difference_type``
+===================
+
+Equal to ``typename std::iterator_traits<iterator>::difference_type``.
+
+``size_type``
+=============
+
+Equal to ``size_t``.
+
+======================
+Common member function
+======================
+
+``byte_size``
+=============
+
+::
+
+  size_type byte_size() const noexcept
+
+Returns the size in bytes of the memory region this accessor may access.
+
+For a buffer accessor this is the size of the underlying buffer,
+unless it is a ranged accessor in which case it is the size of
+the elements within the accessor’s range.
+
+For a local accessor this is the size of the accessor’s local
+memory allocation, per work-group.
+
+``size``
+========
+
+::
+
+  size_type size() const noexcept
+
+Returns the number of ``DataT`` elements of the memory region this
+accessor may access.
+
+For a buffer accessor this is the number of elements in the underlying
+buffer, unless it is a ranged accessor in which case it is the number
+of elements within the accessor’s range.
+
+For a local accessor this is the number of elements in the accessor’s
+local memory allocation, per work-group.
+
+``max_size``
+============
+
+::
+
+  size_type max_size() const noexcept
+
+Returns the maximum number of elements any accessor of this
+type would be able to access.
+
+``empty``
+=========
+
+::
+
+  bool empty() const noexcept
+
+Returns ``true`` if ``(size() == 0)``.
+
+``get_range``
+=============
+
+::
+
+  range<Dimensions> get_range() const
+
+Available only when ``(Dimensions > 0)``.
+
+Returns a ``range`` object which represents the number of elements of
+``DataT`` per dimension that this accessor may access.
+
+For a buffer accessor this is the range of the underlying buffer,
+unless it is a ranged accessor in which case it is the range that
+was specified when the accessor was constructed.
+
+``reference``
+=============
+
+::
+
+  operator reference() const
+
+For ``accessor`` available only when
+``(AccessMode != access_mode::atomic && Dimensions == 0)``.
+
+For ``host_accessor`` and ``local_accessor``
+available only when ``(Dimensions == 0)``.
+
+Returns a reference to the single element that is accessed
+by this accessor.
+
+For ``accessor`` and ``local_accessor``, this function may only
+be called from within a command.
+
+``operator[]``
+==============
+
+::
+
+  reference operator[](id<Dimensions> index) const
+
+For ``accessor`` available only when
+``(AccessMode != access_mode::atomic && Dimensions > 0)``.
+
+For ``host_accessor`` and ``local_accessor`` available only
+when ``(Dimensions > 0)``.
+
+Returns a reference to the element at the location specified by ``index``.
+If this is a ranged accessor, the element is determined by
+adding ``index`` to the accessor’s offset.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+::
+
+  __unspecified__ operator[](size_t index) const
+
+Available only when ``(Dimensions > 1)``.
+
+Returns an instance of an undefined intermediate type representing
+this accessor, with the dimensionality ``Dimensions-1`` and containing
+an implicit ``id`` with index ``Dimensions`` set to ``index``.
+The intermediate type returned must provide all available subscript
+operators which take a ``size_t`` parameter defined by this accessor
+class that are appropriate for the type it represents
+(including this subscript operator).
+
+If this is a ranged accessor, the implicit ``id`` in the returned
+instance also includes the accessor’s offset.
+
+For ``accessor`` and ``local_accessor``, this function may only
+be called from within a command.
+
+::
+
+  reference operator[](size_t index) const
+
+For ``accessor`` available only when
+``(AccessMode != access_mode::atomic && Dimensions == 1)``.
+
+For ``host_accessor`` and ``local_accessor`` available
+only when ``(Dimensions == 1)``.
+
+Returns a reference to the element at the location specified by ``index``.
+If this is a ranged accessor, the element is
+determined by adding ``index`` to the accessor’s offset.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``begin``
+=========
+
+::
+
+  iterator begin() const noexcept
+
+Returns an iterator to the first element of the memory this
+accessor may access.
+
+For a buffer accessor this is an iterator to the first element
+of the underlying buffer, unless this is a ranged accessor in which
+case it is an iterator to first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``end``
+=======
+
+::
+
+  iterator end() const noexcept
+
+Returns an iterator to one element past the last element
+of the memory this accessor may access.
+
+For a buffer accessor this is an iterator to one element past
+the last element in the underlying buffer, unless this is a ranged
+accessor in which case it is an iterator to one element past the
+last element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``cbegin``
+==========
+
+::
+
+  const_iterator cbegin() const noexcept
+
+Returns a ``const`` iterator to the first element of the
+memory this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator to the first element
+of the underlying buffer, unless this is a ranged accessor in which
+case it is a ``const`` iterator to first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``cend``
+========
+
+::
+
+  const_iterator cend() const noexcept
+
+Returns a ``const`` iterator to one element past the last element
+of the memory this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator to one element past
+the last element in the underlying buffer, unless this is a ranged
+accessor in which case it is a ``const`` iterator to one element past the
+last element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``rbegin``
+==========
+
+::
+
+  reverse_iterator rbegin() const noexcept
+
+Returns an iterator adaptor to the last element
+of the memory this accessor may access.
+
+For a buffer accessor this is an iterator adaptor to the
+last element of the underlying buffer, unless this is a ranged
+accessor in which case it is an iterator adaptor to the last
+element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``rend``
+========
+
+::
+
+  reverse_iterator rend() const noexcept
+
+Returns an iterator adaptor to one element before the first element
+of the memory this accessor may access.
+
+For a buffer accessor this is an iterator adaptor to one element
+before the first element in the underlying buffer, unless this is
+a ranged accessor in which case it is an iterator adaptor to one
+element before the first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``crbegin``
+===========
+
+::
+
+  const_reverse_iterator crbegin() const noexcept
+
+Returns a ``const`` iterator adaptor to the last element of the memory
+this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator adaptor to the last
+element of the underlying buffer, unless this is a ranged accessor
+in which case it is an ``const`` iterator adaptor to last
+element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``crend``
+=========
+
+::
+
+  const_reverse_iterator crend() const noexcept
+
+Returns a ``const`` iterator adaptor to one element before the first
+element of the memory this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator adaptor to one element
+before the first element in the underlying buffer, unless this is
+a ranged accessor in which case it is a ``const`` iterator adaptor to one
+element before the first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
