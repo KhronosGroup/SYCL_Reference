@@ -4,7 +4,7 @@
 
 .. rst-class:: api-class
 
-.. _buffer-accessor:
+.. _command-accessor:
 
 ******************
 ``sycl::accessor``
