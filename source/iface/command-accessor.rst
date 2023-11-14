@@ -162,7 +162,8 @@ constructed ``id<Dimensions>{}``.
 
   global_ptr<access::decorated::legacy> get_pointer() const noexcept
 
-Deprecated in SYCL 2020. Use ``get_multi_ptr`` instead.
+This version of ``get_pointer`` function deprecated in SYCL 2020.
+Use ``get_multi_ptr`` instead.
 
 ::
 
