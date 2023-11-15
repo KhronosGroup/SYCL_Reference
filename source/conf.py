@@ -127,6 +127,12 @@ prolog_template = string.Template(
         "#_unified_shared_memory_pointer_queries",
     )
     + make_ref("SYCL_SPEC_USM_ALLOC", "Section 4.8.3", "#_usm_allocations")
+    + make_ref("SYCL_BUFF_PROP", "Section 4.7.2.2", "#sec:buffer-properties")
+    + make_ref(
+        "SYCL_SPEC_COMMON_REFERENCE",
+        "Section 4.5.2",
+        "#sec:reference-semantics",
+    )
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
@@ -155,6 +161,7 @@ prolog_template = string.Template(
         "4.7.6.11.2",
         "#sec:accessor.local.conversions",
     )
+    + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -163,7 +170,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_BUFFER| replace:: `SYCL Specification`_ Section 4.7.2
 .. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
 .. |SYCL_SPEC_LOCAL_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.11
 .. |SYCL_SPEC_IMAGE_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.12

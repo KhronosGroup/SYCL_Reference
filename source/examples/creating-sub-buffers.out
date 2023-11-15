@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2020 The Khronos Group Inc.
+#
+# SPDX-License-Identifier: CC-BY-4.0
+
+sub_buf1 created successfully
+Exception while creating sub_buf2: Requested sub-buffer region is not contiguous -30 (PI_ERROR_INVALID_VALUE)
+Exception while creating sub_buf3: Requested sub-buffer region is not contiguous -30 (PI_ERROR_INVALID_VALUE)
+Exception while creating sub_buf4: Requested sub-buffer size exceeds the size of the parent buffer -30 (PI_ERROR_INVALID_VALUE)
