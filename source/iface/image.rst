@@ -8,14 +8,130 @@
 Images
 ******
 
+The classes `unsampled_image`_ and `sampled_image`_ define shared 
+image data of one, two or three dimensions, that can be used by 
+kernels in queues and have to be accessed using the 
+image :ref:`accessor <iface-accessors>` classes.
+
+The allocator template parameter of the `unsampled_image`_ and 
+`sampled_image`_ classes can be any allocator type including a 
+custom allocator, however it must allocate in units of ``std::byte``.
+
+For any image that is constructed with the range :math:`(r_1,r_2,r_3)`
+with an element type size in bytes of :math:`s`, the image row pitch 
+and image slice pitch should be calculated as follows:
+
+* Row pitch:  :math:`r_1 \cdot s`
+* Image slice pitch: :math:`r_1 \cdot r_2 \cdot s`
+
+The SYCL `unsampled_image`_ and `sampled_image`_ class templates 
+provide the :ref:`common-reference`.
 
 .. seealso:: |SYCL_SPEC_IMAGE|
+
 
 .. _unsampled_image:
 
 =========================
 ``sycl::unsampled_image``
 =========================
+
+::
+
+  template <int Dimensions = 1, typename AllocatorT = sycl::image_allocator>
+  class unsampled_image;
+
+The ``sycl::unsampled_image`` class template takes a template 
+parameter ``AllocatorT`` for specifying an allocator which is 
+used by the SYCL runtime when allocating temporary memory on 
+the host. If no template argument is provided, the default 
+allocator for the SYCL ``sycl::unsampled_image`` class 
+``sycl::image_allocator`` is used (see :ref:`host-allocations`).
+
+(constructors)
+--------------
+
+Each constructor of the ``sycl::unsampled_image`` takes an 
+`image_format`_ to describe the data layout of the image data.
+
+Each constructor additionally takes as the last parameter an 
+optional ``sycl::property_list`` to provide properties to the 
+``sycl::unsampled_image``.
+
+.. rubric:: Constructors 1-2
+
+::
+
+  unsampled_image(sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  const sycl::property_list& propList = {});
+
+  unsampled_image(sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  AllocatorT allocator,
+                  const sycl::property_list& propList = {});
+
+.. rubric:: Constructors 3-4
+
+::
+
+  unsampled_image(sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  const sycl::range<Dimensions - 1>& pitch,
+                  const sycl::property_list& propList = {});
+
+  unsampled_image(sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  const sycl::range<Dimensions - 1>& pitch,
+                  AllocatorT allocator,
+                  const sycl::property_list& propList = {});
+            
+.. rubric:: Constructors 5-6
+
+::
+
+  unsampled_image(void* hostPointer, 
+                  sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  const sycl::property_list& propList = {});
+
+  unsampled_image(void* hostPointer, 
+                  sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  AllocatorT allocator,
+                  const sycl::property_list& propList = {});
+
+.. rubric:: Constructors 7-10
+
+::
+
+  unsampled_image(std::shared_ptr<void>& hostPointer,
+                  sycl::image_format format,
+                  const range<Dimensions>& rangeRef,
+                  const property_list& propList = {})
+  
+  unsampled_image(std::shared_ptr<void>& hostPointer,
+                  sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  AllocatorT allocator,
+                  const sycl::property_list& propList = {})
+
+  unsampled_image(std::shared_ptr<void>& hostPointer,
+                  sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  const sycl::range<Dimensions - 1>& pitch,
+                  const sycl::property_list& propList = {})
+
+  unsampled_image(std::shared_ptr<void>& hostPointer,
+                  sycl::image_format format,
+                  const sycl::range<Dimensions>& rangeRef,
+                  const sycl::range<Dimensions - 1>& pitch,
+                  AllocatorT allocator,
+                  const sycl::property_list& propList = {})
+
+Member functions
+================
+
 
 
 .. _sampled_image:
@@ -24,6 +140,42 @@ Images
 ``sycl::sampled_image``
 =======================
 
+
+.. _image_format:
+
+======================
+``sycl::image_format``
+======================
+
+Class ``sycl::image_format`` is used in the `unsampled_image`_ 
+and `sampled_image`_ constructors to describe the data layout 
+of the image data.
+
+::
+
+  namespace sycl {
+
+  enum class image_format : /* unspecified */ {
+    r8g8b8a8_unorm,
+    r16g16b16a16_unorm,
+    r8g8b8a8_sint,
+    r16g16b16a16_sint,
+    r32b32g32a32_sint,
+    r8g8b8a8_uint,
+    r16g16b16a16_uint,
+    r32b32g32a32_uint,
+    r16b16g16a16_sfloat,
+    r32g32b32a32_sfloat,
+    b8g8r8a8_unorm
+  };
+
+  } // namespace sycl
+
+.. note:: 
+      
+  Where relevant, it is the responsibility of the 
+  user to ensure that the format of the data 
+  matches the format described by the ``sycl::image_format``.
 
 .. _image-properties:
 
