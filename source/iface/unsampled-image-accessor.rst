@@ -8,9 +8,17 @@ Unsampled image accessors
 
 .. rst-class:: api-class
 
-==========================
-``sycl::accessor`` (image)
-==========================
+.. _unsampled_image_accessor:
+
+==================================
+``sycl::unsampled_image_accessor``
+==================================
+
+.. _host_unsampled_image_accessor:
+
+=======================================
+``sycl::host_unsampled_image_accessor``
+=======================================
 
 ::
 

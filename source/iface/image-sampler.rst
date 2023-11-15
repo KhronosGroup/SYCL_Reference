@@ -44,13 +44,13 @@ Image samplers
      unnormalized
   };
 
-.. _sampler:
-
 .. rst-class:: api-class
 
-=================
-``sycl::sampler``
-=================
+.. _image_sampler:
+
+=======================
+``sycl::image_sampler``
+=======================
 
 ::
 
