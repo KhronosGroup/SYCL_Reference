@@ -75,7 +75,7 @@ For the image accessors (:ref:`unsampled-image-accessors`,
 * ``sycl::float4`` (``sycl::vec<float, 4>``);
 * ``sycl::half4`` (``sycl::vec<half, 4>``).
 
-See :ref:`local_accessor` page for it's allowed ``DataT`` types.
+See :ref:`local_accessor` for it's allowed ``DataT`` types.
 
 .. _access-mode:
 
@@ -136,7 +136,7 @@ Deduction tags
 Some accessor constructors take a ``TagT`` parameter, which is
 used to deduce template arguments for the constructor's class.
 
-Each of the access modes in table above has an associated tag,
+Each of the access modes in the table above has an associated tag,
 but there are additional tags which set other template parameters
 in addition to the access mode. The synopsis below shows the
 namespace scope variables that the implementation provides as
@@ -223,8 +223,8 @@ implicit-lifetime type (as defined in the C++ core language):
   element of the underlying buffer did not previously contain an object.
 
 If this is a :ref:`ranged accessor <ranged-accessors>`, this applies
-only to the elements within the accessor's range. The content of objects
-in the buffer outside of this range is preserved.
+only to the elements within the accessor's range. The contents of objects
+in the buffer outside of this range are preserved.
 
 .. note::
 
