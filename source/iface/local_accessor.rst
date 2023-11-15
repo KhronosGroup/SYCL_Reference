@@ -2,7 +2,7 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
+.. _local_accessor:
 
 ************************
 ``sycl::local_accessor``
