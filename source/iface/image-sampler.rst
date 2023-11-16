@@ -26,10 +26,8 @@ Image samplers
 
   } // namespace sycl
 
-.. TODO: Add :ref: when sampled_image is available.
-
 The ``sycl::image_sampler`` struct contains a configuration
-for sampling a `sampled_image`.
+for sampling a :ref:`sampled_image`.
 
 The members of this struct are defined by the following tables.
 

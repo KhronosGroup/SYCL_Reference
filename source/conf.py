@@ -136,6 +136,7 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
+    + make_ref("SYCL_SPEC_IMAGE", "Section 4.7.3", "#subsec:images")
     + make_ref(
         "SYCL_SPEC_BCK_INTEROP",
         "Section 4.5.1",
@@ -192,7 +193,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
 .. |SYCL_SPEC_BUFFER_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.9
 .. |SYCL_SPEC_LOCAL_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.11
 .. |SYCL_SPEC_IMAGE_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.12
