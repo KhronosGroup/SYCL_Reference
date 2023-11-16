@@ -160,6 +160,16 @@ prolog_template = string.Template(
         "SYCL_ACCESSOR_READ_ONLY_LOCAL",
         "4.7.6.11.2",
         "#sec:accessor.local.conversions",
+    + make_ref("SYCL_SPEC_ACCESSORS", "Section 4.7.6", "#subsec:accessors")
+    + make_ref(
+        "SYCL_SPEC_MD_ACC_LINEAR_RULES",
+        "Section 3.11.1",
+        "#sec:multi-dim-linearization",
+    )
+    + make_ref(
+        "SYCL_SPEC_MD_ACC_SUBSCRIPT_OP",
+        "Section 3.11.2",
+        "#sec:multi-dim-subscript",
     )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
     + f"""

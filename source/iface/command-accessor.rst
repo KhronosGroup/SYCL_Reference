@@ -27,6 +27,8 @@ the following values for the ``AccessMode`` template parameter:
 
 .. _buffer-access-targets:
 
+.. rubric:: Template parameters
+
 ==============
 Access targets
 ==============
