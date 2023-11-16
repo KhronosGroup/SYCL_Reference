@@ -163,6 +163,26 @@ prolog_template = string.Template(
         "#sec:multi-dim-subscript",
     )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
+    + make_ref(
+        "SYCL_ACCESS_HOST_CON",
+        "Table 71",
+        "#table.accessors.host.buffer.constructors",
+    )
+    + make_ref(
+        "SYCL_ACCESSOR_READ_ONLY_BUFF_CMD",
+        "4.7.6.9.3",
+        "#sec:accessor.command.buffer.conversions",
+    )
+    + make_ref(
+        "SYCL_ACCESSOR_READ_ONLY_BUFF_HOST",
+        "4.7.6.10.3",
+        "#sec:accessor.host.buffer.conversions",
+    )
+    + make_ref(
+        "SYCL_ACCESSOR_READ_ONLY_LOCAL",
+        "4.7.6.11.2",
+        "#sec:accessor.local.conversions",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
