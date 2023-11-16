@@ -147,16 +147,6 @@ prolog_template = string.Template(
         "#table.accessors.command.buffer.constructors",
     )
     + make_ref(
-        "SYCL_ACCESSOR_READ_ONLY_BUFF_CMD",
-        "4.7.6.9.3",
-        "#sec:accessor.command.buffer.conversions",
-    )
-    + make_ref(
-        "SYCL_ACCESSOR_READ_ONLY_BUFF_HOST",
-        "4.7.6.10.3",
-        "#sec:accessor.host.buffer.conversions",
-    )
-    + make_ref(
         "SYCL_ACCESSOR_READ_ONLY_LOCAL",
         "4.7.6.11.2",
         "#sec:accessor.local.conversions",
@@ -204,11 +194,6 @@ prolog_template = string.Template(
         "SYCL_ACCESSOR_READ_ONLY_BUFF_HOST",
         "4.7.6.10.3",
         "#sec:accessor.host.buffer.conversions",
-    )
-    + make_ref(
-        "SYCL_ACCESSOR_READ_ONLY_LOCAL",
-        "4.7.6.11.2",
-        "#sec:accessor.local.conversions",
     )
     + make_ref("SYCL_SYNC_PRIMITIVES", "Section 4.7.5", "#subsec:mutex")
     + f"""
