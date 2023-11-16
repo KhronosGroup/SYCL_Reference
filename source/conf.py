@@ -183,6 +183,7 @@ prolog_template = string.Template(
         "4.7.6.11.2",
         "#sec:accessor.local.conversions",
     )
+    + make_ref("SYCL_SYNC_PRIMITIVES", "Section 4.7.5", "#subsec:mutex")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
