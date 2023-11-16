@@ -148,6 +148,7 @@ prolog_template = string.Template(
         "#sec:multi-dim-subscript",
     )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
+    + make_ref("SYCL_SPEC_HOST_ALLOC", "Section 4.7.1", "#_host_allocation")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
