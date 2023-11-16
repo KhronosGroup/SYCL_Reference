@@ -16,7 +16,7 @@
 
 The ``host_accessor`` class provides access to data in a ``buffer``
 from host code that is outside of a command (i.e. do not use this
-class to access a buffer inside a host task).
+class to access a buffer from inside device code or a host task).
 
 As with ``accessor``, the dimensionality of ``host_accessor``
 must match the underlying buffer, however, there is a special case
@@ -27,7 +27,7 @@ the buffer, whereas a one-dimensional accessor
 has access to the entire buffer.
 
 The ``host_accessor`` class supports the following access modes:
-``access_mode::read``,`` access_mode::write``
+``access_mode::read``,``access_mode::write``
 and ``access_mode::read_write``.
 
 (constructors)
@@ -164,8 +164,7 @@ The permissible values for this parameter are listed in table below.
   * - ``const-qualified``
     - ``access_mode::read``
 
-The specializations of ``host_accessor``
-that are read-only accessors.
+These specializations of ``host_accessor`` are read-only accessors.
 There is an implicit conversion between any of these specializations,
 provided that all other template parameters are the same.
 
@@ -180,8 +179,10 @@ provided that all other template parameters are the same.
   * - ``not const-qualified``
     - ``access_mode::read_write``
 
-The table present an implicit conversion from
-the read-write specialization.
+There is also an implicit conversion from the
+``read-write host_accessor`` type to any of the
+``read-only host accessors``, provided that all
+other template parameters are the same.
 
 ===================
 Common member types
