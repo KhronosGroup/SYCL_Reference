@@ -509,7 +509,7 @@ The value of target can only be ``sycl::target::host_buffer``.
 
 ================  ==========
 ``mode``          See :ref:`access-mode`.
-``target``        See :ref:`access-target`.
+``target``        See :ref:`buffer-access-targets`.
 ================  ==========
 
 .. rubric:: Parameters
