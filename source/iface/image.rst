@@ -278,8 +278,6 @@ SYCL runtime is written back to ``hostPointer``.
 ================  ==========
 ``hostPointer``   Pointer to host memory to hold data.
 ``format``        :ref:`image_format` that describe layout of the image.
-``sampler``       :ref:`image_sampler` that will be used by the
-                  accessors to sample the image.
 ``rangeRef``      The range of the constructed ``sycl::unsampled_image``.
 ``pitch``         The pitch of the constructed ``sycl::unsampled_image``.
 ``allocator``     Allocator for the buffer data. In case this parameter
