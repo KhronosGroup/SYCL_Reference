@@ -136,6 +136,17 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
+    + make_ref("SYCL_SPEC_ACCESSORS", "Section 4.7.6", "#subsec:accessors")
+    + make_ref(
+        "SYCL_SPEC_MD_ACC_LINEAR_RULES",
+        "Section 3.11.1",
+        "#sec:multi-dim-linearization",
+    )
+    + make_ref(
+        "SYCL_SPEC_MD_ACC_SUBSCRIPT_OP",
+        "Section 3.11.2",
+        "#sec:multi-dim-subscript",
+    )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
     + make_ref(
         "SYCL_ACCESS_LOCAL_CON",
