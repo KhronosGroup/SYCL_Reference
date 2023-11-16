@@ -825,6 +825,8 @@ instance with a copy of a :ref:`context`.
 Returns the :ref:`context` which was specified when constructing
 this ``sycl::property::buffer::context_bound`` property.
 
+.. _buffer-synchronization-rules:
+
 ============================
 Buffer synchronization rules
 ============================
