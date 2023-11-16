@@ -179,6 +179,11 @@ prolog_template = string.Template(
         "#sec:multi-dim-subscript",
     )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
+    + make_ref(
+        "SYCL_ACCESS_LOCAL_CON",
+        "Table 77",
+        "#table.accessors.local.constructors",
+    )
     + make_ref("SYCL_SPEC_IMAGE_SAMPLER", "Section 4.7.8", "#subsec:samplers")
     + make_ref(
         "SYCL_ACCESS_HOST_CON",
