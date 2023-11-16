@@ -277,7 +277,7 @@ SYCL runtime is written back to ``hostPointer``.
 
 ================  ==========
 ``hostPointer``   Pointer to host memory to hold data.
-``format``        :ref:`image_format` that describe layout of the picture.
+``format``        :ref:`image_format` that describe layout of the image.
 ``sampler``       :ref:`image_sampler` that will be used by the
                   accessors to sample the image.
 ``rangeRef``      The range of the constructed ``sycl::unsampled_image``.
@@ -391,7 +391,7 @@ The ``finalData`` point to where the output of all the
 image processing is going to be copied to at destruction
 time, if the image was involved with a write accessor.
 
-Destination can be either an output iterator, a ``std::weak_ptr<T>``.
+Destination can be either an output iterator, or a ``std::weak_ptr<T>``.
 
 .. note::
 
@@ -571,7 +571,7 @@ will be derived from the ``format`` parameter.
 
 ================  ==========
 ``hostPointer``   Pointer to host memory to hold data.
-``format``        :ref:`image_format` that describe layout of the picture.
+``format``        :ref:`image_format` that describe layout of the image.
 ``sampler``       :ref:`image_sampler` that will be used by the
                   accessors to sample the image.
 ``rangeRef``      The range of the constructed ``sycl::sampled_image``.
