@@ -136,6 +136,21 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
+    + make_ref(
+        "SYCL_SPEC_BCK_INTEROP",
+        "Section 4.5.1",
+        "#sec:backend-interoperability",
+    )
+    + make_ref(
+        "SYCL_SPEC_BCK_TRAITS",
+        "Section 4.5.1.1",
+        "#_type_traits_backend_traits",
+    )
+    + make_ref(
+        "SYCL_SPEC_GET_NATIVE",
+        "Section 4.5.1.2",
+        "#_template_function_get_native",
+    )
     + make_ref("SYCL_SPEC_ACCESSORS", "Section 4.7.6", "#subsec:accessors")
     + make_ref(
         "SYCL_SPEC_MD_ACC_LINEAR_RULES",
