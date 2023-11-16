@@ -148,6 +148,7 @@ prolog_template = string.Template(
         "#sec:multi-dim-subscript",
     )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
+    + make_ref("SYCL_SPEC_IMAGE_SAMPLER", "Section 4.7.8", "#subsec:samplers")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -168,7 +169,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
-.. |SYCL_SPEC_SAMPLER| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.1
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
 .. |SYCL_SPEC_ID| replace:: `SYCL Specification`_ Section 4.10.1.3
