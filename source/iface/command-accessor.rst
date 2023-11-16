@@ -4,11 +4,11 @@
 
 .. rst-class:: api-class
 
-.. _buffer-accessor:
+.. _command-accessor:
 
-===========================
-``sycl::accessor`` (buffer)
-===========================
+******************
+``sycl::accessor``
+******************
 
 ::
 
@@ -18,6 +18,8 @@
    class accessor;
 
 Description
+
+.. _access-target:
 
 .. rubric:: Template parameters
 
@@ -278,7 +280,7 @@ the ``accessMode`` is ``access::mode::atomic``.
 
 Returns pointer to memory in a host buffer.
 
-======================================
+
 ``sycl::accessor`` (buffer) properties
 ======================================
 

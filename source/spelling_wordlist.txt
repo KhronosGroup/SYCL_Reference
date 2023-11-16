@@ -42,3 +42,8 @@ dereferencing
 dereferences
 pinnable
 constructible
+unsampled
+linearizes
+copyable
+mutex
+constantness

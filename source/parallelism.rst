@@ -10,15 +10,15 @@ Expressing parallelism
 .. toctree::
    :maxdepth: 1
 
-   iface/range
-   iface/group
+   iface/defining-kernels
+   iface/ranges
    iface/id
-   iface/item
-   iface/h_item
-   iface/nd_item
-   iface/nd_range
-   iface/device-event
-   iface/command-group
+   iface/item-classes
+   iface/group
+   iface/sub_group
    iface/command-group-handler
+   iface/specialization-constants
+   iface/kernel-bundles
    iface/kernel
-   iface/program
+   iface/device_image
+   iface/reduction-variables
