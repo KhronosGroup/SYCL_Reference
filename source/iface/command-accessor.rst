@@ -25,7 +25,7 @@ the following values for the ``AccessMode`` template parameter:
 
 .. seealso:: SYCL Specification |SYCL_SPEC_BUFFER_ACCESSOR|
 
-.. _access-targets:
+.. _buffer-access-targets:
 
 ==============
 Access targets
