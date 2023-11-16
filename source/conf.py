@@ -136,6 +136,21 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
+    + make_ref(
+        "SYCL_SPEC_BCK_INTEROP",
+        "Section 4.5.1",
+        "#sec:backend-interoperability",
+    )
+    + make_ref(
+        "SYCL_SPEC_BCK_TRAITS",
+        "Section 4.5.1.1",
+        "#_type_traits_backend_traits",
+    )
+    + make_ref(
+        "SYCL_SPEC_GET_NATIVE",
+        "Section 4.5.1.2",
+        "#_template_function_get_native",
+    )
     + make_ref("SYCL_SPEC_ACCESSORS", "Section 4.7.6", "#subsec:accessors")
     + make_ref(
         "SYCL_SPEC_MD_ACC_LINEAR_RULES",
@@ -149,6 +164,26 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_BUFFER", "Section 4.7.2", "#subsec:buffers")
     + make_ref("SYCL_SPEC_IMAGE_SAMPLER", "Section 4.7.8", "#subsec:samplers")
+    + make_ref(
+        "SYCL_ACCESS_HOST_CON",
+        "Table 71",
+        "#table.accessors.host.buffer.constructors",
+    )
+    + make_ref(
+        "SYCL_ACCESSOR_READ_ONLY_BUFF_CMD",
+        "4.7.6.9.3",
+        "#sec:accessor.command.buffer.conversions",
+    )
+    + make_ref(
+        "SYCL_ACCESSOR_READ_ONLY_BUFF_HOST",
+        "4.7.6.10.3",
+        "#sec:accessor.host.buffer.conversions",
+    )
+    + make_ref(
+        "SYCL_ACCESSOR_READ_ONLY_LOCAL",
+        "4.7.6.11.2",
+        "#sec:accessor.local.conversions",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
