@@ -136,6 +136,22 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_COMMON_BYVAL", "Section 4.5.3", "#sec:byval-semantics"
     )
+    + make_ref("SYCL_SPEC_IMAGE", "Section 4.7.3", "#subsec:images")
+    + make_ref(
+        "SYCL_SPEC_BCK_INTEROP",
+        "Section 4.5.1",
+        "#sec:backend-interoperability",
+    )
+    + make_ref(
+        "SYCL_SPEC_BCK_TRAITS",
+        "Section 4.5.1.1",
+        "#_type_traits_backend_traits",
+    )
+    + make_ref(
+        "SYCL_SPEC_GET_NATIVE",
+        "Section 4.5.1.2",
+        "#_template_function_get_native",
+    )
     + make_ref("SYCL_SPEC_ACCESSORS", "Section 4.7.6", "#subsec:accessors")
     + make_ref(
         "SYCL_SPEC_MD_ACC_LINEAR_RULES",
@@ -153,6 +169,12 @@ prolog_template = string.Template(
         "Table 77",
         "#table.accessors.local.constructors",
     )
+    + make_ref("SYCL_SPEC_IMAGE_SAMPLER", "Section 4.7.8", "#subsec:samplers")
+    + make_ref(
+        "SYCL_ACCESS_HOST_CON",
+        "Table 71",
+        "#table.accessors.host.buffer.constructors",
+    )
     + make_ref(
         "SYCL_ACCESSOR_READ_ONLY_BUFF_CMD",
         "4.7.6.9.3",
@@ -168,6 +190,7 @@ prolog_template = string.Template(
         "4.7.6.11.2",
         "#sec:accessor.local.conversions",
     )
+    + make_ref("SYCL_SYNC_PRIMITIVES", "Section 4.7.5", "#subsec:mutex")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -176,7 +199,6 @@ prolog_template = string.Template(
 .. _oneAPI:  https://oneapi.com
 .. _SYCL: https://www.khronos.org/sycl/
 .. |SYCL_SPEC| replace:: `SYCL Specification`_
-.. |SYCL_SPEC_IMAGE| replace:: `SYCL Specification`_ Section 4.7.3
 .. |SYCL_SPEC_BUFFER_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.9
 .. |SYCL_SPEC_LOCAL_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.11
 .. |SYCL_SPEC_IMAGE_ACCESSOR| replace:: `SYCL Specification`_ Section 4.7.6.12
@@ -188,7 +210,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
-.. |SYCL_SPEC_SAMPLER| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.1
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
 .. |SYCL_SPEC_ID| replace:: `SYCL Specification`_ Section 4.10.1.3
