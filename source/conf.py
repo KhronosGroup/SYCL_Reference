@@ -201,6 +201,11 @@ prolog_template = string.Template(
         "#sec:accessor.host.buffer.conversions",
     )
     + make_ref("SYCL_SYNC_PRIMITIVES", "Section 4.7.5", "#subsec:mutex")
+    + make_ref(
+        "SYCL_SYNC_PARALLEL_FOR_HIERARCHICAL",
+        "Section 4.7.5",
+        "#_parallel_for_hierarchical_invoke",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
