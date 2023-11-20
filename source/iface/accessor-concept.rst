@@ -9,9 +9,9 @@ General Accessor Concept
 ************************
 
 Accessors provide three different capabilities: they provide access to
-the data managed by a :ref:`buffer` or :ref:`image <image>`, they provide
-access to local memory on a :ref:`device`, and they define the requirements
-to memory objects which determine the scheduling of kernels.
+the data managed by a :ref:`buffer` or :ref:`image <iface-images>`, they
+provide access to local memory on a :ref:`device`, and they define the
+requirements to memory objects which determine the scheduling of kernels.
 
 A memory object requirement is created when an accessor is constructed,
 unless the accessor is a placeholder in which case the requirement is
@@ -27,13 +27,13 @@ There are several different C++ classes that implement accessors:
   These accessors are typically used in application scope.
 * The :ref:`local_accessor` class provides access to device
   local memory from within a SYCL kernel function.
-* The ``sycl::unsampled_image_accessor`` and
-  ``sycl::sampled_image_accessor`` classes provide access to
-  data in an ``sycl::unsampled_image`` and ``sycl::sampled_image``
+* The :ref:`unsampled_image_accessor` and
+  :ref:`sampled_image_accessor` classes provide access to
+  data in an :ref:`unsampled_image` and :ref:`sampled_image`
   from within a command.
-* The ``sycl::host_unsampled_image_accessor`` and
-  ``sycl::host_sampled_image_accessor`` classes provide access to
-  data in an ``sycl::unsampled_image`` and ``sycl::sampled_image``
+* The :ref:`host_unsampled_image_accessor` and
+  :ref:`host_sampled_image_accessor` classes provide access to
+  data in an :ref:`unsampled_image` and :ref:`sampled_image`
   from host code that is outside of a command. These accessors
   are typically used in application scope.
 

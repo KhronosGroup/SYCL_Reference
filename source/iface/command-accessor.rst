@@ -6,283 +6,642 @@
 
 .. _command-accessor:
 
-******************
+==================
 ``sycl::accessor``
-******************
+==================
 
 ::
 
-   template <typename dataT, int dimensions, sycl::access::mode accessmode,
-             sycl::access::target accessTarget = sycl::access::target::global_buffer,
-             sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
-   class accessor;
+  class accessor;
 
-Description
+The ``accessor`` class provides access to data in a ``buffer`` from within a
+SYCL kernel function or from within a host task. When used in a SYCL kernel
+function, it accesses the contents of the buffer via the device’s
+global memory. These two forms of the accessor are distinguished
+by the ``AccessTarget`` template parameter. Both forms support
+the following values for the ``AccessMode`` template parameter:
+``access_mode::read``, ``access_mode::write`` and
+``access_mode::read_write``.
 
-.. _access-target:
+.. seealso:: SYCL Specification |SYCL_SPEC_BUFFER_ACCESSOR|
 
-.. rubric:: Template parameters
+.. _buffer-access-targets:
 
-=================  =======
-``dataT``          Type of buffer element
-``dimensions``     Number of buffer dimensions
-``accessmode``     See :ref:`access-mode`
-``accessTarget``   See :ref:`access-target`
-``isPlaceholder``  True if accessor is a placeholder
-=================  =======
+==============
+Access targets
+==============
 
-.. rubric:: Member types
+.. list-table::
+  :header-rows: 1
 
-===================  =======
-``value_type``       Type of buffer element
-``reference``        Type of reference to buffer element
-``const_reference``  Type of ``const`` reference to buffer element
-===================  =======
+  * - Accessor target
+    - Meaning
+  * - ``target::device``
+    - Access a buffer from a SYCL kernel function via device global memory.
+  * - ``target::host_task``
+    - Access a buffer from a host task.
 
-.. seealso:: |SYCL_SPEC_BUFFER_ACCESSOR|
 
 (constructors)
 ==============
 
 .. parsed-literal::
 
-  *Available only when:
-   ((isPlaceholder == access::placeholder::false_t && accessTarget == access::target::host_buffer)
-    || (isPlaceholder == access::placeholder::true_t
-        && (accessTarget == access::target::global_buffer
-            || accessTarget == access::target::constant_buffer)))
-   && dimensions == 0*
+  accessor()
 
   template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, 1, AllocatorT> &bufferRef,
-           const sycl::property_list &propList = {});
-
-  *Available only when:
-   (isPlaceholder == access::placeholder::false_t
-    && (accessTarget == access::target::global_buffer
-        || accessTarget == access::target::constant_buffer))
-   && dimensions == 0*
+  accessor(buffer<DataT, 1, AllocatorT>& bufferRef,
+           const property_list& propList = {})
 
   template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, 1, AllocatorT> &bufferRef,
-           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
-
-  *Available only when:
-   ((isPlaceholder == access::placeholder::false_t
-     && accessTarget == access::target::host_buffer)
-    || (isPlaceholder == access::placeholder::true_t
-        && (accessTarget == access::target::global_buffer
-            || accessTarget == access::target::constant_buffer)))
-   && dimensions > 0*
+  accessor(buffer<DataT, 1, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, const property_list& propList = {})
 
   template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           const sycl::property_list &propList = {});
-  template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           sycl::range<dimensions> accessRange, const sycl::property_list &propList = {});
-  template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           sycl::range<dimensions> accessRange, id<dimensions> accessOffset,
-           const sycl::property_list &propList = {});
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           const property_list& propList = {})
 
-  *Available only when:
-   (isPlaceholder == access::placeholder::false_t
-    && (accessTarget == access::target::global_buffer
-        || accessTarget == access::target::constant_buffer))
-    && dimensions > 0*
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef, TagT tag,
+           const property_list& propList = {})
 
   template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, const property_list& propList = {})
+
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, TagT tag,
+           const property_list& propList = {})
+
   template <typename AllocatorT>
-  accessor(sycl::buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           sycl::handler &commandGroupHandlerRef, sycl::range<dimensions> accessRange,
-           const sycl::property_list &propList = {});
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           range<Dimensions> accessRange, const property_list& propList = {})
+
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           range<Dimensions> accessRange, TagT tag,
+           const property_list& propList = {})
+
   template <typename AllocatorT>
-  accessor(sycl:buffer<dataT, dimensions, AllocatorT> &bufferRef,
-           sycl::handler &commandGroupHandlerRef, sycl::range<dimensions> accessRange,
-           sycl::id<dimensions> accessOffset, const sycl::property_list &propList = {});
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           range<Dimensions> accessRange, id<Dimensions> accessOffset,
+           const property_list& propList = {})
 
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           range<Dimensions> accessRange, id<Dimensions> accessOffset, TagT tag,
+           const property_list& propList = {})
 
-Construct an accessor for a buffer.
+  template <typename AllocatorT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, range<Dimensions> accessRange,
+           const property_list& propList = {})
 
-Programs typically find it more convenient to use
-:ref:`buffer-get_access` to create an accessor for a buffer.
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, range<Dimensions> accessRange,
+           TagT tag, const property_list& propList = {})
 
-.. rubric:: Template parameters
+  template <typename AllocatorT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, range<Dimensions> accessRange,
+           id<Dimensions> accessOffset, const property_list& propList = {})
 
-==============  ===
-``AllocatorT``  Type of allocator for buffer element
-==============  ===
+  template <typename AllocatorT, typename TagT>
+  accessor(buffer<DataT, Dimensions, AllocatorT>& bufferRef,
+           handler& commandGroupHandlerRef, range<Dimensions> accessRange,
+           id<Dimensions> accessOffset, TagT tag,
+           const property_list& propList = {})
 
-.. rubric:: Parameters
+Constructors of the accessor class.
+The descriptions are listed in |SYCL_ACCESS_CON|.
 
-==========================  ===
-``bufferRef``               Associate accessor with this buffer
-``commandGroupHandlerRef``  Associate accessor with this handler
-``propList``                `sycl::accessor (buffer) properties`_
-``accessRange``             Dimensions of data to be accessed
-``accessOffset``            Coordinates of origin of data
-==========================  ===
+================
+Member functions
+================
+
+``swap``
+========
+
+::
+
+  void swap(accessor& other);
+
+Swaps the contents of the current accessor with
+the contents of ``other``.
 
 ``is_placeholder``
 ==================
 
 ::
 
-  constexpr bool is_placeholder() const;
+  bool is_placeholder() const
 
-Return True if this is a placeholder accessor.
-
-``get_size``
-============
-
-::
-
-  size_t get_size() const;
-
-Returns size in bytes of the buffer region that this accesses.
-
-``get_count``
-=============
-
-::
-
-  size_t get_count() const;
-
-Returns number elements that this accesses.
-
-``get_range``
-=============
-
-.. parsed-literal::
-
-  *Available only when:
-   dimensions > 0*
-
-  sycl::range<dimensions> get_range() const;
-
-
-.. rubric:: Template parameters
-
-===============  ===
-``dimensions``   number of dimensions
-===============  ===
-
-Returns dimensions of the associated buffer or range that was
-provided when the accessor was created.
+Returns ``true`` if the accessor is a placeholder.
+Otherwise returns ``false``.
 
 ``get_offset``
 ==============
 
-.. parsed-literal::
+::
 
-  *Available only when:
-   dimensions > 0*
+  id<Dimensions> get_offset() const
 
-  sycl::id<dimensions> get_offset() const;
+Available only when ``(Dimensions > 0)``.
 
-
-.. rubric:: Template parameters
-
-===============  ===
-``dimensions``   number of dimensions
-===============  ===
-
-
-Returns coordinates of the origin of the buffer or offset that was
-provided when the accessor was created.
-
-``operator ()``
-===============
-
-.. parsed-literal::
-
-  *Available only when:
-   accessMode == access::mode::write
-    || accessMode == access::mode::read_write
-    || accessMode == access::mode::discard_write
-    || accessMode == access::mode::discard_read_write*
-
-  operator dataT &() const;
-
-  *Available only when:
-   accessMode == access::mode::read*
-
-  operator dataT() const;
-
-  *Available only when:
-   accessMode == access::mode::atomic*
-
-  operator atomic<dataT, access::address_space::global_space> () const;
-
-Returns reference or value of element in the associated buffer.
-
-The variants of this operator are only available when *dimensions ==
-0*, which means that a buffer contains a single element.
-
-``operator[]``
-==============
-
-.. parsed-literal::
-
-  *Reference variants*
-  dataT &operator[](size_t index) const;
-  dataT &operator[](sycl::id<dimensions> index) const;
-
-  *Value variants*
-  dataT operator[](size_t index) const;
-  dataT operator[](sycl::id<dimensions> index) const;
-
-  *Atomic variants*
-  atomic<dataT, sycl::access::address_space::global_space> operator[](
-    size_t index) const;
-  atomic<dataT, sycl::access::address_space::global_space> operator[](
-    id<dimensions> index) const;
-
-  *Single dimension in multi-dimensional buffer*
-  __unspecified__ &operator[](size_t index) const;
-
-Returns reference or value of element in the associated buffer at the
-requested index.
-
-One dimensional buffers are indexed by a data of type
-size_t. Multi-dimensional buffers may be indexed by a data of type
-``id<dimensions>``, or by a sequence of *[]*, 1 per dimension. For
-example ``a[1][2]``.  The operator returns a reference when the
-accessor allows writes, which requires that ``accessMode`` be one of
-``access::mode::write``, ``accessMode == access::mode::read_write``,
-``accessMode == access::mode::discard_write``, or ``accessMode ==
-access::mode::discard_read_write``. The operator returns an atomic if
-the ``accessMode`` is ``access::mode::atomic``.
-
+If this is a ranged accessor, returns the offset
+that was specified when the accessor was constructed.
+For other accessors, returns the default
+constructed ``id<Dimensions>{}``.
 
 ``get_pointer``
 ===============
 
-.. parsed-literal::
+::
 
-  *Available only when:
-   accessTarget == access::target::host_buffer*
+  global_ptr<access::decorated::legacy> get_pointer() const noexcept
 
-  dataT \*get_pointer() const;
+The previous version of ``get_pointer`` function deprecated in SYCL 2020.
+Use ``get_multi_ptr`` instead.
 
-  *Available only when:
-   accessTarget == access::target::global_buffer*
+::
 
-  sycl::global_ptr<dataT> get_pointer() const;
+  std::add_pointer_t<value_type> get_pointer() const noexcept
 
-  *Available only when:
-   accessTarget == access::target::constant_buffer*
+Available only when ``(AccessTarget == target::host_task)``.
 
-  sycl::constant_ptr<dataT> get_pointer() const;
+Returns a pointer to the start of this accessor’s underlying buffer,
+even if this is a ranged accessor whose range does not start at
+the beginning of the buffer. The return value
+is unspecified if the accessor is empty.
 
-Returns pointer to memory in a host buffer.
+This function may only be called from within a command.
+
+``get_multi_ptr``
+=================
+
+::
+
+  template <access::decorated IsDecorated>
+  accessor_ptr<IsDecorated> get_multi_ptr() const noexcept
+
+Available only when ``(AccessTarget == target::device)``.
+
+Returns a ``multi_ptr`` to the start of this accessor’s
+underlying buffer, even if this is a ranged accessor
+whose range does not start at the beginning of the buffer.
+The return value is unspecified if the accessor is empty.
+
+This function may only be called from within a command.
+
+``operator=``
+=============
+
+::
+
+  const accessor& operator=(const value_type& other) const
+
+  const accessor& operator=(value_type&& other) const
+
+Available only when
+``(AccessMode != access_mode::atomic &&
+AccessMode != access_mode::read && Dimensions == 0)``.
+
+Assignment to the single element that is accessed by this accessor.
+
+This function may only be called from within a command.
+
+============
+Member types
+============
+
+``accessor_ptr``
+================
+
+::
+
+  template <access::decorated IsDecorated> accessor_ptr
+
+If ``(AccessTarget == target::device):
+multi_ptr<value_type, access::address_space::global_space, IsDecorated>.``
+
+The definition of this type is not specified when
+``(AccessTarget == target::host_task)``.
+
+.. _tags_buff_accessors:
+
+====================
+Buffer accessor tags
+====================
+
+Some ``accessor`` constructors take a ``TagT`` parameter,
+which is used to deduce template arguments.
+The permissible values for this parameter are listed in table below.
+
+.. list-table::
+  :header-rows: 1
+
+  * - Tag value
+    - Access mode
+    - Accessor target
+  * - ``read_write;``
+    - ``access_mode::read_write``
+    - ``target::device``
+  * - ``read_only;``
+    - ``access_mode::read``
+    - ``target::device``
+  * - ``write_only;``
+    - ``access_mode::write``
+    - ``target::device``
+  * - ``read_write_host_task;``
+    - ``access_mode::read_write``
+    - ``target::host_task``
+  * - ``read_only_host_task;``
+    - ``access_mode::read``
+    - ``target::host_task``
+  * - ``write_only_host_task;``
+    - ``access_mode::write``
+    - ``target::host_task``
 
 
-``sycl::accessor`` (buffer) properties
-======================================
+``read-only accessors``
+=======================
 
-SYCL does not define any properties for the buffer specialization of
-an accessor.
+.. list-table::
+  :header-rows: 1
+
+  * - Data type
+    - Access mode
+  * - ``not const-qualified``
+    - ``access_mode::read``
+  * - ``const-qualified``
+    - ``access_mode::read``
+
+The specializations of ``accessor`` with
+``target::device`` or ``target::host_task`` that are read-only accessors.
+There is an implicit conversion between any of these specializations,
+provided that all other template parameters are the same.
+
+``read-write accessors``
+========================
+
+.. list-table::
+  :header-rows: 1
+
+  * - Data type
+    - Access mode
+  * - ``not const-qualified``
+    - ``access_mode::read_write``
+
+The table present an implicit conversion from
+the read-write specialization.
+
+===================
+Common member types
+===================
+
+``value_type``
+==============
+
+If the accessor is read-only, equal to ``const DataT``,
+otherwise equal to ``DataT``.
+
+See |SYCL_ACCESSOR_READ_ONLY_BUFF_CMD|, |SYCL_ACCESSOR_READ_ONLY_BUFF_HOST|
+and |SYCL_ACCESSOR_READ_ONLY_LOCAL| for which accessors
+are considered read-only.
+
+``reference``
+=============
+
+Equal to ``value_type&``.
+
+``const_reference``
+===================
+
+Equal to ``const DataT&``.
+
+``iterator``
+============
+
+Iterator that can provide ranged access. Cannot be written to if the
+``accessor`` is read-only. The underlying pointer is address space
+qualified for accessor specializations with
+``target::device`` and for ``local_accessor``.
+
+``const_iterator``
+==================
+
+Iterator that can provide ranged access. Cannot be written to.
+The underlying pointer is address space qualified for ``accessor``
+specializations with ``target::device`` and for ``local_accessor``.
+
+``reverse_iterator``
+====================
+
+Iterator adaptor that reverses the direction of ``iterator``.
+
+``const_reverse_iterator``
+==========================
+
+Iterator adaptor that reverses the direction of ``const_iterator``.
+
+``difference_type``
+===================
+
+Equal to ``typename std::iterator_traits<iterator>::difference_type``.
+
+``size_type``
+=============
+
+Equal to ``size_t``.
+
+======================
+Common member function
+======================
+
+``byte_size``
+=============
+
+::
+
+  size_type byte_size() const noexcept
+
+Returns the size in bytes of the memory region this accessor may access.
+
+For a buffer accessor this is the size of the underlying buffer,
+unless it is a ranged accessor in which case it is the size of
+the elements within the accessor’s range.
+
+For a local accessor this is the size of the accessor’s local
+memory allocation, per work-group.
+
+``size``
+========
+
+::
+
+  size_type size() const noexcept
+
+Returns the number of ``DataT`` elements of the memory region this
+accessor may access.
+
+For a buffer accessor this is the number of elements in the underlying
+buffer, unless it is a ranged accessor in which case it is the number
+of elements within the accessor’s range.
+
+For a local accessor this is the number of elements in the accessor’s
+local memory allocation, per work-group.
+
+``max_size``
+============
+
+::
+
+  size_type max_size() const noexcept
+
+Returns the maximum number of elements any accessor of this
+type would be able to access.
+
+``empty``
+=========
+
+::
+
+  bool empty() const noexcept
+
+Returns ``true`` if ``(size() == 0)``.
+
+``get_range``
+=============
+
+::
+
+  range<Dimensions> get_range() const
+
+Available only when ``(Dimensions > 0)``.
+
+Returns a ``range`` object which represents the number of elements of
+``DataT`` per dimension that this accessor may access.
+
+For a buffer accessor this is the range of the underlying buffer,
+unless it is a ranged accessor in which case it is the range that
+was specified when the accessor was constructed.
+
+``reference``
+=============
+
+::
+
+  operator reference() const
+
+For ``accessor`` available only when
+``(AccessMode != access_mode::atomic && Dimensions == 0)``.
+
+For ``host_accessor`` and ``local_accessor``
+available only when ``(Dimensions == 0)``.
+
+Returns a reference to the single element that is accessed
+by this accessor.
+
+For ``accessor`` and ``local_accessor``, this function may only
+be called from within a command.
+
+``operator[]``
+==============
+
+::
+
+  reference operator[](id<Dimensions> index) const
+
+For ``accessor`` available only when
+``(AccessMode != access_mode::atomic && Dimensions > 0)``.
+
+For ``host_accessor`` and ``local_accessor`` available only
+when ``(Dimensions > 0)``.
+
+Returns a reference to the element at the location specified by ``index``.
+If this is a ranged accessor, the element is determined by
+adding ``index`` to the accessor’s offset.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+::
+
+  __unspecified__ operator[](size_t index) const
+
+Available only when ``(Dimensions > 1)``.
+
+Returns an instance of an undefined intermediate type representing
+this accessor, with the dimensionality ``Dimensions-1`` and containing
+an implicit ``id`` with index ``Dimensions`` set to ``index``.
+The intermediate type returned must provide all available subscript
+operators which take a ``size_t`` parameter defined by this accessor
+class that are appropriate for the type it represents
+(including this subscript operator).
+
+If this is a ranged accessor, the implicit ``id`` in the returned
+instance also includes the accessor’s offset.
+
+For ``accessor`` and ``local_accessor``, this function may only
+be called from within a command.
+
+::
+
+  reference operator[](size_t index) const
+
+For ``accessor`` available only when
+``(AccessMode != access_mode::atomic && Dimensions == 1)``.
+
+For ``host_accessor`` and ``local_accessor`` available
+only when ``(Dimensions == 1)``.
+
+Returns a reference to the element at the location specified by ``index``.
+If this is a ranged accessor, the element is
+determined by adding ``index`` to the accessor’s offset.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``begin``
+=========
+
+::
+
+  iterator begin() const noexcept
+
+Returns an iterator to the first element of the memory this
+accessor may access.
+
+For a buffer accessor this is an iterator to the first element
+of the underlying buffer, unless this is a ranged accessor in which
+case it is an iterator to first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``end``
+=======
+
+::
+
+  iterator end() const noexcept
+
+Returns an iterator to one element past the last element
+of the memory this accessor may access.
+
+For a buffer accessor this is an iterator to one element past
+the last element in the underlying buffer, unless this is a ranged
+accessor in which case it is an iterator to one element past the
+last element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``cbegin``
+==========
+
+::
+
+  const_iterator cbegin() const noexcept
+
+Returns a ``const`` iterator to the first element of the
+memory this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator to the first element
+of the underlying buffer, unless this is a ranged accessor in which
+case it is a ``const`` iterator to first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``cend``
+========
+
+::
+
+  const_iterator cend() const noexcept
+
+Returns a ``const`` iterator to one element past the last element
+of the memory this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator to one element past
+the last element in the underlying buffer, unless this is a ranged
+accessor in which case it is a ``const`` iterator to one element past the
+last element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``rbegin``
+==========
+
+::
+
+  reverse_iterator rbegin() const noexcept
+
+Returns an iterator adaptor to the last element
+of the memory this accessor may access.
+
+For a buffer accessor this is an iterator adaptor to the
+last element of the underlying buffer, unless this is a ranged
+accessor in which case it is an iterator adaptor to the last
+element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``rend``
+========
+
+::
+
+  reverse_iterator rend() const noexcept
+
+Returns an iterator adaptor to one element before the first element
+of the memory this accessor may access.
+
+For a buffer accessor this is an iterator adaptor to one element
+before the first element in the underlying buffer, unless this is
+a ranged accessor in which case it is an iterator adaptor to one
+element before the first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``crbegin``
+===========
+
+::
+
+  const_reverse_iterator crbegin() const noexcept
+
+Returns a ``const`` iterator adaptor to the last element of the memory
+this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator adaptor to the last
+element of the underlying buffer, unless this is a ranged accessor
+in which case it is an ``const`` iterator adaptor to last
+element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.
+
+``crend``
+=========
+
+::
+
+  const_reverse_iterator crend() const noexcept
+
+Returns a ``const`` iterator adaptor to one element before the first
+element of the memory this accessor may access.
+
+For a buffer accessor this is a ``const`` iterator adaptor to one element
+before the first element in the underlying buffer, unless this is
+a ranged accessor in which case it is a ``const`` iterator adaptor to one
+element before the first element within the accessor’s range.
+
+For ``accessor`` and ``local_accessor``, this function may
+only be called from within a command.

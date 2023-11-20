@@ -509,7 +509,7 @@ The value of target can only be ``sycl::target::host_buffer``.
 
 ================  ==========
 ``mode``          See :ref:`access-mode`.
-``target``        See :ref:`access-target`.
+``target``        See :ref:`buffer-access-targets`.
 ================  ==========
 
 .. rubric:: Parameters
@@ -824,6 +824,8 @@ instance with a copy of a :ref:`context`.
 
 Returns the :ref:`context` which was specified when constructing
 this ``sycl::property::buffer::context_bound`` property.
+
+.. _buffer-synchronization-rules:
 
 ============================
 Buffer synchronization rules
