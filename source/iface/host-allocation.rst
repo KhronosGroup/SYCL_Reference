@@ -94,9 +94,157 @@ The list of SYCL default allocators:
       A buffer of data type ``const T`` uses ``buffer_allocator<T>``
       by default.
   * - ``sycl::image_allocator``
-    - It is the default allocator used by the runtime for the SYCL `unsampled_image`
-      and `sampled_image` classes when no allocator is provided by the user.
+    - It is the default allocator used by the runtime for the SYCL :ref:`unsampled_image`
+      and :ref:`sampled_image` classes when no allocator is provided by the user.
 
       The ``sycl::image_allocator`` is required to allocate in elements of ``std::byte``.
 
-.. TODO: Add references when images is complete
+
+.. _host_memory_sharing:
+
+=========================================================
+Sharing host memory with the SYCL data management classes
+=========================================================
+
+In order to allow the SYCL runtime to do memory management
+and allow for data dependencies, there are :ref:`buffer`
+and :ref:`image <iface-images>` classes defined.
+
+The default behavior for them is that a “raw” pointer
+is given during the construction of the data management
+class, with full ownership to use it until the destruction
+of the SYCL object.
+
+Below you can find details on sharing or explicitly not
+sharing host memory with the SYCL data classes. The same
+rules will apply to :ref:`images <iface-images>` as well.
+
+.. seealso:: |SYCL_SPEC_HOST_MEM_SHARING|
+
+
+Default behavior
+================
+
+When using a :ref:`buffer`, the ownership of the pointer
+passed to the constructor of the class is, by default,
+passed to SYCL runtime, and that pointer cannot be used
+on the host side until the :ref:`buffer` or
+:ref:`image <iface-images>` is destroyed.
+
+A SYCL application can access the contents of the memory
+managed by a SYCL buffer by using a :ref:`host_accessor`
+as defined in. However, there is no guarantee that the
+host accessor synchronizes with the original host
+address used in its constructor.
+
+The pointer passed in is the one used to copy data back
+to the host, if needed, before buffer destruction.
+The memory pointed by host pointer will not be deallocated
+by the runtime, and the data is copied back from the device
+if there is a need for it.
+
+
+SYCL ownership of the host memory
+=================================
+
+In the case where there is host memory to be used for
+initialization of data but there is no intention of using
+that host memory after the :ref:`buffer` is destroyed,
+then the :ref:`buffer` can take full ownership of that
+host memory.
+
+When a :ref:`buffer` owns the host pointer there is no copy back,
+by default. In this situation, the SYCL application may pass a
+unique pointer to the host data, which will be then used by the
+runtime internally to initialize the data in the device.
+
+For example, the following could be used:
+
+::
+
+  {
+    auto ptr = std::make_unique<int>(-1234);
+    buffer<int, 1> b { std::move(ptr), range { 1 } };
+    // ptr is not valid anymore.
+    // There is nowhere to copy data back
+  }
+
+However, optionally the ``sycl::buffer::set_final_data()`` can be
+set to a ``std::weak_ptr`` to enable copying data back, to another
+host memory address that is going to be valid after :ref:`buffer`
+construction.
+
+::
+
+  {
+    auto ptr = std::make_unique<int>(-42);
+    buffer<int, 1> b { std::move(ptr), range { 1 } };
+    // ptr is not valid anymore.
+    // There is nowhere to copy data back.
+    // To get copy back, a location can be specified:
+    b.set_final_data(std::weak_ptr<int> { .... })
+  }
+
+
+Shared SYCL ownership of the host memory
+========================================
+
+When an instance of ``std::shared_ptr`` is passed to the
+:ref:`buffer` constructor, then the :ref:`buffer` object
+and the developer's application share the memory region.
+
+Rules of shared ownership:
+
+1. If the ``std::shared_ptr`` is not empty, the contents of the
+   referenced memory are used to initialize the :ref:`buffer`.
+
+   If the ``std::shared_ptr`` is empty, then the :ref:`buffer`
+   is created with uninitialized memory.
+
+2. If the ``std::shared_ptr`` is still used on the application's
+   side then the data will be copied back from the :ref:`buffer`
+   or :ref:`image <iface-images>` and will be available to the
+   application after the :ref:`buffer` or
+   :ref:`image <iface-images>` object is destroyed.
+
+3. When the :ref:`buffer` is destroyed and the data have
+   potentially been updated, if the number of copies of
+   the ``std::shared_ptr`` outside the runtime is 0,
+   there is no user-side shared pointer to read the data.
+
+   Therefore the data is not copied out, and the :ref:`buffer`
+   destructor does not need to wait for the data processes
+   to be finished, as the outcome is not needed on the
+   application's side.
+
+Example of such behavior:
+
+::
+
+  {
+    std::shared_ptr<int> ptr { data };
+    {
+      buffer<int, 1> b { ptr, range<2>{ 10, 10 } };
+      // update the data
+      [...]
+    } // Data is copied back because there is an user side shared_ptr
+  }
+
+::
+
+  {
+    std::shared_ptr<int> ptr { data };
+    {
+      buffer<int, 1> b { ptr, range<2>{ 10, 10 } };
+      // update the data
+      [...]
+      ptr.reset();
+    } // Data is not copied back, there is no user side shared_ptr.
+  }
+
+This behavior can be overridden using the
+``sycl::buffer::set_final_data()`` member function of the
+:ref:`buffer` class, which will by any means force the
+:ref:`buffer` destructor to wait until the data is copied to
+wherever the ``set_final_data()`` member function has put the
+data (or not wait nor copy if set final data is ``nullptr``).

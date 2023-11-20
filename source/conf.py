@@ -202,6 +202,11 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SYNC_PRIMITIVES", "Section 4.7.5", "#subsec:mutex")
     + make_ref("SYCL_SPEC_HOST_ALLOC", "Section 4.7.1", "#_host_allocation")
+    + make_ref(
+        "SYCL_SPEC_HOST_MEM_SHARING",
+        "Section 4.7.4",
+        "#sec:sharing-host-memory-with-dm",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
