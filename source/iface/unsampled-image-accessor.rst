@@ -2,13 +2,11 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _unsampled_image_accessors:
 
-=========================
+*************************
 Unsampled image accessors
-=========================
+*************************
 
 There are two classes which implement accessors for unsampled images,
 ``unsampled_image_accessor`` and ``host_unsampled_image_accessor``.
