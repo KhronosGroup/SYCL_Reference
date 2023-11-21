@@ -201,6 +201,9 @@ prolog_template = string.Template(
         "#sec:accessor.host.buffer.conversions",
     )
     + make_ref("SYCL_SYNC_PRIMITIVES", "Section 4.7.5", "#subsec:mutex")
+    + make_ref(
+        "SYCL_SPEC_ADDRESS_SPACE", "Section 4.7.7", "#_address_space_classes"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -217,7 +220,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_FREE| replace:: `SYCL Specification`_ Section 4.8.5.4
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
-.. |SYCL_SPEC_ADDRESS_SPACE| replace:: `SYCL Specification`_ Section 4.7.7
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.1
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7

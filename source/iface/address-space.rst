@@ -2,29 +2,44 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. _multipointer:
+.. _address_space_classes:
 
 *********************
 Address space classes
 *********************
 
-===============================
-``sycl::access::address_space``
-===============================
+There are five different address spaces:
 
-::
+* global;
+* local;
+* constant;
+* private;
+* generic.
 
-   enum class address_space : int {
-       global_space,
-       local_space,
-       constant_space,
-       private_space
-   };
+In a SYCL generic implementation, types are not affected by the
+address spaces. However, there are situations where users need
+to explicitly carry address spaces in the type.
 
+For example:
+
+* For performance tuning and genericness. Even if the platform
+  supports the representation of the generic address space,
+  this may come at some performance sacrifice. In order to help
+  the target compiler, it can be useful to track specifically
+  which address space a pointer is addressing.
+
+* When linking SYCL kernels with SYCL backend-specific functions.
+  In this case, it might be necessary to specify the address
+  space for any pointer parameters.
+
+Direct declaration of pointers with address spaces is discouraged
+as the definition is implementation-defined. Users must rely on
+the :ref:`multi_ptr` class to handle address space boundaries
+and interoperability.
 
 .. seealso:: |SYCL_SPEC_ADDRESS_SPACE|
 
-.. rst-class:: api-class
+.. _multi_ptr:
 
 ===================
 ``sycl::multi_ptr``
@@ -32,9 +47,14 @@ Address space classes
 
 ::
 
-   template <typename ElementType, sycl::access::address_space Space> class multi_ptr;
+  template <typename ElementType, access::address_space Space,
+            access::decorated DecorateAddress = access::decorated::legacy>
+  class multi_ptr;
 
-   template <sycl::access::address_space Space> class multi_ptr<VoidType, Space>;
+  // Specialization of multi_ptr for void and const void
+  // VoidType can be either void or const void
+  template <access::address_space Space, access::decorated DecorateAddress>
+  class multi_ptr<VoidType, Space, DecorateAddress>;
 
 .. rubric:: Template parameters
 
@@ -210,3 +230,9 @@ Returns the underlying OpenCL C pointer
   friend bool operator>(std::nullptr_t, const sycl::multi_ptr& rhs);
   friend bool operator<=(std::nullptr_t, const sycl::multi_ptr& rhs);
   friend bool operator>=(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+.. _explicit_pointer_aliases:
+
+========================
+Explicit pointer aliases
+========================
