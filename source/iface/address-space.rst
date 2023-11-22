@@ -8,7 +8,7 @@
 Address space classes
 *********************
 
-There are five different address spaces:
+There are five different address spaces (see also :ref:`address_space`):
 
 * global;
 * local;
@@ -39,6 +39,80 @@ and interoperability.
 
 .. seealso:: |SYCL_SPEC_ADDRESS_SPACE|
 
+.. _address_space:
+
+===============================
+``sycl::access::address_space``
+===============================
+
+::
+
+  namespace sycl::access {
+
+    enum class address_space : /* unspecified */ {
+      global_space,
+      local_space,
+      constant_space, // Deprecated in SYCL 2020
+      private_space,
+      generic_space
+    };
+
+  } // namespace sycl::access
+
+.. _access-decorated:
+
+===========================
+``sycl::access::decorated``
+===========================
+
+::
+
+  namespace sycl {
+
+  namespace access {
+
+  enum class decorated : /* unspecified */ {
+    no,
+    yes,
+    legacy // Deprecated in SYCL 2020
+  };
+
+  } // namespace access
+
+  template <typename T> struct remove_decoration {
+    using type = /* ... */;
+  };
+
+  template <typename T> using remove_decoration_t = remove_decoration<T>::type;
+
+  } // namespace sycl
+
+The :ref:`multi_ptr` class exposes 3 flavors of the
+same interface:
+
+* If the value of ``sycl::access::decorated`` is
+  ``sycl::access::decorated::no``, the interface exposes pointers and
+  references type that are not decorated by an address space.
+* If the value of ``sycl::access::decorated`` is
+  ``sycl::access::decorated::yes``, the interface exposes pointers and
+  references type that are decorated by an address space.
+* If the value of  ``sycl::access::decorated`` is
+  ``sycl::access::decorated::legacy``, the 1.2.1 interface is exposed.
+  This interface is deprecated.
+
+The decoration is implementation dependent and relies
+on device compiler extensions.
+
+The decorated type may be distinct from the non-decorated one.
+
+For interoperability with the SYCL backend, users
+should rely on types exposed by the decorated version.
+
+The template traits ``sycl::remove_decoration`` and type alias
+``sycl::remove_decoration_t`` retrieve the non-decorated pointer
+or reference from a decorated one. Using this template trait
+with a non-decorated type is safe and returns the same type.
+
 .. _multi_ptr:
 
 ===================
@@ -56,180 +130,20 @@ and interoperability.
   template <access::address_space Space, access::decorated DecorateAddress>
   class multi_ptr<VoidType, Space, DecorateAddress>;
 
-.. rubric:: Template parameters
+The ``sycl::multi_ptr`` class is the common interface for the explicit
+pointer classes, defined in :ref:`explicit_pointer_aliases`.
 
-===============  ===
-``ElementType``
-``Space``
-===============  ===
+There are situations where a user may want to make their type address
+space dependent. This allows performing generic programming that depends
+on the address space associated with their data.
+An example might be wrapping a pointer inside a class, where a user may
+need to template the class according to the address space of the pointer
+the class is initialized with. In this case, the ``sycl::multi_ptr``
+class enables users to do this in a portable and stable way.
 
-.. rubric:: Member types
-
-=====================  ====
-``element_type``
-``difference_type``
-``pointer_t``
-``const_pointer_t``
-``reference_t``
-``const_reference_t``
-=====================  ====
-
-.. rubric:: Nonmember data
-
-=================  ====
-``address_space``
-=================  ====
-
-.. seealso:: |SYCL_SPEC_MULTI_PTR|
-
-(constructors)
-==============
-
-::
-
-  multi_ptr();
-  multi_ptr(const sycl::multi_ptr&);
-  multi_ptr(sycl::multi_ptr&&);
-  multi_ptr(pointer_t);
-  multi_ptr(ElementType*);
-  multi_ptr(std::nullptr_t);
-
-``operator=``
-=============
-
-.. parsed-literal::
-
-  sycl::multi_ptr &operator=(const multi_ptr&);
-  sycl::multi_ptr &operator=(multi_ptr&&);
-  sycl::multi_ptr &operator=(pointer_t);
-  sycl::multi_ptr &operator=(ElementType*);
-  sycl::multi_ptr &operator=(std::nullptr_t);
-
-
-  *Available only when:
-   Space == global_space*
-
-  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>
-  sycl::multi_ptr(accessor<ElementType, dimensions, Mode, sycl::access::target::global_buffer, isPlaceholder>);
-
-  *Available only when:
-   Space == local_space*
-
-  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>
-  sycl::multi_ptr(accessor<ElementType, dimensions, Mode, sycl::access::target::local, isPlaceholder>);
-
-  *Available only when:
-   Space == constant_space*
-
-  template <int dimensions, access::mode Mode, access::placeholder isPlaceholder>
-  sycl::multi_ptr(accessor<ElementType, dimensions, Mode, sycl::access::target::constant_buffer, isPlaceholder>);
-
-
-.. rubric:: Template parameters
-
-=================  ===
-``dimensions``
-``Mode``
-``isPlaceholder``
-=================  ===
-
-
-``operator*``
-=============
-
-::
-
-     friend ElementType& operator*(const sycl::multi_ptr& mp);
-
-``operator->``
-==============
-
-::
-
-     ElementType* operator->() const;
-
-``get``
-=======
-
-::
-
-  pointer_t get() const;
-
-.. rubric:: Returns
-
-Returns the underlying OpenCL C pointer
-
-(Implicit conversions)
-======================
-
-.. parsed-literal::
-
-  *Implicit conversion to the underlying pointer type*
-
-  operator ElementType*() const;
-
-  *Implicit conversion to a multi_ptr<void>.  Only available
-   when ElementType is not const-qualified*
-
-  operator sycl::multi_ptr<void, Space>() const;
-
-  *Implicit conversion to a multi_ptr<const void>. Only
-   available when ElementType is const-qualified*
-
-  operator sycl::multi_ptr<const void, Space>() const;
-
-  *Implicit conversion to multi_ptr<const ElementType, Space>*
-
-  operator sycl::multi_ptr<const ElementType, Space>() const;
-
-
-
-(Arithmetic operators)
-======================
-
-::
-
-  friend sycl::multi_ptr& operator++(sycl::multi_ptr& mp);
-  friend sycl::multi_ptr operator++(sycl::multi_ptr& mp, int);
-  friend sycl::multi_ptr& operator--(sycl::multi_ptr& mp);
-  friend sycl::multi_ptr operator--(sycl::multi_ptr& mp, int);
-  friend sycl::multi_ptr& operator+=(sycl::multi_ptr& lhs, difference_type r);
-  friend sycl::multi_ptr& operator-=(sycl::multi_ptr& lhs, difference_type r);
-  friend sycl::multi_ptr operator+(const sycl::multi_ptr& lhs, difference_type r);
-  friend sycl::multi_ptr operator-(const sycl::multi_ptr& lhs, difference_type r);
-
-``prefetch``
-============
-
-::
-
- void prefetch(size_t numElements) const;
-
-(Relational operators)
-======================
-
-::
-
-  friend bool operator==(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
-  friend bool operator!=(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
-  friend bool operator<(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
-  friend bool operator>(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
-  friend bool operator<=(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
-  friend bool operator>=(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
-
-  friend bool operator==(const sycl::multi_ptr& lhs, std::nullptr_t);
-  friend bool operator!=(const sycl::multi_ptr& lhs, std::nullptr_t);
-  friend bool operator<(const sycl::multi_ptr& lhs, std::nullptr_t);
-  friend bool operator>(const sycl::multi_ptr& lhs, std::nullptr_t);
-  friend bool operator<=(const sycl::multi_ptr& lhs, std::nullptr_t);
-  friend bool operator>=(const sycl::multi_ptr& lhs, std::nullptr_t);
-
-  friend bool operator==(std::nullptr_t, const sycl::multi_ptr& rhs);
-  friend bool operator!=(std::nullptr_t, const sycl::multi_ptr& rhs);
-  friend bool operator<(std::nullptr_t, const sycl::multi_ptr& rhs);
-  friend bool operator>(std::nullptr_t, const sycl::multi_ptr& rhs);
-  friend bool operator<=(std::nullptr_t, const sycl::multi_ptr& rhs);
-  friend bool operator>=(std::nullptr_t, const sycl::multi_ptr& rhs);
+You can select address space via :ref:`address_space` ``Space`` template
+parameter and also interface type via :ref:`access-decorated`
+``DecorateAddress`` template parameter.
 
 .. _explicit_pointer_aliases:
 
