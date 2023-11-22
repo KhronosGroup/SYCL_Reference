@@ -207,6 +207,11 @@ prolog_template = string.Template(
         "Section 4.7.4",
         "#sec:sharing-host-memory-with-dm",
     )
+    + make_ref(
+        "SYCL_SYNC_PARALLEL_FOR_HIERARCHICAL",
+        "Section 4.7.5",
+        "#_parallel_for_hierarchical_invoke",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
