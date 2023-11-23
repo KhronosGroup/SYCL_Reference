@@ -63,8 +63,9 @@ Default allocators
 ==================
 
 A default allocator is always defined by the implementation.
-For allocations greater than size zero, it is guaranteed to
-return non-``nullptr`` and new memory positions every call.
+For allocations greater than size zero, when successful
+it is guaranteed to return non-``nullptr`` and new memory
+positions every call.
 
 The default allocator for ``const`` buffers will remove the
 constantness of the type (therefore, the default allocator
@@ -110,14 +111,14 @@ In order to allow the SYCL runtime to do memory management
 and allow for data dependencies, there are :ref:`buffer`
 and :ref:`image <iface-images>` classes defined.
 
-The default behavior for them is that a “raw” pointer
+The default behavior for them is that if a “raw” pointer
 is given during the construction of the data management
-class, with full ownership to use it until the destruction
-of the SYCL object.
+class, then full ownership to use it is given to the SYCL
+runtime until the destruction of the SYCL object.
 
 Below you can find details on sharing or explicitly not
 sharing host memory with the SYCL data classes. The same
-rules will apply to :ref:`images <iface-images>` as well.
+rules apply to :ref:`images <iface-images>` as well.
 
 .. seealso:: |SYCL_SPEC_HOST_MEM_SHARING|
 
@@ -125,22 +126,23 @@ rules will apply to :ref:`images <iface-images>` as well.
 Default behavior
 ================
 
-When using a :ref:`buffer`, the ownership of the pointer
+When using a :ref:`buffer`, the ownership of a pointer
 passed to the constructor of the class is, by default,
 passed to SYCL runtime, and that pointer cannot be used
 on the host side until the :ref:`buffer` or
 :ref:`image <iface-images>` is destroyed.
 
 A SYCL application can access the contents of the memory
-managed by a SYCL buffer by using a :ref:`host_accessor`
-as defined in. However, there is no guarantee that the
+managed by a SYCL buffer by using a :ref:`host_accessor`.
+However, there is no guarantee that the
 host accessor synchronizes with the original host
 address used in its constructor.
 
 The pointer passed in is the one used to copy data back
 to the host, if needed, before buffer destruction.
-The memory pointed by host pointer will not be deallocated
-by the runtime, and the data is copied back from the device
+The memory pointed to by the host pointer will not be
+deallocated by the runtime, and the data is copied back
+from the device to the host through the host pointer
 if there is a need for it.
 
 
@@ -154,8 +156,8 @@ then the :ref:`buffer` can take full ownership of that
 host memory.
 
 When a :ref:`buffer` owns the host pointer there is no copy back,
-by default. In this situation, the SYCL application may pass a
-unique pointer to the host data, which will be then used by the
+by default. To create this situation, the SYCL application may pass
+a unique pointer to the host data, which will be then used by the
 runtime internally to initialize the data in the device.
 
 For example, the following could be used:
@@ -170,9 +172,9 @@ For example, the following could be used:
   }
 
 However, optionally the ``sycl::buffer::set_final_data()`` can be
-set to a ``std::weak_ptr`` to enable copying data back, to another
-host memory address that is going to be valid after :ref:`buffer`
-construction.
+set to an output iterator (including a “raw” pointer) or to a
+``std::weak_ptr`` to enable copying data back, to another host memory
+address that is going to be valid after :ref:`buffer` destruction.
 
 ::
 
