@@ -130,6 +130,14 @@ with a non-decorated type is safe and returns the same type.
   template <access::address_space Space, access::decorated DecorateAddress>
   class multi_ptr<VoidType, Space, DecorateAddress>;
 
+.. rubric:: Template parameters
+
+===================  ==========
+``ElementType``      Type of pointed value.
+``Space``            Selected address space (see :ref:`address_space`).
+``DecorateAddress``  See :ref:`access-decorated`.
+===================  ==========
+
 The ``sycl::multi_ptr`` class is the common interface for the explicit
 pointer classes, defined in :ref:`explicit_pointer_aliases`.
 
@@ -145,8 +153,515 @@ You can select address space via :ref:`address_space` ``Space`` template
 parameter and also interface type via :ref:`access-decorated`
 ``DecorateAddress`` template parameter.
 
+It is possible to use the ``void`` type for the ``sycl::multi_ptr`` class,
+but in that case some functionality is disabled. ``sycl::multi_ptr<void>``
+does not provide the ``reference`` or ``const_reference`` types, the access
+operators (``operator*()``, ``operator->()``), the arithmetic operators or
+``prefetch`` member function.
+
+``constexpr`` values
+====================
+
+.. list-table::
+  :header-rows: 1
+
+  * - Field
+    - Value
+  * - ``is_decorated``
+    - Equals to ``DecorateAddress == sycl::access::decorated::yes``.
+  * - ``address_space``
+    - Equals to ``Space`` template parameter value.
+
+Member types
+============
+
+.. list-table::
+  :header-rows: 1
+
+  * - Type
+    - Description
+  * - ``value_type``
+    - Type of pointed value (``ElementType``).
+  * - ``pointer``
+    - Type of the pointer to the value.
+      Same as:
+      ::
+
+        std::conditional_t<is_decorated, __unspecified__*,
+                           std::add_pointer_t<value_type>>;
+
+  * - ``reference``
+    - Type of the reference to the value.
+      Same as:
+      ::
+
+        std::conditional_t<is_decorated, __unspecified__&,
+                           std::add_lvalue_reference_t<value_type>>;
+
+  * - ``iterator_category``
+    - Same as ``std::random_access_iterator_tag``.
+  * - ``difference_type``
+    - Same as ``std::ptrdiff_t``.
+
+
+(constructors)
+==============
+
+
+(operators)
+===========
+
+
+Member functions
+================
+
+``get``
+-------
+
+::
+
+  pointer get() const;
+
+Returns the underlying pointer. Whether the pointer is
+decorated depends on the value of ``DecorateAddress``.
+
+``get_decorated``
+-----------------
+
+::
+
+  __unspecified__* get_decorated() const;
+
+Returns the underlying pointer decorated by the address
+space that it addresses.
+
+.. note::
+
+  The support involves implementation-defined device
+  compiler extensions.
+
+``get_raw``
+-----------
+
+::
+
+  std::add_pointer_t<value_type> get_raw() const;
+
+Returns the underlying pointer, always undecorated.
+
+``prefetch``
+------------
+
+::
+
+  void prefetch(size_t numElements) const;
+
+Available only when:
+``Space == sycl::access::address_space::global_space``.
+
+Prefetches a number of elements specified by ``numElements`` into
+the global memory cache. This operation is an implementation-defined
+optimization and does not effect the functional behavior of the SYCL
+kernel function.
+
+Hidden friend functions
+=======================
+
+``operator*``
+-------------
+
+::
+
+  reference operator*(const multi_ptr& mp);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Operator that returns a reference to the ``value_type`` of ``mp``.
+
+
+``operator++``
+--------------
+
+::
+
+  multi_ptr& operator++(multi_ptr& mp);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Increments ``mp`` by ``1`` and returns ``mp``.
+
+::
+
+  multi_ptr operator++(multi_ptr& mp, int);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Increments ``mp`` by ``1`` and returns a new ``multi_ptr``
+with the value of the original ``mp``.
+
+``operator--``
+--------------
+
+::
+
+  sycl::multi_ptr& operator--(sycl::multi_ptr& mp);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Decrements ``mp`` by ``1`` and returns ``mp``.
+
+::
+
+  sycl::multi_ptr operator--(sycl::multi_ptr& mp, int);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Decrements ``mp`` by ``1`` and returns a new ``multi_ptr``
+with the value of the original ``mp``.
+
+``operator+=``
+--------------
+
+::
+
+  sycl::multi_ptr& operator+=(sycl::multi_ptr& lhs, difference_type r);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Moves ``mp`` forward by ``r`` and returns ``lhs``.
+
+``operator-=``
+--------------
+
+::
+
+  sycl::multi_ptr& operator-=(sycl::multi_ptr& lhs, difference_type r);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Moves ``mp`` backward by ``r`` and returns ``lhs``.
+
+``operator+``
+-------------
+
+::
+
+  sycl::multi_ptr operator+(const sycl::multi_ptr& lhs, difference_type r);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Creates a new ``sycl::multi_ptr`` that points ``r``
+forward compared to ``lhs``.
+
+``operator-``
+-------------
+
+::
+
+  sycl::multi_ptr operator-(const sycl::multi_ptr& lhs, difference_type r);
+
+Available only when: ``!std::is_void_v<ElementType>``.
+
+Creates a new ``sycl::multi_ptr`` that points ``r``
+backward compared to ``lhs``.
+
+``operator==``
+--------------
+
+::
+
+  bool operator==(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
+
+Comparison operator ``==`` for ``sycl::multi_ptr`` class.
+
+::
+
+  bool operator==(const sycl::multi_ptr& lhs, std::nullptr_t);
+
+  bool operator==(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+Comparison operator ``==`` for ``sycl::multi_ptr`` class
+with a ``std::nullptr_t``.
+
+
+``operator!=``
+--------------
+
+::
+
+  bool operator!=(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
+
+Comparison operator ``!=`` for ``sycl::multi_ptr`` class.
+
+::
+
+  bool operator!=(const sycl::multi_ptr& lhs, std::nullptr_t);
+
+  bool operator!=(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+Comparison operator ``!=`` for ``sycl::multi_ptr`` class
+with a ``std::nullptr_t``.
+
+
+``operator<``
+-------------
+
+::
+
+  bool operator<(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
+
+Comparison operator ``<`` for ``sycl::multi_ptr`` class.
+
+::
+
+  bool operator<(const sycl::multi_ptr& lhs, std::nullptr_t);
+
+  bool operator<(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+Comparison operator ``<`` for ``sycl::multi_ptr`` class
+with a ``std::nullptr_t``.
+
+
+``operator>``
+-------------
+
+::
+
+  bool operator>(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
+
+Comparison operator ``>`` for ``sycl::multi_ptr`` class.
+
+::
+
+  bool operator>(const sycl::multi_ptr& lhs, std::nullptr_t);
+
+  bool operator>(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+Comparison operator ``>`` for ``sycl::multi_ptr`` class
+with a ``std::nullptr_t``.
+
+
+``operator<=``
+--------------
+
+::
+
+  bool operator<=(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
+
+Comparison operator ``<=`` for ``sycl::multi_ptr`` class.
+
+::
+
+  bool operator<=(const sycl::multi_ptr& lhs, std::nullptr_t);
+
+  bool operator<=(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+Comparison operator ``<=`` for ``sycl::multi_ptr`` class
+with a ``std::nullptr_t``.
+
+
+``operator>=``
+--------------
+
+::
+
+  bool operator>=(const sycl::multi_ptr& lhs, const sycl::multi_ptr& rhs);
+
+Comparison operator ``>=`` for ``sycl::multi_ptr`` class.
+
+::
+
+  bool operator>=(const sycl::multi_ptr& lhs, std::nullptr_t);
+
+  bool operator>=(std::nullptr_t, const sycl::multi_ptr& rhs);
+
+Comparison operator ``>=`` for ``sycl::multi_ptr`` class
+with a ``std::nullptr_t``.
+
+
 .. _explicit_pointer_aliases:
 
 ========================
 Explicit pointer aliases
 ========================
+
+SYCL provides aliases to the :ref:`multi_ptr` class template
+for each specialization of :ref:`address_space`.
+
+A synopsis of the SYCL :ref:`multi_ptr` class template aliases
+is provided below.
+
+.. note::
+
+  Using ``sycl::global_ptr``, ``sycl::local_ptr``, ``sycl::constant_ptr`` or
+  ``sycl::private_ptr`` without specifying the decoration is deprecated.
+  The default argument is provided for compatibility with 1.2.1.
+
+
+``sycl::global_ptr``
+====================
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType,
+            access::decorated IsDecorated = access::decorated::legacy>
+  using global_ptr =
+      multi_ptr<ElementType, access::address_space::global_space, IsDecorated>;
+
+  } // namespace sycl
+
+
+``sycl::local_ptr``
+===================
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType,
+            access::decorated IsDecorated = access::decorated::legacy>
+  using local_ptr =
+      multi_ptr<ElementType, access::address_space::local_space, IsDecorated>;
+
+  } // namespace sycl
+
+
+``sycl::constant_ptr``
+======================
+
+.. warning::
+
+  Deprecated in SYCL2020.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using constant_ptr =
+      multi_ptr<ElementType, access::address_space::constant_space,
+                access::decorated::legacy>;
+
+  } // namespace sycl
+
+
+``sycl::private_ptr``
+=====================
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType,
+            access::decorated IsDecorated = access::decorated::legacy>
+  using private_ptr =
+      multi_ptr<ElementType, access::address_space::private_space, IsDecorated>;
+
+  } // namespace sycl
+
+
+``sycl::raw_global_ptr``
+========================
+
+The interface exposes non-decorated pointer while
+keeping the address space information internally.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using raw_global_ptr =
+      multi_ptr<ElementType, access::address_space::global_space,
+                access::decorated::no>;
+
+  } // namespace sycl
+
+
+``sycl::raw_local_ptr``
+=======================
+
+The interface exposes non-decorated pointer while
+keeping the address space information internally.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using raw_local_ptr =
+      multi_ptr<ElementType, access::address_space::local_space,
+                access::decorated::no>;
+
+  } // namespace sycl
+
+
+``sycl::raw_private_ptr``
+=========================
+
+The interface exposes non-decorated pointer while
+keeping the address space information internally.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using raw_private_ptr =
+      multi_ptr<ElementType, access::address_space::private_space,
+                access::decorated::no>;
+
+  } // namespace sycl
+
+
+``sycl::decorated_global_ptr``
+==============================
+
+The interface exposes decorated pointer.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using decorated_global_ptr =
+      multi_ptr<ElementType, access::address_space::global_space,
+                access::decorated::yes>;
+
+  } // namespace sycl
+
+
+``sycl::decorated_local_ptr``
+=============================
+
+The interface exposes decorated pointer.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using decorated_local_ptr =
+      multi_ptr<ElementType, access::address_space::local_space,
+                access::decorated::yes>;
+
+  } // namespace sycl
+
+
+``sycl::decorated_private_ptr``
+===============================
+
+The interface exposes decorated pointer.
+
+::
+
+  namespace sycl {
+
+  template <typename ElementType>
+  using decorated_private_ptr =
+      multi_ptr<ElementType, access::address_space::private_space,
+                access::decorated::yes>;
+
+  } // namespace sycl

@@ -49,3 +49,5 @@ copyable
 mutex
 constantness
 genericness
+undecorated
+Prefetches
