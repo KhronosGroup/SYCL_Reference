@@ -69,7 +69,8 @@ does not have ``aspect::image``.
 
 ::
 
-  template <typename DataT, int Dimensions> class host_sampled_image_accessor;
+  template <typename DataT, int Dimensions>
+  class host_sampled_image_accessor;
 
 (constructor of the `host_sampled_image_accessor`)
 ====================================================
@@ -106,7 +107,8 @@ Returns the number of elements of the underlying
 
 ::
 
-  template <typename CoordT> DataT read(const CoordT& coords) const
+  template <typename CoordT>
+  DataT read(const CoordT& coords) const
 
 Reads and returns an element of the ``sampled_image`` at the
 coordinates specified by ``coords``. Permitted types for ``CoordT``
