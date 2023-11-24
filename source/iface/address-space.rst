@@ -207,10 +207,449 @@ Member types
 (constructors)
 ==============
 
+.. rubric:: Constructor 1
 
-(operators)
-===========
+::
 
+  multi_ptr();
+
+Default constructor.
+
+.. rubric:: Constructor 2
+
+::
+
+  multi_ptr(const sycl::multi_ptr&);
+
+Copy constructor.
+
+.. rubric:: Constructor 3
+
+::
+
+  multi_ptr(sycl::multi_ptr&&);
+
+Move constructor.
+
+.. rubric:: Constructor 4
+
+::
+
+  explicit
+  multi_ptr(sycl::multi_ptr<ElementType, Space,
+                            sycl::access::decorated::yes>::pointer)
+
+Constructor that takes as an argument a decorated pointer.
+
+.. rubric:: Constructor 5
+
+::
+
+  multi_ptr(std::nullptr_t);
+
+Constructor from a ``nullptr``.
+
+.. rubric:: Constructor 6
+
+::
+
+  template <typename AccDataT, int Dimensions,
+            sycl::access_mode Mode,
+            sycl::access::placeholder IsPlaceholder>
+  multi_ptr(sycl::accessor<AccDataT, Dimensions, Mode,
+                           sycl::target::device, IsPlaceholder>);
+
+.. note::
+
+  Available only when:
+  ::
+
+    (Space == sycl::access::address_space::global_space ||
+     Space == sycl::access::address_space::generic_space) &&
+    (std::is_void_v<ElementType> ||
+     std::is_same_v<std::remove_const_t<ElementType>,
+                    std::remove_const_t<AccDataT>>) &&
+    (std::is_const_v<ElementType> ||
+     !std::is_const_v<sycl::accessor<AccDataT,
+                                     Dimensions,
+                                     Mode,
+                                     sycl::target::device,
+                                     IsPlaceholder>::value_type>)
+
+Constructs a ``sycl::multi_ptr`` from an
+:ref:`command-accessor` of ``sycl::target::device``.
+
+This constructor may only be called from within a command.
+
+.. rubric:: Constructor 7
+
+::
+
+  template <typename AccDataT, int Dimensions>
+  multi_ptr(sycl::local_accessor<AccDataT, Dimensions>);
+
+.. note::
+
+  Available only when:
+  ::
+
+    (Space == sycl::access::address_space::local_space ||
+     Space == sycl::access::address_space::generic_space) &&
+    (std::is_void_v<ElementType> ||
+     std::is_same_v<std::remove_const_t<ElementType>,
+                    std::remove_const_t<AccDataT>>) &&
+    (std::is_const_v<ElementType> || !std::is_const_v<AccDataT>)
+
+Constructs a ``sycl::multi_ptr`` from a :ref:`local_accessor`.
+
+This constructor may only be called from within a command.
+
+.. rubric:: Constructor 8
+
+::
+
+  template <typename AccDataT, int Dimensions,
+            sycl::access_mode Mode,
+            sycl::access::placeholder IsPlaceholder>
+  multi_ptr(sycl::accessor<AccDataT, Dimensions, Mode,
+                           sycl::target::local, IsPlaceholder>);
+
+Deprecated in SYCL 2020. Use the overload with
+``sycl::local_accessor`` instead (Constructor 7).
+
+.. note::
+
+  Available only when:
+  ::
+
+    (Space == sycl::access::address_space::local_space ||
+     Space == sycl::access::address_space::generic_space) &&
+    (std::is_void_v<ElementType> ||
+     std::is_same_v<std::remove_const_t<ElementType>,
+                    std::remove_const_t<AccDataT>>) &&
+    (std::is_const_v<ElementType> || !std::is_const_v<AccDataT>)
+
+Constructs a ``sycl::multi_ptr`` from an
+:ref:`command-accessor` of ``sycl::target::local``.
+
+This constructor may only be called from within a command.
+
+.. rubric:: Template parameters
+
+=================  ==========
+``AccDataT``       Data type in the ``sycl::accessor`` or
+                   ``sycl::local_accessor`` used to
+                   initialize the ``sycl::multi_ptr``.
+``Dimensions``     Dimensions of the ``sycl::accessor`` or
+                   ``sycl::local_accessor`` used to
+                   initialize the ``sycl::multi_ptr``.
+``Mode``           ``sycl::access_mode`` of the
+                   ``sycl::accessor`` used to
+                   initialize the ``sycl::multi_ptr``.
+=================  ==========
+
+Global functions
+================
+
+``address_space_cast``
+----------------------
+
+::
+
+  template <sycl::access::address_space Space,
+            sycl::access::decorated DecorateAddress,
+            typename ElementType>
+  multi_ptr<ElementType, Space, DecorateAddress>
+  address_space_cast(ElementType* pointer);
+
+Global function to create a ``sycl::multi_ptr`` instance
+from ``pointer``, using the address space and decoration
+specified via the ``Space`` and ``DecorateAddress`` template arguments.
+
+An implementation must return ``nullptr`` if the run-time value of
+``pointer`` is not compatible with ``Space``, and must issue a
+compile-time diagnostic if the deduced address space for
+``pointer`` is not compatible with ``Space``.
+
+``make_ptr``
+------------
+
+::
+
+  template <typename ElementType,
+            sycl::access::address_space Space,
+            sycl::access::decorated DecorateAddress>
+  multi_ptr<ElementType, Space, DecorateAddress>
+  make_ptr(ElementType* pointer);
+
+Deprecated in SYCL 2020. Use `address_space_cast`_ instead.
+
+Global function to create a ``sycl::multi_ptr`` instance
+depending on the address space of the ``pointer`` argument.
+An implementation must return ``nullptr`` if the run-time value
+of ``pointer`` is not compatible with ``Space``, and must issue
+a compile-time diagnostic if the deduced address space is not
+compatible with ``Space``.
+
+Operators
+=========
+
+``operator=``
+-------------
+
+.. rubric:: Overload 1
+
+::
+
+  sycl::multi_ptr& operator=(const sycl::multi_ptr&);
+
+Copy assignment operator.
+
+.. rubric:: Overload 2
+
+::
+
+  sycl::multi_ptr& operator=(sycl::multi_ptr&&);
+
+Move assignment operator.
+
+.. rubric:: Overload 3
+
+::
+
+  sycl::multi_ptr& operator=(std::nullptr_t);
+
+Assigns ``nullptr`` to the ``sycl::multi_ptr``.
+
+.. rubric:: Overload 4
+
+::
+
+  template <sycl::access::address_space AS,
+            sycl::access::decorated IsDecorated>
+  sycl::multi_ptr&
+  operator=(const sycl::multi_ptr<value_type, AS, IsDecorated>&);
+
+.. note::
+
+  Available only when:
+  ::
+
+    (Space == sycl::access::address_space::generic_space &&
+     AS != sycl::access::address_space::constant_space)
+
+Assigns the value of the left hand side
+``sycl::multi_ptr`` into the ``sycl::generic_ptr``.
+
+.. rubric:: Overload 5
+
+::
+
+  template<sycl::access::address_space AS,
+           sycl::access::decorated IsDecorated>
+  sycl::multi_ptr&
+  operator=(sycl::multi_ptr<value_type, AS, IsDecorated>&&);
+
+.. note::
+
+  Available only when:
+  ::
+
+    (Space == sycl::access::address_space::generic_space &&
+     AS != sycl::access::address_space::constant_space)
+
+Move the value of the left hand side
+``sycl::multi_ptr`` into the ``sycl::generic_ptr``.
+
+
+``operator[]``
+--------------
+
+::
+
+  reference operator[](std::ptrdiff_t i) const;
+
+Available only when: ``!std::is_void_v<value_type>``.
+
+Returns a reference to the ``i``th pointed
+value. The value ``i`` can be negative.
+
+
+``operator->``
+--------------
+
+::
+
+  pointer operator->() const;
+
+Available only when: ``!std::is_void_v<value_type>``.
+
+Returns the underlying pointer.
+
+
+``operator*``
+-------------
+
+::
+
+  reference operator*() const;
+
+Available only when: ``!std::is_void_v<value_type>``.
+
+Returns a reference to the pointed value.
+
+``pointer()``
+-------------
+
+::
+
+  operator pointer() const;
+
+Deprecated: The member function ``get()``
+should be used instead.
+
+Implicit conversion to the underlying pointer type.
+
+
+Explicit cast operators
+-----------------------
+
+.. rubric:: Cast to ``sycl::private_ptr``
+
+::
+
+  template <access::decorated IsDecorated>
+  explicit
+  operator multi_ptr<value_type,
+                     access::address_space::private_space,
+                     IsDecorated>() const;
+
+  template <sycl::access::decorated IsDecorated>
+  explicit
+  operator multi_ptr<const value_type,
+                     sycl::access::address_space::private_space,
+                     IsDecorated>() const;
+
+Available only when:
+``Space == sycl::access::address_space::generic_space``.
+
+Conversion from ``sycl::generic_ptr`` to
+``sycl::private_ptr`` of (non-``const``/``const``) data.
+
+The result is undefined if the pointer does not address
+the private address space.
+
+.. rubric:: Cast to ``sycl::global_ptr``
+
+::
+
+  template <sycl::access::decorated IsDecorated>
+  explicit
+  operator multi_ptr<value_type,
+                     sycl::access::address_space::global_space,
+                     IsDecorated>() const;
+
+  template <sycl::access::decorated IsDecorated>
+  explicit
+  operator multi_ptr<const value_type,
+                     sycl::access::address_space::global_space,
+                     IsDecorated>() const;
+
+Available only when:
+``Space == sycl::access::address_space::generic_space``.
+
+Conversion from ``sycl::generic_ptr`` to
+``sycl::global_ptr`` of (non-``const``/``const``) data.
+
+The result is undefined if the pointer does not address
+the global address space.
+
+.. rubric:: Cast to ``sycl::local_ptr``
+
+::
+
+  template <sycl::access::decorated IsDecorated>
+  explicit
+  operator multi_ptr<value_type,
+                     sycl::access::address_space::local_space,
+                     IsDecorated>() const;
+
+  template <sycl::access::decorated IsDecorated>
+  explicit
+  operator multi_ptr<const value_type,
+                     sycl::access::address_space::local_space,
+                     IsDecorated>() const;
+
+Available only when:
+``Space == sycl::access::address_space::generic_space``.
+
+Conversion from ``sycl::local_ptr`` to
+``sycl::global_ptr`` of (non-``const``/``const``) data.
+
+The result is undefined if the pointer does not address
+the local address space.
+
+
+Implicit cast operators
+-----------------------
+
+.. rubric:: Overload 1
+
+::
+
+  template <sycl::access::decorated IsDecorated>
+  operator multi_ptr<void, Space, IsDecorated>() const;
+
+Available only when:
+``!std::is_void_v<value_type> && !std::is_const_v<value_type>``.
+
+Implicit conversion to a ``sycl::multi_ptr`` of type ``void``.
+
+.. rubric:: Overload 2
+
+::
+
+  template <sycl::access::decorated IsDecorated>
+  operator multi_ptr<const void, Space, IsDecorated>() const;
+
+Available only when:
+``!std::is_void_v<value_type> && std::is_const_v<value_type>``.
+
+Implicit conversion to a ``sycl::multi_ptr`` of type ``const void``.
+
+.. rubric:: Overload 3
+
+::
+
+  template <sycl::access::decorated IsDecorated>
+  operator multi_ptr<const value_type, Space,
+                     IsDecorated>() const;
+
+Implicit conversion to a ``sycl::multi_ptr`` of type ``const value_type``.
+
+.. rubric:: Overload 4
+
+::
+
+  operator multi_ptr<value_type, Space,
+                     sycl::access::decorated::no>() const;
+
+Available only when: ``is_decorated == true``.
+
+Implicit conversion to the equivalent ``sycl::multi_ptr``
+object that does not expose decorated pointers or references.
+
+.. rubric:: Overload 5
+
+::
+
+  operator multi_ptr<value_type, Space,
+                     sycl::access::decorated::yes>() const;
+
+Available only when: ``is_decorated == false``.
+
+Implicit conversion to the equivalent ``sycl::multi_ptr``
+object that exposes decorated pointers or references.
 
 Member functions
 ================
