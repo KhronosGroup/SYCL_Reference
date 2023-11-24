@@ -12,19 +12,13 @@
 
 ::
 
-   template <int dimensions = 1>
+   template <int Dimensions = 1>
    class range;
 
-The range is an abstraction that describes the number of elements in
-each dimension of buffers and index spaces. It can contain 1, 2, or 3
-numbers, depending on the dimensionality of the object it describes.
-
-
-.. rubric:: Template parameters
-
-================  ===
-``dimensions``    Number of dimensions
-================  ===
+``range<int Dimensions>`` is a 1D, 2D or 3D vector that defines
+the iteration domain of either a single work-group in a parallel
+dispatch, or the overall Dimensions of the dispatch.
+It can be constructed from integers.
 
 .. seealso:: |SYCL_SPEC_RANGE|
 
@@ -33,58 +27,160 @@ numbers, depending on the dimensionality of the object it describes.
 
 ::
 
+  range();
+
   range(size_t dim0);
+
   range(size_t dim0, size_t dim1);
+
   range(size_t dim0, size_t dim1, size_t dim2);
 
-Constructs a 1, 2, or 3 dimensional range.
+Construct a ``SYCL`` range with the value ``0`` for each dimension
+or a 1D,2D,3D range with values dim0, dim1 and dim2.
 
+
+================
+Member functions
+================
 
 ``get``
 =======
 
 ::
 
-  size_t get(int dimension) const;
+  size_t get(int dimension) const
 
-Returns the range of a single dimension.
+Return the value of the specified dimension of the ``range``.
 
-``operator[]``
-==============
+``size_t& operator[]``
+======================
 
 ::
 
-  size_t &operator[](int dimension);
-  size_t operator[](int dimension) const;
+  size_t& operator[](int dimension);
 
-Returns the range of a single dimension.
+Return the l-value of the specified dimension of the ``range``.
+
+``size_t operator[]``
+=====================
+
+::
+
+  size_t operator[](int dimension) const
+
+Return the value of the specified dimension of the ``range``.
 
 ``size``
 ========
 
 ::
 
-   size_t size() const;
+  size_t size() const
 
-Returns the size of a range by multiplying the range of the individual
-dimensions.
+Return the size of the range computed as ``dimension0*…​*dimensionN``.
 
-For a buffer, it is the number of elements in the buffer.
+=======================
+Hidden friend functions
+=======================
 
-Arithmetic Operators
-====================
+``operatorOP``
+==============
 
-.. parsed-literal::
+::
 
-  *OP is: +, -, \*, /, %, <<, >>, &, \|, ^, &&, \|\|, <, >, <=, >=*
+  range operatorOP(const range& lhs, const range& rhs);
 
-  friend range operatorOP(const range &lhs, const range &rhs)
-  friend range operatorOP(const range &lhs, const size_t &rhs)
-  friend range operatorOP(const size_t &lhs, const range &rhs)
+Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
+``>>``, ``&``, ``|``,``^``, ``&&``, ``||``, ``<``, ``>``,
+``<=``, ``>=``.
 
-  *OP is: +=, -=, \*=, /=, %=, <<=, >>=, &=, \|=, ^=*
+Constructs and returns a new instance of the SYCL ``range`` class template
+with the same dimensionality as ``lhs range``, where each element of the new
+SYCL ``range`` instance is the result of an element-wise ``OP`` operator
+between each element of ``lhs range`` and each element of the
+``rhs range``. If the operator returns a ``bool``,
+the result is the cast to ``size_t``.
 
-  friend range & operatorOP(const range &lhs, const range &rhs)
-  friend range & operatorOP(const range &lhs, const size_t &rhs)
+::
 
-Arithmetical and relational operations on ranges.
+  range operatorOP(const range& lhs, const size_t& rhs);
+
+Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
+``>>``, ``&``, ``|``, ``^``, ``&&``, ``||``, ``<``, ``>``,
+``<=``, ``>=``.
+
+Constructs and returns a new instance of the SYCL ``range`` class template
+with the same dimensionality as ``lhs range``, where each element of the new
+SYCL ``range`` instance is the result of an element-wise ``OP`` operator
+between each element of this SYCL ``range`` and the ``rhs size_t``.
+If the operator returns a ``bool``, the result is the cast to ``size_t``.
+
+::
+
+  range& operatorOP(range& lhs, const range& rhs);
+
+Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
+``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
+
+Assigns each element of ``lhs range`` instance with the result of an
+element-wise ``OP`` operator between each element of ``lhs range`` and
+each element of the ``rhs range`` and returns ``lhs range``.
+If the operator returns a ``bool``, the result is the cast to ``size_t``.
+
+::
+
+  range& operatorOP(range& lhs, const size_t& rhs);
+
+Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
+``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
+
+Assigns each element of ``lhs range`` instance with the result of an
+element-wise ``OP`` operator between each element of ``lhs range``
+and the ``rhs size_t`` and returns ``lhs range``. If the operator
+returns a ``bool``, the result is the cast to ``size_t``.
+
+::
+
+  range operatorOP(const size_t& lhs, const range& rhs);
+
+Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
+``>>``, ``&``, ``|``, ``^``, ``&&``, ``||``, ``<``, ``>``,
+``<=``, ``>=``.
+
+Constructs and returns a new instance of the SYCL ``range`` class template
+with the same dimensionality as the ``rhs`` SYCL ``range``, where each
+element of the new SYCL ``range`` instance is the result of an element-wise
+``OP`` operator between the ``lhs size_t`` and each element of the
+``rhs`` SYCL ``ange``. If the operator returns a ``bool``,
+the result is the cast to ``size_t``.
+
+::
+
+  range operatorOP(const range& rhs);
+
+Where ``OP`` is: unary ``+``, unary ``-``.
+
+Constructs and returns a new instance of the SYCL ``range`` class template
+with the same dimensionality as the ``rhs`` SYCL ``range``, where each element
+of the new SYCL ``range`` instance is the result of an element-wise
+``OP`` operator on the ``rhs`` SYCL ``range``.
+
+::
+
+  range& operatorOP(range& rhs);
+
+Where ``OP`` is: prefix ``++``, prefix ``--``.
+
+Assigns each element of the ``rhs range`` instance with the result of an
+element-wise ``OP`` operator on each element of the ``rhs range``
+and returns this ``range``.
+
+::
+
+  range operatorOP(range& lhs, int);
+
+Where ``OP`` is: postfix ``++``, postfix ``--``.
+
+Make a copy of the ``lhs range``. Assigns each element of the ``lhs range``
+instance with the result of an element-wise ``OP`` operator on each element
+of the ``lhs range``. Then return the initial copy of the ``range``.
