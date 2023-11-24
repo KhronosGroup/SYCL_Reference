@@ -36,6 +36,8 @@ template parameter as ``image_target::host_task`` and then use the
 
 ::
 
+  template <typename DataT, int Dimensions,
+            image_target AccessTarget = image_target::device>
   class sampled_image_accessor;
 
 (constructor of the `sampled_image_accessor`)
@@ -67,7 +69,7 @@ does not have ``aspect::image``.
 
 ::
 
-  class host_sampled_image_accessor;
+  template <typename DataT, int Dimensions> class host_sampled_image_accessor;
 
 (constructor of the `host_sampled_image_accessor`)
 ====================================================
