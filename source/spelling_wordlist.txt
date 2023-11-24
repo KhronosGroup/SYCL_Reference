@@ -51,3 +51,6 @@ constantness
 genericness
 undecorated
 Prefetches
+allocators
+STL
+conformant
