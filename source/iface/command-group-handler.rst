@@ -288,3 +288,10 @@ Example 1
 .. literalinclude:: /examples/host-task.cpp
    :lines: 5-
    :linenos:
+
+
+.. _parallel_for_hierarchical:
+
+================================
+Parallel for hierarchical invoke
+================================
