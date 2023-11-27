@@ -67,7 +67,7 @@ the type of each element that the accessor accesses. For
 either match the type of each element in the underlying :ref:`buffer`,
 or it must be a ``const`` qualified version of that type.
 
-For the image accessors (:ref:`unsampled-image-accessors`,
+For the image accessors (:ref:`unsampled_image_accessors`,
 :ref:`sampled_image_accessors`), ``DataT`` must be one of:
 
 * ``sycl::int4`` (``sycl::vec<int32_t, 4>``);
