@@ -212,6 +212,11 @@ prolog_template = string.Template(
         "Section 4.7.5",
         "#_parallel_for_hierarchical_invoke",
     )
+    + make_ref(
+        "SYCL_SPEC_ID",
+        "Section 4.9.1.3",
+        "#id-class",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -232,7 +237,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.1
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
-.. |SYCL_SPEC_ID| replace:: `SYCL Specification`_ Section 4.10.1.3
 .. |SYCL_SPEC_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.4
 .. |SYCL_SPEC_H_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.6
 .. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
