@@ -2,70 +2,81 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _nd_range:
 
-
-==================
+******************
 ``sycl::nd_range``
-==================
+******************
 
 ::
 
-   template <int dimensions = 1>
-   class nd_range;
-
-
-The ``nd_range`` defines the index space for a work group as well as
-the global index space. It is passed to :ref:`handler-parallel_for` to
-execute a kernel on a set of work items.
-
+  template <int Dimensions = 1>
+  class nd_range;
 
 .. rubric:: Template parameters
 
 ================  ===
-``dimensions``    Number of dimensions
+``Dimensions``    Number of dimensions in the ``sycl::nd_range``.
 ================  ===
 
+The ``sycl::nd_range`` class defines the iteration domain of both
+the work-groups and the overall dispatch.
+
+A ``sycl::nd_range`` comprises two
+:ref:`range` parameters: the whole range over which
+the kernel is to be executed, and the range of each work group.
+
+The ``sycl::nd_range`` class template provides the :ref:`common-byval`.
 
 .. seealso:: |SYCL_SPEC_ND_RANGE|
 
+==============
 (constructors)
 ==============
 
 ::
 
-  nd_range(sycl::range<dimensions> globalSize, sycl::range<dimensions> localSize,
-           sycl::id<dimensions> offset = sycl::id<dimensions>());
+  nd_range<Dimensions>(
+      sycl::range<Dimensions> globalSize,
+      sycl::range<Dimensions> localSize,
+      sycl::id<Dimensions> offset = sycl::id<Dimensions>());
 
-Construct an ``nd_range``.
+Construct an ``sycl::nd_range`` from the local
+and global constituent :ref:`range`.
+
+Supplying the option offset is deprecated in SYCL 2020.
+If the offset is not provided it will default to no offset.
 
 .. rubric:: Parameters
 
 ==================  ===
-``globalSize``      dimensions of the entire index space
-``localSize``       dimensions of the work group
-``offset``          Origin of the index space [deprecated in SYCL 2020]
+``globalSize``      Dimensions of the entire index space.
+``localSize``       Dimensions of the work group.
+``offset``          Origin of the index space. [deprecated in SYCL 2020]
 ==================  ===
+
+
+================
+Member functions
+================
 
 ``get_global_range``
 ====================
 
 ::
 
-  sycl::range<dimensions> get_global_range() const;
+  sycl::range<Dimensions> get_global_range() const;
 
-Returns a :ref:`range` defining the index space.
+Return the constituent global :ref:`range`.
 
 ``get_local_range``
 ===================
 
 ::
 
-  sycl::range<dimensions> get_local_range() const;
+  sycl::range<Dimensions> get_local_range() const;
 
-Returns a :ref:`range` defining the index space of a work group.
+Return the constituent local :ref:`range`.
 
 ``get_group_range``
 ===================
@@ -74,7 +85,11 @@ Returns a :ref:`range` defining the index space of a work group.
 
   sycl::range<dimensions> get_group_range() const;
 
-Returns a :ref:`range` defining the number of work groups in every dimension.
+Returns a :ref:`range` representing the number of
+groups in each dimension.
+
+This range would result from ``globalSize``/``localSize``
+as provided on construction.
 
 
 ``get_offset``
@@ -82,6 +97,8 @@ Returns a :ref:`range` defining the number of work groups in every dimension.
 
 ::
 
-  sycl::id<dimensions> get_offset() const;
+  sycl::id<Dimensions> get_offset() const;
+
+Deprecated in SYCL 2020.
 
 Returns a :ref:`id` defining the offset.

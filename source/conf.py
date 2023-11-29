@@ -213,6 +213,9 @@ prolog_template = string.Template(
         "#_parallel_for_hierarchical_invoke",
     )
     + make_ref(
+        "SYCL_SPEC_ND_RANGE", "Section 4.9.1.2", "#subsubsec:nd-range-class"
+    )
+    + make_ref(
         "SYCL_SPEC_ADDRESS_SPACE", "Section 4.7.7", "#_address_space_classes"
     )
     + make_ref(
@@ -255,7 +258,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
 .. |SYCL_SPEC_H_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.6
 .. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
-.. |SYCL_SPEC_ND_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.2
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
 .. |SYCL_SPEC_KERNEL| replace:: `SYCL Specification`_ Section 4.12
