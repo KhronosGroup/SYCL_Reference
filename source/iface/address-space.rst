@@ -8,7 +8,8 @@
 Address space classes
 *********************
 
-There are five different address spaces (see also :ref:`address_space`):
+In SYCL, there are five different address spaces
+(see also :ref:`address_space`):
 
 * global;
 * local;
@@ -16,24 +17,24 @@ There are five different address spaces (see also :ref:`address_space`):
 * private;
 * generic.
 
-In a SYCL generic implementation, types are not affected by the
+Using the SYCL generic address space, types are not effected by the
 address spaces. However, there are situations where users need
 to explicitly carry address spaces in the type.
 
 For example:
 
-* For performance tuning and genericness. Even if the platform
+* For performance tuning. Even if the platform
   supports the representation of the generic address space,
-  this may come at some performance sacrifice. In order to help
-  the target compiler, it can be useful to track specifically
+  this may come with performance implications. In order to help
+  the target compiler, it may sometimes be useful to track explicitly
   which address space a pointer is addressing.
 
 * When linking SYCL kernels with SYCL backend-specific functions.
-  In this case, it might be necessary to specify the address
+  In this case it might be necessary to specify the address
   space for any pointer parameters.
 
 Direct declaration of pointers with address spaces is discouraged
-as the definition is implementation-defined. Users must rely on
+as the definition is implementation-defined. Users should use
 the :ref:`multi_ptr` class to handle address space boundaries
 and interoperability.
 
@@ -97,13 +98,13 @@ same interface:
   ``sycl::access::decorated::yes``, the interface exposes pointers and
   references type that are decorated by an address space.
 * If the value of  ``sycl::access::decorated`` is
-  ``sycl::access::decorated::legacy``, the 1.2.1 interface is exposed.
-  This interface is deprecated.
+  ``sycl::access::decorated::legacy``, the SYCL 1.2.1 interface is
+  exposed. This interface is deprecated.
 
-The decoration is implementation dependent and relies
+The decoration is implementation dependent and may rely
 on device compiler extensions.
 
-The decorated type may be distinct from the non-decorated one.
+The decorated type may be distinct from the non-decorated type.
 
 For interoperability with the SYCL backend, users
 should rely on types exposed by the decorated version.
@@ -133,7 +134,7 @@ with a non-decorated type is safe and returns the same type.
 .. rubric:: Template parameters
 
 ===================  ==========
-``ElementType``      Type of pointed value.
+``ElementType``      Type of pointee value.
 ``Space``            Selected address space (see :ref:`address_space`).
 ``DecorateAddress``  See :ref:`access-decorated`.
 ===================  ==========
@@ -149,15 +150,15 @@ need to template the class according to the address space of the pointer
 the class is initialized with. In this case, the ``sycl::multi_ptr``
 class enables users to do this in a portable and stable way.
 
-You can select address space via :ref:`address_space` ``Space`` template
-parameter and also interface type via :ref:`access-decorated`
-``DecorateAddress`` template parameter.
+You can select address space via the :ref:`address_space` ``Space``
+template parameter and also interface type via the
+:ref:`access-decorated` ``DecorateAddress`` template parameter.
 
 It is possible to use the ``void`` type for the ``sycl::multi_ptr`` class,
 but in that case some functionality is disabled. ``sycl::multi_ptr<void>``
 does not provide the ``reference`` or ``const_reference`` types, the access
 operators (``operator*()``, ``operator->()``), the arithmetic operators or
-``prefetch`` member function.
+the ``prefetch`` member function.
 
 ``constexpr`` values
 ====================
@@ -181,7 +182,7 @@ Member types
   * - Type
     - Description
   * - ``value_type``
-    - Type of pointed value (``ElementType``).
+    - Type of pointee value (``ElementType``).
   * - ``pointer``
     - Type of the pointer to the value.
       Same as:
@@ -471,7 +472,7 @@ Move the value of the left hand side
 
 Available only when: ``!std::is_void_v<value_type>``.
 
-Returns a reference to the ``i``th pointed
+Returns a reference to the ``i``-th pointed
 value. The value ``i`` can be negative.
 
 
@@ -676,7 +677,7 @@ space that it addresses.
 
 .. note::
 
-  The support involves implementation-defined device
+  Support may involve implementation-defined device
   compiler extensions.
 
 ``get_raw``
@@ -934,7 +935,7 @@ is provided below.
 
   Using ``sycl::global_ptr``, ``sycl::local_ptr``, ``sycl::constant_ptr`` or
   ``sycl::private_ptr`` without specifying the decoration is deprecated.
-  The default argument is provided for compatibility with 1.2.1.
+  The default argument is provided for compatibility with SYCL 1.2.1.
 
 
 ``sycl::global_ptr``

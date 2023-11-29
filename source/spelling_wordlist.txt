@@ -54,3 +54,5 @@ Prefetches
 allocators
 STL
 conformant
+pointee
+th
