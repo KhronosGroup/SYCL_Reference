@@ -216,6 +216,11 @@ prolog_template = string.Template(
         "SYCL_SPEC_ADDRESS_SPACE", "Section 4.7.7", "#_address_space_classes"
     )
     + make_ref(
+        "SYCL_SPEC_ID",
+        "Section 4.9.1.3",
+        "#id-class",
+    )
+    + make_ref(
         "SYCL_SPEC_RANGE",
         "Section 4.9.1.1",
         "#range-class",
@@ -248,7 +253,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
-.. |SYCL_SPEC_ID| replace:: `SYCL Specification`_ Section 4.10.1.3
 .. |SYCL_SPEC_H_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.6
 .. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
 .. |SYCL_SPEC_ND_RANGE| replace:: `SYCL Specification`_ Section 4.10.1.2
