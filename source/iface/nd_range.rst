@@ -16,13 +16,13 @@
 .. rubric:: Template parameters
 
 ================  ===
-``Dimensions``    Number of dimensions of ``sycl::nd_range``.
+``Dimensions``    Number of dimensions in the ``sycl::nd_range``.
 ================  ===
 
-The ``sycl::nd_range`` defines the iteration domain of both
+The ``sycl::nd_range`` class defines the iteration domain of both
 the work-groups and the overall dispatch.
 
-To define this the ``sycl::nd_range`` comprises two
+A ``sycl::nd_range`` comprises two
 :ref:`range` parameters: the whole range over which
 the kernel is to be executed, and the range of each work group.
 
