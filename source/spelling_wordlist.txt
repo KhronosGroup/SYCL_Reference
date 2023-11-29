@@ -50,6 +50,11 @@ linearizes
 copyable
 mutex
 constantness
+genericness
+undecorated
+Prefetches
 allocators
 STL
 conformant
+pointee
+th
