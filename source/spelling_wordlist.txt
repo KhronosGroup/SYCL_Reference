@@ -42,8 +42,10 @@ dereference
 dereferencing
 dereferences
 pinnable
+postfix
 constructible
 unsampled
+unary
 linearizes
 copyable
 mutex
