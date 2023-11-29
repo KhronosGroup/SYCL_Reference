@@ -17,7 +17,7 @@
 
 ===============  ===
 ``Dimensions``   Number of dimensions in the index space.
-``WithOffset``   ``true`` if item has offset, otherwise - ``false``.
+``WithOffset``   ``true`` if item has offset, otherwise ``false``.
 ===============  ===
 
 ``sycl::item`` identifies an instance of the function object
@@ -31,11 +31,11 @@ range of possible values and its :ref:`id` in that range.
 
   It can optionally carry the offset of the range if provided to the ``parallel_for``.
 
-  This is deprecated in SYCL2020.
+  This is deprecated in SYCL 2020.
 
 Instances of the ``sycl::item`` class are not user-constructible
 and are passed by the runtime to each instance of the function object.
-So the interface of the ``sycl::item`` does not include a constructor.
+So the interface of the ``sycl::item`` does not expose a constructor.
 
 The ``sycl::item`` class template provides the :ref:`common-byval`.
 
@@ -96,9 +96,9 @@ Return the same value as ``get_range().get(dimension)``.
 
 .. note::
 
-  Deprecated in SYCL2020.
+  Deprecated in SYCL 2020.
 
-Returns an :ref:`id` representing the _n_-dimensional offset
+Returns an :ref:`id` representing the n-dimensional offset
 provided to the ``parallel_for`` and that is added by the
 runtime to the global-ID of each work-item, if this item
 represents a global range.
