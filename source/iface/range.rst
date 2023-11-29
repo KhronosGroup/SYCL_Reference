@@ -17,7 +17,7 @@
 
 ``range<int Dimensions>`` is a 1D, 2D or 3D vector that defines
 the iteration domain of either a single work-group in a parallel
-dispatch, or the overall Dimensions of the dispatch.
+dispatch, or the overall dimensions of the dispatch.
 It can be constructed from integers.
 
 .. seealso:: |SYCL_SPEC_RANGE|
@@ -151,7 +151,7 @@ Constructs and returns a new instance of the SYCL ``range`` class template
 with the same dimensionality as the ``rhs`` SYCL ``range``, where each
 element of the new SYCL ``range`` instance is the result of an element-wise
 ``OP`` operator between the ``lhs size_t`` and each element of the
-``rhs`` SYCL ``ange``. If the operator returns a ``bool``,
+``rhs`` SYCL ``range``. If the operator returns a ``bool``,
 the result is the cast to ``size_t``.
 
 ::
