@@ -2,19 +2,67 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. _unsampled-image-accessors:
+.. _unsampled_image_accessors:
 
 *************************
 Unsampled image accessors
 *************************
 
-.. rst-class:: api-class
+There are two classes which implement accessors for unsampled images,
+``unsampled_image_accessor`` and ``host_unsampled_image_accessor``.
+The former provides access from within a SYCL kernel function or from
+within a host task. The latter provides access from host
+code that is outside of a host task.
+
+The dimensionality of an unsampled image accessor must match the
+dimensionality of the underlying image to which it provides access.
+Both unsampled image accessor classes support the
+``access_mode::read`` and ``access_mode::write`` access modes.
+In addition, the ``host_unsampled_image_accessor``
+class supports ``access_mode::read_write``.
+
+The AccessTarget template parameter dictates how the
+``unsampled_image_accessor`` can be used: ``image_target::device``
+means the accessor can be used in a SYCL kernel function while
+``image_target::host_task`` means the accessor can be used in
+a host task. Programs which specify this template parameter as
+``image_target::device`` and then use the ``unsampled_image_accessor``
+from a host task are ill formed. Likewise, programs which specify this
+template parameter as ``image_target::host_task`` and then use the
+``unsampled_image_accessor`` from a SYCL kernel function are ill formed.
 
 .. _unsampled_image_accessor:
 
 ==================================
 ``sycl::unsampled_image_accessor``
 ==================================
+
+::
+
+  template <typename DataT, int Dimensions, access_mode AccessMode,
+          image_target AccessTarget = image_target::device>
+  class unsampled_image_accessor;
+
+(constructor of the `unsampled_image_accessor`)
+===============================================
+
+.. parsed-literal::
+
+  template <typename AllocatorT>
+  unsampled_image_accessor(unsampled_image<Dimensions, AllocatorT>& imageRef,
+                           handler& commandGroupHandlerRef,
+                           const property_list& propList = {})
+
+Constructs an ``unsampled_image_accessor`` for accessing an
+``unsampled_image`` within a command on the ``queue``
+associated with ``commandGroupHandlerRef``. The optional
+``property_list`` provides properties
+for the constructed object.
+
+If ``AccessTarget`` is ``image_target::device``,
+throws an ``exception`` with the ``errc::feature_not_supported``
+error code if the device associated with ``commandGroupHandlerRef``
+does not have ``aspect::image``.
 
 .. _host_unsampled_image_accessor:
 
@@ -24,125 +72,209 @@ Unsampled image accessors
 
 ::
 
-   template <typename dataT, int dimensions, sycl::access::mode accessmode,
-             sycl::access::target accessTarget = sycl::access::target::global_buffer,
-             sycl::access::placeholder isPlaceholder = sycl::access::placeholder::false_t>
-   class accessor;
+  template <typename DataT, int Dimensions = 1,
+          access_mode AccessMode =
+              (std::is_const_v<DataT> ? access_mode::read
+                                      : access_mode::read_write)>
+  class host_unsampled_image_accessor;
 
-Description
-
-.. rubric:: Template parameters
-
-=================  ===
-``dataT``
-``dimensions``
-``accessmode``
-``accessTarget``
-``isPlaceholder``
-=================  ===
-
-.. rubric:: Member types
-
-===================  =======
-``value_type``
-``reference``
-``const_reference``
-===================  =======
-
-.. seealso:: |SYCL_SPEC_IMAGE_ACCESSOR|
-
-(constructors)
-==============
+(constructor of the `host_unsampled_image_accessor`)
+====================================================
 
 .. parsed-literal::
 
-  *Available only when:
-   accessTarget == access::target::host_image*
-
   template <typename AllocatorT>
-  accessor(sycl::image<dimensions, AllocatorT> &imageRef,
-           const sycl::property_list &propList = {});
+  host_unsampled_image_accessor(unsampled_image<Dimensions, AllocatorT>& imageRef,
+                                const property_list& propList = {})
 
-  *Available only when:
-   accessTarget == access::target::image*
+Constructs a ``host_unsampled_image_accessor`` for accessing an
+``unsampled_image`` immediately on the host. The optional
+``property_list`` provides properties for the constructed object.
 
-  template <typename AllocatorT>
-  accessor(sycl::image<dimensions, AllocatorT> &imageRef,
-           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
+===============================================
+Member functions of the unsampled image classes
+===============================================
 
-  *Available only when:
-   accessTarget == access::target::image_array && dimensions < 3*
+Both classes have member functions with the same name,
+which are described below.
 
-  template <typename AllocatorT>
-  accessor(sycl::image<dimensions + 1, AllocatorT> &imageRef,
-           sycl::handler &commandGroupHandlerRef, const sycl::property_list &propList = {});
-
-
-``get_count``
-=============
+``size``
+========
 
 ::
 
-  size_t get_count() const;
+  size_t size() const noexcept
 
-``get_range``
-=============
-
-.. parsed-literal::
-
-   *Available only when:
-    (accessTarget != access::target::image_array)*
-
-   sycl::range<dimensions> get_range() const;
-
-   *Available only when:
-    (accessTarget == access::target::image_array)*
-
-   sycl::range<dimensions+1> get_range() const;
-
-.. rubric:: Template parameters
-
-================  ===
-``dimensions``
-================  ===
+Returns the number of elements of the underlying
+``unsampled_image`` that this accessor is accessing.
 
 ``read``
 ========
 
-.. parsed-literal::
+::
 
-  *Available only when:
-   (accessTarget == access::target::image && accessMode == access::mode::read)
-   || (accessTarget ==
-        access::target::host_image && (accessMode ==
-        access::mode::read || accessMode == access::mode::read_write))*
+  template <typename CoordT> DataT read(const CoordT& coords) const
 
-  template <typename coordT>
-  dataT read(const coordT &coords) const;
+Available only when
+``(AccessMode == access_mode::read
+|| AccessMode == access_mode::read_write)``.
 
-  *Available only when:
-   (accessTarget == access::target::image && accessMode == access::mode::read)
-   || (accessTarget ==
-        access::target::host_image && (accessMode ==
-        access::mode::read || accessMode == access::mode::read_write))*
+Reads and returns an element of the ``unsampled_image`` at the
+coordinates specified by ``coords``. Permitted types for ``CoordT``
+are ``int`` when ``Dimensions == 1``, ``int2`` when
+``Dimensions == 2`` and ``int4`` when ``Dimensions == 3``.
 
-  template <typename coordT>
-  dataT read(const coordT &coords, const sampler &smpl) const;
+For ``unsampled_image_accessor``, this function may
+only be called from within a command.
 
-
-.. rubric:: Template parameters
-
-================  ===
-``coordT``
-================  ===
-
-
-``operator[]``
-==============
+``write``
+=========
 
 ::
 
-  *Available only when:
-   accessTarget == access::target::image_array && dimensions < 3*
+  template <typename CoordT>
+  void write(const CoordT& coords, const DataT& color) const
 
-  __image_array_slice__ operator[](size_t index) const;
+Available only when
+``(AccessMode == access_mode::write
+|| AccessMode == access_mode::read_write)``.
+
+Writes the value specified by ``color`` to the element of the image at the
+coordinates specified by ``coords``. Permitted types for ``CoordT``
+are ``int`` when ``Dimensions == 1``, ``int2`` when
+``Dimensions == 2`` and ``int4`` when ``Dimensions == 3``.
+
+For ``unsampled_image_accessor``, this function may
+only be called from within a command.
+
+===========================================
+Member types of the unsampled image classes
+===========================================
+
+Both classes have member types with the same name,
+which are described below.
+
+``value_type``
+==============
+
+If the accessor is read-only,
+equal to ``const DataT``, otherwise equal to ``DataT``.
+
+``reference``
+=============
+
+Equal to ``value_type&``.
+
+``const_reference``
+===================
+
+Equal to ``const DataT&``.
+
+=======================================
+Interface for unsampled image accessors
+=======================================
+
+The additional common special member functions and common member
+functions are listed in |SYCL_SPEC_COMMON_REFERENCE|.
+
+Two ``unsampled_image_accessor`` objects of the same type must be
+equality comparable in both the host code and in SYCL kernel functions.
+Two ``host_unsampled_image_accessor`` objects of the same type must be
+equality comparable in the host code.
+
+For valid implicit conversions between unsampled
+accessor types refer to :ref:`read_only_uia`
+
+A synopsis of the two unsampled image accessor classes is provided below.
+
+::
+
+  namespace sycl {
+
+  enum class image_target : /* unspecified */ { device, host_task };
+
+  template <typename DataT, int Dimensions, access_mode AccessMode,
+          image_target AccessTarget = image_target::device>
+  class unsampled_image_accessor {
+   public:
+    using value_type = // const DataT for read-only accessors, DataT otherwise
+        __value_type__;
+    using reference = value_type&;
+    using const_reference = const DataT&;
+
+    template <typename AllocatorT>
+    unsampled_image_accessor(unsampled_image<Dimensions, AllocatorT>& imageRef,
+                             handler& commandGroupHandlerRef,
+                             const property_list& propList = {});
+
+    /* -- common interface members -- */
+
+    /* -- property interface members -- */
+
+    size_t size() const noexcept;
+
+    /* Available only when: AccessMode == access_mode::read
+    if Dimensions == 1, CoordT = int
+    if Dimensions == 2, CoordT = int2
+    if Dimensions == 3, CoordT = int4 */
+    template <typename CoordT> DataT read(const CoordT& coords) const noexcept;
+
+    /* Available only when: AccessMode == access_mode::write
+    if Dimensions == 1, CoordT = int
+    if Dimensions == 2, CoordT = int2
+    if Dimensions == 3, CoordT = int4 */
+    template <typename CoordT>
+    void write(const CoordT& coords, const DataT& color) const;
+  };
+
+  template <typename DataT, int Dimensions = 1,
+            access_mode AccessMode =
+                (std::is_const_v<DataT> ? access_mode::read
+                                        : access_mode::read_write)>
+  class host_unsampled_image_accessor {
+   public:
+    using value_type = // const DataT for read-only accessors, DataT otherwise
+        __value_type__;
+    using reference = value_type&;
+    using const_reference = const DataT&;
+
+    template <typename AllocatorT>
+    host_unsampled_image_accessor(
+        unsampled_image<Dimensions, AllocatorT>& imageRef,
+        const property_list& propList = {});
+
+    /* -- common interface members -- */
+
+    /* -- property interface members -- */
+
+    size_t size() const noexcept;
+
+    /* Available only when: (AccessMode == access_mode::read ||
+                             AccessMode == access_mode::read_write)
+    if Dimensions == 1, CoordT = int
+    if Dimensions == 2, CoordT = int2
+    if Dimensions == 3, CoordT = int4 */
+    template <typename CoordT> DataT read(const CoordT& coords) const noexcept;
+
+    /* Available only when: (AccessMode == access_mode::write ||
+                             AccessMode == access_mode::read_write)
+    if Dimensions == 1, CoordT = int
+    if Dimensions == 2, CoordT = int2
+    if Dimensions == 3, CoordT = int4 */
+    template <typename CoordT>
+    void write(const CoordT& coords, const DataT& color) const;
+  };
+
+  } // namespace sycl
+
+.. _read_only_uia:
+
+============================================================
+Read only unsampled image accessors and implicit conversions
+============================================================
+
+All specializations of unsampled image accessors with ``access_mode::read``
+are read-only regardless of whether ``DataT`` is ``const`` qualified.
+There is an implicit conversion between the ``const`` qualified and
+non-``const`` qualified specializations, provided that
+all other template parameters are the same.

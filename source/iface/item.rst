@@ -2,57 +2,89 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _item:
 
-==============
+**************
 ``sycl::item``
-==============
+**************
 
 ::
 
-   template <int dimensions = 1, bool with_offset = true>
-   class item;
-
-
-Similar to an :ref:`id`, the ``item`` describes the location of a
-point in a ``range``. It can be used as an argument to a kernel
-function in a :ref:`handler-parallel_for` to identify the work
-item. The ``item`` carries more information than than :ref:`id`, such
-as the ``range`` of an index space. The interface does not include a
-constructor because only the SYCL runtime needs to construct an
-``item``.
+  template <int Dimensions = 1, bool WithOffset = true>
+  class item;
 
 .. rubric:: Template parameters
 
 ===============  ===
-``dimensions``   Number of dimensions in index space
-``with_offset``  True if item has offset
+``Dimensions``   Number of dimensions in the index space.
+``WithOffset``   ``true`` if item has offset, otherwise ``false``.
 ===============  ===
 
+``sycl::item`` identifies an instance of the function object
+executing at each point in a :ref:`range`. It is passed to a
+``parallel_for`` call or returned by member functions of :ref:`h_item`.
+
+It encapsulates enough information to identify the work-item's
+range of possible values and its :ref:`id` in that range.
+
+.. note::
+
+  It can optionally carry the offset of the range if provided to the ``parallel_for``.
+
+  This is deprecated in SYCL 2020.
+
+Instances of the ``sycl::item`` class are not user-constructible
+and are passed by the runtime to each instance of the function object.
+So the interface of the ``sycl::item`` does not expose a constructor.
+
+The ``sycl::item`` class template provides the :ref:`common-byval`.
+
 .. seealso:: |SYCL_SPEC_ITEM|
+
+================
+Member functions
+================
 
 ``get_id``
 ==========
 
+.. rubric:: Overload 1
+
 ::
 
-  sycl::id<dimensions> get_id() const;
+  sycl::id<Dimensions> get_id() const;
+
+Return the constituent :ref:`id` representing the
+work-item's position in the iteration space.
+
+.. rubric:: Overload 2
+
+::
+
   size_t get_id(int dimension) const;
 
+Return the same value as ``get_id()[dimension]``.
 
-Returns :ref:`id` associated with ``item``.
 
 ``get_range``
 =============
 
+.. rubric:: Overload 1
+
 ::
 
-  sycl::range<dimensions> get_range() const;
+  sycl::range<Dimensions> get_range() const;
+
+Returns a :ref:`range` representing the dimensions of
+the range of possible values of the ``sycl::item``.
+
+.. rubric:: Overload 2
+
+::
+
   size_t get_range(int dimension) const;
 
-Returns :ref:`range` associated with ``item``.
+Return the same value as ``get_range().get(dimension)``.
 
 
 ``get_offset``
@@ -60,12 +92,23 @@ Returns :ref:`range` associated with ``item``.
 
 ::
 
-  *Only available when:
-   with_offset is true*
+  sycl::id<Dimensions> get_offset() const;
 
-  sycl::id<dimensions> get_offset() const;
+.. note::
 
-Returns offset associated with ``item``.
+  Deprecated in SYCL 2020.
+
+Returns an :ref:`id` representing the n-dimensional offset
+provided to the ``parallel_for`` and that is added by the
+runtime to the global-ID of each work-item, if this item
+represents a global range.
+
+For an item converted from an item with no offset this
+will always return an :ref:`id` of all 0 values.
+
+This member function is only available if
+``WithOffset`` is ``true``.
+
 
 ``get_linear_id``
 =================
@@ -74,8 +117,10 @@ Returns offset associated with ``item``.
 
   size_t get_linear_id() const;
 
-Returns the linear id, suitable for mapping the ``id`` to a 1
-dimensional array.
+Return the id as a linear index value.
+
+Calculating a linear address from the
+multi-dimensional index follows |SYCL_SPEC_LINEARIZATION|.
 
 
 ``operator[]``
@@ -85,16 +130,35 @@ dimensional array.
 
   size_t operator[](int dimension) const;
 
-Returns id for dimension ``dimension``.
+Return the same value as ``get_id(dimension)``.
 
+=========================
+Type conversion functions
+=========================
 
-``operator()``
-==============
+``operator size_t``
+===================
 
 ::
 
-  operator sycl::item<dimensions, true>() const;
+  operator size_t() const;
 
-Returns item with offset set to 0.
+Available only when: ``Dimensions == 1``.
 
-Only available when ``with_offset`` is False.
+Returns the same value as ``get_id(0)``.
+
+
+``operator item``
+=================
+
+::
+
+  operator item<Dimensions, true>() const;
+
+Available only when: ``WithOffset == false``.
+
+Returns a ``sycl::item`` representing the same information as
+the object holds but also includes the offset set to 0.
+
+This conversion allow users to seamlessly write code that
+assumes an offset and still provides an offset-less ``sycl::item``.
