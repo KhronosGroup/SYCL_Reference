@@ -15,7 +15,7 @@
    template <int Dimensions = 1>
    class id;
 
-The ``id<int Dimensions>`` is a vector of Dimensions that is used
+The ``id`` class is a collection of size ``Dimensions`` that is used
 to represent an id into a global or local :ref:`range`.
 It can be used as an index in an accessor of the same rank.
 The subscript operator (``operator[](n)``) returns the
@@ -57,7 +57,7 @@ Member functions
 
   size_t get(int dimension) const
 
-Return the value of the ``id`` for dimension ``Dimension``.
+Return the value of the ``id`` for dimension ``dimension``.
 
 ``size_t& operator[]``
 ======================
@@ -160,7 +160,7 @@ Constructs and returns a new instance of the SYCL ``id`` class template
 with the same dimensionality as the ``rhs`` SYCL ``id``, where each
 element of the new SYCL ``id`` instance is the result of an element-wise
 ``OP`` operator between the ``lhs size_t`` and each element of the
-``rhs`` SYCL ``ange``. If the operator returns a ``bool``,
+``rhs`` SYCL ``range``. If the operator returns a ``bool``,
 the result is the cast to ``size_t``.
 
 ::
