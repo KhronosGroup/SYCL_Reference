@@ -238,6 +238,11 @@ prolog_template = string.Template(
         "Section 3.11.1",
         "#sec:multi-dim-linearization",
     )
+    + make_ref(
+        "SYCL_SPEC_SUB_GROUP",
+        "Section 4.9.1.8",
+        "#sub-group-class",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
