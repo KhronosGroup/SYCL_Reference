@@ -13,17 +13,17 @@
   template <int Dimensions>
   class h_item;
 
-``h_item<int Dimensions>`` identifies an instance of a
+The ``h_item`` class identifies an instance of a
 ``group::parallel_for_work_item`` function object executing at each
-point in a local ``range<int Dimensions>`` passed to a
+point in a local ``range`` passed to a
 ``parallel_for_work_item`` call or to the corresponding
 ``parallel_for_work_group`` call if no ``range`` is passed to the
 ``parallel_for_work_item`` call. It encapsulates enough information
 to identify the work-item's local and global items according to the
 information given to ``parallel_for_work_group`` (physical ids) as well
 as the work-item's logical local items in the logical local range.
-All returned items objects are offset-less. Instances of the
-``h_item<int Dimensions>`` class are not user-constructible and
+All returned item objects are offset-less. Instances of the
+``h_item`` class are not user-constructible and
 are passed by the runtime to each instance of the function object.
 
 .. warning::
@@ -75,11 +75,11 @@ Return the same value as ``get_logical_local()``.
 
   item<Dimensions, false> get_logical_local() const
 
-Return the constituent element of the logical local item work-item’s
+Return the constituent element of the logical local work-item’s
 position in the local iteration space as provided upon the invocation
 of the ``group::parallel_for_work_item``.
 
-If the ``group::parallel_for_work_item`` was called without any logical
+If ``group::parallel_for_work_item`` was called without any logical
 local range then the member function returns the physical local item.
 
 A physical id can be computed from a logical id by getting the remainder
@@ -94,7 +94,7 @@ get_physical_local().get()``.
 
   item<Dimensions, false> get_physical_local() const
 
-Return the constituent element of the physical local item work-item’s
+Return the constituent element of the physical local work-item’s
 position in the local iteration space as provided
 (by the user or the runtime) upon the kernel invocation.
 
