@@ -4,8 +4,6 @@
 
 .. _group:
 
-.. rst-class:: api-class
-
 ===============
 ``sycl::group``
 ===============
@@ -26,6 +24,21 @@ selects the optimal work-group size. This allows the developer
 to always know how many work-items are in each executing work-group,
 even through the abstracted iteration range
 of the ``parallel_for_work_item`` loops.
+
+.. warning::
+
+  Based on developer and implementation feedback, the hierarchical
+  data parallel kernel feature is undergoing improvements to better
+  align with the frameworks and patterns prevalent in modern programming.
+
+  As this is a key part of the SYCL API and we expect to make changes to
+  it, we temporarily recommend that new codes refrain from using this
+  feature until the new API is finished in a near-future version of the
+  SYCL specification, when full use of the updated feature will be
+  recommended for use in new code.
+
+  Existing codes using this feature will of course be supported by
+  conformant implementations of this specification.
 
 .. seealso:: |SYCL_SPEC_GROUP|
 
