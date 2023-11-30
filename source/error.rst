@@ -4,10 +4,13 @@
 
 .. _error-handling:
 
+==============
 Error handling
 ==============
 
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   iface/exception
+  iface/exception
+  iface/async_handler
+  iface/error-handling-rules
