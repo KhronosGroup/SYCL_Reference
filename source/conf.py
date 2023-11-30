@@ -238,6 +238,11 @@ prolog_template = string.Template(
         "Section 3.11.1",
         "#sec:multi-dim-linearization",
     )
+    + make_ref(
+        "SYCL_SPEC_GROUP",
+        "Section 4.9.1.7",
+        "#group-class",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -255,7 +260,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
-.. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
 .. |SYCL_SPEC_H_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.6
 .. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
