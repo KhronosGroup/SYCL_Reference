@@ -243,6 +243,13 @@ prolog_template = string.Template(
         "Section 4.9.1.6",
         "#hitem-class",
     )
+    + make_ref(
+        "SYCL_SPEC_DEFINING_KERNELS", "Section 4.12", "#_defining_kernels"
+    )
+    + make_ref("SYCL_SPEC_KERNEL_NAMING", "Section 5.2", "#sec:naming.kernels")
+    + make_ref(
+        "SYCL_SPEC_DEVICE_COPYABLE", "Section 3.13.1", "#sec::device.copyable"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
