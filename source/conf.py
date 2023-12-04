@@ -243,6 +243,11 @@ prolog_template = string.Template(
         "Section 4.9.1.6",
         "#hitem-class",
     )
+    + make_ref(
+        "SYCL_SPEC_ND_ITEM",
+        "Section 4.9.1.5",
+        "#nditem-class",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -261,7 +266,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
-.. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
 .. |SYCL_SPEC_KERNEL| replace:: `SYCL Specification`_ Section 4.12
