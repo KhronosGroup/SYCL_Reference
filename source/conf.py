@@ -243,6 +243,11 @@ prolog_template = string.Template(
         "Section 4.9.1.6",
         "#hitem-class",
     )
+    + make_ref(
+        "SYCL_SPEC_SPECIAL_CONSTANTS",
+        "Section 4.9.5",
+        "#_specialization_constants",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
