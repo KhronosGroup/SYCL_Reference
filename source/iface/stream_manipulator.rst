@@ -48,4 +48,3 @@
    const sycl::stream_manipulator defaultfloat = sycl::stream_manipulator::defaultfloat;
    __precision_manipulator__ setprecision(int precision);
    __width_manipulator__ setw(int width);
-
