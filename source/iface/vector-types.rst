@@ -2,9 +2,11 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-**************
- Vector types
-**************
+.. _vector-types:
+
+************
+Vector types
+************
 
 
 =======================
