@@ -29,6 +29,8 @@ the top right to file an issue on GitHub or suggest an edit.
 
    header-file
    namespaces
+   generic-and-non-generic
+   class-availability
    common
    runtime
    data
@@ -37,6 +39,7 @@ the top right to file an issue on GitHub or suggest an edit.
    error
    data-types
    synchronization
+   backends
    io
 
 
