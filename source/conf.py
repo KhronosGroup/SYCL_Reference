@@ -248,6 +248,15 @@ prolog_template = string.Template(
         "Section 4.9.1.6",
         "#hitem-class",
     )
+    + make_ref("SYCL_SPEC_KERNEL", "Section 4.11.13", "#_the_kernel_class")
+    + make_ref(
+        "SYCL_SPEC_DEVICE_CODE_ATTR", "Section 5.8", "#sec:device.attributes"
+    )
+    + make_ref(
+        "SYCL_SPEC_SPECIAL_CONSTANTS",
+        "Section 4.9.5",
+        "#_specialization_constants",
+    )
     + make_ref(
         "SYCL_SPEC_DEFINING_KERNELS", "Section 4.12", "#_defining_kernels"
     )
@@ -276,7 +285,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
-.. |SYCL_SPEC_KERNEL| replace:: `SYCL Specification`_ Section 4.12
 .. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
 )

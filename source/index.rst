@@ -29,13 +29,32 @@ the top right to file an issue on GitHub or suggest an edit.
 
   header-file
   namespaces
+  generic-and-non-generic
+  class-availability
   common
   runtime
   data
   usm
   parallelism
+  host-task
   error
   data-types
   synchronization
+  backends
   io
   built-in-functions
+
+
+.. Built-in functions
+.. ==================
+
+.. .. toctree::
+
+..   math
+..   integer
+..   common
+..   geometric
+..   relational
+..   vector
+..   synchronization
+..   printf
