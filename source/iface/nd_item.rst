@@ -13,7 +13,7 @@
    template <int Dimensions = 1>
    class nd_item;
 
-The ``nd_item`` identifies an instance of the function object
+The ``nd_item`` class identifies an instance of the function object
 executing at each point in an ``nd_range<int Dimensions>``
 passed to a ``parallel_for`` call. It encapsulates enough
 information to identify the work-item's local and global ids,
@@ -44,7 +44,7 @@ position in the global iteration space.
   size_t get_global_id(int dimension) const
 
 Return the constituent element of the global id representing
-the work-item’s position in the ``nd-range`` in the given ``Dimension``.
+the work-item’s position in the ``nd-range`` in the given ``dimension``.
 
 ``get_global_linear_id``
 ========================
@@ -74,7 +74,7 @@ position within the current work-group.
 
 Return the constituent element of the local id representing the
 work-item’s position within the current
-work-group in the given ``Dimension``.
+work-group in the given ``dimension``.
 
 ``get_local_linear_id``
 ========================
@@ -104,7 +104,7 @@ position within the overall ``nd-range``.
 
 Return the constituent element of the group ``id`` representing
 the work-group’s position within the overall
-``nd_range`` in the given ``Dimension``.
+``nd_range`` in the given ``dimension``.
 
 ``get_sub_group``
 =================
@@ -139,7 +139,7 @@ Returns the number of work-groups in the iteration space.
 
   size_t get_group_range(int dimension) const
 
-Return the number of work-groups for ``Dimension`` in
+Return the number of work-groups for ``dimension`` in
 the iteration space.
 
 ``get_global_range``
