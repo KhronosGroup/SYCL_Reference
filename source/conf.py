@@ -253,6 +253,11 @@ prolog_template = string.Template(
         "SYCL_SPEC_DEVICE_CODE_ATTR", "Section 5.8", "#sec:device.attributes"
     )
     + make_ref(
+        "SYCL_SPEC_SPECIAL_CONSTANTS",
+        "Section 4.9.5",
+        "#_specialization_constants",
+    )
+    + make_ref(
         "SYCL_SPEC_DEFINING_KERNELS", "Section 4.12", "#_defining_kernels"
     )
     + make_ref("SYCL_SPEC_KERNEL_NAMING", "Section 5.2", "#sec:naming.kernels")
