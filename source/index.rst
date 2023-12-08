@@ -25,35 +25,21 @@ the top right to file an issue on GitHub or suggest an edit.
 
 
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   header-file
-   namespaces
-   generic-and-non-generic
-   class-availability
-   common
-   runtime
-   data
-   usm
-   parallelism
-   host-task
-   error
-   data-types
-   synchronization
-   backends
-   io
-
-
-.. Built-in functions
-.. ==================
-
-.. .. toctree::
-
-..   math
-..   integer
-..   common
-..   geometric
-..   relational
-..   vector
-..   synchronization
-..   printf
+  header-file
+  namespaces
+  generic-and-non-generic
+  class-availability
+  common
+  runtime
+  data
+  usm
+  parallelism
+  host-task
+  error
+  data-types
+  synchronization
+  backends
+  io
+  built-in-functions
