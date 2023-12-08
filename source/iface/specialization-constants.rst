@@ -16,8 +16,8 @@ of the kernel. However, the application is able to set a new value for
 a specialization constant each time a kernel is invoked, so the values
 can be tuned differently for each invocation.
 
-There are two methods for an application to use specialization constants,
-one method requires creating a ``kernel_bundle`` object and the other does
+There are two methods for an application to use specialization constants.
+One method requires creating a ``kernel_bundle`` object and the other does
 not. The syntax for both methods is mostly the same. Both methods declare
 specialization constants in the same way, and kernels read their values
 in the same way. The main difference is whether their values are set
