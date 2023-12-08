@@ -34,6 +34,7 @@ the top right to file an issue on GitHub or suggest an edit.
    data
    usm
    parallelism
+   host-task
    error
    data-types
    synchronization
