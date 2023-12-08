@@ -43,18 +43,3 @@ the top right to file an issue on GitHub or suggest an edit.
   backends
   io
   built-in-functions
-
-
-.. Built-in functions
-.. ==================
-
-.. .. toctree::
-
-..   math
-..   integer
-..   common
-..   geometric
-..   relational
-..   vector
-..   synchronization
-..   printf
