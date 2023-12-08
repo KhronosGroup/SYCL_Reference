@@ -41,4 +41,5 @@ The available features are:
    iface/barriers-and-fences
    iface/device_event
    iface/atomic_ref
+   iface/atomic-types
    iface/interaction-with-host-code
