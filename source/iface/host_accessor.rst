@@ -2,13 +2,11 @@
   Copyright 2023 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _host_accessor:
 
-=======================
+***********************
 ``sycl::host_accessor``
-=======================
+***********************
 
 ::
 
@@ -30,6 +28,7 @@ The ``host_accessor`` class supports the following access modes:
 ``access_mode::read``,``access_mode::write``
 and ``access_mode::read_write``.
 
+==============
 (constructors)
 ==============
 
@@ -71,6 +70,7 @@ and ``access_mode::read_write``.
 Constructors of the host_accessor class.
 The descriptions are listed in |SYCL_ACCESS_HOST_CON|.
 
+================
 Member functions
 ================
 
@@ -243,9 +243,9 @@ Equal to ``typename std::iterator_traits<iterator>::difference_type``.
 
 Equal to ``size_t``.
 
-======================
-Common member function
-======================
+=======================
+Common member functions
+=======================
 
 ``byte_size``
 =============

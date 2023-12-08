@@ -4,11 +4,10 @@
 
 .. _local_accessor:
 
-.. _buffer-local_accessor:
 
-========================
+************************
 ``sycl::local_accessor``
-========================
+************************
 
 ::
 
@@ -34,6 +33,7 @@ a ``range`` parameter. In these cases submitting the kernel to a queue must
 throw a synchronous ``exception`` with the
 ``errc::kernel_argument`` error code.
 
+==============
 (constructors)
 ==============
 
@@ -52,6 +52,7 @@ throw a synchronous ``exception`` with the
 Constructors of the local_accessor class.
 The descriptions are listed in |SYCL_ACCESS_LOCAL_CON|.
 
+================
 Member functions
 ================
 
@@ -117,6 +118,7 @@ Assignment to the single element that is accessed by this accessor.
 
 This function may only be called from within a command.
 
+============
 Member types
 ============
 
