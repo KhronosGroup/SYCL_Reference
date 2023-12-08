@@ -239,6 +239,11 @@ prolog_template = string.Template(
         "#sec:multi-dim-linearization",
     )
     + make_ref(
+        "SYCL_SPEC_SUB_GROUP",
+        "Section 4.9.1.8",
+        "#sub-group-class",
+    )
+    + make_ref(
         "SYCL_SPEC_H_ITEM",
         "Section 4.9.1.6",
         "#hitem-class",
@@ -247,6 +252,13 @@ prolog_template = string.Template(
         "SYCL_SPEC_ND_ITEM",
         "Section 4.9.1.5",
         "#nditem-class",
+    )
+    + make_ref(
+        "SYCL_SPEC_DEFINING_KERNELS", "Section 4.12", "#_defining_kernels"
+    )
+    + make_ref("SYCL_SPEC_KERNEL_NAMING", "Section 5.2", "#sec:naming.kernels")
+    + make_ref(
+        "SYCL_SPEC_DEVICE_COPYABLE", "Section 3.13.1", "#sec::device.copyable"
     )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}

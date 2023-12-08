@@ -2,13 +2,11 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _command-accessor:
 
-==================
+******************
 ``sycl::accessor``
-==================
+******************
 
 ::
 
@@ -41,7 +39,7 @@ Access targets
   * - ``target::host_task``
     - Access a buffer from a host task.
 
-
+==============
 (constructors)
 ==============
 
