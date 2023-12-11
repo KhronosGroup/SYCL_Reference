@@ -10,276 +10,221 @@
 
 ::
 
-   class handler;
+  class handler;
 
-The ``handler`` defines the interface to invoke kernels by submitting
-commands to a queue.
+The ``sycl::handler`` class provides the interface for all of the 
+member functions that are able to be executed inside the 
+:ref:`command group scope <command-group-scope>`, and it is also 
+provided as a scoped object to all of the data access requests. 
+The command group handler class provides the interface in which 
+every command in the command group scope will be submitted to a queue.
 
-A ``handler`` can only be constructed by the SYCL runtime and is
-passed as an argument to the command group function. The command group
-function is an argument to :ref:`queue-submit`.
+A command group handler object can only be constructed by the SYCL 
+runtime. All of the accessors defined in :ref:`command group scope 
+<command-group-scope>` take as a parameter an instance of the command 
+group handler, and all the kernel invocation functions are member 
+functions of this class.
 
-.. seealso:: |SYCL_SPEC_HANDLER|
+It is disallowed for an instance of the ``sycl::handler`` class to be 
+moved or copied.
 
+.. seealso:: 
+  
+  |SYCL_SPEC_COM_GROUP_SCOPE|
+
+  |SYCL_SPEC_HANDLER|
+
+.. _command-group-scope:
+
+===========================
+Command group scope concept
+===========================
+
+A command group scope, as defined in |SYCL_SPEC_EXEC_MODEL|, 
+may execute a single command such as invoking a kernel, copying 
+memory, or executing a host task. It is legal for a command group 
+scope to statically contain more than one call to a command 
+function, but any single execution of the command group function 
+object may execute no more than one command.If an application fails 
+to do this, the function that submits the command group function 
+object (i.e., ``sycl::queue::submit``) must throw a synchronous 
+exception with the ``sycl::errc::invalid`` error code.
+
+The statements that call commands together with the statements 
+that define the requirements for a kernel form the command group 
+function object. The command group function object takes as a 
+parameter an instance of the command group handler class which 
+encapsulates all the member functions executed in the command 
+group scope. The member functions and objects defined in this 
+scope will define the requirements for the kernel execution or 
+explicit memory operation, and will be used by the SYCL runtime 
+to evaluate if the operation is ready for execution. Host code 
+within a command group function object (typically setting up 
+requirements) is executed once, before the command group submit 
+call returns. This abstraction of the kernel execution unifies 
+the data with its processing, and consequently allows more 
+abstraction and flexibility in the parallel programming models 
+that can be implemented on top of SYCL.
+
+The command group function object and the ``sycl::handler`` class 
+serve as an interface for the encapsulation of command group scope. 
+A SYCL kernel function is defined as a function object. All the 
+device data accesses are defined inside this group and any transfers 
+are managed by the SYCL runtime. The rules for the data transfers 
+regarding device and host data accesses are described in the 
+:ref:`iface-accessors` and the :ref:`buffer`. The overall memory model 
+of the SYCL application is described in the |SYCL_SPEC_MEM_MODEL|.
+
+It is possible for a command group function object to fail to enqueue 
+to a :ref:`queue`, or for it to fail to execute correctly. A user can 
+therefore supply a secondary queue when submitting a command group to 
+the primary queue. If the SYCL runtime fails to enqueue or execute a 
+command group on a primary queue, it can attempt to run the command 
+group on the secondary queue. The circumstances in which it is, or is 
+not, possible for a SYCL runtime to fall-back from primary to secondary 
+queue are unspecified in the specification. Even if a command group is 
+run on the secondary queue, the requirement that host code within the 
+command group is executed exactly once remains, regardless of whether 
+the fallback queue is used for execution.
+
+==============
+(constructors)
+==============
+
+::
+
+  handler(___unspecified___);
+
+Unspecified implementation-defined constructor.
 
 =================
 Member functions
 =================
 
+Functions for adding requirements
+=================================
+
+When an :ref:`command-accessor` is created from a command group handler,
+a requirement is implicitly added to the command group for the 
+accessor's data. However, this does not happen when creating a 
+placeholder accessor. In order to create a requirement for a 
+placeholder accessor, code must call the ``sycl::handler::require()`` 
+member function.
+
+.. note:: 
+
+  The default constructed :ref:`command-accessor` is not 
+  a placeholder, so it may be passed to a SYCL kernel function 
+  without calling ``sycl::handler::require()``. However, this 
+  :ref:`command-accessor` also has no underlying memory object, so 
+  such an accessor does not create any requirement for the command 
+  group, and attempting to access dataelements from it produces 
+  undefined behavior.
+
+``sycl::event`` may also be used to create requirements for a 
+command group. Such requirements state that the actions 
+represented by the events must complete before the command 
+group may execute. Such requirements are added when code 
+calls the ``sycl::handler::depends_on()`` member function.
+
 ``require``
-===========
+-----------
 
 ::
 
-  template <typename dataT, int dimensions, sycl::access::mode accessMode,
-    sycl::access::target accessTarget>
-  void require(sycl::accessor<dataT, dimensions, accessMode, accessTarget,
-               sycl::access::placeholder::true_t> acc);
+  template <typename DataT, int Dimensions, sycl::access_mode AccessMode,
+            sycl::target AccessTarget, sycl::access::placeholder IsPlaceholder>
+  void require(
+      sycl::accessor<DataT, Dimensions, AccessMode, AccessTarget, IsPlaceholder> acc);
 
-Adds a requirement before a device may execute a kernel.
+Calling this function has no effect unless ``acc`` 
+is a placeholder accessor.
 
-``set_arg``
-===========
+If the accessor ``acc`` has already been registered with the 
+command group, calling this function has no effect.
+
+When ``acc`` is a placeholder accessor, this function adds a 
+requirement to the handler's command group for the memory 
+object represented by ``acc``.
+
+.. rubric:: Template parameters
+
+==================  ===
+``DataT``           Data type of the passed :ref:`command-accessor`.
+``AccessMode``      Access mode type of the passed 
+                    :ref:`command-accessor`.
+``AccessTarget``    Target of the passed :ref:`command-accessor`.
+``IsPlaceholder``   States whether the passed :ref:`command-accessor`
+                    is a placeholder or not.
+==================  ===
+
+``depend_on``
+-------------
+
+.. rubric:: Overload 1
 
 ::
 
-  template <typename T>
-  void set_arg(int argIndex, T && arg);
+  void depends_on(sycl::event depEvent);
 
-Sets a kernel argument.
+The command group now has a requirement that 
+the action represented by ``depEvent`` must 
+complete before executing this command-group's 
+action.
+
+.. rubric:: Overload 2
+
+::
+
+  void depends_on(const std::vector<sycl::event>& depEvents);
+
+The command group now has a requirement that 
+the actions represented by each event in ``depEvents``
+must complete before executing this command-group's action.
+
+Functions for invoking kernels
+==============================
+
+Kernels can be invoked as single tasks, basic data-parallel 
+kernels, nd-range in work-groups, or hierarchical parallelism.
+
+Each function takes an optional ``KernelName`` template parameter. 
+The user may optionally provide a kernel name, otherwise an 
+implementation-defined name will be generated for the kernel.
 
 ``set_args``
-============
+------------
+
+.. rubric:: Overload 1
 
 ::
 
-  template <typename... Ts>
-  void set_args(Ts &&... args);
+  template <typename T> void set_arg(int argIndex, T&& arg);
 
-Sets all kernel arguments.
+This function must only be used to set arguments for a kernel 
+that was constructed using a backend specific interoperability 
+function or for a device built-in kernel. Attempting to use 
+this function to set arguments for other kernels results in 
+undefined behavior. The precise semantics of this function 
+are defined by each SYCL backend specification.
 
-``single_task``
-===============
-
-::
-
-  template <typename KernelName, typename KernelType>
-  void single_task(KernelType kernelFunc);
-
-  void single_task(sycl::kernel syclKernel);
-
-Defines and invokes a kernel function. See :ref:`stream-example` for
-usage.
-
-.. _handler-parallel_for:
-
-``parallel_for``
-================
+.. rubric:: Overload 2
 
 ::
 
-  template <typename KernelName, typename KernelType, int dimensions>
-  void parallel_for(sycl::range<dimensions> numWorkItems, KernelType kernelFunc);
+  template <typename... Ts> void set_args(Ts&&... args);
 
-  template <typename KernelName, typename KernelType, int dimensions>
-  void parallel_for(sycl::range<dimensions> numWorkItems,
-                    sycl::id<dimensions> workItemOffset, KernelType kernelFunc);
+Set all arguments for a given kernel, as if each argument 
+in ``args`` was passed to ``set_arg`` in the same order 
+and with an increasing index starting at ``0``.
 
-  template <typename KernelName, typename KernelType, int dimensions>
-  void parallel_for(sycl::nd_range<dimensions> ndRange, KernelType kernelFunc);
+Functions for explicit memory operations
+========================================
 
-  template <int dimensions>
-  void parallel_for(sycl::range<dimensions> numWorkItems, sycl::kernel syclKernel);
+Functions for using a kernel bundle
+===================================
 
-  template <int dimensions>
-  void parallel_for(sycl::range<dimensions> numWorkItems,
-                    sycl::id<dimensions> workItemOffset, sycl::kernel syclKernel);
-
-  template <int dimensions>
-  void parallel_for(sycl::nd_range<dimensions> ndRange, sycl::kernel syclKernel);
-
-Invokes a kernel function for a :ref:`range` or :ref:`nd_range`.
-
-.. rubric:: Parameters
-
-==================  ===
-``numWorkItems``    Range for work items
-``workItemOffset``  Offset into range for work items
-``kernelFunc``      Kernel function
-``syclKernel``      See :ref:`kernel`
-``ndRange``         See :ref:`nd_range`
-==================  ===
-
-
-``parallel_for_work_group``
-===========================
-
-::
-
-  template <typename KernelName, typename WorkgroupFunctionType, int dimensions>
-  void parallel_for_work_group(sycl::range<dimensions> numWorkGroups,
-                               WorkgroupFunctionType kernelFunc);
-
-  template <typename KernelName, typename WorkgroupFunctionType, int dimensions>
-  void parallel_for_work_group(sycl::range<dimensions> numWorkGroups,
-                               sycl::range<dimensions> workGroupSize,
-                               WorkgroupFunctionType kernelFunc);
-
-Outer invocation in a hierarchical invocation of a kernel.
-
-The kernel function is executed once per work group.
-
-``copy``
-========
-
-::
-
-  template <typename T_src, int dim_src, sycl::access::mode mode_src, sycl::access::target tgt_src,
-            sycl::access::placeholder isPlaceholder, typename T_dest>
-  void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
-            sycl::shared_ptr_class<T_dest> dest);
-  template <typename T_src,
-            typename T_dest, int dim_dest, sycl::access::mode mode_dest, sycl::access::target tgt_dest,
-            sycl::access::placeholder isPlaceholder>
-  void copy(sycl::shared_ptr_class<T_src> src,
-            sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
-  template <typename T_src, int dim_src, sycl::access::mode mode_src,
-            sycl::access::target tgt_src, sycl::access::placeholder isPlaceholder,
-            typename T_dest>
-  void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder> src,
-            T_dest *dest);
-  template <typename T_src,
-            typename T_dest, int dim_dest, sycl::access::mode mode_dest,
-            sycl::access::target tgt_dest, sycl::access::placeholder isPlaceholder>
-  void copy(const T_src *src,
-            sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder> dest);
-  template <typename T_src, int dim_src, sycl::access::mode mode_src,
-            sycl::access::target tgt_src, sycl::access::placeholder isPlaceholder_src,
-            typename T_dest, int dim_dest, sycl::access::mode mode_dest, sycl::access::target tgt_dest,
-            sycl::access::placeholder isPlaceholder_dest>
-  void copy(sycl::accessor<T_src, dim_src, mode_src, tgt_src, isPlaceholder_src> src,
-            sycl::accessor<T_dest, dim_dest, mode_dest, tgt_dest, isPlaceholder_dest> dest);
-
-Copies memory from ``src`` to ``dest``.
-
-``copy`` invokes the operation on a :ref:`device`. The source,
-destination, or both source and destination are
-:ref:`iface-accessors`. Source or destination can be a pointer or a
-``shared_ptr``.
-
-.. rubric:: Template parameters
-
-======================  ===
-``T_src``               Type of source data elements
-``dim_src``             Dimensionality of source accessor data
-``T_dest``              Type of element for destination data
-``dim_dest``            Dimensionality of destination accessor data
-``mode_src``            Mode for source accessor
-``mode_dest``           Mode for destination accessor
-``tgt_src``             Target for source accessor
-``tgt_dest``            Target for destination accessor
-``isPlaceholder_src``   Placeholder value for source accessor
-``isPlaceholder_dest``  Placeholder value for destination accessor
-======================  ===
-
-.. rubric:: Parameters
-
-=============  ===
-``src``        source of copy
-``dest``       destination of copy
-=============  ===
-
-``update_host``
-===============
-
-::
-
-  template <typename T, int dim, access::mode mode,
-            access::target tgt, access::placeholder isPlaceholder>
-  void update_host(accessor<T, dim, mode, tgt, isPlaceholder> acc);
-
-.. rubric:: Template parameters
-
-==================  ===
-``T``               Type of element associated with accessor
-``dim``             Dimensionality of accessor
-``mode``            Access mode for accessor
-``tgt``             Target for accessor
-``isPlaceholder``   Placeholder value for accessor
-==================  ===
-
-Updates host copy of data associated with accessor.
-
-.. _handler-fill:
-
-``fill``
-========
-
-::
-
-  template <typename T, int dim, sycl::access::mode mode,
-            sycl::access::target tgt, sycl::access::placeholder isPlaceholder>
-  void fill(sycl::accessor<T, dim, mode, tgt, isPlaceholder> dest, const T& pattern);
-  template <typename T>
-  event fill(void* ptr, const T& pattern, size_t count);
-
-.. rubric:: Template parameters
-
-=================   ===
-``T``               Type of element associated with accessor
-``dim``             Dimensionality of accessor
-``mode``            Access mode for accessor
-``tgt``             Target for accessor
-``isPlaceholder``   Placeholder value for accessor
-=================   ===
-
-.. rubric:: Parameters
-
-==============  ===
-``dest``        Destination of fill operation
-``pattern``     Value to fill
-==============  ===
-
-Fill the destination with the value in ``pattern``.  The destination
-may be memory associated with an accessor or allocated with
-:ref:`malloc_device`.
-
-
-.. _handler-memcpy:
-
-``memcpy``
-==========
-
-::
-
-   void memcpy(void* dest, const void* src, size_t num_bytes);
-
-Set memory allocated with :ref:`malloc_device`. For usage, see
-:ref:`event-elapsed-time`.
-
-
-.. _handler-memset:
-
-``memset``
-==========
-
-::
-
-   void memset(void* ptr, int value, size_t num_bytes);
-
-Set memory allocated with :ref:`malloc_device`. For usage, see
-:ref:`event-elapsed-time`.
-
-``host_task``
-=============
-
-::
-
-   void host_task(T &&hostTaskCallable);
-
-Queue a host task. See example1_.
-
-.. _example1:
+.. _handler-example1:
 
 =========
 Example 1
@@ -289,6 +234,25 @@ Example 1
    :lines: 5-
    :linenos:
 
+Output:
+
+.. literalinclude:: /examples/host-task.out
+   :lines: 5-
+
+.. _handler-example2:
+
+=========
+Example 2
+=========
+
+.. literalinclude:: /examples/handler-copy.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/handler-copy.out
+   :lines: 5-
 
 .. _parallel_for_hierarchical:
 

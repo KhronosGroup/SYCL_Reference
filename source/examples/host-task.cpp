@@ -1,8 +1,10 @@
-// SPDX-FileCopyrightText: 2020 The Khronos Group Inc.
+// SPDX-FileCopyrightText: 2023 The Khronos Group Inc.
 //
 // SPDX-License-Identifier: Apache-2.0
 
 #include <sycl/sycl.hpp>
+
+#include <iostream>
 
 int main() {
   const int n = 10;
@@ -19,6 +21,7 @@ int main() {
       auto device_task = [=]() { data[i] = data[i - 1] + 1; };
       h.single_task(device_task);
     });
+
     q.submit([&](auto &h) {
       // wait for device task to complete
       e.wait();
