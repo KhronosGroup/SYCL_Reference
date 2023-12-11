@@ -265,9 +265,15 @@ prolog_template = string.Template(
         "SYCL_SPEC_DEVICE_COPYABLE", "Section 3.13.1", "#sec::device.copyable"
     )
     + make_ref("SYCL_SPEC_HANDLER", "Section 4.9.4", "#sec:handlerClass")
-    + make_ref("SYCL_SPEC_COM_GROUP_SCOPE", "Section 4.9.3", "#sec:command.group.scope")
+    + make_ref(
+        "SYCL_SPEC_COM_GROUP_SCOPE",
+        "Section 4.9.3",
+        "#sec:command.group.scope",
+    )
     + make_ref("SYCL_SPEC_EXEC_MODEL", "Section 3.7.1", "#sec:executionmodel")
-    + make_ref("SYCL_SPEC_MEM_MODEL", "Section 3.8.1", "#sub.section.memmodel.app")
+    + make_ref(
+        "SYCL_SPEC_MEM_MODEL", "Section 3.8.1", "#sub.section.memmodel.app"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
