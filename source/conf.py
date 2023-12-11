@@ -264,6 +264,9 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_DEVICE_COPYABLE", "Section 3.13.1", "#sec::device.copyable"
     )
+    + make_ref(
+        "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
