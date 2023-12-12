@@ -227,7 +227,7 @@ All four ``async_work_group_copy`` functions listed above are deprecated
 in SYCL 2020. Has the same effect as the overload taking
 ``decorated_local_ptr`` and ``decorated_global_ptr``
 except that the ``dest`` and ``src`` parameters are
-``multi_ptr# with [code]#access::decorated::legacy``.
+``multi_ptr`` with ``access::decorated::legacy``.
 
 ::
 
