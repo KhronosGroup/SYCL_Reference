@@ -26,6 +26,7 @@
                   const device& dev) const noexcept; // (2)
 
 There is no public constructor for this class.
+
 1. Returns: ``true`` only if the device image contains the kernel
 identified by ``kernelId``.
 
