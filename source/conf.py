@@ -274,6 +274,17 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_MEM_MODEL", "Section 3.8.1", "#sub.section.memmodel.app"
     )
+    + make_ref(
+        "SYCL_SPEC_PAR_FOR_HIER",
+        "Section 4.9.4.2.3",
+        "#_parallel_for_hierarchical_invoke",
+    )
+    + make_ref(
+        "SYCL_SPEC_PAR_FOR", "Section 4.9.4.2.2", "#_parallel_for_invoke"
+    )
+    + make_ref(
+        "SYCL_SPEC_SINGLE_TASK", "Section 4.9.4.2.1", "#_single_task_invoke"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``

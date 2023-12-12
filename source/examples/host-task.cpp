@@ -15,14 +15,14 @@ int main() {
 
   sycl::event e;
   for (int i = 1; i < n; i += 2) {
-    e = q.submit([&](auto &h) {
+    e = q.submit([&](sycl::handler &h) {
       // wait for previous device task
       e.wait();
       auto device_task = [=]() { data[i] = data[i - 1] + 1; };
       h.single_task(device_task);
     });
 
-    q.submit([&](auto &h) {
+    q.submit([&](sycl::handler &h) {
       // wait for device task to complete
       e.wait();
       auto host_task = [=]() { data[i + 1] = data[i] + 1; };
