@@ -258,6 +258,11 @@ prolog_template = string.Template(
         "#_specialization_constants",
     )
     + make_ref(
+        "SYCL_SPEC_ND_ITEM",
+        "Section 4.9.1.5",
+        "#nditem-class",
+    )
+    + make_ref(
         "SYCL_SPEC_DEFINING_KERNELS", "Section 4.12", "#_defining_kernels"
     )
     + make_ref("SYCL_SPEC_KERNEL_NAMING", "Section 5.2", "#sec:naming.kernels")
@@ -285,6 +290,10 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_SINGLE_TASK", "Section 4.9.4.2.1", "#_single_task_invoke"
     )
+    + make_ref(
+        "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
+    )
+    + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -303,7 +312,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
-.. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
