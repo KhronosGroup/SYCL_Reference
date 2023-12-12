@@ -2,11 +2,12 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-====
- IO
-====
+=======
+Streams
+=======
 
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   iface/stream
+  iface/stream
+  iface/stream_manipulator

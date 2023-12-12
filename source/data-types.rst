@@ -2,13 +2,13 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-============
- Data types
-============
-
+==========
+Data types
+==========
 
 .. toctree::
-   :maxdepth: 1
+  :maxdepth: 1
 
-   iface/scalar-types
-   iface/vector-types
+  iface/scalar-types
+  iface/vector-types
+  iface/math-array-types

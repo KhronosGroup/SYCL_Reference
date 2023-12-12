@@ -4,6 +4,7 @@
 
 .. _expressing-parallelism:
 
+======================
 Expressing parallelism
 ======================
 

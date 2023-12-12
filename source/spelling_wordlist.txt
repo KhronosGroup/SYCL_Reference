@@ -59,3 +59,6 @@ STL
 conformant
 pointee
 th
+templating
+typename
+specializable

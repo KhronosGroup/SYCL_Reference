@@ -244,10 +244,35 @@ prolog_template = string.Template(
         "#group-class",
     )
     + make_ref(
+        "SYCL_SPEC_SUB_GROUP",
+        "Section 4.9.1.8",
+        "#sub-group-class",
+    )
+    + make_ref(
         "SYCL_SPEC_H_ITEM",
         "Section 4.9.1.6",
         "#hitem-class",
     )
+    + make_ref("SYCL_SPEC_KERNEL", "Section 4.11.13", "#_the_kernel_class")
+    + make_ref(
+        "SYCL_SPEC_DEVICE_CODE_ATTR", "Section 5.8", "#sec:device.attributes"
+    )
+    + make_ref(
+        "SYCL_SPEC_SPECIAL_CONSTANTS",
+        "Section 4.9.5",
+        "#_specialization_constants",
+    )
+    + make_ref(
+        "SYCL_SPEC_DEFINING_KERNELS", "Section 4.12", "#_defining_kernels"
+    )
+    + make_ref("SYCL_SPEC_KERNEL_NAMING", "Section 5.2", "#sec:naming.kernels")
+    + make_ref(
+        "SYCL_SPEC_DEVICE_COPYABLE", "Section 3.13.1", "#sec::device.copyable"
+    )
+    + make_ref(
+        "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
+    )
+    + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -268,7 +293,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_ND_ITEM| replace:: `SYCL Specification`_ Section 4.10.1.5
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
-.. |SYCL_SPEC_KERNEL| replace:: `SYCL Specification`_ Section 4.12
 .. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
 )
