@@ -23,7 +23,7 @@ programmer, when it is passed as an optional parameter to
 selects the optimal work-group size. This allows the developer
 to always know how many work-items are in each executing work-group,
 even through the abstracted iteration range
-of the ``parallel_for_work_item`` loops.
+of the ``parallel_for_work_item``.
 
 .. warning::
 
