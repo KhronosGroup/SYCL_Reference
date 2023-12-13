@@ -47,6 +47,7 @@ constructible
 unsampled
 unary
 linearizes
+linearized
 copyable
 mutex
 constantness
