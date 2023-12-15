@@ -273,6 +273,11 @@ prolog_template = string.Template(
         "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
     )
     + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
+    + make_ref(
+        "SYCL_SPEC_ASYNC_ERR_HAND",
+        "Section 4.13.1.1",
+        "#subsubsec:exception.async",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
