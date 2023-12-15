@@ -52,3 +52,21 @@ handle the error in the same situations that a user-supplied
 The default ``async_handler`` must in some way report all errors
 passed to it, when possible, and must then invoke ``std::terminate``
 or equivalent.
+
+.. _async_handler_example:
+
+=========
+Example 1
+=========
+
+Below is example of implementing an ``async_handler`` as lambda
+function and passing it to the :ref:`queue`.
+
+.. literalinclude:: /examples/async-handler.cpp
+   :lines: 5-
+   :linenos:
+
+Output:
+
+.. literalinclude:: /examples/async-handler.out
+   :lines: 5-
