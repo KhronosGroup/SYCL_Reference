@@ -7,6 +7,8 @@ accessors
 adaptor
 backend
 backends
+bitwise
+bitshift
 destructor
 atomics
 dimensionality
