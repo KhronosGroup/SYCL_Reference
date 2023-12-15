@@ -110,7 +110,7 @@ handler will be used. The command group function object
 event returned by that function will be relevant to the
 queue where the kernel has been enqueued.
 
-Below is an example of ``async_handler`` that catches a ``sycl::exception``
+Below is an example of catching a ``sycl::exception``
 (see :ref:`iface-exceptions`) and printing out the error message.
 
 ::
@@ -123,7 +123,7 @@ Below is an example of ``async_handler`` that catches a ``sycl::exception``
     }
   }
 
-Below is an example of ``async_handler`` that catches a ``sycl::exception``
+Below is an example of catching a ``sycl::exception``
 (see :ref:`iface-exceptions`) with the ``sycl::errc::invalid``
 error code and printing out the error message.
 
