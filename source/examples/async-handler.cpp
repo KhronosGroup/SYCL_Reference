@@ -4,13 +4,13 @@
 
 #include <sycl/sycl.hpp>
 
-auto async_handler = [](sycl::exception_list exceptions)
-{
+auto async_handler = [](sycl::exception_list exceptions) {
   for (auto e : exceptions) {
     try {
-        std::rethrow_exception(e);
-    } catch (sycl::exception const& e) {
-        std::cout << "Caught asynchronous SYCL exception:\n" << e.what() << std::endl;
+      std::rethrow_exception(e);
+    } catch (sycl::exception const &e) {
+      std::cout << "Caught asynchronous SYCL exception:\n"
+                << e.what() << std::endl;
     }
   }
 };
@@ -21,9 +21,11 @@ int main() {
   // Create a queue with asynchronous handler
   sycl::queue myQueue{async_handler};
 
-  myQueue.submit([&](sycl::handler& cgh) {
+  myQueue.submit([&](sycl::handler &cgh) {
     // Throw sycl::exception for async_handler to catch
-    cgh.host_task([]() { throw sycl::exception(std::error_code{}, "Example exception!"); });
+    cgh.host_task([]() {
+      throw sycl::exception(std::error_code{}, "Example exception!");
+    });
   });
 
   // Invocation of async_handler is triggered here
