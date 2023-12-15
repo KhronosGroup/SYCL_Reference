@@ -7,3 +7,9 @@
 **************************
 Asynchronous error handler
 **************************
+
+.. _behavior-without-async_hand:
+
+======================================
+Behavior without an ``async_handler``
+======================================
