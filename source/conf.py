@@ -278,6 +278,9 @@ prolog_template = string.Template(
         "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
     )
     + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
+    + make_ref(
+        "SYCL_SPEC_EXCEPTION", "Section 4.13.2", "#subsec:exception.class"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
@@ -297,7 +300,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
 .. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
-.. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
 )
 
