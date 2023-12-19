@@ -45,11 +45,11 @@ Priorities of asynchronous handlers
 If the SYCL runtime can associate an asynchronous
 error with a specific queue, then:
 
-* If the :ref:`queue` was constructed with an :ref:`async_handler
+* If the :ref:`queue` was constructed with an :ref:`sycl::async_handler
   <iface-async-error-handler>`, that handler is invoked to
   handle the error.
 * Otherwise if the context enclosed by the queue was
-  constructed with an :ref:`async_handler
+  constructed with an :ref:`sycl::async_handler
   <iface-async-error-handler>`, that handler is
   invoked to handle the error.
 * Otherwise when no handler was passed to either :ref:`queue`
@@ -63,7 +63,7 @@ If the SYCL runtime cannot associate an asynchronous
 error with a specific queue, then:
 
 * If the context in which the error occurred was
-  constructed with an :ref:`async_handler
+  constructed with an :ref:`sycl::async_handler
   <iface-async-error-handler>`, then that handler
   is invoked to handle the error.
 * Otherwise when no handler was passed to the
@@ -82,17 +82,17 @@ a command group which has a secondary queue specified,
 then the command group may be enqueued to the secondary
 queue instead of the primary queue.
 The error handling in this case is also configured
-using the ``async_handler`` provided for both queues.
+using the ``sycl::async_handler`` provided for both queues.
 
-If there is no ``async_handler`` given on any of the
+If there is no ``sycl::async_handler`` given on any of the
 queues, then the asynchronous error handling proceeds
 through the contexts associated with the queues, and if
-they were also constructed without ``async_handlers``, then
+they were also constructed without ``sycl::async_handlers``, then
 the default handler will be used.
 
-If the primary queue fails and there is an ``async_handler``
+If the primary queue fails and there is an ``sycl::async_handler``
 given at this queue's construction, which populates the
-``exception_list`` parameter, then any errors will be added
+``sycl::exception_list`` parameter, then any errors will be added
 and can be thrown whenever the user chooses to handle those
 exceptions. Since there were errors on the primary queue and
 a secondary queue was given, then the execution of the kernel is
@@ -100,12 +100,12 @@ re-scheduled to the secondary queue and any error reporting
 for the kernel execution on that queue is done through that
 queue, in the same way as described above. The secondary queue
 may fail as well, and the errors will be thrown if there is an
-``async_handler`` and either ``wait_and_throw()`` or ``throw()`` are
+``sycl::async_handler`` and either ``wait_and_throw()`` or ``throw()`` are
 called on that queue.
 
-If no ``async_handler`` was specified, then the one associated
+If no ``sycl::async_handler`` was specified, then the one associated
 with the queue's context will be used and if the context was
-also constructed without an ``async_handler``, then the default
+also constructed without an ``sycl::async_handler``, then the default
 handler will be used. The command group function object
 event returned by that function will be relevant to the
 queue where the kernel has been enqueued.
