@@ -7,12 +7,13 @@
 int main() {
   sycl::queue q;
 
-  q.submit([&](sycl::handler &h) {
-    // setup sycl stream class to print standard output from
-    // device code
-    auto out = sycl::stream(1024, 768, h);
-    auto task = [=]() { out << "In a task\n"; };
-    h.single_task<class stream_task>(task);
+  q.submit([&](sycl::handler &cgh) {
+    // Setup sycl::stream class to print standard output from
+    // the device code
+    auto out = sycl::stream(1024, 768, cgh);
+
+    cgh.single_task<class stream_task>([=]() { out << "In a task\n"; });
   });
+
   q.wait();
 }

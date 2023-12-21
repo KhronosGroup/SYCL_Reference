@@ -12,7 +12,7 @@ Common By-value Semantics
 
 Each of the following SYCL runtime classes:
 :ref:`id`, :ref:`range`, :ref:`item`, :ref:`nd_item`,
-:ref:`h_item`, :ref:`group`, `sub_group`, and :ref:`nd_range`
+:ref:`h_item`, :ref:`group`, :ref:`sub_group`, and :ref:`nd_range`
 must obey the following statements, where ``T`` is the
 runtime class type:
 

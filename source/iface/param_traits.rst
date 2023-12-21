@@ -24,18 +24,20 @@ SYCL application interoperability, SYCL kernel function interoperability
 and host task interoperability are provided via different interfaces
 and may have different behavior for the same SYCL object.
 
-SYCL application interoperability may be provided for ``buffer``, ``context``,
-``device``, ``device_image``, ``event``,`` kernel``, ``kernel_bundle``,
-``platform``, ``queue``, ``sampled_image``, and ``unsampled_image``.
+SYCL application interoperability may be provided for :ref:`buffer`,
+:ref:`context`, :ref:`device`, :ref:`device_image`, ``sycl::event``,
+:ref:`kernel`, `kernel_bundle`, :ref:`platform`, :ref:`queue`,
+:ref:`sampled_image`, and :ref:`unsampled_image`.
 
-SYCL kernel function interoperability may be provided for ``accessor``,
-``device_event``, ``local_accessor``, ``sampled_image_accessor``, ``tream``
-and ``unsampled_image_accessor`` inside kernel scope only and
+SYCL kernel function interoperability may be provided for
+:ref:`command-accessor`, ``sycl::device_event``, :ref:`local_accessor`,
+:ref:`sampled_image_accessor`, :ref:`stream` and
+:ref:`unsampled_image_accessor` inside kernel scope only and
 is not available outside of that scope.
 
-host task interoperability may be provided for ``accessor``,
-``sampled_image_accessor``, ``unsampled_image_accessor``, ``queue``,
-``device``, ``context`` inside the scope of a host task only.
+host task interoperability may be provided for :ref:`command-accessor`,
+:ref:`sampled_image_accessor`, :ref:`unsampled_image_accessor`, :ref:`queue`,
+:ref:`device`, :ref:`context` inside the scope of a host task only.
 
 .. seealso:: |SYCL_SPEC_BCK_INTEROP|
 
