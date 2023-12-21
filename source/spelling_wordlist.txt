@@ -8,6 +8,9 @@ amongst
 adaptor
 backend
 backends
+bitshift
+Bitwise
+bitwise
 destructor
 atomics
 dimensionality
@@ -25,6 +28,7 @@ enqueued
 enqueuing
 deallocated
 Multipointer
+moveable
 USM
 Namespaces
 namespace
@@ -67,6 +71,7 @@ th
 templating
 typename
 specializable
+variadic
 enqueue
 Enqueues
 prefetch
