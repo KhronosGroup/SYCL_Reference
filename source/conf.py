@@ -299,6 +299,7 @@ prolog_template = string.Template(
         "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
     )
     + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
+    + make_ref("SYCL_SPEC_STREAM_CLASS", "Section 4.16", "#subsec:stream")
     + make_ref(
         "SYCL_SPEC_MEMORY_LAYOUT_AND_ALIG",
         "Section 4.14.2.6",

@@ -13,11 +13,12 @@ Common Reference Semantics
   and Expressing Parallelism chapter structure
 
 Each of the following SYCL runtime classes: 
-`sycl::accessor`, `sycl::buffer`, :ref:`context`, :ref:`device`,
-`device_image`, :ref:`event`, `host_accessor`, `host_sampled_image_accessor`,
-`host_unsampled_image_accessor`, :ref:`kernel`, `kernel_id`, `kernel_bundle`,
-`local_accessor`, :ref:`platform`, :ref:`queue`, `sampled_image`,
-`sampled_image_accessor`, `unsampled_image` and `unsampled_image_accessor`
+:ref:`command-accessor`, :ref:`buffer`, :ref:`context`, :ref:`device`,
+:ref:`device_image`, :ref:`event`, :ref:`host_accessor`, 
+:ref:`host_sampled_image_accessor`, :ref:`host_unsampled_image_accessor`, 
+:ref:`kernel`, ``sycl::kernel_id``, `kernel_bundle`, :ref:`local_accessor`, 
+:ref:`platform`, :ref:`queue`, :ref:`sampled_image`, :ref:`sampled_image_accessor`, 
+:ref:`unsampled_image` and :ref:`unsampled_image_accessor`
 must obey the following statements, where ``T`` is the runtime class type:
 
 * ``T`` must be copy constructible and copy assignable in the host application 
