@@ -311,6 +311,9 @@ prolog_template = string.Template(
         "#swizzled-vec-class",
     )
     + make_ref(
+        "SYCL_SPEC_FUND_DATA_TYPE", "Table 179", "#table.types.fundamental"
+    )
+    + make_ref(
         "SYCL_SPEC_ASYNC_ERR_HAND",
         "Section 4.13.1.1",
         "#subsubsec:exception.async",
