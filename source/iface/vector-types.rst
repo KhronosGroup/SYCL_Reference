@@ -15,10 +15,7 @@ SYCL devices. The vector supports member functions that allow
 construction of a new vector from a swizzled set of component
 elements.
 
-``vec<typename DataT``, int NumElements> is a vector type that compiles
-down to a SYCL backend built-in vector types on SYCL devices, where
-possible, and provides compatible support on the host or when it is
-not possible. The ``vec`` class is templated on its number of elements
+The ``vec`` class is templated on its number of elements
 and its element type. The number of elements parameter, NumElements,
 can be one of: 1, 2, 3, 4, 8 or 16. Any other value shall produce
 a compilation failure. The element type parameter, ``DataT``, must be
@@ -111,7 +108,7 @@ vectors and scalars to be convertible with each other.
 
    vec(vector_t nativeVector);
 
-Default construct a vector with element type ``DataT``
+The first option default constructs a vector with element type ``DataT``
 and with ``NumElements`` dimensions by default construction
 of each of its elements.
 The second option is by setting each value to ``arg`` by assignment.
@@ -385,7 +382,7 @@ Available only when: ``NumElements > 1``.
 
 Return an instance of the implementation-defined intermediate class
 template ``__swizzled_vec__`` representing an index sequence made
-up of the odd indexes of this SYCL ``vec`` which can be used to apply the
+up of the even indexes of this SYCL ``vec`` which can be used to apply the
 swizzle in a valid expression as described
 in |SYCL_SPEC_SWIZZLED_VEC_CLASS|. When ``NumElements == 3``, this
 SYCL ``vec`` is treated as though ``NumElements == 4``
