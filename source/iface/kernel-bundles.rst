@@ -114,7 +114,7 @@ every associated device.
   happened to reside in the same device image as another
   kernel K2 that used a feature which is not supported
   on device D1.
-.. seealso:: |SYCL_SPEC_OPTIONAL_KERNEL_FUTURES|
+.. seealso:: |SYCL_SPEC_OPTIONAL_KERNEL_FEATURES|
 
 A SYCL application can obtain a kernel bundle by calling one of the
 overloads of the ``get_kernel_bundle()`` free function. Certain
@@ -599,7 +599,7 @@ a particular kernel is compatible with a device. A kernel that is
 defined in the application is compatible with a device unless:
 
 It uses optional features which are not supported on the device, as
-described in |SYCL_SPEC_OPTIONAL_KERNEL_FUTURES|; or
+described in |SYCL_SPEC_OPTIONAL_KERNEL_FEATURES|; or
 
 It is decorated with a ``[[sycl::device_has()]]`` C++ attribute that
 lists an aspect that is not supported by the device
