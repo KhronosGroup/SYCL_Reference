@@ -28,7 +28,7 @@ since C++17 ``std::byte`` can be used instead.
 ``half``
 ========
 
-A 16-bit floating-point. The half data type must conform to the
+A 16-bit floating-point type. The half data type must conform to the
 IEEE 754-2008 half precision storage format. This type is only supported
 on devices that have ``aspect::fp16``. ``std::numeric_limits``
 must be specialized for the half data type.
