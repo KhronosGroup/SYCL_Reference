@@ -4,6 +4,7 @@
 
 accessor
 accessors
+amongst
 adaptor
 backend
 backends
@@ -28,7 +29,10 @@ USM
 Namespaces
 namespace
 instantiations
+interoperation
 interoperating
+interoperate
+invocable
 timebase
 templated
 incompletion
@@ -39,6 +43,7 @@ performant
 DirectX
 Migratable
 dereference
+descendent
 dereferencing
 dereferences
 pinnable
@@ -47,6 +52,7 @@ constructible
 unsampled
 unary
 linearizes
+linearized
 copyable
 mutex
 constantness
@@ -61,3 +67,6 @@ th
 templating
 typename
 specializable
+enqueue
+Enqueues
+prefetch
