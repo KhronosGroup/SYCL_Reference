@@ -194,13 +194,21 @@ type ``kernel_handler`` as its last parameter. The SYCL runtime
 constructs this object, which has a member function for reading
 the specialization constant’s value.
 
+.. _kernel_handler:
+
 ========================
 ``sycl::kernel_handler``
 ========================
 
 ::
 
-   class kernel_handler;
+  class kernel_handler;
+
+In order to read the value of a specialization constant from
+device code, the SYCL kernel function must be declared to take
+an object of type ``sycl::kernel_handler`` as its last parameter. The
+SYCL runtime constructs this object, which has a member
+function for reading the specialization constant's value.
 
 A synopsis of this class is shown below.
 
