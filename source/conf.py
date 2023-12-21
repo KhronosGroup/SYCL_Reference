@@ -303,6 +303,11 @@ prolog_template = string.Template(
         "SYCL_SPEC_FUND_DATA_TYPE", "Table 179", "#table.types.fundamental"
     )
     + make_ref(
+        "SYCL_SPEC_ERROR_HAND_RULES",
+        "Section 4.13.1",
+        "#_error_handling_rules",
+    )
+    + make_ref(
         "SYCL_SPEC_OPTIONAL_KERNEL_FUTURES",
         "Section 5.7",
         "#sec:optional-kernel-features",
