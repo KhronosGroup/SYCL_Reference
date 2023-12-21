@@ -300,12 +300,17 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
     + make_ref(
+        "SYCL_SPEC_ASYNC_ERR_HAND",
+        "Section 4.13.1.1",
+        "#subsubsec:exception.async",
+    )
+    + make_ref(
         "SYCL_SPEC_ERROR_HAND_RULES",
         "Section 4.13.1",
         "#_error_handling_rules",
     )
     + make_ref(
-        "SYCL_SPEC_OPTIONAL_KERNEL_FUTURES",
+        "SYCL_SPEC_OPTIONAL_KERNEL_FEATURES",
         "Section 5.7",
         "#sec:optional-kernel-features",
     )
