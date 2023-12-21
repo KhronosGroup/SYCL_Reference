@@ -239,6 +239,11 @@ prolog_template = string.Template(
         "#sec:multi-dim-linearization",
     )
     + make_ref(
+        "SYCL_SPEC_GROUP",
+        "Section 4.9.1.7",
+        "#group-class",
+    )
+    + make_ref(
         "SYCL_SPEC_SUB_GROUP",
         "Section 4.9.1.8",
         "#sub-group-class",
@@ -269,6 +274,27 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_DEVICE_COPYABLE", "Section 3.13.1", "#sec::device.copyable"
     )
+    + make_ref("SYCL_SPEC_HANDLER", "Section 4.9.4", "#sec:handlerClass")
+    + make_ref(
+        "SYCL_SPEC_COM_GROUP_SCOPE",
+        "Section 4.9.3",
+        "#sec:command.group.scope",
+    )
+    + make_ref("SYCL_SPEC_EXEC_MODEL", "Section 3.7.1", "#sec:executionmodel")
+    + make_ref(
+        "SYCL_SPEC_MEM_MODEL", "Section 3.8.1", "#sub.section.memmodel.app"
+    )
+    + make_ref(
+        "SYCL_SPEC_PAR_FOR_HIER",
+        "Section 4.9.4.2.3",
+        "#_parallel_for_hierarchical_invoke",
+    )
+    + make_ref(
+        "SYCL_SPEC_PAR_FOR", "Section 4.9.4.2.2", "#_parallel_for_invoke"
+    )
+    + make_ref(
+        "SYCL_SPEC_SINGLE_TASK", "Section 4.9.4.2.1", "#_single_task_invoke"
+    )
     + make_ref(
         "SYCL_SPEC_DEVICE_IMAGE", "Section 4.11.14", "#_the_device_image_class"
     )
@@ -277,6 +303,16 @@ prolog_template = string.Template(
         "SYCL_SPEC_ASYNC_ERR_HAND",
         "Section 4.13.1.1",
         "#subsubsec:exception.async",
+    )
+    + make_ref(
+        "SYCL_SPEC_OPTIONAL_KERNEL_FEATURES",
+        "Section 5.7",
+        "#sec:optional-kernel-features",
+    )
+    + make_ref(
+        "SYCL_SPEC_USING_KERNEL_BUNDLE_FUNC",
+        "Section 4.9.4.4",
+        "#sec:handler.usekernelbundle",
     )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
@@ -295,9 +331,7 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_USM_ALLOCATOR| replace:: `SYCL Specification`_ Section 4.8.4
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
-.. |SYCL_SPEC_GROUP| replace:: `SYCL Specification`_ Section 4.10.1.7
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
-.. |SYCL_SPEC_HANDLER| replace:: `SYCL Specification`_ Section 4.10.4
 .. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
 )
