@@ -42,7 +42,7 @@ where backend_name is the associated identifier from ``backend``
 in all upper-case.
 
 For the name of the macro if the vendor defines the SYCL backend
-outside of the Khronos SYCL group
+outside of the Khronos SYCL group, see the following:
 
 .. seealso:: |SYCL_SPEC_EXTENSIONS|
 
