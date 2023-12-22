@@ -4,11 +4,13 @@
 
 accessor
 accessors
+amongst
 adaptor
 backend
 backends
-bitwise
 bitshift
+Bitwise
+bitwise
 destructor
 atomics
 dimensionality
@@ -26,11 +28,15 @@ enqueued
 enqueuing
 deallocated
 Multipointer
+moveable
 USM
 Namespaces
 namespace
 instantiations
+interoperation
 interoperating
+interoperate
+invocable
 timebase
 templated
 incompletion
@@ -41,6 +47,7 @@ performant
 DirectX
 Migratable
 dereference
+descendent
 dereferencing
 dereferences
 pinnable
@@ -49,6 +56,7 @@ constructible
 unsampled
 unary
 linearizes
+linearized
 copyable
 mutex
 constantness
@@ -63,3 +71,7 @@ th
 templating
 typename
 specializable
+variadic
+enqueue
+Enqueues
+prefetch

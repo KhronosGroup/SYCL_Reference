@@ -8,14 +8,14 @@
 Properties
 **********
 
-Each of the following SYCL runtime classes: ``accessor``, ``buffer``,
-``host_accessor``, ``host_sampled_image_accessor``,
-``host_unsampled_image_accessor``, ``context``,
-``local_accessor``, ``queue``, ``sampled_image``,
-``sampled_image_accessor``, ``stream``, ``unsampled_image``,
-``unsampled_image_accessor`` and ``usm_allocator``
+Each of the following SYCL runtime classes: :ref:`command-accessor`,
+:ref:`buffer`, :ref:`host_accessor`, :ref:`host_sampled_image_accessor`,
+:ref:`host_unsampled_image_accessor`, :ref:`context`,
+:ref:`local_accessor`, :ref:`queue`, :ref:`sampled_image`,
+:ref:`sampled_image_accessor`, :ref:`stream`, :ref:`unsampled_image`,
+:ref:`unsampled_image_accessor` and ``sycl::usm_allocator``
 provide an optional parameter in each of their constructors
-to provide a ``property_list`` which contains zero or more properties.
+to provide a ``sycl::property_list`` which contains zero or more properties.
 Each of those properties augments the semantics of the class with
 a particular feature. Each of those classes must also provide
 ``has_property`` and ``get_property`` member functions
