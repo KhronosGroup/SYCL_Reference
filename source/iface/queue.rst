@@ -100,7 +100,8 @@ from asynchronous host tasks, construct the queue with an
    * - ``propList``
      - See `queue-properties`_.
    * - ``asyncHandler``
-     - Called for asynchronous exceptions, see :ref:`async_handler`.
+     - Called for asynchronous exceptions,
+       see :ref:`iface-async-error-handler`.
    * - ``deviceSelector``
      - Selects device for queue.
    * - ``syclDevice``

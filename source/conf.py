@@ -314,6 +314,9 @@ prolog_template = string.Template(
         "SYCL_SPEC_FUND_DATA_TYPE", "Table 179", "#table.types.fundamental"
     )
     + make_ref(
+        "SYCL_SPEC_EXCEPTION", "Section 4.13.2", "#subsec:exception.class"
+    )
+    + make_ref(
         "SYCL_SPEC_ASYNC_ERR_HAND",
         "Section 4.13.1.1",
         "#subsubsec:exception.async",
@@ -351,7 +354,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
-.. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
 )
 
