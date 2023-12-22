@@ -300,6 +300,7 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
     + make_ref("SYCL_SPEC_EXTENSIONS", "Section 6", "#chapter.extensions")
+    + make_ref("SYCL_SPEC_CLASS_AVLBL", "Section 4.4", "#_class_availability")
     + make_ref("SYCL_SPEC_STREAM_CLASS", "Section 4.16", "#subsec:stream")
     + make_ref(
         "SYCL_SPEC_MEMORY_LAYOUT_AND_ALIG",
@@ -313,6 +314,9 @@ prolog_template = string.Template(
     )
     + make_ref(
         "SYCL_SPEC_FUND_DATA_TYPE", "Table 179", "#table.types.fundamental"
+    )
+    + make_ref(
+        "SYCL_SPEC_EXCEPTION", "Section 4.13.2", "#subsec:exception.class"
     )
     + make_ref(
         "SYCL_SPEC_ASYNC_ERR_HAND",
@@ -352,7 +356,6 @@ prolog_template = string.Template(
 .. |SYCL_SPEC_MULTI_PTR| replace:: `SYCL Specification`_ Section 4.7.7.1
 .. |SYCL_SPEC_PRIVATE_MEMORY| replace:: `SYCL Specification`_ Section 4.10.7.3
 .. |SYCL_SPEC_DEVICE_EVENT| replace:: `SYCL Specification`_ Section 4.7.8
-.. |SYCL_SPEC_EXCEPTION| replace:: `SYCL Specification`_ Section 4.15.2
 """
 )
 
