@@ -26,6 +26,8 @@ convertible with each other.
 Logical and comparison operators for ``marray`` class template
 return ``marray<bool``, ``NumElements>``.
 
+.. seealso:: |SYCL_SPEC_MATH_ARRAY|
+
 ================
 ``sycl::marray``
 ================
@@ -159,14 +161,14 @@ Assign each element of the ``rhs`` scalar to each element of this SYCL
   iterator begin();
 
 Returns an iterator referring to the first element stored within the
-``v marray``.
+``marray``.
 
 ::
 
   const_iterator begin() const
 
 Returns a ``const`` iterator referring to the first element stored within the
-``v marray``.
+``marray``.
 
 ``end``
 =======
@@ -176,14 +178,14 @@ Returns a ``const`` iterator referring to the first element stored within the
   iterator begin();
 
 Returns an iterator referring to the one past the last element stored
-within the ``v marray``.
+within the ``marray``.
 
 ::
 
   const_iterator end() const
 
 Returns a ``const`` iterator referring to the one past the last element
-stored within the ``v marray``.
+stored within the ``marray``.
 
 =======================
 Hidden friend functions
