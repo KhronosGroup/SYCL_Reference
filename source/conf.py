@@ -300,13 +300,32 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_REDUCER_CLASS", "Section 4.9.2.3", "#reducer-class")
     + make_ref("SYCL_SPEC_EXTENSIONS", "Section 6", "#chapter.extensions")
+    + make_ref("SYCL_SPEC_STREAM_CLASS", "Section 4.16", "#subsec:stream")
+    + make_ref(
+        "SYCL_SPEC_MEMORY_LAYOUT_AND_ALIG",
+        "Section 4.14.2.6",
+        "#memory-layout-and-alignment",
+    )
+    + make_ref(
+        "SYCL_SPEC_SWIZZLED_VEC_CLASS",
+        "Section 4.14.2.4",
+        "#swizzled-vec-class",
+    )
+    + make_ref(
+        "SYCL_SPEC_FUND_DATA_TYPE", "Table 179", "#table.types.fundamental"
+    )
+    + make_ref(
+        "SYCL_SPEC_ASYNC_ERR_HAND",
+        "Section 4.13.1.1",
+        "#subsubsec:exception.async",
+    )
     + make_ref(
         "SYCL_SPEC_ERROR_HAND_RULES",
         "Section 4.13.1",
         "#_error_handling_rules",
     )
     + make_ref(
-        "SYCL_SPEC_OPTIONAL_KERNEL_FUTURES",
+        "SYCL_SPEC_OPTIONAL_KERNEL_FEATURES",
         "Section 5.7",
         "#sec:optional-kernel-features",
     )
