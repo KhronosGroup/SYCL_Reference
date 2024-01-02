@@ -339,6 +339,11 @@ prolog_template = string.Template(
         "#sec:handler.usekernelbundle",
     )
     + make_ref("SYCL_SPEC_MATH_ARRAY", "Section 4.14.3", "#sec:marray.type")
+    + make_ref(
+        "SYCL_SPEC_INT_W_HOST_CODE",
+        "Section 4.15.5",
+        "#_interaction_with_host_code",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
