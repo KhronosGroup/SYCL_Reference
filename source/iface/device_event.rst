@@ -13,7 +13,7 @@
   class device_event {
     device_event(__unspecified__);
 
-  public:
+   public:
     void wait() noexcept;
   };
 
