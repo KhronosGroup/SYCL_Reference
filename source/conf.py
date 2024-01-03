@@ -342,6 +342,9 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_DEVICE_EVENT", "Section 4.15.2", "#device-event-class"
     )
+    + make_ref(
+        "SYCL_SPEC_BARRIERS_FENCES", "Section 4.15.1", "#sec:barriers-fences"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
