@@ -1,8 +1,11 @@
-// SPDX-FileCopyrightText: 2020 The Khronos Group Inc.
+// SPDX-FileCopyrightText: 2023 The Khronos Group Inc.
 //
 // SPDX-License-Identifier: Apache-2.0
 
 #include <sycl/sycl.hpp>
+
+#include <iomanip>
+#include <iostream>
 
 const int lsize = 10;
 
@@ -48,7 +51,7 @@ int main() {
      out->push(idx * 100 + in->pop());
    }).wait();
 
-  std::cout << "Out\n";
+  std::cout << "Out:\n" << std::setfill('0');
   while (!out->empty())
-    std::cout << out->pop() << "\n";
+    std::cout << std::setw(3) << out->pop() << "\n";
 }
