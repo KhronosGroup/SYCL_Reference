@@ -338,6 +338,11 @@ prolog_template = string.Template(
         "Section 4.9.4.4",
         "#sec:handler.usekernelbundle",
     )
+    + make_ref(
+        "SYCL_SPEC_HOST_TASKS",
+        "Section 4.10",
+        "#subsec:interfaces.hosttasks",
+    )
     + make_ref("SYCL_SPEC_MATH_ARRAY", "Section 4.14.3", "#sec:marray.type")
     + make_ref(
         "SYCL_SPEC_ATOMIC_REF", "Section 4.15.3", "#sec:atomic-references"
