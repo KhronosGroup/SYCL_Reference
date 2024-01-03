@@ -345,6 +345,11 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_MATH_ARRAY", "Section 4.14.3", "#sec:marray.type")
     + make_ref(
+        "SYCL_SPEC_INT_W_HOST_CODE",
+        "Section 4.15.5",
+        "#_interaction_with_host_code",
+    )
+    + make_ref(
         "SYCL_SPEC_DEVICE_EVENT", "Section 4.15.2", "#device-event-class"
     )
     + make_ref(
