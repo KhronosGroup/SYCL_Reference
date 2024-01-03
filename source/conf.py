@@ -344,6 +344,9 @@ prolog_template = string.Template(
         "Section 4.15.5",
         "#_interaction_with_host_code",
     )
+    + make_ref(
+        "SYCL_SPEC_BARRIERS_FENCES", "Section 4.15.1", "#sec:barriers-fences"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
