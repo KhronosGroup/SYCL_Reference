@@ -340,6 +340,9 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_MATH_ARRAY", "Section 4.14.3", "#sec:marray.type")
     + make_ref(
+        "SYCL_SPEC_ATOMIC_REF", "Section 4.15.3", "#sec:atomic-references"
+    )
+    + make_ref(
         "SYCL_SPEC_BARRIERS_FENCES", "Section 4.15.1", "#sec:barriers-fences"
     )
     + f"""
