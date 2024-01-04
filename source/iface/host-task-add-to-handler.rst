@@ -14,10 +14,9 @@ class that are used with host tasks.
   class handler {
     ...
 
-        public
-        : template <typename T>
-          void
-          host_task(T&& hostTaskCallable); // (1)
+        public:
+          template <typename T>
+          void host_task(T&& hostTaskCallable); // (1)
 
     ...
   };
@@ -32,4 +31,4 @@ when it is invoked if ``std::is_invocable_v<T, interop_handle>``
 evaluates to true, otherwise invokes ``hostTaskCallable``
 as a nullary function.
 
-.. seealso:: :ref:`handler`
+.. seealso:: |SYCL_SPEC_ADDITION_TO_HANDLER|
