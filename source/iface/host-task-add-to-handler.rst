@@ -31,4 +31,8 @@ when it is invoked if ``std::is_invocable_v<T, interop_handle>``
 evaluates to true, otherwise invokes ``hostTaskCallable``
 as a nullary function.
 
-.. seealso:: |SYCL_SPEC_ADDITION_TO_HANDLER|
+.. seealso::
+
+  |SYCL_SPEC_ADDITION_TO_HANDLER|
+
+  :ref:`handler`
