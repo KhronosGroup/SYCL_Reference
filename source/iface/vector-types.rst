@@ -82,7 +82,7 @@ vectors and scalars to be convertible with each other.
    };
 
 
-.. rst-class:: api-class
+.. _vec:
 
 =============
 ``sycl::vec``

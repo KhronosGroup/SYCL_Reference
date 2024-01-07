@@ -363,6 +363,10 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_BARRIERS_FENCES", "Section 4.15.1", "#sec:barriers-fences"
     )
+    + make_ref("SYCL_SPEC_ALGORITHMS", "Section 4.17.3", "#sec:algorithms")
+    + make_ref(
+        "SYCL_SPEC_SUPP_TYPES", "Section 5.5", "#table.types.fundamental"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``

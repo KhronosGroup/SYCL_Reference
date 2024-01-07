@@ -28,6 +28,8 @@ return ``marray<bool``, ``NumElements>``.
 
 .. seealso:: |SYCL_SPEC_MATH_ARRAY|
 
+.. _marray:
+
 ================
 ``sycl::marray``
 ================
