@@ -10,8 +10,8 @@
 int main() {
   sycl::queue myQueue;
 
-  sycl::buffer<int> inputBuf{sycl::range<1>(1024)};
-  sycl::buffer<int> outputBuf{sycl::range<1>(2)};
+  sycl::buffer<int> inputBuf{1024};
+  sycl::buffer<int> outputBuf{2};
   {
     // Initialize buffer on the host with 0, 1, 2, 3, ..., 1023
     sycl::host_accessor a{inputBuf};
