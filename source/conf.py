@@ -367,6 +367,9 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_SUPP_TYPES", "Section 5.5", "#table.types.fundamental"
     )
+    + make_ref(
+        "SYCL_SPEC_FUNCTION_OBJECTS", "Section 4.17.1", "#sec:function-objects"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
