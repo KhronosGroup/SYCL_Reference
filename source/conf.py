@@ -373,6 +373,9 @@ prolog_template = string.Template(
         "SYCL_SPEC_SUPP_TYPES", "Section 5.5", "#table.types.fundamental"
     )
     + make_ref(
+        "SYCL_SPEC_FUNCTION_OBJECTS", "Section 4.17.1", "#sec:function-objects"
+    )
+    + make_ref(
         "SYCL_SPEC_QUERIES",
         "Section 4.11.13.1",
         "#sec:kernel.query",
