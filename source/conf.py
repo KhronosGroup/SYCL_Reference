@@ -339,6 +339,11 @@ prolog_template = string.Template(
         "#sec:handler.usekernelbundle",
     )
     + make_ref(
+        "SYCL_SPEC_ATOMIC_TYPES",
+        "Section 4.15.4",
+        "#sec:atom-types-depr",
+    )
+    + make_ref(
         "SYCL_SPEC_HOST_TASKS",
         "Section 4.10",
         "#subsec:interfaces.hosttasks",
@@ -369,6 +374,11 @@ prolog_template = string.Template(
     )
     + make_ref(
         "SYCL_SPEC_FUNCTION_OBJECTS", "Section 4.17.1", "#sec:function-objects"
+    )
+    + make_ref(
+        "SYCL_SPEC_QUERIES",
+        "Section 4.11.13.1",
+        "#sec:kernel.query",
     )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
