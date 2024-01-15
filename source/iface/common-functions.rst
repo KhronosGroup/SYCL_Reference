@@ -325,7 +325,7 @@ Available only if all of the following conditions are met:
 
 When the inputs are scalars, returns the value ``(x < edge) ? 0.0 : 1.0``.
 When the inputs are not scalars, returns the value
-``(x[i] < edge[i]) ? 0.0 : 1.0`` for each element of x and edge.
+``(x[i] < edge[i]) ? 0.0 : 1.0`` for each element of ``x`` and ``edge``.
 
 The return type is ``GenFloat1`` unless ``GenFloat1`` is the
 ``__swizzled_vec__`` type, in which case the return type is the
@@ -421,7 +421,7 @@ The value of ``edge0`` must be less than ``edge1`` and neither
 ``edge0`` nor ``edge1`` may be NaN. No element of ``x`` may be
 NaN.
 
-Returns the following value for each element of x:
+Returns the following value for each element of ``x``:
 
 ::
 

@@ -79,3 +79,4 @@ variadic
 enqueue
 Enqueues
 prefetch
+NaN
