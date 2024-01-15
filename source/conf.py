@@ -380,6 +380,11 @@ prolog_template = string.Template(
         "Section 4.11.13.1",
         "#sec:kernel.query",
     )
+    + make_ref(
+        "SYCL_SPEC_GEOM_FUNCTIONS",
+        "Section 4.17.9",
+        "#sec:geometric-functions",
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
