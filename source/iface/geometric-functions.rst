@@ -243,7 +243,7 @@ precise result of:
 
 ::
 
-  if (all(p == 0.0f))
+  if (sycl::all(p == 0.0f))
     result = p;
   else
     result = p / sycl::sqrt(sycl::pow(p[0], 2) + sycl::pow(p[1], 2) + ...);
