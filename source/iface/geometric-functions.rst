@@ -11,7 +11,7 @@ Geometric functions
 In SYCL the OpenCL geometric functions are available in the namespace
 ``sycl`` on host and device as defined in the OpenCL 1.2 specification
 document par. 6.12.5. On the host the vector types use the ``sycl::vec``
-class and on an SYCL device use the corresponding native SYCL backend
+class and on a SYCL device use the corresponding native SYCL backend
 vector types. All of the geometric functions use round-to-nearest-even
 rounding mode.
 
