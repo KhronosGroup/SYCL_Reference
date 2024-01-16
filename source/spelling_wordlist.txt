@@ -79,4 +79,5 @@ variadic
 enqueue
 Enqueues
 prefetch
+NaN
 ulps
