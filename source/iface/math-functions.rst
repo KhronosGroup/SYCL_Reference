@@ -1423,7 +1423,7 @@ Available only if all of the following conditions are met:
 * The element type is ``float``, ``double``, or ``half``.
 
 Returns the value ``x[i]`` multiplied by :math:`2^k`
-for each element of ``x`` and ``k``.
+for each element of ``x``.
 
 The return type is ``NonScalar`` unless ``NonScalar`` is the
 ``__swizzled_vec__`` type, in which case the return type is the
@@ -1656,7 +1656,7 @@ The return type is ``NonScalar`` unless ``NonScalar`` is the
 corresponding ``sycl::vec``.
 
 ==============
-``sycl::log2``
+``sycl::logb``
 ==============
 
 .. rubric:: Overloads 1-3
