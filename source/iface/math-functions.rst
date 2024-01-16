@@ -929,7 +929,7 @@ Available only if all of the following conditions are met:
   ``__swizzled_vec__`` type;
 * The element type is ``float``, ``double``, or ``half``.
 
-Returns the value x[i] rounded to an integral value using
+Returns the value ``x[i]`` rounded to an integral value using
 the round to negative infinity rounding mode for
 each element of ``x``.
 
