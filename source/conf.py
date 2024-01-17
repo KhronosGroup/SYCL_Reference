@@ -386,6 +386,11 @@ prolog_template = string.Template(
         "#_relational_functions",
     )
     + make_ref(
+        "SYCL_SPEC_GEOM_FUNCTIONS",
+        "Section 4.17.9",
+        "#sec:geometric-functions",
+    )
+    + make_ref(
         "SYCL_SPEC_MATH_FUNCTIONS", "Section 4.17.4", "#_math_functions"
     )
     + f"""
