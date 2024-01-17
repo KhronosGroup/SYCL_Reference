@@ -9,83 +9,83 @@ Integer functions
 *****************
 
 The function descriptions in this section use the term
-generic integer type to represent the following types:
+`generic integer type` to represent the following types:
 
-``char``
+* ``char``
 
-``signed char``
+* ``signed char``
 
-``short``
+* ``short``
 
-``int``
+* ``int``
 
-``long``
+* ``long``
 
-``long long``
+* ``long long``
 
-``unsigned char``
+* ``unsigned char``
 
-``unsigned short``
+* ``unsigned short``
 
-``unsigned int``
+* ``unsigned int``
 
-``unsigned long``
+* ``unsigned long``
 
-``unsigned long long``
+* ``unsigned long long``
 
-``marray<char, N>``
+* ``sycl::marray<char, N>``
 
-``marray<signed char, N>``
+* ``sycl::marray<signed char, N>``
 
-``marray<short, N>``
+* ``sycl::marray<short, N>``
 
-``marray<int, N>``
+* ``sycl::marray<int, N>``
 
-``marray<long, N>``
+* ``sycl::marray<long, N>``
 
-``marray<long long, N>``
+* ``sycl::marray<long long, N>``
 
-``marray<unsigned char, N>``
+* ``sycl::marray<unsigned char, N>``
 
-``marray<unsigned short, N>``
+* ``sycl::marray<unsigned short, N>``
 
-``marray<unsigned int, N>``
+* ``sycl::marray<unsigned int, N>``
 
-``marray<unsigned long, N>``
+* ``sycl::marray<unsigned long, N>``
 
-``marray<unsigned long long, N>``
+* ``sycl::marray<unsigned long long, N>``
 
-``vec<int8_t, N>``
+* ``sycl::vec<int8_t, N>``
 
-``vec<int16_t, N>``
+* ``sycl::vec<int16_t, N>``
 
-``vec<int32_t, N>``
+* ``sycl::vec<int32_t, N>``
 
-``vec<int64_t, N>``
+* ``sycl::vec<int64_t, N>``
 
-``vec<uint8_t, N>``
+* ``sycl::vec<uint8_t, N>``
 
-``vec<uint16_t, N>``
+* ``sycl::vec<uint16_t, N>``
 
-``vec<uint32_t, N>``
+* ``sycl::vec<uint32_t, N>``
 
-``vec<uint64_t, N>``
+* ``sycl::vec<uint64_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<int8_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<int8_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<int16_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<int16_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<int32_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<int32_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<int64_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<int64_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<uint8_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<uint8_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<uint16_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<uint16_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<uint32_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<uint32_t, N>``
 
-``__swizzled_vec__`` that is convertible to ``vec<uint64_t, N>``
+* ``__swizzled_vec__`` that is convertible to ``vec<uint64_t, N>``
 
 =================
 Integer functions
@@ -280,10 +280,8 @@ The return type is ``NonScalar`` unless ``NonScalar`` is
 the ``__swizzled_vec__`` type, in which case the return
 type is the corresponding ``vec``.
 
-``ctz``
+``clz``
 =======
-
-.. rubric:: Overload 1
 
 ::
 
@@ -302,7 +300,8 @@ The return type is ``GenInt`` unless ``GenInt`` is the
 ``__swizzled_vec__`` type, in which case the return type is the
 corresponding ``vec``.
 
-.. rubric:: Overload 2
+``ctz``
+=======
 
 ::
 
