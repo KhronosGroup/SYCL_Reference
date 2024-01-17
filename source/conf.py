@@ -380,6 +380,9 @@ prolog_template = string.Template(
         "Section 4.11.13.1",
         "#sec:kernel.query",
     )
+    + make_ref(
+        "SYCL_SPEC_MATH_FUNCTIONS", "Section 4.17.4", "#_math_functions"
+    )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
 .. |true| replace:: ``true``
