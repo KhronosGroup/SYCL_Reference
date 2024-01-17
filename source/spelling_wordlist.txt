@@ -80,3 +80,6 @@ enqueue
 Enqueues
 prefetch
 NaN
+supernormal
+significand
+representable
