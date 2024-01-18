@@ -417,7 +417,7 @@ Constraints: Available only if ``NonScalar`` is ``marray``, ``vec``,
 or the ``__swizzled_vec__`` type and is a generic integer type as
 defined above.
 
-Returns: y if ``x[i] < y`` otherwise ``x[i]`` for each element of ``x``.
+Returns: ``y`` if ``x[i] < y`` otherwise ``x[i]`` for each element of ``x``.
 
 The return type is ``NonScalar`` unless NonScalar is the
 ``__swizzled_vec__`` type, in which case the return type is
@@ -569,6 +569,8 @@ is the corresponding ``vec``.
 ``upsample``
 ============
 
+.. rubric:: Overload 1
+
 ::
 
   template<typename UInt8Bit1, typename UInt8Bit2>
@@ -595,6 +597,8 @@ inputs are ``marray``, the return type is ``marray`` with element type
 ``uint16_t`` and the same number of elements as the inputs. Otherwise,
 the return type is ``vec`` with element type ``uint16_t`` and the same
 number of elements as the inputs.
+
+.. rubric:: Overload 2
 
 ::
 
@@ -625,6 +629,8 @@ type ``int16_t`` and the same number of elements as the inputs.
 Otherwise, the return type is ``vec`` with element type
 ``int16_t`` and the same number of elements as the inputs.
 
+.. rubric:: Overload 3
+
 ::
 
   template<typename UInt16Bit1, typename UInt16Bit2>
@@ -652,6 +658,8 @@ When the inputs are ``marray``, the return type is
 of elements as the inputs. Otherwise, the return type is
 ``vec`` with element type ``uint32_t`` and the same number
 of elements as the inputs.
+
+.. rubric:: Overload 4
 
 ::
 
@@ -683,6 +691,8 @@ number of elements as the inputs. Otherwise, the return
 type is ``vec`` with element type ``int32_t`` and the
 same number of elements as the inputs.
 
+.. rubric:: Overload 5
+
 ::
 
   template<typename UInt32Bit1, typename UInt32Bit2>
@@ -709,6 +719,8 @@ When the inputs are ``marray``, the return type is
 ``marray`` with element type ``uint64_t`` and the same number of
 elements as the inputs. Otherwise, the return type is ``vec`` with
 element type ``uint64_t`` and the same number of elements as the inputs.
+
+.. rubric:: Overload 6
 
 ::
 
