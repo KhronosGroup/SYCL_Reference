@@ -355,7 +355,7 @@ See `queue-example-2`_.
   event memcpy(void* dest, const void* src, size_t numBytes,
              const std::vector<event>& depEvents);
 
-Set memory allocated with :ref:`malloc_device`.
+Set memory allocated with :ref:`usm_allocations`.
 
 .. rubric:: Example
 
@@ -389,7 +389,7 @@ See :ref:`event-elapsed-time-example<event-elapsed-time>`.
   event memset(void* ptr, int value, size_t numBytes,
              const std::vector<event>& depEvents);
 
-Set memory allocated with :ref:`malloc_device`. For usage, see
+Set memory allocated with :ref:`usm_allocations`. For usage, see
 :ref:`event-elapsed-time`.
 
 .. _queue-fill:
@@ -408,7 +408,7 @@ Set memory allocated with :ref:`malloc_device`. For usage, see
   event fill(void* ptr, const T& pattern, size_t count,
            const std::vector<event>& depEvents);
 
-Set memory allocated with :ref:`malloc_device`.
+Set memory allocated with :ref:`usm_allocations`.
 
 ``prefetch``
 ============

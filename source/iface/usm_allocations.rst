@@ -2,20 +2,14 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. temp ref
-.. _malloc_device:
+.. _usm_allocations:
 
 ***************
 USM allocations
 ***************
 
-.. _usm_allocations:
-
-.. rst-class:: api-class
-
-
 The USM offers a range of allocation functions, each designed to
-accommodate potential future extensions by accepting a ``property_list``
+accommodate potential future extensions by accepting a ``sycl::property_list``
 parameter. It's important to note that the core SYCL specification
 currently lacks any specific definitions for USM allocation properties.
 Some of the allocation functions support explicit alignment parameters,
@@ -31,13 +25,13 @@ C++ allocator interface
 
 .. _allocator_interface:
 
-SYCL defines an allocator class named ``usm_allocator`` that satisfies
-the C++ named requirement ``Allocator``. The ``AllocKind`` template parameter
-can be either ``usm::alloc::host`` or
-``usm::alloc::shared``, causing the allocator to make
+SYCL defines an allocator class named ``sycl::usm_allocator`` that
+satisfies the C++ named requirement ``Allocator``. The ``AllocKind``
+template parameter can be either ``sycl::usm::alloc::host`` or
+``sycl::usm::alloc::shared``, causing the allocator to make
 either host USM allocations or shared USM allocations.
 
-The ``usm_allocator`` class has a template argument ``Alignment``,
+The ``sycl::usm_allocator`` class has a template argument ``Alignment``,
 which specifies the minimum alignment for memory that it allocates.
 This alignment is used even if the allocator is rebound to a different
 type. Memory allocated by this allocator is suitably aligned for objects
@@ -51,49 +45,51 @@ of its underlying ``value_type`` or at the alignment specified by
 ::
 
    template <typename T, sycl::usm::alloc AllocKind, size_t Alignment = 0>
-
    class usm_allocator;
 
 .. rubric:: Template parameters
 
 =============  ===
-``T``          Type of allocated element
-``AllocKind``  Type of allocation, see `usm-alloc`
-``Alignment``  Alignment of the allocation
+``T``          Type of allocated element.
+``AllocKind``  Type of allocation.
+``Alignment``  Alignment of the allocation.
 =============  ===
 
-There is no specialization for ``usm::alloc::device`` because an ``Allocator``
-is required to allocate memory that is accessible on the host.
+There is no specialization for ``sycl::usm::alloc::device`` because an
+``Allocator`` is required to allocate memory that is accessible on the host.
 
 (constructors)
 ==============
 
 ::
 
-  usm_allocator(const context& syclContext, const device& syclDevice,
-              const property_list& propList = {});
+  usm_allocator(const sycl::context& syclContext,
+                const sycl::device& syclDevice,
+                const sycl::property_list& propList = {});
 
-  usm_allocator(const queue& syclQueue, const property_list& propList = {});
+  usm_allocator(const sycl::queue& syclQueue,
+                const sycl::property_list& propList = {});
 
-Constructs a ``usm_allocator`` instance that allocates USM for the provided
-context and device presented with first constructor.
-The second constructor present a simplified form where ``syclQueue`` provides
-the ``device`` and ``context``.
+Constructs a ``sycl::usm_allocator`` instance that allocates USM for
+the provided context and device presented with first constructor.
+The second constructor present a simplified form where ``syclQueue``
+provides the :ref:`device` and :ref:`context`.
 
 .. rubric:: Exceptions
 
-``errc::invalid``
-  If ``syclContext`` does not encapsulate the SYCL ``device`` returned
+``sycl::errc::invalid``
+  If ``syclContext`` does not encapsulate the ``sycl::device`` returned
   by ``deviceSelector``.
 
-``errc::feature_not_supported``
-  If ``AllocKind`` is ``usm::alloc::host``, the constructors throws a synchronous
-  ``exception`` with this error code if no device in ``syclContext`` has
-  ``aspect::usm_host_allocations``. The ``syclDevice`` is ignored for this allocation kind.
+``sycl::errc::feature_not_supported``
+  If ``AllocKind`` is ``sycl::usm::alloc::host``, the constructors throws a synchronous
+  ``sycl::exception`` with this error code if no device in ``syclContext`` has
+  ``sycl::aspect::usm_host_allocations``. The ``syclDevice`` is ignored for this
+  allocation kind.
 
-  If ``AllocKind`` is ``usm::alloc::shared``, the constructors throws a synchronous
-  ``exception`` with this error code if the ``syclDevice``
-  does not have ``aspect::usm_shared_allocations``.
+  If ``AllocKind`` is ``sycl::usm::alloc::shared``, the constructors throws a synchronous
+  ``sycl::exception`` with this error code if the ``syclDevice``
+  does not have ``sycl::aspect::usm_shared_allocations``.
 
 .. seealso:: `C++ Allocator <https://en.cppreference.com/w/cpp/named_req/Allocator>`__
 
@@ -110,52 +106,55 @@ Allocation functions
 
 ::
 
-   void* sycl::malloc_device(size_t numBytes, const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+   void* sycl::malloc_device(size_t numBytes,
+                             const sycl::device& syclDevice,
+                             const sycl::context& syclContext,
+                             const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc_device(size_t count, const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+   T* sycl::malloc_device(size_t count,
+                          const sycl::device& syclDevice,
+                          const sycl::context& syclContext,
+                          const sycl::property_list& propList = {});
 
-   void* sycl::malloc_device(size_t numBytes, const queue& syclQueue,
-                          const property_list& propList = {});
+   void* sycl::malloc_device(size_t numBytes,
+                             const sycl::queue& syclQueue,
+                             const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc_device(size_t count, const queue& syclQueue,
-                          const property_list& propList = {});
+   T* sycl::malloc_device(size_t count, const sycl::queue& syclQueue,
+                          const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc_device(size_t alignment, size_t numBytes,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+                                    const sycl::device& syclDevice,
+                                    const sycl::context& syclContext,
+                                    const sycl::property_list& propList = {});
 
    template <typename T>
    T* sycl::aligned_alloc_device(size_t alignment, size_t count,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+                                 const sycl::device& syclDevice,
+                                 const sycl::context& syclContext,
+                                 const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc_device(size_t alignment, size_t numBytes,
-                          const queue& syclQueue,
-                          const property_list& propList = {});
+                                    const sycl::queue& syclQueue,
+                                    const sycl::property_list& propList = {});
 
    template <typename T>
    T* sycl::aligned_alloc_device(size_t alignment, size_t count,
-                          const queue& syclQueue,
-                          const property_list& propList = {})
+                                 const sycl::queue& syclQueue,
+                                 const sycl::property_list& propList = {})
 
 .. rubric:: Parameters
 
 ==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
+``alignment``       Alignment of allocated data.
+``numBytes``        Allocation size in bytes.
+``count``           Number of elements.
+``syclDevice``      See :ref:`device`.
+``syclQueue``       See :ref:`queue`.
+``syclContext``     See :ref:`context`.
+``propList``        Optional property list.
 ==================  ===
 
 On successful USM device allocation, these functions return a pointer to
@@ -170,7 +169,7 @@ The value returned is unspecified in this case, and the returned pointer
 may not be used to access storage. If this pointer is not null, it must be
 passed to ``sycl::free`` to avoid a memory leak.
 
-See :ref:`event-elapsed-time` for usage.
+See :ref:`Events exapmle 1 <event-elapsed-time>` for usage.
 
 
 =====================
@@ -179,48 +178,52 @@ See :ref:`event-elapsed-time` for usage.
 
 ::
 
-   void* sycl::malloc_host(size_t numBytes, const context& syclContext,
-                        const property_list& propList = {});
+   void* sycl::malloc_host(size_t numBytes,
+                           const sycl::context& syclContext,
+                           const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc_host(size_t count, const context& syclContext,
-                        const property_list& propList = {});
+   T* sycl::malloc_host(size_t count,
+                        const sycl::context& syclContext,
+                        const sycl::property_list& propList = {});
 
-   void* sycl::malloc_host(size_t numBytes, const queue& syclQueue,
-                        const property_list& propList = {});
+   void* sycl::malloc_host(size_t numBytes,
+                           const sycl::queue& syclQueue,
+                           const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc_host(size_t count, const queue& syclQueue,
-                        const property_list& propList = {});
+   T* sycl::malloc_host(size_t count,
+                        const sycl::queue& syclQueue,
+                        const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc_host(size_t alignment, size_t numBytes,
-                        const context& syclContext,
-                        const property_list& propList = {});
+                                  const sycl::context& syclContext,
+                                  const sycl::property_list& propList = {});
 
    template <typename T>
    T* sycl::aligned_alloc_host(size_t alignment, size_t count,
-                        const context& syclContext,
-                        const property_list& propList = {});
+                               const sycl::context& syclContext,
+                               const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc_host(size_t alignment, size_t numBytes,
-                        const queue& syclQueue,
-                        const property_list& propList = {});
+                                  const sycl::queue& syclQueue,
+                                  const sycl::property_list& propList = {});
 
    template <typename T>
    T* sycl::aligned_alloc_host(size_t alignment, size_t count,
-                        const queue& syclQueue,
-                        const property_list& propList = {});
+                               const sycl::queue& syclQueue,
+                               const sycl::property_list& propList = {});
 
 .. rubric:: Parameters
 
 ==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
+``alignment``       Alignment of allocated data.
+``numBytes``        Allocation size in bytes.
+``count``           Number of elements.
+``syclDevice``      See :ref:`device`.
+``syclQueue``       See :ref:`queue`.
+``syclContext``     See :ref:`context`.
+``propList``        Optional property list.
 ==================  ===
 
 On successful USM host allocation, these functions return a pointer
@@ -243,52 +246,56 @@ See :ref:`usm-implicit-data-movement` for usage.
 
 ::
 
-   void* sycl::malloc_shared(size_t numBytes, const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+   void* sycl::malloc_shared(size_t numBytes,
+                             const sycl::device& syclDevice,
+                             const sycl::context& syclContext,
+                             const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc_shared(size_t count, const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+   T* sycl::malloc_shared(size_t count,
+                          const sycl::device& syclDevice,
+                          const sycl::context& syclContext,
+                          const sycl::property_list& propList = {});
 
-   void* sycl::malloc_shared(size_t numBytes, const queue& syclQueue,
-                          const property_list& propList = {});
+   void* sycl::malloc_shared(size_t numBytes,
+                             const sycl::queue& syclQueue,
+                             const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc_shared(size_t count, const queue& syclQueue,
-                          const property_list& propList = {});
+   T* sycl::malloc_shared(size_t count,
+                          const sycl::queue& syclQueue,
+                          const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc_shared(size_t alignment, size_t numBytes,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+                                    const sycl::device& syclDevice,
+                                    const sycl::context& syclContext,
+                                    const sycl::property_list& propList = {});
 
    template <typename T>
    T* sycl::aligned_alloc_shared(size_t alignment, size_t count,
-                          const device& syclDevice,
-                          const context& syclContext,
-                          const property_list& propList = {});
+                                 const sycl::device& syclDevice,
+                                 const sycl::context& syclContext,
+                                 const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc_shared(size_t alignment, size_t numBytes,
-                          const queue& syclQueue,
-                          const property_list& propList = {});
+                                    const sycl::queue& syclQueue,
+                                    const sycl::property_list& propList = {});
 
    template <typename T>
    T* sycl::aligned_alloc_shared(size_t alignment, size_t count,
-                          const queue& syclQueue,
-                          const property_list& propList = {});
+                                 const sycl::queue& syclQueue,
+                                 const sycl::property_list& propList = {});
 
 .. rubric:: Parameters
 
 ==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``propList``
+``alignment``       Alignment of allocated data.
+``numBytes``        Allocation size in bytes.
+``count``           Number of elements.
+``syclDevice``      See :ref:`device`.
+``syclQueue``       See :ref:`queue`.
+``syclContext``     See :ref:`context`.
+``propList``        Optional property list.
 ==================  ===
 
 On successful USM shared allocation, these functions return a pointer to the
@@ -310,14 +317,14 @@ Parameterized allocation functions
 ==================================
 
 The functions below take a ``kind`` parameter that specifies the type of
-USM to allocate. When ``kind`` is ``usm::alloc::device``, then the
-allocation device must have ``aspect::usm_device_allocations``.
-When kind is ``usm::alloc::host``, at least one device in the allocation
-context must have ``aspect::usm_host_allocations``. When ``kind`` is
-``usm::alloc::shared``, the allocation device must have
-``aspect::usm_shared_allocations``. If these requirements are violated,
-the allocation function throws a synchronous ``exception`` with the
-``errc::feature_not_supported`` error code.
+USM to allocate. When ``kind`` is ``sycl::usm::alloc::device``, then the
+allocation device must have ``sycl::aspect::usm_device_allocations``.
+When kind is ``sycl::usm::alloc::host``, at least one device in the allocation
+context must have ``sycl::aspect::usm_host_allocations``. When ``kind`` is
+``sycl::usm::alloc::shared``, the allocation device must have
+``sycl::aspect::usm_shared_allocations``. If these requirements are violated,
+the allocation function throws a synchronous ``sycl::exception`` with the
+``sycl::errc::feature_not_supported`` error code.
 
 ================
 ``sycl::malloc``
@@ -325,38 +332,53 @@ the allocation function throws a synchronous ``exception`` with the
 
 ::
 
-   void* sycl::malloc(size_t numBytes, const device& syclDevice,
-                   const context& syclContext, usm::alloc kind,
-                   const property_list& propList = {});
+   void* sycl::malloc(size_t numBytes,
+                      const sycl::device& syclDevice,
+                      const sycl::context& syclContext,
+                      sycl::usm::alloc kind,
+                      const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc(size_t count, const device& syclDevice,
-                   const context& syclContext, usm::alloc kind,
-                   const property_list& propList = {});
+   T* sycl::malloc(size_t count,
+                   const sycl::device& syclDevice,
+                   const sycl::context& syclContext,
+                   sycl::usm::alloc kind,
+                   const sycl::property_list& propList = {});
 
-   void* sycl::malloc(size_t numBytes, const queue& syclQueue, usm::alloc kind,
-                   const property_list& propList = {});
+   void* sycl::malloc(size_t numBytes,
+                      const sycl::queue& syclQueue,
+                      sycl::usm::alloc kind,
+                      const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::malloc(size_t count, const queue& syclQueue, usm::alloc kind,
-                   const property_list& propList = {});
+   T* sycl::malloc(size_t count,
+                   const sycl::queue& syclQueue,
+                   sycl::usm::alloc kind,
+                   const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc(size_t alignment, size_t numBytes,
-                    const device& syclDevice, const context& syclContext,
-                    usm::alloc kind, const property_list& propList = {});
+                             const sycl::device& syclDevice,
+                             const sycl::context& syclContext,
+                             sycl::usm::alloc kind,
+                             const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::aligned_alloc(size_t alignment, size_t count, const device& syclDevice,
-                    const context& syclContext, usm::alloc kind,
-                    const property_list& propList = {});
+   T* sycl::aligned_alloc(size_t alignment, size_t count,
+                          const sycl::device& syclDevice,
+                          const sycl::context& syclContext,
+                          sycl::usm::alloc kind,
+                          const sycl::property_list& propList = {});
 
    void* sycl::aligned_alloc(size_t alignment, size_t numBytes,
-                    const queue& syclQueue, usm::alloc kind,
-                    const property_list& propList = {});
+                             const sycl::queue& syclQueue,
+                             sycl::usm::alloc kind,
+                             const sycl::property_list& propList = {});
 
    template <typename T>
-   T* sycl::aligned_alloc(size_t alignment, size_t count, const queue& syclQueue,
-                    usm::alloc kind, const property_list& propList = {});
+   T* sycl::aligned_alloc(size_t alignment, size_t count,
+                          const sycl::queue& syclQueue,
+                          sycl::usm::alloc kind,
+                          const sycl::property_list& propList = {});
 
 
 On successful USM shared allocation, these functions return a pointer to the
@@ -373,14 +395,14 @@ passed to ``sycl::free`` to avoid a memory leak.
 .. rubric:: Parameters
 
 ==================  ===
-``alignment``       alignment of allocated data
-``numBytes``        allocation size in bytes
-``count``           number of elements
-``syclDevice``      See :ref:`device`
-``syclQueue``       See :ref:`queue`
-``syclContext``     See :ref:`context`
-``kind``            See `usm-alloc`
-``propList``
+``alignment``       Alignment of allocated data.
+``numBytes``        Allocation size in bytes.
+``count``           Number of elements.
+``syclDevice``      See :ref:`device`.
+``syclQueue``       See :ref:`queue`.
+``syclContext``     See :ref:`context`.
+``kind``            Kind of USM allocation.
+``propList``        Optional property list.
 ==================  ===
 
 =============================
@@ -393,13 +415,13 @@ Memory deallocation functions
 
 ::
 
-   void sycl::free(void* ptr, const context& syclContext);
+   void sycl::free(void* ptr, const sycl::context& syclContext);
 
-   void sycl::free(void* ptr, const queue& syclQueue);
+   void sycl::free(void* ptr, const sycl::queue& syclQueue);
 
 Frees an allocation. The memory pointed to by ``ptr`` must have been
 allocated using one of the USM allocation routines. ``syclContext``
-must be the same ``context`` that was used to allocate the memory.
+must be the same ``sycl::context`` that was used to allocate the memory.
 The memory is freed without waiting for commands operating on
 it to be completed. If commands that use this memory are
 in-progress or are enqueued the behavior is undefined.
