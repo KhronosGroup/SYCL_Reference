@@ -168,7 +168,7 @@ The value returned is unspecified in this case, and the returned pointer
 may not be used to access storage. If this pointer is not null, it must be
 passed to ``sycl::free`` to avoid a memory leak.
 
-See :ref:`Events exapmle 1 <event-elapsed-time>` for usage.
+See :ref:`Events example 1 <event-elapsed-time>` for usage.
 
 
 ``sycl::malloc_host``

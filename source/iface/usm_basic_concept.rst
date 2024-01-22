@@ -164,7 +164,7 @@ device can be queried through ``sycl::aspect::usm_device_allocations``.
 
 The member functions to copy and initialize data are found in
 :ref:`sycl::queue shortcut functions <queue_shortcut>` and
-:ref:`sycl::handler explicit memory operations <hanlder_expl_mem_ops>`,
+:ref:`sycl::handler explicit memory operations <handler_expl_mem_ops>`,
 and these functions may be used on device allocations if a device
 supports ``sycl::aspect::usm_device_allocations``.
 
@@ -229,12 +229,12 @@ shared allocations can be queried through the aspect
    allocations, then ``prefetch`` operations may be overlapped with
    kernel execution. More about ``prefetch`` is found in
    :ref:`sycl::queue shortcut functions <queue_shortcut>` and
-   :ref:`sycl::handler explicit memory operations <hanlder_expl_mem_ops>`,
+   :ref:`sycl::handler explicit memory operations <handler_expl_mem_ops>`,
 2. Users also may use the ``mem_advise`` member function to
    annotate shared allocations with ``advice``. Valid ``advice`` is defined
    by the device and its associated backend.
    See :ref:`sycl::queue shortcut functions <queue_shortcut>`
-   and :ref:`sycl::handler explicit memory operations <hanlder_expl_mem_ops>`,
+   and :ref:`sycl::handler explicit memory operations <handler_expl_mem_ops>`,
    for more information.
 
 .. rubric:: Example
