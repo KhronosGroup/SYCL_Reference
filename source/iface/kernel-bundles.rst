@@ -229,8 +229,10 @@ kernel identifiers are equality comparable. Two ``kernel_id``
 objects compare equal if and only if they refer to the same
 application kernel or to the same device built-in kernel.
 
-``kernel_id``
-=============
+.. _kernel_id:
+
+``sycl::kernel_id``
+===================
 
 ::
 

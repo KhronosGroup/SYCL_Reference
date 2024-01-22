@@ -44,6 +44,8 @@ type. Memory allocated by this allocator is suitably aligned for objects
 of its underlying ``value_type`` or at the alignment specified by
 ``Alignment``, whichever is greater.
 
+.. _usm_allocator:
+
 =======================
 ``sycl::usm_allocator``
 =======================
