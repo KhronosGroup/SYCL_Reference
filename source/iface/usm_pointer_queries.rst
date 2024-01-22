@@ -26,8 +26,8 @@ type of a USM allocation and, if applicable, the
 Pointer query functions
 =======================
 
-``get_pointer_type``
-====================
+``sycl::get_pointer_type``
+==========================
 
 ::
 
@@ -40,8 +40,8 @@ Returns ``sycl::usm::alloc::unknown`` if ``ptr`` does
 not point within a valid USM allocation from ``syclContext``.
 
 
-``get_pointer_device``
-======================
+``sycl::get_pointer_device``
+============================
 
 ::
 
@@ -58,6 +58,6 @@ context ``syclContext``, returns the first device in ``syclContext``.
 
 .. rubric:: Exceptions
 
-``errc::invalid``
+``sycl::errc::invalid``
   If ``ptr`` does not point within a valid
   USM allocation from ``syclContext``.
