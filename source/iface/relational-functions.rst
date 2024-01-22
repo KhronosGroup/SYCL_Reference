@@ -896,7 +896,7 @@ Returns the value ``true`` only if the sign bit of ``x`` is set.
 ::
 
   template<typename NonScalar>
-  /*return-type*/ isnormal(NonScalar x);
+  /*return-type*/ signbit(NonScalar x);
 
 Available only if all of the following conditions are met:
 
