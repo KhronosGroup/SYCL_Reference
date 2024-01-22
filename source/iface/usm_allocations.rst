@@ -100,7 +100,6 @@ provides the :ref:`device` and :ref:`context`.
 Allocation functions
 ====================
 
-=======================
 ``sycl::malloc_device``
 =======================
 
@@ -172,7 +171,6 @@ passed to ``sycl::free`` to avoid a memory leak.
 See :ref:`Events exapmle 1 <event-elapsed-time>` for usage.
 
 
-=====================
 ``sycl::malloc_host``
 =====================
 
@@ -240,7 +238,6 @@ passed to ``sycl::free`` to avoid a memory leak.
 
 See :ref:`usm-implicit-data-movement` for usage.
 
-=======================
 ``sycl::malloc_shared``
 =======================
 
@@ -326,7 +323,6 @@ context must have ``sycl::aspect::usm_host_allocations``. When ``kind`` is
 the allocation function throws a synchronous ``sycl::exception`` with the
 ``sycl::errc::feature_not_supported`` error code.
 
-================
 ``sycl::malloc``
 ================
 
@@ -405,7 +401,6 @@ passed to ``sycl::free`` to avoid a memory leak.
 ``propList``        Optional property list.
 ==================  ===
 
-=============================
 Memory deallocation functions
 =============================
 
