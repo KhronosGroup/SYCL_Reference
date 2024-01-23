@@ -9,7 +9,7 @@ Integer functions
 *****************
 
 The function descriptions in this section use the term
-`generic integer type` to represent the following types:
+``generic integer type`` to represent the following types:
 
 * ``char``
 
@@ -102,7 +102,7 @@ available in the ``sycl`` namespace in both host and device code.
   template<typename GenInt>
   /*return-type*/ abs(GenInt x);
 
-Constraints: Available only if ``GenInt`` is a generic integer type
+Constraints: Available only if ``GenInt`` is a `generic integer type`
 as defined above.
 
 Returns: When the input is a scalar, returns ``|x|``. Otherwise,
@@ -123,7 +123,7 @@ type is the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type,
 then ``GenInt2`` must be the same as ``GenInt1``; and
@@ -151,7 +151,7 @@ the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type,
 then ``GenInt2`` must be the same as ``GenInt1``; and
@@ -178,7 +178,7 @@ the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type,
 then ``GenInt2`` must be the same as ``GenInt1``; and
@@ -205,7 +205,7 @@ the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type,
 then ``GenInt2`` must be the same as ``GenInt1``; and
@@ -234,7 +234,7 @@ the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` and ``GenInt3`` must be the same as ``GenInt1``; and
@@ -267,7 +267,7 @@ the corresponding ``vec``.
                         NonScalar::value_type maxval);
 
 Constraints: Available only if ``NonScalar`` is ``marray``, ``vec``,
-or the ``__swizzled_vec__`` type and is a generic integer type as
+or the ``__swizzled_vec__`` type and is a `generic integer type` as
 defined above.
 
 Preconditions: The value of ``minval`` must be less than or equal to
@@ -330,7 +330,7 @@ is the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` and ``GenInt3`` must be the same as ``GenInt1``; and
@@ -358,7 +358,7 @@ corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` and ``GenInt3`` must be the same as ``GenInt1``; and
@@ -388,7 +388,7 @@ corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` must be the same as ``GenInt1``; and
@@ -414,7 +414,7 @@ the corresponding ``vec``.
   /*return-type*/ max(NonScalar x, NonScalar::value_type y);
 
 Constraints: Available only if ``NonScalar`` is ``marray``, ``vec``,
-or the ``__swizzled_vec__`` type and is a generic integer type as
+or the ``__swizzled_vec__`` type and is a `generic integer type` as
 defined above.
 
 Returns: ``y`` if ``x[i] < y`` otherwise ``x[i]`` for each element of ``x``.
@@ -435,7 +435,7 @@ the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` must be the same as ``GenInt1``; and
@@ -461,7 +461,7 @@ the corresponding ``vec``.
   /*return-type*/ min(NonScalar x, NonScalar::value_type y);
 
 Constraints: Available only if ``NonScalar`` is ``marray``, ``vec``,
-or the ``__swizzled_vec__`` type and is a generic integer type as
+or the ``__swizzled_vec__`` type and is a `generic integer type` as
 defined above.
 
 Returns: ``y`` if ``y < x[i]`` otherwise ``x[i]`` for each
@@ -481,7 +481,7 @@ the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` must be the same as ``GenInt1``; and
@@ -513,7 +513,7 @@ is the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` must be the same as ``GenInt1``; and
@@ -548,7 +548,7 @@ is the corresponding ``vec``.
 
 Constraints: Available only if all of the following conditions are met:
 
-``GenInt1`` is a generic integer type as defined above;
+``GenInt1`` is a `generic integer type` as defined above;
 
 If ``GenInt1`` is not ``vec`` or the ``__swizzled_vec__`` type, then
 ``GenInt2`` must be the same as ``GenInt1``; and
