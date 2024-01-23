@@ -26,8 +26,8 @@ and may have different behavior for the same SYCL object.
 
 SYCL application interoperability may be provided for :ref:`buffer`,
 :ref:`context`, :ref:`device`, :ref:`device_image`, :ref:`event`,
-:ref:`kernel`, :ref:`sycl::kernel_bundle <iface-kernel-bundle>`, 
-:ref:`platform`, :ref:`queue`, :ref:`sampled_image`, and 
+:ref:`kernel`, :ref:`sycl::kernel_bundle <iface-kernel-bundle>`,
+:ref:`platform`, :ref:`queue`, :ref:`sampled_image`, and
 :ref:`unsampled_image`.
 
 SYCL kernel function interoperability may be provided for
@@ -75,9 +75,9 @@ A specialization of ``sycl::backend_traits`` must be provided for each named
 SYCL backend enumerated in the enum class ``backend`` that is
 available at compile time.
 
-The type alias ``sycl::backend_input_t`` is provided to enable less verbose 
-access to the ``input_type`` type within ``sycl::backend_traits`` for a 
-specific SYCL object of type ``T``. The type alias ``sycl::backend_return_t`` 
+The type alias ``sycl::backend_input_t`` is provided to enable less verbose
+access to the ``input_type`` type within ``sycl::backend_traits`` for a
+specific SYCL object of type ``T``. The type alias ``sycl::backend_return_t``
 is provided to enable less verbose access to the ``return_type`` type within
 ``sycl::backend_traits`` for a specific SYCL object of type ``T``.
 
