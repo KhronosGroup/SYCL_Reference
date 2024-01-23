@@ -8,8 +8,6 @@
 Common By-value Semantics
 *************************
 
-.. Add sup_group ref after creating Data Access chapter structure
-
 Each of the following SYCL runtime classes:
 :ref:`id`, :ref:`range`, :ref:`item`, :ref:`nd_item`,
 :ref:`h_item`, :ref:`group`, :ref:`sub_group`, and :ref:`nd_range`

@@ -16,4 +16,4 @@ In this section, we define methods that are common to multiple classes.
    iface/common-byval
    iface/common-reference
    iface/properties
-   iface/param_traits
+   iface/backend_interop

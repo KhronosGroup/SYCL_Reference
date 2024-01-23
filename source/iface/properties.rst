@@ -13,7 +13,7 @@ Each of the following SYCL runtime classes: :ref:`command-accessor`,
 :ref:`host_unsampled_image_accessor`, :ref:`context`,
 :ref:`local_accessor`, :ref:`queue`, :ref:`sampled_image`,
 :ref:`sampled_image_accessor`, :ref:`stream`, :ref:`unsampled_image`,
-:ref:`unsampled_image_accessor` and ``sycl::usm_allocator``
+:ref:`unsampled_image_accessor` and :ref:`usm_allocator`
 provide an optional parameter in each of their constructors
 to provide a ``sycl::property_list`` which contains zero or more properties.
 Each of those properties augments the semantics of the class with
@@ -25,7 +25,7 @@ Using properties does not affect the
 type of the object, thus, does not prevent the usage of SYCL objects
 in containers.
 
-See `buffer-properties-example`_.
+See :ref:`buffer-properties-example`.
 
 .. seealso:: |SYCL_BUFF_PROP|
 
@@ -35,32 +35,33 @@ others will require an argument on construction. A property may be applicable
 to more than one class, however some properties may not be compatible
 with each other.
 
-.. _property_list`:
+.. _property_list:
 
+=======================
 ``sycl::property_list``
 =======================
 
 Each of the runtime classes mentioned above must provide a common interface of
 member functions in order to fulfill the property interface requirements.
 
-A synopsis of the common properties interface, the SYCL ``property_list``
+A synopsis of the common properties interface, the ``sycl::property_list``
 class and the SYCL property classes is provided below.
 
 ::
 
-
   namespace sycl {
 
-  template <typename Property> struct is_property;
+  template <typename Property>
+  struct is_property;
 
   template <typename Property>
   inline constexpr bool is_property_v = is_property<Property>::value;
 
-  template <typename Property, typename SyclObject> struct is_property_of;
+  template <typename Property, typename SyclObject>
+  struct is_property_of;
 
   template <typename Property, typename SyclObject>
-  inline constexpr bool is_property_of_v =
-      is_property_of<Property, SyclObject>::value;
+  inline constexpr bool is_property_of_v = is_property_of<Property, SyclObject>::value;
 
   class T {
     ...
@@ -68,81 +69,90 @@ class and the SYCL property classes is provided below.
     template <typename Property>
     bool has_property() const noexcept;
 
-    template <typename Property> Property get_property() const;
+    template <typename Property>
+    Property get_property() const;
 
     ...
   };
 
   class property_list {
    public:
-    template <typename... Properties> property_list(Properties... props);
+    template <typename... Properties>
+    property_list(Properties... props);
   };
+
   } // namespace sycl
 
-(constructor) of `sycl::property_list`
-======================================
+(constructor)
+=============
 
 ::
 
   template <typename... PropertyN> property_list(PropertyN... props)
 
-Available only when: ``is_property<property>::value`` evaluates to
+Available only when: ``sycl::is_property<property>::value`` evaluates to
 ``true`` where ``property`` is each property in ``PropertyN``.
 
-Construct a SYCL ``property_list`` with zero or more properties.
+Construct a ``sycl::property_list`` with zero or more properties.
 
-.. _traits_for_properties :
+.. _traits_for_properties:
 
+=====================
 Traits for properties
 =====================
 
-``is_property``
-===============
+``sycl::is_property``
+=====================
 
 ::
 
-  template <typename Property> struct is_property
+  template <typename Property>
+  struct is_property;
 
-An explicit specialization of ``is_property`` that inherits from
+An explicit specialization of ``sycl::is_property`` that inherits from
 ``std::true_type`` must be provided for each property, where
 ``Property`` is the class defining the property. This includes both
 standard properties described in this specification and any additional
 non-standard properties defined by an implementation. All other
-specializations of ``is_property`` must inherit from ``std::false_type``.
+specializations of ``sycl::is_property`` must inherit from ``std::false_type``.
 
-``is_property_v``
-=================
-
-::
-
-  template <typename Property> inline constexpr bool is_property_v;
-
-Variable containing value of ``is_property<Property>``.
-
-``is_property_of``
-==================
+``sycl::is_property_v``
+=======================
 
 ::
 
-  template <typename Property, SyclObject> struct is_property_of
+  template <typename Property>
+  inline constexpr bool is_property_v;
 
-An explicit specialization of ``is_property_of`` that inherits from
+Variable containing value of ``sycl::is_property<Property>``.
+
+``sycl::is_property_of``
+========================
+
+::
+
+  template <typename Property, SyclObject>
+  struct is_property_of;
+
+An explicit specialization of ``sycl::is_property_of`` that inherits from
 ``std::true_type`` must be provided for each property that can be used
 in constructing a given SYCL class, where ``Property`` is the class defining
 the property and ``SyclObject`` is the SYCL class. This includes both standard
 properties described in this specification and any additional non-standard
 properties defined by an implementation. All other specializations of
-``is_property_of`` must inherit from ``std::false_type``.
+``sycl::is_property_of`` must inherit from ``std::false_type``.
 
-``is_property_of_v``
-====================
+``sycl::is_property_of_v``
+==========================
 
 ::
 
-  template <typename Property, SyclObject> inline constexpr bool is_property_of_v;
+  template <typename Property, SyclObject>
+  inline constexpr bool is_property_of_v;
 
-Variable containing value of ``is_property_of<Property, SyclObject>``.
+Variable containing value of ``sycl::is_property_of<Property, SyclObject>``.
 
+======================================================
 Member functions of the SYCL common property interface
 ======================================================
 
@@ -151,7 +161,8 @@ Member functions of the SYCL common property interface
 
 ::
 
-  template <typename Property> bool has_property() const noexcept
+  template <typename Property>
+  bool has_property() const noexcept;
 
 Returns true if ``T`` was constructed with the property specified
 by ``Property``. Returns false if it was not.
@@ -161,32 +172,34 @@ by ``Property``. Returns false if it was not.
 
 ::
 
-  template <typename Property> Property get_property() const
+  template <typename Property>
+  Property get_property() const;
 
 Returns a copy of the property of type ``Property`` that ``T`` was
-constructed with. Must throw an ``exception`` with the
-``errc::invalid`` error code if ``T`` was not constructed
+constructed with. Must throw an ``sycl::exception`` with the
+``sycl::errc::invalid`` error code if ``T`` was not constructed
 with the ``Property`` property.
 
-.. _ buffer-properties-example:
+.. _buffer-properties-example:
 
-buffer-properties-example
-=========================
+==================================
+Example of buffer properties usage
+==================================
 
 ::
 
   {
-    context myContext;
+    sycl::context myContext;
 
-    std::vector<buffer<int, 1>> bufferList {
-      buffer<int, 1> { ptr, rng },
-      buffer<int, 1> { ptr, rng, property::use_host_ptr {} },
-      buffer<int, 1> { ptr, rng, property::context_bound { myContext } }
+    std::vector<sycl::buffer<int, 1>> bufferList {
+      sycl::buffer<int, 1> { ptr, rng },
+      sycl::buffer<int, 1> { ptr, rng, sycl::property::use_host_ptr {} },
+      sycl::buffer<int, 1> { ptr, rng, sycl::property::context_bound { myContext } }
     };
 
     for (auto& buf : bufferList) {
-      if (buf.has_property<property::context_bound>()) {
-        auto prop = buf.get_property<property::context_bound>();
+      if (buf.has_property<sycl::property::context_bound>()) {
+        auto prop = buf.get_property<sycl::property::context_bound>();
         assert(myContext == prop.get_context());
       }
     }
