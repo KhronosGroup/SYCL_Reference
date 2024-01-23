@@ -452,6 +452,8 @@ case the SYCL runtime will construct an instance of
 .. seealso:: :ref:`parallel_for_hierarchical`
 
 
+.. _handler_expl_mem_ops:
+
 Functions for explicit memory operations
 ========================================
 
