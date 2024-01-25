@@ -18,9 +18,14 @@ Contexts
 
   class context;
 
-The context class represents a SYCL context. A context represents
-the runtime data structures and state required by a SYCL backend
-API to interact with a group of devices associated with a platform.
+The ``sycl::context`` class represents a SYCL context. A context
+represents the runtime data structures and state required by a
+SYCL backend API to interact with a group of devices associated
+with a platform.
+
+The ``sycl::event`` class provides the
+:ref:`common reference semantics <common-reference>`.
+
 
 .. seealso:: |SYCL_SPEC_CONTEXT|
 
@@ -51,7 +56,7 @@ API to interact with a group of devices associated with a platform.
                  async_handler asyncHandler,
                  const property_list& propList = {});
 
-Construct a context.
+Construct a ``sycl::context``.
 
 The parameters to the constructor allow control of the devices and
 platforms associated with the context. The constructor uses the
@@ -67,16 +72,12 @@ or devices are supplied.
     - Called at specific times (see |SYCL_SPEC_ERROR_HANDLING|)  to report asynchronous SYCL
       exceptions for this context.
   * - ``dev``
-    - Constructed context contains device.
+    - Constructed ``sycl::context`` contains :ref:`device`.
   * - ``deviceList``
-    - Constructed context contains all devices in ``deviceList``,
-      which must all come from the same platform.
+    - Constructed ``sycl::context`` contains all devices in
+      ``deviceList``, which must all come from the same :ref:`platform`.
   * - ``plt``
-    - Constructed context contains all devices in platform ``plt``.
-
-
-.. todo:: Examples that combines the functions
-
+    - Constructed context contains all devices in :ref:`platform` ``plt``.
 
 ================
 Member functions
@@ -87,9 +88,10 @@ Member functions
 
 ::
 
-  backend get_backend() const noexcept;
+  sycl::backend get_backend() const noexcept;
 
-Returns a backend identifying the SYCL backend associated with this context.
+Returns a backend identifying the ``sycl::backend``
+associated with this ``sycl::context``.
 
 ``get_info``
 ============
@@ -99,10 +101,10 @@ Returns a backend identifying the SYCL backend associated with this context.
   template <typename Param>
   typename Param::return_type get_info() const;
 
-Queries this SYCL context for information requested by the template parameter
-``Param``. The type alias ``Param::return_type`` must be defined in accordance
-with the info parameters in `sycl::info::context`_ to facilitate returning the
-type associated with the ``Param`` parameter.
+Queries this ``sycl::context`` for information requested by the template
+parameter ``Param``. The type alias ``Param::return_type`` must be
+defined in accordance with the info parameters in `sycl::info::context`_
+to facilitate returning the type associated with the ``Param`` parameter.
 
 ``get_backend_info``
 ====================
@@ -112,34 +114,35 @@ type associated with the ``Param`` parameter.
   template <typename Param>
   typename Param::return_type get_backend_info() const;
 
-Queries this SYCL context for SYCL backend-specific information requested by
-the template parameter ``Param``. The type alias ``Param::return_type`` must
-be defined in accordance with the SYCL backend specification. Must throw an
-exception with the ``errc::backend_mismatch`` error code if the SYCL backend
-that corresponds with ``Param`` is different from the SYCL backend that is
-associated with this context.
+Queries this ``sycl::context`` for SYCL backend-specific information
+requested by the template parameter ``Param``. The type alias
+``Param::return_type`` must be defined in accordance with the SYCL
+backend specification. Must throw an exception with the
+``sycl::errc::backend_mismatch`` error code if the SYCL backend
+that corresponds with ``Param`` is different from the SYCL backend
+that is associated with this context.
 
 ``get_platform``
 ================
 
 ::
 
-  platform get_platform() const;
+  sycl::platform get_platform() const;
 
-Returns the SYCL platform that is associated with this SYCL context.
+Returns the ``sycl::platform`` that is associated with this ``sycl::context``.
 The value returned must be equal to that returned by
-``get_info<info::context::platform>()``.
+``get_info<sycl::info::context::platform>()``.
 
 ``get_devices``
 ===============
 
 ::
 
-  std::vector<device> get_devices() const;
+  std::vector<sycl::device> get_devices() const;
 
-Returns a std::vector containing all SYCL devices that are associated with
-this SYCL context. The value returned must be equal to that returned by
-``get_info<info::context::devices>()``.
+Returns a ``std::vector`` containing all SYCL devices that are associated with
+this ``sycl::context``. The value returned must be equal to that returned by
+``get_info<sycl::info::context::devices>()``.
 
 
 =======================
@@ -215,7 +218,7 @@ At a minimum, each context must support ``sycl::memory_order::relaxed``.
 .. rubric:: ``sycl::info::context::atomic_fence_order_capabilities``
 
 This query applies only to the capabilities of
-``atomic_fence`` when applied to memory that can be
+``sycl::atomic_fence`` when applied to memory that can be
 concurrently accessed by multiple devices in the context.
 
 If these capabilities are not uniform across all devices
@@ -223,7 +226,7 @@ in the context, the query reports only the capabilities
 that are common for all devices.
 
 Returns the set of memory orders supported by these
-``atomic_fence`` operations. When a context returns
+``sycl::atomic_fence`` operations. When a context returns
 a "stronger" memory order in this set, it must also
 return all "weaker" memory orders.
 (See |SYCL_SPEC_MEMORY_ORDERING| for a definition of
@@ -260,7 +263,7 @@ and ``sycl::memory_scope::work_group``.
 .. rubric:: ``sycl::info::context::atomic_memory_scope_capabilities``
 
 Returns the set of memory orderings supported by
-``atomic_fence`` on all devices in the context.
+``sycl::atomic_fence`` on all devices in the context.
 
 When a context returns a "wider" memory scope in this
 set, it must also return all "narrower" memory scopes.
@@ -280,9 +283,8 @@ At a minimum, each context must support
 ``sycl::property::context``
 ===========================
 
-The ``property_list`` constructor parameters are present for
-future extensibility.
-
+The ``sycl::property_list`` constructor parameters are
+present for future extensibility.
 
 .. _context-example:
 

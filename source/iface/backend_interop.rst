@@ -203,9 +203,9 @@ object does not match the target backend.
       const sycl::context& targetContext);
 
   template <sycl::backend Backend>
-  kernel make_kernel(const sycl::backend_input_t<Backend,
-                                                 sycl::kernel>& backendObject,
-                     const sycl::context& targetContext);
+  sycl::kernel make_kernel(const sycl::backend_input_t<Backend,
+                                                       sycl::kernel>& backendObject,
+                           const sycl::context& targetContext);
 
   } // namespace sycl
 

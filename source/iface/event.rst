@@ -19,7 +19,7 @@ Events
 
   class event;
 
-An ``event`` in SYCL is an object that represents the
+A ``sycl::event`` is an object that represents the
 status of an operation that is being executed by
 the SYCL runtime.
 
@@ -28,12 +28,12 @@ operation, the dependencies of a certain event can be
 used to keep track of multiple steps required to
 synchronize said operation.
 
-A SYCL event is returned by the submission of a command group.
+A ``sycl::event`` is returned by the submission of a command group.
 The dependencies of the event returned via the submission of
 the command group are the implementation-defined commands
 associated with the command group execution.
 
-The SYCL ``event`` class provides the
+The ``sycl::event``` class provides the
 :ref:`common reference semantics <common-reference>`.
 
 .. seealso:: |SYCL_SPEC_EVENT|
@@ -45,11 +45,11 @@ The SYCL ``event`` class provides the
 
   event();
 
-Constructs an ``event`` that is immediately ready.
+Constructs an ``sycl::event`` that is immediately ready.
 
-The ``event`` has no dependencies and no associated commands.
+The ``sycl::event`` has no dependencies and no associated commands.
 
-Waiting on this ``event`` will return immediately and querying
+Waiting on this ``sycl::event`` will return immediately and querying
 its status will return ``sycl::info::event_command_status::complete``.
 
 The ``sycl::event`` is constructed as though it was created
@@ -76,7 +76,7 @@ associated with this ``sycl::event``.
 
 ::
 
-  std::vector<event> get_wait_list();
+  std::vector<sycl::event> get_wait_list();
 
 Return the list of events that this event waits for in the dependence graph.
 
@@ -103,10 +103,11 @@ Wait for the event and the command associated with it to complete.
 Wait for the event and the command associated with it to complete.
 
 Any unconsumed asynchronous errors from the event's queue will be
-passed to the ``async_handler`` that is associated with the queue or
-with the queue's context. If neither the queue nor the context has
-a user defined ``async_handler``, then an implementation-defined
-default ``async_handler`` is called to handle any errors.
+passed to the ``sycl::async_handler`` that is associated with the
+queue or with the queue's context. If neither the queue nor the
+context has a user defined ``sycl::async_handler``, then an
+implementation-defined default ``sycl::async_handler`` is called
+to handle any errors.
 
 
 ``get_info``
@@ -118,7 +119,7 @@ default ``async_handler`` is called to handle any errors.
   typename Param::return_type get_info() const;
 
 
-Queries this SYCL ``event`` for information requested by the template
+Queries this ``sycl::event`` for information requested by the template
 parameter ``Param``.
 
 The type alias ``Param::return_type`` must be defined in accordance
@@ -133,7 +134,7 @@ facilitate returning the type associated with the ``Param`` parameter.
   template <typename Param>
   typename Param::return_type get_backend_info() const;
 
-Queries this SYCL ``event`` for SYCL backend-specific information requested
+Queries this ``sycl::event`` for SYCL backend-specific information requested
 by the template parameter ``Param``.
 
 The type alias ``Param::return_type`` must be defined in accordance
@@ -141,7 +142,7 @@ with the SYCL backend specification.
 
 .. rubric:: Exceptions
 
-``errc::backend_mismatch``
+``sycl::errc::backend_mismatch``
   If the SYCL backend that corresponds with ``Param`` is different from
   the SYCL backend that is associated with this event.
 
@@ -153,7 +154,7 @@ with the SYCL backend specification.
   template <typename Param>
   typename Param::return_type get_profiling_info() const;
 
-Queries this SYCL ``event`` for profiling information requested by the
+Queries this ``sycl::event`` for profiling information requested by the
 parameter ``Param``.
 
 If the requested profiling information is unavailable when
@@ -171,8 +172,8 @@ to facilitate returning the type associated with the ``Param`` parameter.
 
 .. rubric:: Exceptions
 
-``errc::invalid``
-  if the SYCL queue which submitted the command group this SYCL event
+``sycl::errc::invalid``
+  if the :ref:`queue` which submitted the command group this ``sycl::event``
   is associated with was not constructed with the
   ``sycl::property::queue::enable_profiling`` property.
 
@@ -190,7 +191,7 @@ Static member functions
 
 ::
 
-  static void wait(const std::vector<event>& eventList);
+  static void wait(const std::vector<sycl::event>& eventList);
 
 Synchronously wait on a list of events.
 
@@ -199,15 +200,16 @@ Synchronously wait on a list of events.
 
 ::
 
-  static void wait_and_throw(const std::vector<event>& eventList);
+  static void wait_and_throw(const std::vector<sycl::event>& eventList);
 
 Synchronously wait on a list of events.
 
 Any unconsumed asynchronous errors from the event's queue will be
-passed to the ``async_handler`` that is associated with the queue or
-with the queue's context. If neither the queue nor the context has
-a user defined ``async_handler``, then an implementation-defined
-default ``async_handler`` is called to handle any errors.
+passed to the ``sycl::async_handler`` that is associated with the
+queue or with the queue's context. If neither the queue nor the
+context has a user defined ``sycl::async_handler``, then an
+implementation-defined default ``sycl::async_handler`` is called
+to handle any errors.
 
 
 =====================================
