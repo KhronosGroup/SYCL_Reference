@@ -62,8 +62,8 @@ return type.
 Member functions
 ================
 
-``plus``
-========
+``sycl::plus``
+==============
 
 ::
 
@@ -71,8 +71,8 @@ Member functions
 
 Returns the sum of its arguments, equivalent to ``x + y``.
 
-``multiplies``
-==============
+``sycl::multiplies``
+====================
 
 ::
 
@@ -80,8 +80,8 @@ Returns the sum of its arguments, equivalent to ``x + y``.
 
 Returns the product of its arguments, equivalent to ``x * y``.
 
-``bit_and``
-===========
+``sycl::bit_and``
+=================
 
 ::
 
@@ -89,8 +89,8 @@ Returns the product of its arguments, equivalent to ``x * y``.
 
 Returns the bitwise AND of its arguments, equivalent to ``x & y``.
 
-``bit_or``
-==========
+``sycl::bit_or``
+================
 
 ::
 
@@ -98,8 +98,8 @@ Returns the bitwise AND of its arguments, equivalent to ``x & y``.
 
 Returns the bitwise OR of its arguments, equivalent to ``x | y``.
 
-``bit_xor``
-===========
+``sycl::bit_xor``
+=================
 
 ::
 
@@ -107,8 +107,8 @@ Returns the bitwise OR of its arguments, equivalent to ``x | y``.
 
 Returns the bitwise XOR of its arguments, equivalent to ``x ^ y``.
 
-``logical_and``
-===============
+``sycl::logical_and``
+=====================
 
 ::
 
@@ -116,8 +116,8 @@ Returns the bitwise XOR of its arguments, equivalent to ``x ^ y``.
 
 Returns the logical AND of its arguments, equivalent to ``x && y``.
 
-``logical_or``
-==============
+``sycl::logical_or``
+====================
 
 ::
 
@@ -125,8 +125,8 @@ Returns the logical AND of its arguments, equivalent to ``x && y``.
 
 Returns the logical OR of its arguments, equivalent to ``x || y``.
 
-``minimum``
-===========
+``sycl::minimum``
+=================
 
 ::
 
@@ -135,8 +135,8 @@ Returns the logical OR of its arguments, equivalent to ``x || y``.
 Returns the smaller value. Returns the first argument
 when the arguments are equivalent.
 
-``maximum``
-===========
+``sycl::maximum``
+=================
 
 ::
 
