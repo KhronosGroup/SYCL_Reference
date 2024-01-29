@@ -27,10 +27,12 @@ Using a group function inside of a kernel may introduce additional
 limits on the resources available to user code inside the same kernel.
 The behavior of these limits is implementation-defined, but must be
 reflected by calls to kernel querying functions
-(such as ``kernel::get_info``) as described in |SYCL_SPEC_QUERIES|.
+(such as ``sycl::kernel::get_info``) as described
+in |SYCL_SPEC_QUERIES|.
 
 It is undefined behavior for any group function to be invoked within
-a ``parallel_for_work_group`` or ``parallel_for_work_item`` context.
+a ``sycl::parallel_for_work_group``
+or ``sycl::parallel_for_work_item`` context.
 
 ====================
 ``Group type trait``
@@ -44,30 +46,32 @@ a ``parallel_for_work_group`` or ``parallel_for_work_item`` context.
   template <class T> inline constexpr bool is_group_v = is_group<T>::value;
   } // namespace sycl
 
-The ``is_group`` type trait is used to determine which types of groups are
-supported by group functions, and to control when group functions participate
-in overload resolution.
+The ``sycl::is_group`` type trait is used to determine which types
+of groups are supported by group functions, and to control when group
+functions participate in overload resolution.
 
-``is_group<T>`` inherits from ``std::true_type`` if T is the type of a standard
-SYCL group (``group`` or ``sub_group``) and it inherits from
-``std::false_type`` otherwise. A SYCL implementation may introduce additional
-specializations of ``is_group<T>`` for implementation-defined group types,
-if the interface of those types supports all member functions and static
-members common to the ``group`` and ``sub_group`` classes.
+``sycl::is_group<T>`` inherits from ``std::true_type`` if T is the type of
+a standard SYCL group (``sycl::group`` or ``sycl::sub_group``) and
+it inherits from ``std::false_type`` otherwise. A SYCL implementation may
+introduce additional specializations of ``sycl::is_group<T>`` for
+implementation-defined group types, if the interface of those types supports
+all member functions and static members common to the ``sycl::group``
+and ``sycl::sub_group`` classes.
 
-===================
-``group_broadcast``
-===================
+=========================
+``sycl::group_broadcast``
+=========================
 
-The ``group_broadcast`` function communicates a value held by
+The ``sycl::group_broadcast`` function communicates a value held by
 one work-item to all other work-items in the group.
 
 ::
 
-  template <typename Group, typename T> T group_broadcast(Group g, T x); // (1)
+  template <typename Group, typename T>
+  T sycl::group_broadcast(Group g, T x); // (1)
 
   template <typename Group, typename T>
-  T group_broadcast(Group g, T x, Group::linear_id_type local_linear_id); // (2)
+  T sycl::group_broadcast(Group g, T x, Group::linear_id_type local_linear_id); // (2)
 
   template <typename Group, typename T>
   T group_broadcast(Group g, T x, Group::id_type local_id); // (3)
@@ -82,7 +86,7 @@ linear id within group ``g``.
 is true and ``T`` is a trivially copyable type.
 
 Preconditions: ``local_linear_id`` must be the same for all work-items in
-the group and must be in the range ``[0, get_local_linear_range())``.
+the group and must be in the range ``[0, sycl::get_local_linear_range())``.
 
 Returns: The value of ``x`` from the work-item with the specified
 linear id within group ``g``.
@@ -93,23 +97,23 @@ is true and ``T`` is a trivially copyable type.
 Preconditions: ``local_id`` must be the same for all work-items in the group,
 and its dimensionality must match the dimensionality of the group. The value
 of ``local_id`` in each dimension must be greater than or equal to 0 and less
-than the value of ``get_local_range()`` in the same dimension.
+than the value of ``sycl::get_local_range()`` in the same dimension.
 
 Returns: The value of ``x`` from the work-item with the
 specified id within group ``g``.
 
-=================
-``group_barrier``
-=================
+=======================
+``sycl::group_barrier``
+=======================
 
-The ``group_barrier`` function synchronizes all work-items in a
+The ``sycl::group_barrier`` function synchronizes all work-items in a
 group, using a group barrier.
 
 ::
 
   template <typename Group>
-  void group_barrier(Group g,
-                     memory_scope fence_scope = Group::fence_scope); // (1)
+  void sycl::group_barrier(Group g,
+                     sycl::memory_scope fence_scope = Group::fence_scope); // (1)
 
 1.Constraints: Available only if
 ``sycl::is_group_v<std::decay_t<Group>>`` is true.
