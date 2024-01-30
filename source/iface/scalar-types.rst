@@ -19,14 +19,14 @@ within the ``sycl`` namespace are described below :
 Scalar data types
 =================
 
-``byte``
-========
+``sycl::byte``
+==============
 
 An unsigned 8-bit integer. This is deprecated in SYCL 2020
 since C++17 ``std::byte`` can be used instead.
 
-``half``
-========
+``sycl::half``
+==============
 
 A 16-bit floating-point type. The half data type must conform to the
 IEEE 754-2008 half precision storage format. This type is only supported
