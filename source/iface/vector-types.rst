@@ -18,14 +18,14 @@ elements.
 The ``sycl::vec`` class is templated on its number of elements
 and its element type. The number of elements parameter, NumElements,
 can be one of: 1, 2, 3, 4, 8 or 16. Any other value shall produce
-a compilation failure. The element type parameter, ``sycl::DataT``, must be
+a compilation failure. The element type parameter, ``DataT``, must be
 one of the basic scalar types supported in device code.
 
 The SYCL ``sycl::vec`` class template provides interoperability with the
-underlying vector type defined by ``sycl::vector_t`` which is available
+underlying vector type defined by ``vector_t`` which is available
 only when compiled for the device. The SYCL ``sycl::vec`` class can be
-constructed from an instance of ``sycl::vector_t`` and can implicitly
-convert to an instance of ``sycl::vector_t`` in order to support
+constructed from an instance of ``vector_t`` and can implicitly
+convert to an instance of ``vector_t`` in order to support
 interoperability with native SYCL backend functions from
 a SYCL kernel function.
 
@@ -100,7 +100,7 @@ vectors and scalars to be convertible with each other.
 
    vec();
 
-   explicit constexpr vec(const sycl::DataT& arg);
+   explicit constexpr vec(const DataT& arg);
 
    template <typename... ArgTN> constexpr vec(const ArgTN&... args);
 
@@ -108,7 +108,7 @@ vectors and scalars to be convertible with each other.
 
    vec(vector_t nativeVector);
 
-The first option default constructs a vector with element type ``sycl::DataT``
+The first option default constructs a vector with element type ``DataT``
 and with ``NumElements`` dimensions by default construction
 of each of its elements.
 The second option is by setting each value to ``arg`` by assignment.
@@ -120,8 +120,8 @@ type or copy from another similar vector.
 Member functions
 ================
 
-``sycl::vector_t``
-==================
+``vector_t``
+============
 
 ::
 
@@ -130,49 +130,49 @@ Member functions
 Available only when: compiled for the device.
 
 Converts this SYCL ``sycl::vec`` instance to the underlying backend-native
-vector type defined by ``sycl::vector_t``.
+vector type defined by ``vector_t``.
 
-``sycl::DataT``
-===============
+``DataT``
+=========
 
 ::
 
-  operator sycl::DataT() const
+  operator DataT() const
 
 Available only when: ``NumElements == 1``.
 
-Converts this SYCL ``sycl::vec`` instance to an instance of ``sycl::DataT``
+Converts this SYCL ``sycl::vec`` instance to an instance of ``DataT``
 with the value of the single element in this SYCL ``sycl::vec`` instance.
 
 The SYCL ``sycl::vec`` instance shall be implicitly convertible to the
-same data types, to which ``sycl::DataT`` is implicitly convertible.
+same data types, to which ``DataT`` is implicitly convertible.
 Note that conversion operator shall not be templated to allow
 standard conversion sequence for implicit conversion.
 
-``sycl::size``
-==============
+``size``
+========
 
 ::
 
-  static constexpr size_t sycl::size() noexcept
+  static constexpr size_t size() noexcept
 
 Returns the number of elements of this SYCL ``sycl::vec``.
 
-``sycl::get_count``
-===================
+``get_count``
+=============
 
 ::
 
-  size_t sycl::get_count() const
+  size_t get_count() const
 
 Returns the same value as ``sycl::size()``. Deprecated.
 
-``sycl::byte_size``
-===================
+``byte_size``
+=============
 
 ::
 
-  static constexpr size_t sycl::byte_size() noexcept
+  static constexpr size_t byte_size() noexcept
 
 Returns the size of this SYCL ``sycl::vec`` in bytes.
 
@@ -188,10 +188,10 @@ in |SYCL_SPEC_MEMORY_LAYOUT_AND_ALIG|.
 
   size_t sycl::get_size() const
 
-Returns the same value as ``sycl::byte_size()``. Deprecated.
+Returns the same value as ``byte_size()``. Deprecated.
 
-``sycl::convert``
-=================
+``convert``
+===========
 
 ::
 
@@ -204,12 +204,12 @@ type specified by ``ConvertT`` using the rounding mode specified
 by ``RoundingMode``. The new SYCL ``sycl::vec`` type must have the same
 number of elements as this SYCL ``sycl::vec``.
 
-``sycl::as``
-============
+``as``
+======
 
 ::
 
-  template <typename asT> asT sycl::as() const
+  template <typename asT> asT as() const
 
 Bitwise reinterprets this SYCL ``sycl::vec`` as a SYCL ``sycl::vec`` of a
 different element type and number of elements specified by ``asT``.
@@ -219,21 +219,21 @@ this SYCL ``sycl::vec``, and the size of the elements in the new SYCL
 size of the elements in this SYCL ``sycl::vec``.
 
 
-``sycl::swizzle``
-=================
+``swizzle``
+===========
 
 ::
 
    template <int... swizzleIndexes>
-   __swizzled_vec__ sycl::swizzle() const
+   __swizzled_vec__ swizzle() const
 
 Return an instance of the implementation-defined intermediate class
 template ``__swizzled_vec__`` representing an index sequence which can
 be used to apply the swizzle in a valid expression as described
 in |SYCL_SPEC_SWIZZLED_VEC_CLASS|.
 
-``sycl::swizzle access``
-========================
+``swizzle access``
+==================
 
 ::
 
@@ -320,12 +320,12 @@ For example a four element ``sycl::vec`` provides permutations including
 ``rbga``, ``rggg`` and ``rb``.
 
 
-``sycl::lo``
-============
+``lo``
+======
 
 ::
 
-   __swizzled_vec__ sycl::lo() const
+   __swizzled_vec__ lo() const
 
 Available only when: ``NumElements > 1``.
 
@@ -337,12 +337,12 @@ in |SYCL_SPEC_SWIZZLED_VEC_CLASS|. When ``NumElements == 3``, this
 SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
-``sycl::hi``
-============
+``hi``
+======
 
 ::
 
-   __swizzled_vec__ sycl::hi() const
+   __swizzled_vec__ hi() const
 
 Available only when: ``NumElements > 1``.
 
@@ -354,12 +354,12 @@ in |SYCL_SPEC_SWIZZLED_VEC_CLASS|. When ``NumElements == 3``, this
 SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
-``sycl::odd``
-=============
+``odd``
+=======
 
 ::
 
-   __swizzled_vec__ sycl::odd() const
+   __swizzled_vec__ odd() const
 
 Available only when: ``NumElements > 1``.
 
@@ -371,12 +371,12 @@ in |SYCL_SPEC_SWIZZLED_VEC_CLASS|. When ``NumElements == 3``, this
 SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
-``sycl::even``
-==============
+``even``
+========
 
 ::
 
-   __swizzled_vec__ sycl::even() const
+   __swizzled_vec__ even() const
 
 Available only when: ``NumElements > 1``.
 
@@ -388,8 +388,8 @@ in |SYCL_SPEC_SWIZZLED_VEC_CLASS|. When ``NumElements == 3``, this
 SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
-``sycl::load``
-==============
+``load``
+========
 
 ::
 
@@ -397,11 +397,11 @@ with the fourth element undefined.
    void load(size_t offset, sycl::multi_ptr<const DataT, AddressSpace, IsDecorated> ptr)
 
 Loads the values at the address of ``ptr`` offset in elements of
-type ``sycl::DataT`` by ``NumElements * offset``, into the components
+type ``DataT`` by ``NumElements * offset``, into the components
 of this SYCL ``sycl::vec``.
 
-``sycl::store``
-===============
+``store``
+=========
 
 ::
 
@@ -409,14 +409,14 @@ of this SYCL ``sycl::vec``.
    void store(size_t offset, sycl::multi_ptr<DataT, AddressSpace, IsDecorated> ptr) const
 
 Stores the components of this SYCL ``sycl::vec`` into the values at the address
-of ``ptr`` offset in elements of type ``sycl::DataT`` by ``NumElements * offset``.
+of ``ptr`` offset in elements of type ``DataT`` by ``NumElements * offset``.
 
-``sycl::operator[]``
-====================
+``operator[]``
+==============
 
 ::
 
-  sycl::DataT& sycl::operator[](int index)
+  DataT& operator[](int index)
 
 Returns a reference to the element stored within this SYCL
 ``sycl::vec`` at the index specified by ``index``.
@@ -424,17 +424,17 @@ Returns a reference to the element stored within this SYCL
 
 ::
 
-  const sycl::DataT& sycl::operator[](int index) const
+  const DataT& operator[](int index) const
 
 Returns a ``const`` reference to the element stored within this SYCL
 ``sycl::vec`` at the index specified by ``index``.
 
-``sycl::operator=``
-===================
+``operator=``
+=============
 
 ::
 
-  sycl::vec& sycl::operator=(const sycl::vec& rhs)
+  sycl::vec& operator=(const sycl::vec& rhs)
 
 Assign each element of the ``rhs`` SYCL ``sycl::vec`` to each element
 of this SYCL ``sycl::vec`` and return a reference to this SYCL ``sycl::vec``.
@@ -442,7 +442,7 @@ of this SYCL ``sycl::vec`` and return a reference to this SYCL ``sycl::vec``.
 
 ::
 
-  sycl::vec& sycl::operator=(const sycl::DataT& rhs)
+  sycl::vec& sycl::operator=(const DataT& rhs)
 
 Assign each element of the ``rhs`` scalar to each element
 of this SYCL ``sycl::vec`` and return a reference to this SYCL ``sycl::vec``.
@@ -472,7 +472,7 @@ Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``.
 
 ::
 
-  sycl::vec operatorOP(const sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec operatorOP(const sycl::vec& lhs, const DataT& rhs);
 
 If ``OP`` is ``%``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -500,7 +500,7 @@ Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``.
 
 ::
 
-  sycl::vec& operatorOP(sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec& operatorOP(sycl::vec& lhs, const DataT& rhs);
 
 If ``OP`` is ``%=``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -563,7 +563,7 @@ Where ``OP`` is: ``&``, ``|``, ``^``.
 
 ::
 
-  sycl::vec operatorOP(const sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec operatorOP(const sycl::vec& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -591,7 +591,7 @@ Where ``OP`` is: ``&=``, ``|=``, ``^=``.
 
 ::
 
-  sycl::vec& operatorOP(sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec& operatorOP(sycl::vec& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -611,21 +611,21 @@ SYCL ``sycl::vec`` instance the result of an element-wise ``OP`` logical
 operation between each element of ``lhs vec`` and each element
 of the ``rhs`` SYCL ``sycl::vec``.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL ``sycl::vec``,
-``RET``, varies depending on the ``sycl::DataT`` template parameter of this
-SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of
+The ``DataT`` template parameter of the constructed SYCL ``sycl::vec``,
+``RET``, varies depending on the ``DataT`` template parameter of this
+SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``DataT`` of
 type ``int8_t`` or ``uint8_t RET`` must be ``int8_t``. For a SYCL
-``sycl::vec`` with ``sycl::DataT`` of type ``int16_t``, ``uint16_t``
+``sycl::vec`` with ``DataT`` of type ``int16_t``, ``uint16_t``
 or ``half RET`` must be ``int16_t``. For a SYCL ``sycl::vec`` with
-``sycl::DataT`` of type ``int32_t``, ``uint32_t`` or ``float RET``
-must be ``int32_t``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of
+``DataT`` of type ``int32_t``, ``uint32_t`` or ``float RET``
+must be ``int32_t``. For a SYCL ``sycl::vec`` with ``DataT`` of
 type ``int64_t``, ``uint64_t`` or ``double RET`` must be ``int64_t``.
 
 Where ``OP`` is: ``&&``, ``||``.
 
 ::
 
-  sycl::vec<RET, NumElements> operatorOP(const sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec<RET, NumElements> operatorOP(const sycl::vec& lhs, const DataT& rhs);
 
 
 Construct a new instance of the SYCL ``sycl::vec`` class template with the
@@ -633,14 +633,14 @@ same template parameters as this SYCL ``sycl::vec`` with each element of the
 new SYCL ``sycl::vec`` instance the result of an element-wise ``OP`` logical
 operation between each element of ``lhs vec`` and the ``rhs`` scalar.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL ``sycl::vec``,
-``RET``, varies depending on the ``sycl::DataT`` template parameter of this
-SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``sycl::DataT``
+The ``DataT`` template parameter of the constructed SYCL ``sycl::vec``,
+``RET``, varies depending on the ``DataT`` template parameter of this
+SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``DataT``
 of type ``int8_t`` or ``uint8_t RET`` must be ``int8_t``. For a SYCL
-``sycl::vec`` with ``sycl::DataT`` of type ``int16_t``, ``uint16_t`` or
+``sycl::vec`` with ``DataT`` of type ``int16_t``, ``uint16_t`` or
 ``half RET`` must be ``int16_t``.
-For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type ``int32_t``, ``uint32_t``
-or ``float RET`` must be ``int32_t``. For a SYCL ``sycl::vec`` with ``sycl::DataT``
+For a SYCL ``sycl::vec`` with ``DataT`` of type ``int32_t``, ``uint32_t``
+or ``float RET`` must be ``int32_t``. For a SYCL ``sycl::vec`` with ``DataT``
 of type ``int64_t``, ``uint64_t`` or ``double RET`` must be ``int64_t``.
 
 Where ``OP`` is: ``&&``, ``||``.
@@ -656,7 +656,7 @@ Construct a new instance of the SYCL ``sycl::vec`` class template with the
 same template parameters as ``lhs vec`` with each element of the new
 SYCL ``sycl::vec`` instance the result of an element-wise ``OP`` bitshift
 operation between each element of ``lhs vec`` and each element of the
-``rhs`` SYCL ``sycl::vec``. If ``OP`` is ``>>``, ``sycl::DataT``
+``rhs`` SYCL ``sycl::vec``. If ``OP`` is ``>>``, ``DataT``
 is a signed type and ``lhs vec`` has a negative value any vacated
 bits viewed as an unsigned integer must be assigned the value
 ``1``, otherwise any vacated bits viewed as an unsigned integer
@@ -666,7 +666,7 @@ Where ``OP`` is:``<<``, ``>>``.
 
 ::
 
-  sycl::vec operatorOP(const sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec operatorOP(const sycl::vec& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -675,7 +675,7 @@ Construct a new instance of the SYCL ``sycl::vec`` class template with the
 same template parameters as ``lhs vec`` with each element of the new
 SYCL ``sycl::vec`` instance the result of an element-wise ``OP`` bitshift
 operation between each element of ``lhs vec`` and the ``rhs`` scalar.
-If ``OP`` is ``>>``, ``sycl::DataT`` is a signed type and ``lhs vec`` has
+If ``OP`` is ``>>``, ``DataT`` is a signed type and ``lhs vec`` has
 a negative value any vacated bits viewed as an unsigned integer must
 be assigned the value ``1``, otherwise any vacated bits viewed as an
 unsigned integer must be assigned the value ``0``.
@@ -691,7 +691,7 @@ Available only when:
 
 Perform an in-place element-wise ``OP`` bitshift operation between
 each element of ``lhs vec`` and the ``rhs`` SYCL ``sycl::vec`` and returns
-``lhs vec``. If ``OP`` is ``>>=``, ``sycl::DataT`` is a signed type and
+``lhs vec``. If ``OP`` is ``>>=``, ``DataT`` is a signed type and
 ``lhs vec`` has a negative value any vacated bits viewed as an
 unsigned integer must be assigned the value ``1``, otherwise any
 vacated bits viewed as an unsigned integer must be assigned the
@@ -701,14 +701,14 @@ Where ``OP`` is: ``<<=``, ``>>=``.
 
 ::
 
-  sycl::vec& operatorOP(sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec& operatorOP(sycl::vec& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
 Perform an in-place element-wise ``OP`` bitshift operation between
 each element of ``lhs vec`` and the ``rhs`` scalar and returns a
-reference to this SYCL ``sycl::vec``. If ``OP`` is ``>>=``, ``sycl::DataT``
+reference to this SYCL ``sycl::vec``. If ``OP`` is ``>>=``, ``DataT``
 is a signed type and ``lhs vec`` has a negative value any vacated
 bits viewed as an unsigned integer must be assigned the value ``1``,
 otherwise any vacated bits viewed as an unsigned integer must
@@ -732,21 +732,21 @@ element or the ``rhs`` element is a ``NaN``. The ``!=`` operation results
 in ``true`` if either the ``lhs`` element or the ``rhs`` element
 is a ``NaN``.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL ``sycl::vec``,
-``RET``, varies depending on the ``sycl::DataT`` template parameter of
-this SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type
+The ``DataT`` template parameter of the constructed SYCL ``sycl::vec``,
+``RET``, varies depending on the ``DataT`` template parameter of
+this SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``DataT`` of type
 ``int8_t`` or ``uint8_t RET`` must be ``int8_t``. For a SYCL
-``sycl::vec`` with ``sycl::DataT`` of type ``int16_t``, ``uint16_t`` or
+``sycl::vec`` with ``DataT`` of type ``int16_t``, ``uint16_t`` or
 ``half RET`` must be ``int16_t``. For a SYCL ``sycl::vec`` with
-``sycl::DataT`` of type ``int32_t``, ``uint32_t`` or ``float RET``
-must be ``int32_t``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type
+``DataT`` of type ``int32_t``, ``uint32_t`` or ``float RET``
+must be ``int32_t``. For a SYCL ``sycl::vec`` with ``DataT`` of type
 ``int64_t``, ``uint64_t`` or ``double RET`` must be ``uint64_t``.
 
 Where ``OP`` is: ``==``, ``!=``, ``<``, ``>``, ``<=``, ``>=``.
 
 ::
 
-  sycl::vec<RET, NumElements> operatorOP(const sycl::vec& lhs, const sycl::DataT& rhs);
+  sycl::vec<RET, NumElements> operatorOP(const sycl::vec& lhs, const DataT& rhs);
 
 
 Construct a new instance of the SYCL ``sycl::vec`` class template with the
@@ -755,19 +755,19 @@ the new SYCL ``sycl::vec`` instance the result of an element-wise
 ``OP`` logical operation between each element of ``lhs vec``
 and the ``rhs`` scalar.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL ``sycl::vec``,
-``RET``, varies depending on the ``sycl::DataT`` template parameter of
-this SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type
+The ``DataT`` template parameter of the constructed SYCL ``sycl::vec``,
+``RET``, varies depending on the ``DataT`` template parameter of
+this SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``DataT`` of type
 ``int8_t`` or ``uint8_t RET`` must be ``int8_t``. For a SYCL
-``sycl::vec`` with ``sycl::DataT`` of type ``int16_t``, ``uint16_t`` or
+``sycl::vec`` with ``DataT`` of type ``int16_t``, ``uint16_t`` or
 ``half RET`` must be ``int16_t``. For a SYCL ``sycl::vec`` with
-``sycl::DataT`` of type ``int32_t``, ``uint32_t`` or ``float RET``
-must be ``int32_t``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type
+``DataT`` of type ``int32_t``, ``uint32_t`` or ``float RET``
+must be ``int32_t``. For a SYCL ``sycl::vec`` with ``DataT`` of type
 ``int64_t``, ``uint64_t`` or ``double RET`` must be ``uint64_t``.
 
 ::
 
-  sycl::vec operatorOP(const sycl::DataT& lhs, const sycl::vec& rhs);
+  sycl::vec operatorOP(const DataT& lhs, const sycl::vec& rhs);
 
 If ``OP`` is ``%``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -782,7 +782,7 @@ Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``.
 
 ::
 
-  sycl::vec operatorOP(const sycl::DataT& lhs, const sycl::vec& rhs);
+  sycl::vec operatorOP(const DataT& lhs, const sycl::vec& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -797,7 +797,7 @@ Where ``OP`` is: ``&``, ``|``, ``^``.
 
 ::
 
-  sycl::vec<RET, NumElements> operatorOP(const sycl::DataT& lhs, const sycl::vec& rhs);
+  sycl::vec<RET, NumElements> operatorOP(const DataT& lhs, const sycl::vec& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -808,27 +808,27 @@ of the new SYCL ``sycl::vec`` instance the result of an element-wise ``OP``
 logical operation between the ``lhs`` scalar and each element of the
 ``rhs`` SYCL ``sycl::vec``.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL ``sycl::vec``,
-``RET``, varies depending on the ``sycl::DataT`` template parameter of this
-SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of
+The ``DataT`` template parameter of the constructed SYCL ``sycl::vec``,
+``RET``, varies depending on the ``DataT`` template parameter of this
+SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``DataT`` of
 type ``int8_t`` or ``uint8_t RET`` must be ``int8_t``. For a SYCL
-``sycl::vec`` with ``sycl::DataT`` of type ``int16_t``, ``uint16_t``
+``sycl::vec`` with ``DataT`` of type ``int16_t``, ``uint16_t``
 or ``half RET`` must be ``int16_t``.
-For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type ``int32_t``, ``uint32_t``
-or ``float RET`` must be ``int32_t``. For a SYCL ``sycl::vec`` with ``sycl::DataT``
+For a SYCL ``sycl::vec`` with ``DataT`` of type ``int32_t``, ``uint32_t``
+or ``float RET`` must be ``int32_t``. For a SYCL ``sycl::vec`` with ``DataT``
 of type ``int64_t``, ``uint64_t`` or ``double RET`` must be ``int64_t``.
 
 Where ``OP`` is: ``&&``, ``||``.
 
 ::
 
-  sycl::vec operatorOP(const sycl::DataT& lhs, const sycl::vec& rhs);
+  sycl::vec operatorOP(const DataT& lhs, const sycl::vec& rhs);
 
 Construct a new instance of the SYCL ``sycl::vec`` class template with the same
 template parameters as the ``rhs`` SYCL ``sycl::vec`` with each element of the
 new SYCL ``sycl::vec`` instance the result of an element-wise ``OP`` bitshift
 operation between the ``lhs`` scalar and each element of the ``rhs`` SYCL
-``sycl::vec``. If ``OP`` is ``>>``, ``sycl::DataT`` is a signed type
+``sycl::vec``. If ``OP`` is ``>>``, ``DataT`` is a signed type
 and this SYCL ``sycl::vec`` has a negative value any vacated bits viewed
 as an unsigned integer must be assigned the value ``1``, otherwise any vacated
 bits viewed as an unsigned integer must be assigned the value ``0``.
@@ -837,7 +837,7 @@ Where ``OP`` is: ``<<``, ``>>``.
 
 ::
 
-  sycl::vec<RET, NumElements> operatorOP(const sycl::DataT& lhs, const sycl::vec& rhs);
+  sycl::vec<RET, NumElements> operatorOP(const DataT& lhs, const sycl::vec& rhs);
 
 Construct a new instance of the SYCL ``sycl::vec`` class template
 with the element type ``RET`` with each element of the new SYCL
@@ -850,16 +850,16 @@ if the operation results in ``false``. The ``==``, ``<``, ``>``, ``<=`` and
 element is a ``NaN``. The ``!=`` operation results in ``true`` if either
 the ``lhs`` or the ``rhs`` element is a ``NaN``.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL
-``sycl::vec``, ``RET``, varies depending on the ``sycl::DataT`` template
+The ``DataT`` template parameter of the constructed SYCL
+``sycl::vec``, ``RET``, varies depending on the ``DataT`` template
 parameter of this SYCL ``sycl::vec``.
-For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type ``int8_t`` or
+For a SYCL ``sycl::vec`` with ``DataT`` of type ``int8_t`` or
 ``uint8_t RET`` must be ``int8_t``. For a SYCL ``sycl::vec`` with
-``sycl::DataT`` of type ``int16_t``, ``uint16_t`` or ``half RET`` must be
-``int16_t``. For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type
+``DataT`` of type ``int16_t``, ``uint16_t`` or ``half RET`` must be
+``int16_t``. For a SYCL ``sycl::vec`` with ``DataT`` of type
 ``int32_t``, ``uint32_t`` or ``float RET`` must be ``int32_t``.
 For a SYCL ``sycl::vec`` with
-``sycl::DataT`` of type ``int64_t``, ``uint64_t`` or ``double RET``
+``DataT`` of type ``int64_t``, ``uint64_t`` or ``double RET``
 must be ``int64_t``.
 
 Where ``OP`` is: ``==``, ``!=``, ``<``, ``>``, ``<=``, ``>=``.
@@ -888,15 +888,15 @@ operation on each element of ``v vec``. Each element of the SYCL
 ``true`` and ``0`` if the operation results in ``false`` or this
 SYCL ``sycl::vec`` is a ``NaN``.
 
-The ``sycl::DataT`` template parameter of the constructed SYCL ``sycl::vec``,
-``RET``, varies depending on the ``sycl::DataT`` template parameter of
-this SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``sycl::DataT``
+The ``DataT`` template parameter of the constructed SYCL ``sycl::vec``,
+``RET``, varies depending on the ``DataT`` template parameter of
+this SYCL ``sycl::vec``. For a SYCL ``sycl::vec`` with ``DataT``
 of type ``int8_t`` or ``uint8_t RET`` must be ``int8_t``. For a SYCL
-``sycl::vec`` with ``sycl::DataT`` of type ``int16_t``,
+``sycl::vec`` with ``DataT`` of type ``int16_t``,
 ``uint16_t`` or ``half RET`` must be ``int16_t``.
-For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type
+For a SYCL ``sycl::vec`` with ``DataT`` of type
 ``int32_t``, ``uint32_t`` or ``float RET`` must be ``int32_t``.
-For a SYCL ``sycl::vec`` with ``sycl::DataT`` of type ``int64_t``, ``uint64_t``
+For a SYCL ``sycl::vec`` with ``DataT`` of type ``int64_t``, ``uint64_t``
 or ``double RET`` must be ``int64_t``.
 
 
@@ -975,10 +975,10 @@ element indexes.
 For example: ``f4.xxxx() = fx.wzyx()`` would not be valid.
 
 The ``__swizzled_vec__`` class template must be convertible to an instance of
-SYCL ``sycl::vec`` with the type ``sycl::DataT`` and number of elements
+SYCL ``sycl::vec`` with the type ``DataT`` and number of elements
 specified by the swizzle member function, if ``NumElements > 1``, and must
 be convertible to an instance of type
-``sycl::DataT``, if ``NumElements == 1``.
+``DataT``, if ``NumElements == 1``.
 
 The ``__swizzled_vec__`` class template must be non-copyable, non-moveable,
 non-user constructible and may not be bound to a l-value or escape the
