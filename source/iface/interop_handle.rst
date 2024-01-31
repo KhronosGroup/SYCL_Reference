@@ -128,7 +128,7 @@ the command group which contained the host task.
       const;
 
 Constraints: Available only if the optional interoperability function
-``sycl::get_native`` taking an ``sycl::ampled_image`` is available.
+``sycl::get_native`` taking an ``sycl::sampled_image`` is available.
 
 Returns: The native backend object associated with with the underlying
 ``sycl::sampled_image`` of accessor ``sycl::imageAcc``.
