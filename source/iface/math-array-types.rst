@@ -12,18 +12,18 @@ SYCL provides an ``marray<typename DataT, std::size_t NumElements>``
 class template to represent a contiguous fixed-size container. This
 type allows sharing of containers between the host and its SYCL devices.
 
-The ``marray`` class is templated on its element type and number of
+The ``sycl::marray`` class is templated on its element type and number of
 elements. The number of elements parameter, ``NumElements``, is a
 positive value of the ``std::size_t`` type. The element type
 parameter, ``DataT``, must be a numeric type as it is defined
 by C++ standard.
 
-An instance of the ``marray`` class template can also be implicitly
+An instance of the ``sycl::marray`` class template can also be implicitly
 converted to an instance of the data type when the number of elements
 is 1 in order to allow single element arrays and scalars to be
 convertible with each other.
 
-Logical and comparison operators for ``marray`` class template
+Logical and comparison operators for ``sycl::marray`` class template
 return ``marray<bool``, ``NumElements>``.
 
 .. seealso:: |SYCL_SPEC_MATH_ARRAY|
@@ -67,10 +67,10 @@ dimensions by setting each value to ``arg`` by assignment.
   template <typename... ArgTN>
   constexpr marray(const ArgTN&... args);
 
-Construct a SYCL ``marray`` instance from any combination of scalar and
-SYCL ``marray`` parameters of the same element type, providing the total
+Construct a SYCL ``sycl::marray`` instance from any combination of scalar and
+SYCL ``sycl::marray`` parameters of the same element type, providing the total
 number of elements for all parameters sum to ``NumElements`` of this
-``marray`` specialization.
+``sycl::marray`` specialization.
 
 .. rubric:: Constructor 4
 
@@ -104,10 +104,11 @@ Member functions
 
 Available only when: ``NumElements == 1``.
 
-Converts this SYCL ``marray`` instance to an instance of ``DataT`` with
-the value of the single element in this SYCL ``marray`` instance.
+Converts this SYCL ``sycl::marray`` instance to an instance of
+``DataT`` with the value of the single element in this SYCL
+``sycl::marray`` instance.
 
-The SYCL ``marray`` instance shall be implicitly convertible to the same
+The SYCL ``sycl::marray`` instance shall be implicitly convertible to the same
 data types, to which ``DataT`` is implicitly convertible. Note that
 conversion operator shall not be templated to allow standard conversion
 sequence for implicit conversion.
@@ -119,7 +120,7 @@ sequence for implicit conversion.
 
   static constexpr std::size_t size() noexcept
 
-Returns the size of this SYCL ``marray`` in bytes.
+Returns the size of this SYCL ``sycl::marray`` in bytes.
 
 ``operator[]``
 ==============
@@ -129,31 +130,32 @@ Returns the size of this SYCL ``marray`` in bytes.
   DataT& operator[](std::size_t index);
 
 Returns a reference to the element stored within this SYCL
-``marray`` at the index specified by ``index``.
+``sycl::marray`` at the index specified by ``index``.
 
 ::
 
   const DataT& operator[](std::size_t index) const
 
 Returns a reference to the element stored within this SYCL
-``marray`` at the index specified by ``index``.
+``sycl::marray`` at the index specified by ``index``.
 
 ``operator=``
 =============
 
 ::
 
-  marray& operator=(const marray& rhs);
+  sycl::marray& operator=(const sycl::marray& rhs);
 
-Assign each element of the ``rhs`` SYCL ``marray`` to each element of
-this SYCL ``marray`` and return a reference to this SYCL ``marray``.
+Assign each element of the ``rhs`` SYCL ``sycl::marray``
+to each element of this SYCL ``sycl::marray`` and return a reference
+to this SYCL ``sycl::marray``.
 
 ::
 
-  marray& operator=(const DataT& rhs);
+  sycl::marray& operator=(const DataT& rhs);
 
 Assign each element of the ``rhs`` scalar to each element of this SYCL
-``marray`` and return a reference to this SYCL ``marray``.
+``sycl::marray`` and return a reference to this SYCL ``sycl::marray``.
 
 ``begin``
 =========
@@ -163,14 +165,14 @@ Assign each element of the ``rhs`` scalar to each element of this SYCL
   iterator begin();
 
 Returns an iterator referring to the first element stored within the
-``marray``.
+``sycl::marray``.
 
 ::
 
   const_iterator begin() const
 
 Returns a ``const`` iterator referring to the first element stored within the
-``marray``.
+``sycl::marray``.
 
 ``end``
 =======
@@ -180,14 +182,14 @@ Returns a ``const`` iterator referring to the first element stored within the
   iterator begin();
 
 Returns an iterator referring to the one past the last element stored
-within the ``marray``.
+within the ``sycl::marray``.
 
 ::
 
   const_iterator end() const
 
 Returns a ``const`` iterator referring to the one past the last element
-stored within the ``marray``.
+stored within the ``sycl::marray``.
 
 =======================
 Hidden friend functions
@@ -195,36 +197,36 @@ Hidden friend functions
 
 ::
 
-  marray operatorOP(const marray& lhs, const marray& rhs);
+  sycl::marray operatorOP(const sycl::marray& lhs, const sycl::marray& rhs);
 
 If ``OP`` is ``%``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the
+Construct a new instance of the SYCL ``sycl::marray`` class template with the
 same template parameters as ``lhs marray`` with each element of the new
-SYCL ``marray`` instance the result of an element-wise ``OP`` arithmetic
+SYCL ``sycl::marray`` instance the result of an element-wise ``OP`` arithmetic
 operation between each element of ``lhs marray`` and each element of
-the ``rhs`` SYCL ``marray``.
+the ``rhs`` SYCL ``sycl::marray``.
 
 Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``.
 
 ::
 
-  marray operatorOP(const marray& lhs, const DataT& rhs);
+  sycl::marray operatorOP(const sycl::marray& lhs, const DataT& rhs);
 
 If ``OP`` is ``%``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the
+Construct a new instance of the SYCL ``sycl::marray`` class template with the
 same template parameters as ``lhs marray`` with each element of the new
-SYCL ``marray`` instance the result of an element-wise ``OP`` arithmetic
+SYCL ``sycl::marray`` instance the result of an element-wise ``OP`` arithmetic
 operation between each element of ``lhs marray`` and the ``rhs`` scalar.
 
 Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``.
 
 ::
 
-  marray& operatorOP(marray& lhs, const marray& rhs);
+  sycl::marray& operatorOP(sycl::marray& lhs, const sycl::marray& rhs);
 
 If ``OP`` is ``%=``, available only when:
 ``DataT != float && DataT != double &&
@@ -232,13 +234,13 @@ DataT != half``.
 
 Perform an in-place element-wise ``OP`` arithmetic operation between
 each element of ``lhs marray`` and each element of the ``rhs``
-SYCL ``marray`` and return ``lhs marray``.
+SYCL ``sycl::marray`` and return ``lhs marray``.
 
 Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``.
 
 ::
 
-  marray& operatorOP(marray& lhs, const DataT& rhs);
+  sycl::marray& operatorOP(sycl::marray& lhs, const DataT& rhs);
 
 If ``OP`` is ``%=``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -251,7 +253,7 @@ Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``.
 
 ::
 
-  marray& operatorOP(marray& v);
+  sycl::marray& operatorOP(sycl::marray& v);
 
 Perform an in-place element-wise ``OP`` prefix arithmetic operation on
 each element of ``v marray``, assigning the result of each element to
@@ -261,7 +263,7 @@ Where ``OP`` is: ``++``, ``--``.
 
 ::
 
-  marray operatorOP(marray& v, int);
+  sycl::marray operatorOP(sycl::marray& v, int);
 
 Perform an in-place element-wise ``OP`` postfix arithmetic operation on
 each element of ``v marray``, assigning the result of each element to
@@ -272,60 +274,60 @@ Where ``OP`` is: ``++``, ``--``.
 
 ::
 
-  marray operatorOP(marray& v);
+  sycl::marray operatorOP(sycl::marray& v);
 
-Construct a new instance of the SYCL ``marray`` class template with the
-same template parameters as this SYCL ``marray`` with each element of
-the new SYCL ``marray`` instance the result of an element-wise ``OP``
-unary arithmetic operation on each element of this SYCL ``marray``.
+Construct a new instance of the SYCL ``sycl::marray`` class template with the
+same template parameters as this SYCL ``sycl::marray`` with each element of
+the new SYCL ``sycl::marray`` instance the result of an element-wise ``OP``
+unary arithmetic operation on each element of this SYCL ``sycl::marray``.
 
 Where ``OP`` is: ``+``, ``-``.
 
 ::
 
-  marray operatorOP(const marray& lhs, const marray& rhs);
+  sycl::marray operatorOP(const sycl::marray& lhs, const sycl::marray& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the
+Construct a new instance of the SYCL ``sycl::marray`` class template with the
 same template parameters as ``lhs marray`` with each element of the new
-SYCL ``marray`` instance the result of an element-wise ``OP`` bitwise
+SYCL ``sycl::marray`` instance the result of an element-wise ``OP`` bitwise
 operation between each element of ``lhs marray`` and each element of
-the ``rhs`` SYCL ``marray``.
+the ``rhs`` SYCL ``sycl::marray``.
 
 Where ``OP`` is: ``&``, ``|``, ``^``.
 
 ::
 
-  marray operatorOP(const marray& lhs, const DataT& rhs);
+  sycl::marray operatorOP(const sycl::marray& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the
+Construct a new instance of the SYCL ``sycl::marray`` class template with the
 same template parameters as ``lhs marray`` with each element of the new
-SYCL ``marray`` instance the result of an element-wise ``OP`` bitwise
+SYCL ``sycl::marray`` instance the result of an element-wise ``OP`` bitwise
 operation between each element of ``lhs marray`` and the ``rhs`` scalar.
 
 Where ``OP`` is: ``&``, ``|``, ``^``.
 
 ::
 
-  marray& operatorOP(marray& lhs, const marray& rhs);
+  sycl::marray& operatorOP(sycl::marray& lhs, const sycl::marray& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
 Perform an in-place element-wise ``OP`` bitwise operation between each
-element of ``lhs marray`` and the ``rhs`` SYCL ``marray`` and return
+element of ``lhs marray`` and the ``rhs`` SYCL ``sycl::marray`` and return
 ``lhs marray``.
 
 Where ``OP`` is: ``&=``, ``|=``, ``^=``.
 
 ::
 
-  marray& operatorOP(marray& lhs, const DataT& rhs);
+  sycl::marray& operatorOP(sycl::marray& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
@@ -338,11 +340,11 @@ Where ``OP`` is: ``&=``, ``|=``, ``^=``.
 
 ::
 
-  marray<bool, NumElements> operatorOP(const marray& lhs, const marray& rhs);
+  sycl::marray<bool, NumElements> operatorOP(const sycl::marray& lhs, const sycl::marray& rhs);
 
-Construct a new instance of the ``marray`` class template with
+Construct a new instance of the ``sycl::marray`` class template with
 ``DataT = bool`` and same NumElements as ``lhs marray`` with each element
-of the new ``marray`` instance the result of an element-wise ``OP`` logical
+of the new ``sycl::marray`` instance the result of an element-wise ``OP`` logical
 operation between each element of ``lhs marray`` and each element of the
 ``rhs marray``.
 
@@ -350,59 +352,63 @@ Where ``OP`` is: ``&&``, ``||``.
 
 ::
 
-  marray<bool, NumElements> operatorOP(const marray& lhs, const DataT& rhs);
+  sycl::marray<bool, NumElements>
+  operatorOP(const sycl::marray& lhs, const DataT& rhs);
 
-Construct a new instance of the ``marray`` class template with ``DataT = bool``
-and same NumElements as ``lhs marray`` with each element of the new ``marray``
-instance the result of an element-wise ``OP`` logical operation between
-each element of ``lhs marray`` and the ``rhs`` scalar.
+Construct a new instance of the ``sycl::marray`` class template with
+``DataT = bool`` and same NumElements as ``lhs marray`` with each element
+of the new ``sycl::marray`` instance the result of an element-wise ``OP``
+logical operation between each element of ``lhs marray`` and
+the ``rhs`` scalar.
 
 Where ``OP`` is: ``&&``, ``||``.
 
 ::
 
-  marray operatorOP(const marray& lhs, const marray& rhs);
+  sycl::marray operatorOP(const sycl::marray& lhs, const sycl::marray& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the
-same template parameters as ``lhs marray`` with each element of the new
-SYCL ``marray`` instance the result of an element-wise ``OP`` bitshift
-operation between each element of ``lhs marray`` and each element of the
-``rhs`` SYCL ``marray``. If ``OP`` is ``>>``, ``DataT`` is a signed type
-and ``lhs marray`` has a negative value any vacated bits viewed as an
-unsigned integer must be assigned the value ``1``, otherwise any vacated
-bits viewed as an unsigned integer must be assigned the value ``0``.
+Construct a new instance of the SYCL ``sycl::marray`` class template
+with the same template parameters as ``lhs marray`` with each element
+of the new SYCL ``sycl::marray`` instance the result of an element-wise
+``OP`` bitshift operation between each element of ``lhs marray`` and each
+element of the ``rhs`` SYCL ``sycl::marray``. If ``OP`` is ``>>``,
+``DataT`` is a signed type and ``lhs marray`` has a negative
+value any vacated bits viewed as an unsigned integer must be assigned the
+value ``1``, otherwise any vacated bits viewed as an unsigned integer
+must be assigned the value ``0``.
 
 Where ``OP`` is: ``<<``, ``>>``.
 
 ::
 
-  marray operatorOP(const marray& lhs, const DataT& rhs);
+  sycl::marray operatorOP(const sycl::marray& lhs,
+    const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the same
-template parameters as ``lhs marray`` with each element of the new SYCL
-``marray`` instance the result of an element-wise ``OP`` bitshift operation
-between each element of ``lhs marray`` and the ``rhs`` scalar. If ``OP`` is
-``>>``, ``DataT`` is a signed type and ``lhs marray`` has a negative value
-any vacated bits viewed as an unsigned integer must be assigned the value
-``1``, otherwise any vacated bits viewed as an unsigned integer must be
-assigned the value ``0``.
+Construct a new instance of the SYCL ``sycl::marray`` class template
+with the same template parameters as ``lhs marray`` with each element of
+the new SYCL ``sycl::marray`` instance the result of an element-wise
+``OP`` bitshift operation between each element of ``lhs marray`` and the
+``rhs`` scalar. If ``OP`` is ``>>``, ``DataT`` is a signed type and
+``lhs marray`` has a negative value any vacated bits viewed as an unsigned
+integer must be assigned the value ``1``, otherwise any vacated bits viewed
+as an unsigned integer must be assigned the value ``0``.
 
 Where ``OP`` is: ``<<``, ``>>``.
 
 ::
 
-  marray& operatorOP(marray& lhs, const marray& rhs);
+  sycl::marray& operatorOP(sycl::marray& lhs, const sycl::marray& rhs);
 
 Available only when: ``DataT != float && DataT != double && DataT != half``.
 
 Perform an in-place element-wise ``OP`` bitshift operation between each
-element of ``lhs marray`` and the ``rhs`` SYCL ``marray`` and returns
+element of ``lhs marray`` and the ``rhs`` SYCL ``sycl::marray`` and returns
 ``lhs marray``. If ``OP`` is ``>>=``, ``DataT`` is a signed type and
 ``lhs marray`` has a negative value any vacated bits viewed as an unsigned
 integer must be assigned the value ``1``, otherwise any vacated bits viewed
@@ -412,14 +418,14 @@ Where ``OP`` is: ``<<=``, ``>>=``.
 
 ::
 
-  marray& operatorOP(marray& lhs, const DataT& rhs);
+  sycl::marray& operatorOP(sycl::marray& lhs, const DataT& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
 Perform an in-place element-wise ``OP`` bitshift operation between each
 element of ``lhs marray`` and the ``rhs`` scalar and returns a reference
-to this SYCL ``marray``. If ``OP`` is ``>>=``, ``DataT`` is a signed type
+to this SYCL ``sycl::marray``. If ``OP`` is ``>>=``, ``DataT`` is a signed type
 and ``lhs marray`` has a negative value any vacated bits viewed as an
 unsigned integer must be assigned the value ``1``, otherwise any vacated
 bits viewed as an unsigned integer must be assigned the value ``0``.
@@ -428,26 +434,28 @@ Where ``OP`` is: ``<<=``, ``>>=``.
 
 ::
 
-  marray<bool, NumElements> operatorOP(const marray& lhs, const marray& rhs);
+  sycl::marray<bool, NumElements>
+    operatorOP(const sycl::marray& lhs, const sycl::marray& rhs);
 
-Construct a new instance of the ``marray`` class template with
+Construct a new instance of the ``sycl::marray`` class template with
 ``DataT = bool`` and same NumElements as ``lhs marray`` with each element of
-the new ``marray`` instance is the result of an element-wise ``OP`` relational
-operation between each element of ``lhs marray`` and each element of the
-``rhs marray``. The ``==``, ``<``, ``>``, ``<=`` and ``>=`` operations result
-in ``false`` if either the ``lhs`` element or the ``rhs`` element is a
-``NaN``. The ``!=`` operation results in ``true`` if either the ``lhs``
-element or the ``rhs`` element is a ``NaN``.
+the new ``sycl::marray`` instance is the result of an element-wise
+``OP`` relational operation between each element of ``lhs marray``
+and each element of the ``rhs marray``. The ``==``, ``<``, ``>``, ``<=``
+and ``>=`` operations result in ``false`` if either the ``lhs`` element
+or the ``rhs`` element is a ``NaN``. The ``!=`` operation results in
+``true`` if either the ``lhs`` element or the ``rhs``
+element is a ``NaN``.
 
 Where ``OP`` is: ``==``, ``!=``, ``<``, ``>``, ``<=``, ``>=``.
 
 ::
 
-  marray<bool, NumElements> operatorOP(const marray& lhs, const DataT& rhs);
+  sycl::marray<bool, NumElements> operatorOP(const sycl::marray& lhs, const DataT& rhs);
 
-Construct a new instance of the ``marray`` class template with
+Construct a new instance of the ``sycl::marray`` class template with
 ``DataT = bool`` and same NumElements as ``lhs marray`` with each element
-of the new ``marray`` instance the result of an element-wise ``OP``
+of the new ``sycl::marray`` instance the result of an element-wise ``OP``
 relational operation between each element of ``lhs marray`` and the ``rhs``
 scalar. The ``==``, ``<``, ``>``, ``<=`` and ``>=`` operations result in
 ``false`` if either the ``lhs`` element or the ``rhs`` is a ``NaN``. The
@@ -458,93 +466,96 @@ Where ``OP`` is: ``==``, ``!=``, ``<``, ``>``, ``<=``, ``>=``.
 
 ::
 
-  marray operatorOP(const DataT& lhs, const marray& rhs);
+  sycl::marray operatorOP(const DataT& lhs, const sycl::marray& rhs);
 
 If ``OP`` is ``%``, available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the same
-template parameters as the ``rhs`` SYCL ``marray`` with each element of the
-new SYCL ``marray`` instance the result of an element-wise ``OP`` arithmetic
-operation between the ``lhs`` scalar and each element of the ``rhs``
-SYCL ``marray``.
+Construct a new instance of the SYCL ``sycl::marray`` class template
+with the same template parameters as the ``rhs`` SYCL ``sycl::marray``
+with each element of the new SYCL ``sycl::marray`` instance the result of
+an element-wise ``OP`` arithmetic operation between the ``lhs`` scalar and
+each element of the ``rhs`` SYCL ``sycl::marray``.
 
 Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``.
 
 ::
 
-  marray operatorOP(const DataT& lhs, const marray& rhs);
+  sycl::marray operatorOP(const DataT& lhs, const sycl::marray& rhs);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the same
-template parameters as the ``rhs`` SYCL ``marray`` with each element of the
-new SYCL ``marray`` instance the result of an element-wise ``OP`` bitwise
-operation between the ``lhs`` scalar and each element of the ``rhs`` SYCL
-``marray``.
+Construct a new instance of the SYCL ``sycl::marray`` class template
+with the same template parameters as the ``rhs`` SYCL ``sycl::marray``
+with each element of the new SYCL ``sycl::marray`` instance the result
+of an element-wise ``OP`` bitwise operation between the ``lhs`` scalar
+and each element of the ``rhs`` SYCL ``sycl::marray``.
 
 Where ``OP`` is: ``&``, ``|``, ``^``.
 
 ::
 
-  marray<bool, NumElements> operatorOP(const DataT& lhs, const marray& rhs);
+  sycl::marray<bool, NumElements> operatorOP(const DataT& lhs, const sycl::marray& rhs);
 
-Construct a new instance of the ``marray`` class template with ``DataT = bool``
-and same NumElements as ``rhs marray`` with each element of the new ``marray``
-instance the result of an element-wise ``OP`` logical operation between the
-``lhs`` scalar and each element of the ``rhs marray``.
+Construct a new instance of the ``sycl::marray`` class template with
+``DataT = bool`` and same NumElements as ``rhs marray`` with each element
+of the new ``sycl::marray`` instance the result of an element-wise ``OP``
+logical operation between the ``lhs`` scalar and each element
+of the ``rhs marray``.
 
 Where ``OP`` is: ``&&``, ``||``.
 
 ::
 
-  marray operatorOP(const DataT& lhs, const marray& rhs);
+  sycl::marray operatorOP(const DataT& lhs, const sycl::marray& rhs);
 
-Construct a new instance of the SYCL ``marray`` class template with the same
-template parameters as the ``rhs`` SYCL ``marray`` with each element of the
-new SYCL ``marray`` instance the result of an element-wise ``OP`` bitshift
-operation between the ``lhs`` scalar and each element of the ``rhs`` SYCL
-``marray``. If ``OP`` is ``>>``, ``DataT`` is a signed type and this SYCL
-``marray`` has a negative value any vacated bits viewed as an unsigned
-integer must be assigned the value ``1``, otherwise any vacated bits viewed
-as an unsigned integer must be assigned the value ``0``.
+Construct a new instance of the SYCL ``sycl::marray`` class template
+with the same template parameters as the ``rhs`` SYCL ``sycl::marray``
+with each element of the new SYCL ``sycl::marray`` instance the result of
+an element-wise ``OP`` bitshift operation between the ``lhs`` scalar and
+each element of the ``rhs`` SYCL ``sycl::marray``. If ``OP`` is ``>>``,
+``DataT`` is a signed type and this SYCL ``sycl::marray`` has a
+negative value any vacated bits viewed as an unsigned integer must be
+assigned the value ``1``, otherwise any vacated bits viewed as an
+unsigned integer must be assigned the value ``0``.
 
 Where ``OP`` is: ``<<``, ``>>``.
 
 ::
 
-  marray<bool, NumElements> operatorOP(const DataT& lhs, const marray& rhs);
+  sycl::marray<bool, NumElements> operatorOP(const DataT& lhs, const sycl::marray& rhs);
 
-Construct a new instance of the ``marray`` class template with ``DataT = bool``
-and same NumElements as ``rhs marray`` with each element of the new SYCL
-``marray`` instance the result of an element-wise ``OP`` relational operation
-between the ``lhs`` scalar and each element of the ``rhs marray``. The ``==``,
-``<``, ``>``, ``<=`` and ``>=`` operations result in ``false`` if either the
-``lhs`` or the ``rhs`` element is a ``NaN``. The ``!=`` operation results in
-``true`` if either the ``lhs`` or the ``rhs`` element is a ``NaN``.
+Construct a new instance of the ``sycl::marray`` class template with
+``DataT = bool`` and same NumElements as ``rhs marray`` with each element
+of the new SYCL ``sycl::marray`` instance the result of an element-wise
+``OP`` relational operation between the ``lhs`` scalar and each element of the
+``rhs marray``. The ``==``, ``<``, ``>``, ``<=`` and ``>=`` operations result
+in ``false`` if either the ``lhs`` or the ``rhs`` element is a ``NaN``.
+The ``!=`` operation results in ``true`` if either the ``lhs`` or
+the ``rhs`` element is a ``NaN``.
 
 Where ``OP`` is: ``==``, ``!=``, ``<``, ``>``, ``<=``, ``>=``.
 
 ::
 
-  marray& operator~(const marray& v);
+  sycl::marray& operator~(const sycl::marray& v);
 
 Available only when:
 ``DataT != float && DataT != double && DataT != half``.
 
-Construct a new instance of the SYCL ``marray`` class template with the same
-template parameters as ``v marray`` with each element of the new SYCL
-``marray`` instance the result of an element-wise ``OP`` bitwise operation
-on each element of ``v marray``.
+Construct a new instance of the SYCL ``sycl::marray`` class template
+with the same template parameters as ``v marray`` with each element of
+the new SYCL ``sycl::marray`` instance the result of an element-wise
+``OP`` bitwise operation on each element of ``v marray``.
 
 ::
 
-  marray<bool, NumElements> operator!(const marray& v);
+  sycl::marray<bool, NumElements> operator!(const sycl::marray& v);
 
-Construct a new instance of the ``marray`` class template with
+Construct a new instance of the ``sycl::marray`` class template with
 ``DataT = bool`` and same NumElements as ``v marray`` with each element of
-the new ``marray`` instance the result of an element-wise logical ``!``
+the new ``sycl::marray`` instance the result of an element-wise logical ``!``
 operation on each element of ``v marray``.
 
 =======
@@ -570,5 +581,5 @@ and ``mfloat16`` is the alias to ``marray<float, 16>``.
 Memory layout and alignment
 ===========================
 
-The elements of an instance of the ``marray`` class template as if
+The elements of an instance of the ``sycl::marray`` class template as if
 stored in ``std::array<DataT, NumElements>``.
