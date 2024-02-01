@@ -34,27 +34,27 @@ The ``sycl::event`` class provides the
 
 ::
 
-  explicit context(const property_list& propList = {});
+  explicit context(const sycl::property_list& propList = {});
 
-  explicit context(async_handler asyncHandler,
-                 const property_list& propList = {});
+  explicit context(sycl::async_handler asyncHandler,
+                   const sycl::property_list& propList = {});
 
-  explicit context(const device& dev, const property_list& propList = {});
+  explicit context(const sycl::device& dev, const sycl::property_list& propList = {});
 
-  explicit context(const device& dev, async_handler asyncHandler,
-                 const property_list& propList = {});
+  explicit context(const sycl::device& dev, sycl::async_handler asyncHandler,
+                   const sycl::property_list& propList = {});
 
-  explicit context(const platform &plt, const property_list &propList = {});
+  explicit context(const sycl::platform &plt, const sycl::property_list &propList = {});
 
-  explicit context(const platform &plt, async_handler asyncHandler,
-                 const property_list &propList = {});
+  explicit context(const sycl::platform &plt, sycl::async_handler asyncHandler,
+                   const sycl::property_list &propList = {});
 
-  explicit context(const std::vector<device>& deviceList,
-                 const property_list& propList = {});
+  explicit context(const std::vector<sycl::device>& deviceList,
+                   const sycl::property_list& propList = {});
 
-  explicit context(const std::vector<device>& deviceList,
-                 async_handler asyncHandler,
-                 const property_list& propList = {});
+  explicit context(const std::vector<sycl::device>& deviceList,
+                   sycl::async_handler asyncHandler,
+                   const sycl::property_list& propList = {});
 
 Construct a ``sycl::context``.
 

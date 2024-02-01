@@ -8,8 +8,6 @@ Devices
 
 .. _device:
 
-.. rst-class:: api-class
-
 ================
 ``sycl::device``
 ================
@@ -18,13 +16,13 @@ Devices
 
    class device;
 
-The SYCL device class encapsulates a single SYCL device on
+The ``sycl::device`` class encapsulates a single SYCL device on
 which :ref:`kernels <kernel>` can be executed.
 
-All member functions of the device class are synchronous
+All member functions of the ``sycl::device`` class are synchronous
 and errors are handled by throwing synchronous SYCL exceptions.
 
-The SYCL device class provides the
+The ``sycl::device`` class provides the
 :ref:`common reference semantics <common-reference>`.
 
 .. seealso:: |SYCL_SPEC_DEVICE|
@@ -37,12 +35,13 @@ The SYCL device class provides the
 
   device();
 
-  template <typename DeviceSelector> explicit device(const DeviceSelector&);
+  template <typename DeviceSelector>
+  explicit device(const DeviceSelector&);
 
-Construct a SYCL device instance.
+Construct a ``sycl::device`` instance.
 
 The default constructor creates an instance that is a copy of
-the device returned by ``default_selector_v``.
+the device returned by ``sycl::default_selector_v``.
 
 A device can also be chosen by passing the
 :ref:`device selector <device-selectors>` parameter.
@@ -56,7 +55,7 @@ Member functions
 
 ::
 
-  backend get_backend() const noexcept;
+  sycl::backend get_backend() const noexcept;
 
 Returns a backend identifying the SYCL backend associated
 with this device.
@@ -67,10 +66,10 @@ with this device.
 
 ::
 
-  platform get_platform() const noexcept;
+  sycl::platform get_platform() const noexcept;
 
 Returns the associated SYCL platform. The value returned
-must be equal to that returned by ``get_info<info::device::platform>()``.
+must be equal to that returned by ``get_info<sycl::info::device::platform>()``.
 
 ``is_cpu``
 ==========
@@ -79,7 +78,7 @@ must be equal to that returned by ``get_info<info::device::platform>()``.
 
   bool is_cpu() const;
 
-Returns the same value as ``has(aspect::cpu)``.
+Returns the same value as ``has(sycl::aspect::cpu)``.
 
 See :ref:`device-aspects`.
 
@@ -90,7 +89,7 @@ See :ref:`device-aspects`.
 
   bool is_gpu() const;
 
-Returns the same value as ``has(aspect::gpu)``.
+Returns the same value as ``has(sycl::aspect::gpu)``.
 
 See :ref:`device-aspects`.
 
@@ -101,7 +100,7 @@ See :ref:`device-aspects`.
 
   bool is_accelerator() const;
 
-Returns the same value as ``has(aspect::accelerator)``.
+Returns the same value as ``has(sycl::aspect::accelerator)``.
 
 See :ref:`device-aspects`.
 
@@ -113,7 +112,7 @@ See :ref:`device-aspects`.
   template <typename Param>
   typename Param::return_type get_info() const;
 
-Queries this SYCL device for information requested by the
+Queries this ``sycl::device`` for information requested by the
 template parameter ``Param``.
 
 The type alias ``Param::return_type`` must be defined in
@@ -132,13 +131,13 @@ See :ref:`get_devices-example`.
   template <typename Param>
   typename Param::return_type get_backend_info() const;
 
-Queries this SYCL device for SYCL backend-specific information
+Queries this ``sycl::device`` for SYCL backend-specific information
 requested by the template parameter ``Param``.
 
 The type alias ``Param::return_type`` must be defined in accordance
 with the SYCL backend specification.
 
-Must throw an exception with the ``errc::backend_mismatch``
+Must throw an exception with the ``sycl::errc::backend_mismatch``
 error code if the SYCL backend that corresponds with ``Param`` is
 different from the SYCL backend that is associated with this device.
 
@@ -147,9 +146,9 @@ different from the SYCL backend that is associated with this device.
 
 ::
 
-  bool has(aspect asp) const;
+  bool has(sycl::aspect asp) const;
 
-Returns true if this SYCL device has the given aspect.
+Returns true if ``sycl::device`` has the given aspect.
 SYCL applications can use this member function to determine
 which optional features this device supports (if any).
 
@@ -162,7 +161,7 @@ which optional features this device supports (if any).
 
 Deprecated, use ``has()`` instead.
 
-Returns true if this SYCL device supports the extension
+Returns true if this ``sycl::device`` supports the extension
 queried by the extension parameter.
 
 ``create_sub_devices``
@@ -170,14 +169,14 @@ queried by the extension parameter.
 
 ::
 
-  template <info::partition_property Prop>
+  template <sycl::info::partition_property Prop>
   std::vector<device> create_sub_devices(size_t count) const;
 
 Available only when Prop is
 ``sycl::info::partition_property::partition_equally``.
 
 Returns a ``std::vector`` of sub devices partitioned
-from this SYCL device based on the ``count`` parameter.
+from this ``sycl::device`` based on the ``count`` parameter.
 The returned vector contains as many sub devices as
 can be created such that each sub device contains
 ``count`` compute units. If the device's total
@@ -188,27 +187,27 @@ not included in any of the sub devices.
 
 ::
 
-  template <info::partition_property Prop>
-  std::vector<device> create_sub_devices(const std::vector<size_t>& counts) const;
+  template <sycl::info::partition_property Prop>
+  std::vector<sycl::device> create_sub_devices(const std::vector<size_t>& counts) const;
 
 Available only when Prop is
 ``sycl::info::partition_property::partition_by_counts``.
 
 Returns a ``std::vector`` of sub devices partitioned from
-this SYCL device based on the ``counts`` parameter. For
+this ``sycl::device`` based on the ``counts`` parameter. For
 each non-zero value M in the ``counts`` vector, a sub
 device with M compute units is created.
 
 ::
 
-  template <info::partition_property Prop>
-  std::vector<device> create_sub_devices(info::partition_affinity_domain domain) const;
+  template <sycl::info::partition_property Prop>
+  std::vector<sycl::device> create_sub_devices(sycl::info::partition_affinity_domain domain) const;
 
 Available only when Prop is
 ``sycl::info::partition_property::partition_by_affinity_domain``.
 
 Returns a ``std::vector`` of sub devices partitioned from this
-SYCL device by affinity ``domain`` based on the domain parameter,
+``sycl::device`` by affinity ``domain`` based on the domain parameter,
 which must be one of the following values:
 
 .. list-table::
@@ -256,11 +255,11 @@ which must be one of the following values:
 
 .. rubric:: Exceptions
 
-``errc::feature_not_supported``
+``sycl::errc::feature_not_supported``
   If SYCL device does not support the `sycl::info::partition_property`_
   specified by the ``Prop`` template argument.
 
-``errc::invalid``
+``sycl::errc::invalid``
   In the following cases:
 
   * If the ``count`` parameter is greater than the number of compute units in the device (``sycl::info::device::max_compute_units``).
@@ -279,7 +278,8 @@ Static member functions
 
 ::
 
-  static std::vector<device> get_devices(info::device_type deviceType = info::device_type::all);
+  static std::vector<sycl::device>
+  get_devices(sycl::info::device_type deviceType = sycl::info::device_type::all);
 
 Returns a ``std::vector`` containing all the root devices from
 all SYCL backends available in the system which have the device
@@ -462,7 +462,7 @@ each dimension of a work-group for a kernel running in a three-dimensional
 index space.
 
 The minimum value is ``(1, 1, 1)`` for devices that are not of
-device type ``info::device_type::custom``.
+device type ``sycl::info::device_type::custom``.
 
 +----------------------------------------------+
 | Return type: :ref:`sycl::range\<3\> <range>` |
@@ -1133,8 +1133,8 @@ Returns a vendor-defined string describing the
 version of the underlying backend software driver.
 
 Only supported when using the OpenCL backend.
-Throws an exception with the ``errc::invalid`` error code if
-used with a device whose backend is not OpenCL.
+Throws an exception with the ``sycl::errc::invalid`` error code
+if used with a device whose backend is not OpenCL.
 
 The value returned can be one of the following strings:
 ``FULL_PROFILE``, ``EMBEDDED_PROFILE``.
@@ -1168,7 +1168,7 @@ specification of the SYCL backend associated with the device.
 
 .. rubric:: ``sycl::info::device::aspects``
 
-Returns a ``std::vector`` of :ref:`aspect <device-aspects>`
+Returns a ``std::vector`` of :ref:`sycl::aspect <device-aspects>`
 values supported by this SYCL device.
 
 +----------------------------------------------------+
@@ -1207,7 +1207,7 @@ output of ``printf`` calls from a kernel. The minimum value is
 .. rubric:: ``sycl::info::device::preferred_interop_user_sync``
 
 Deprecated in SYCL 2020. Only supported when using the OpenCL backend.
-Throws an exception with the ``errc::invalid`` error code if used with
+Throws an exception with the ``sycl::errc::invalid`` error code if used with
 a device whose backend is not OpenCL.
 
 Returns true if the preference for this SYCL device is for the user to
@@ -1226,7 +1226,7 @@ between OpenCL and other APIs.
 Returns the parent SYCL device to which this sub-device is a child if this is
 a sub-device.
 
-Must throw an exception with the ``errc::invalid`` error code if
+Must throw an exception with the ``sycl::errc::invalid`` error code if
 this SYCL device is not a sub device.
 
 +-------------------------------------+
@@ -1478,8 +1478,8 @@ See get_info_.
 Device aspects
 ==============
 
-Every SYCL device has an associated set of aspects which
-identify characteristics of the ``device``. Aspects are defined
+Every ``sycl::device`` has an associated set of aspects which
+identify characteristics of the device. Aspects are defined
 via the ``enum class aspect`` enumeration:
 
 ::
@@ -1510,83 +1510,85 @@ via the ``enum class aspect`` enumeration:
 
   } // namespace sycl
 
-SYCL applications can query the aspects for a ``device``
-via ``device::has()`` in order to determine whether the
+SYCL applications can query the aspects for a ``sycl::device``
+via ``sycl::device::has()`` in order to determine whether the
 device supports any optional features.
 
 Device aspects defined by the core SYCL specification:
 
 .. list-table::
 
-  * - ``aspect::cpu``
-    - A device that runs on a CPU. Devices with this ``aspect`` have device type ``info::device_type::cpu``.
-  * - ``aspect::gpu``
+  * - ``sycl::aspect::cpu``
+    - A device that runs on a CPU. Devices with this ``aspect`` have device type
+      ``sycl::info::device_type::cpu``.
+  * - ``sycl::aspect::gpu``
     - A device that can also be used to accelerate a 3D graphics API.
-      Devices with this ``aspect`` have device type ``info::device_type::gpu``.
-  * - ``aspect::accelerator``
+      Devices with this ``sycl::aspect`` have device type ``sycl::info::device_type::gpu``.
+  * - ``sycl::aspect::accelerator``
     - A dedicated accelerator device, usually using a peripheral interconnect for communication.
-      Devices with this ``aspect`` have device type ``info::device_type::accelerator``.
-  * - ``aspect::custom``
+      Devices with this ``aspect`` have device type ``sycl::info::device_type::accelerator``.
+  * - ``sycl::aspect::custom``
     - A dedicated accelerator that can use the SYCL API, but programmable kernels cannot
       be dispatched to the device, only fixed functionality is available.
-      Devices with this ``aspect`` have device type ``info::device_type::custom``.
-  * - ``aspect::emulated``
+      Devices with this ``aspect`` have device type ``sycl::info::device_type::custom``.
+  * - ``sycl::aspect::emulated``
     - Indicates that the device is somehow emulated. A device with this aspect is not intended
       for performance, and instead will generally have another purpose such as emulation or profiling.
       The precise definition of this aspect is left open to the SYCL implementation.
-  * - ``aspect::host_debuggable``
+  * - ``sycl::aspect::host_debuggable``
     - Indicates that kernels running on this device can be debugged using standard debuggers that
       are normally available on the host system where the SYCL implementation resides. The precise
       definition of this aspect is left open to the SYCL implementation.
-  * - ``aspect::fp16``
+  * - ``sycl::aspect::fp16``
     - Indicates that kernels submitted to the device may use the ``sycl::half`` data type.
-  * - ``aspect::fp64``
+  * - ``sycl::aspect::fp64``
     - Indicates that kernels submitted to the device may use the ``double`` data type.
-  * - ``aspect::atomic64``
+  * - ``sycl::aspect::atomic64``
     - Indicates that kernels submitted to the device may perform 64-bit atomic operations.
-  * - ``aspect::image``
+  * - ``sycl::aspect::image``
     - Indicates that the device supports images.
-  * - ``aspect::online_compiler``
+  * - ``sycl::aspect::online_compiler``
     - Indicates that the device supports online compilation of device code.
       Devices that have this aspect support the ``build()`` and ``compile()`` functions.
-  * - ``aspect::online_linker``
+  * - ``sycl::aspect::online_linker``
     - Indicates that the device supports online linking of device code.
       Devices that have this aspect support the ``link()`` function.
 
-      All devices that have this aspect also have ``aspect::online_compiler``.
-  * - ``aspect::queue_profiling``
-    - Indicates that the device supports queue profiling via ``property::queue::enable_profiling``.
-  * - ``aspect::usm_device_allocations``
+      All devices that have this aspect also have ``sycl::aspect::online_compiler``.
+  * - ``sycl::aspect::queue_profiling``
+    - Indicates that the device supports queue profiling via ``sycl::property::queue::enable_profiling``.
+  * - ``sycl::aspect::usm_device_allocations``
     - Indicates that the device supports explicit USM allocations.
-  * - ``aspect::usm_host_allocations``
-    - Indicates that the device can access USM memory allocated via ``usm::alloc::host``.
+  * - ``sycl::aspect::usm_host_allocations``
+    - Indicates that the device can access USM memory allocated via ``sycl::usm::alloc::host``.
 
       The device only supports atomic modification of a host allocation if
-      ``aspect::usm_atomic_host_allocations`` is also supported.
-  * - ``aspect::usm_atomic_host_allocations``
-    - Indicates that the device supports USM memory allocated via ``usm::alloc::host``.
+      ``sycl::aspect::usm_atomic_host_allocations`` is also supported.
+  * - ``sycl::aspect::usm_atomic_host_allocations``
+    - Indicates that the device supports USM memory allocated via ``sycl::usm::alloc::host``.
       The host and this device may concurrently access and atomically modify host allocations.
-  * - ``aspect::usm_shared_allocations``
-    - Indicates that the device supports USM memory allocated via ``usm::alloc::shared``
+  * - ``sycl::aspect::usm_shared_allocations``
+    - Indicates that the device supports USM memory allocated via ``sycl::usm::alloc::shared``
       on the same device.
 
       Concurrent access and atomic modification of a shared allocation
-      is only supported if ``aspect::usm_atomic_shared_allocations`` is also supported.
-  * - ``aspect::usm_atomic_shared_allocations``
-    - Indicates that the device supports USM memory allocated via ``usm::alloc::shared``.
+      is only supported if ``sycl::aspect::usm_atomic_shared_allocations`` is also supported.
+  * - ``sycl::aspect::usm_atomic_shared_allocations``
+    - Indicates that the device supports USM memory allocated via ``sycl::usm::alloc::shared``.
       The host and other devices in the same context that also support this capability
       may concurrently access and atomically modify shared allocations.
       The allocation is free to migrate between the host and the appropriate devices.
-  * - ``aspect::usm_system_allocations``
+  * - ``sycl::aspect::usm_system_allocations``
     - Indicates that the system allocator may be used instead of SYCL USM allocation
-      mechanisms for ``usm::alloc::shared`` allocations on this device.
+      mechanisms for ``sycl::usm::alloc::shared`` allocations on this device.
 
 The implementation also provides two traits that the
 application can use to query aspects at compilation time.
 
-The traits ``any_device_has<aspect>`` and ``all_devices_have<aspect>``
-are set according to the collection of devices D that can possibly
-execute device code, as determined by the compilation environment.
+The traits ``sycl::any_device_has<sycl::aspect>`` and
+``sycl::all_devices_have<sycl::aspect>`` are set according to
+the collection of devices D that can possibly execute device
+code, as determined by the compilation environment.
 
 ::
 
@@ -1602,11 +1604,11 @@ execute device code, as determined by the compilation environment.
 
   } // namespace sycl
 
-The trait ``any_device_has<aspect>`` inherits from ``std::true_type`` only
-if at least one device in D has the specified aspect.
+The trait ``sycl::any_device_has<sycl::aspect>`` inherits from
+``std::true_type`` only if at least one device in D has the specified aspect.
 
-The trait ``all_devices_have<aspect>`` inherits from ``std::true_type`` only
-if all devices in D have the specified aspect.
+The trait ``sycl::all_devices_have<sycl::aspect>`` inherits from
+``std::true_type`` only if all devices in D have the specified aspect.
 
 Applications can use these traits to reduce their code size.
 
