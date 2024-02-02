@@ -102,6 +102,7 @@ tested using the ``has_known_identity`` trait class.
   inline constexpr bool has_known_identity_v =
       has_known_identity<BinaryOperation, AccumulatorT>::value;
 
+================
 Known identities
 ================
 

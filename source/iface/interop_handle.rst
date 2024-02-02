@@ -27,6 +27,7 @@ be used for interoperability purposes.
 An ``sycl::interop_handle`` cannot be constructed by user-code,
 only by the SYCL runtime.
 
+==============
 (constructors)
 ==============
 

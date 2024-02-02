@@ -39,12 +39,11 @@ which is the same size in bytes as ``T``. Constructs an instance of
 SYCL ``atomic`` which is associated with the pointer ``ptr``,
 converted to a pointer of data type ``T``.
 
-================
 Member functions
 ================
 
 ``store``
-=========
+---------
 
 ::
 
@@ -59,7 +58,7 @@ This function is only supported for 64-bit data types on devices
 that have ``aspect::atomic64``.
 
 ``load``
-========
+--------
 
 ::
 
@@ -75,7 +74,7 @@ before the call. The memory order of this atomic operation must be
 data types on devices that have ``aspect::atomic64``.
 
 ``exchange``
-============
+------------
 
 ::
 
@@ -92,7 +91,7 @@ only supported for 64-bit data types on devices that have
 ``aspect::atomic64``.
 
 ``compare_exchange_strong``
-===========================
+---------------------------
 
 ::
 
@@ -118,7 +117,7 @@ is only supported for 64-bit data types on devices that have
 ``aspect::atomic64``.
 
 ``fetch_add``
-=============
+-------------
 
 ::
 
@@ -138,7 +137,7 @@ is only supported for 64-bit data types on devices that have
 ``aspect::atomic64``.
 
 ``fetch_sub``
-=============
+-------------
 
 ::
 
@@ -158,7 +157,7 @@ The memory order of this atomic operation must be
 data types on devices that have ``aspect::atomic64``.
 
 ``fetch_and``
-=============
+-------------
 
 ::
 
@@ -179,7 +178,7 @@ only supported for 64-bit data types on devices that have
 ``aspect::atomic64``.
 
 ``fetch_or``
-============
+-------------
 
 ::
 
@@ -200,7 +199,7 @@ supported for 64-bit data types on devices that have
 ``aspect::atomic64``.
 
 ``fetch_xor``
-=============
+-------------
 
 ::
 
@@ -220,7 +219,7 @@ must be ``memory_order::relaxed``. This function is only supported
 for 64-bit data types on devices that have ``aspect::atomic64``.
 
 ``fetch_min``
-=============
+-------------
 
 ::
 
@@ -241,7 +240,7 @@ function is only supported for 64-bit data types on devices that
 have ``aspect::atomic64``.
 
 ``fetch_max``
-=============
+-------------
 
 ::
 
@@ -261,12 +260,12 @@ this atomic operation must be ``memory_order::relaxed``. This
 function is only supported for 64-bit data types on devices
 that have ``aspect::atomic64``.
 
-================
+
 Global functions
 ================
 
 ``atomic_load``
-===============
+---------------
 
 ::
 
@@ -279,7 +278,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.load(memoryOrder)``.
 
 ``atomic_store``
-================
+----------------
 
 ::
 
@@ -292,7 +291,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.store(operand, memoryOrder)``.
 
 ``atomic_exchange``
-===================
+-------------------
 
 ::
 
@@ -305,7 +304,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.exchange(operand, memoryOrder)``.
 
 ``atomic_compare_exchange_strong``
-==================================
+----------------------------------
 
 ::
 
@@ -322,7 +321,7 @@ Equivalent to calling
 successMemoryOrder, failMemoryOrders)``.
 
 ``atomic_fetch_add``
-====================
+--------------------
 
 ::
 
@@ -335,7 +334,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.fetch_add(operand, memoryOrder)``.
 
 ``atomic_fetch_sub``
-====================
+--------------------
 
 ::
 
@@ -348,7 +347,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.fetch_sub(operand, memoryOrder)``.
 
 ``atomic_fetch_and``
-====================
+--------------------
 
 ::
 
@@ -361,7 +360,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.fetch_add(operand, memoryOrder)``.
 
 ``atomic_fetch_or``
-===================
+-------------------
 
 ::
 
@@ -374,7 +373,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.fetch_or(operand, memoryOrder)``.
 
 ``atomic_fetch_xor``
-====================
+--------------------
 
 ::
 
@@ -387,7 +386,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.fetch_xor(operand, memoryOrder)``.
 
 ``atomic_fetch_min``
-====================
+--------------------
 
 ::
 
@@ -400,7 +399,7 @@ Deprecated in SYCL 2020.
 Equivalent to calling ``object.fetch_min(operand, memoryOrder)``.
 
 ``atomic_fetch_max``
-====================
+--------------------
 
 ::
 

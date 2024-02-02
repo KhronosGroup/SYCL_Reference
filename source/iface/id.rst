@@ -21,6 +21,7 @@ component ``n`` as a ``size_t``.
 
 .. seealso:: |SYCL_SPEC_ID|
 
+==============
 (constructors)
 ==============
 

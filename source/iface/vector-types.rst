@@ -116,12 +116,11 @@ Other options are to construct a SYCL ``sycl::vec`` instance from any
 combination of scalar and SYCL ``sycl::vec`` parameters of the same element
 type or copy from another similar vector.
 
-================
 Member functions
 ================
 
 ``vector_t``
-============
+------------
 
 ::
 
@@ -133,7 +132,7 @@ Converts this SYCL ``sycl::vec`` instance to the underlying backend-native
 vector type defined by ``vector_t``.
 
 ``DataT``
-=========
+---------
 
 ::
 
@@ -150,7 +149,7 @@ Note that conversion operator shall not be templated to allow
 standard conversion sequence for implicit conversion.
 
 ``size``
-========
+--------
 
 ::
 
@@ -159,7 +158,7 @@ standard conversion sequence for implicit conversion.
 Returns the number of elements of this SYCL ``sycl::vec``.
 
 ``get_count``
-=============
+-------------
 
 ::
 
@@ -168,7 +167,7 @@ Returns the number of elements of this SYCL ``sycl::vec``.
 Returns the same value as ``sycl::size()``. Deprecated.
 
 ``byte_size``
-=============
+-------------
 
 ::
 
@@ -182,7 +181,7 @@ The same rule applies to vector alignment as described
 in |SYCL_SPEC_MEMORY_LAYOUT_AND_ALIG|.
 
 ``sycl::get_size``
-==================
+------------------
 
 ::
 
@@ -191,7 +190,7 @@ in |SYCL_SPEC_MEMORY_LAYOUT_AND_ALIG|.
 Returns the same value as ``byte_size()``. Deprecated.
 
 ``convert``
-===========
+-----------
 
 ::
 
@@ -205,7 +204,7 @@ by ``RoundingMode``. The new SYCL ``sycl::vec`` type must have the same
 number of elements as this SYCL ``sycl::vec``.
 
 ``as``
-======
+------
 
 ::
 
@@ -220,7 +219,7 @@ size of the elements in this SYCL ``sycl::vec``.
 
 
 ``swizzle``
-===========
+-----------
 
 ::
 
@@ -233,7 +232,7 @@ be used to apply the swizzle in a valid expression as described
 in |SYCL_SPEC_SWIZZLED_VEC_CLASS|.
 
 ``swizzle access``
-==================
+------------------
 
 ::
 
@@ -321,7 +320,7 @@ For example a four element ``sycl::vec`` provides permutations including
 
 
 ``lo``
-======
+------
 
 ::
 
@@ -338,7 +337,7 @@ SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
 ``hi``
-======
+------
 
 ::
 
@@ -355,7 +354,7 @@ SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
 ``odd``
-=======
+-------
 
 ::
 
@@ -372,7 +371,7 @@ SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
 ``even``
-========
+--------
 
 ::
 
@@ -389,7 +388,7 @@ SYCL ``sycl::vec`` is treated as though ``NumElements == 4``
 with the fourth element undefined.
 
 ``load``
-========
+--------
 
 ::
 
@@ -401,7 +400,7 @@ type ``DataT`` by ``NumElements * offset``, into the components
 of this SYCL ``sycl::vec``.
 
 ``store``
-=========
+---------
 
 ::
 
@@ -412,7 +411,7 @@ Stores the components of this SYCL ``sycl::vec`` into the values at the address
 of ``ptr`` offset in elements of type ``DataT`` by ``NumElements * offset``.
 
 ``operator[]``
-==============
+--------------
 
 ::
 
@@ -430,7 +429,7 @@ Returns a ``const`` reference to the element stored within this SYCL
 ``sycl::vec`` at the index specified by ``index``.
 
 ``operator=``
-=============
+-------------
 
 ::
 
@@ -448,12 +447,11 @@ Assign each element of the ``rhs`` scalar to each element
 of this SYCL ``sycl::vec`` and return a reference to this SYCL ``sycl::vec``.
 
 
-=======================
 Hidden friend functions
 =======================
 
 ``operatorOP``
-==============
+--------------
 
 ::
 
