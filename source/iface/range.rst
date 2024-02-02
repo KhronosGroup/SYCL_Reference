@@ -2,13 +2,11 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _range:
 
-===============
+***************
 ``sycl::range``
-===============
+***************
 
 ::
 
@@ -22,6 +20,7 @@ It can be constructed from integers.
 
 .. seealso:: |SYCL_SPEC_RANGE|
 
+==============
 (constructors)
 ==============
 
