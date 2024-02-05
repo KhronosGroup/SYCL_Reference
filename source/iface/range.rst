@@ -50,7 +50,7 @@ Member functions
 
   size_t get(int dimension) const
 
-Return the value of the specified dimension of the ``range``.
+Return the value of the specified dimension of the ``sycl::range``.
 
 ``size_t& operator[]``
 ======================
@@ -59,7 +59,7 @@ Return the value of the specified dimension of the ``range``.
 
   size_t& operator[](int dimension);
 
-Return the l-value of the specified dimension of the ``range``.
+Return the l-value of the specified dimension of the ``sycl::range``.
 
 ``size_t operator[]``
 =====================
@@ -68,7 +68,7 @@ Return the l-value of the specified dimension of the ``range``.
 
   size_t operator[](int dimension) const
 
-Return the value of the specified dimension of the ``range``.
+Return the value of the specified dimension of the ``sycl::range``.
 
 ``size``
 ========
@@ -88,36 +88,37 @@ Hidden friend functions
 
 ::
 
-  range operatorOP(const range& lhs, const range& rhs);
+  range operatorOP(const sycl::range& lhs, const sycl::range& rhs);
 
 Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
 ``>>``, ``&``, ``|``,``^``, ``&&``, ``||``, ``<``, ``>``,
 ``<=``, ``>=``.
 
-Constructs and returns a new instance of the SYCL ``range`` class template
-with the same dimensionality as ``lhs range``, where each element of the new
-SYCL ``range`` instance is the result of an element-wise ``OP`` operator
-between each element of ``lhs range`` and each element of the
-``rhs range``. If the operator returns a ``bool``,
-the result is the cast to ``size_t``.
+Constructs and returns a new instance of the ``sycl::range`` class
+template with the same dimensionality as ``lhs range``, where each
+element of the new ``sycl::range`` instance is the result of an
+element-wise ``OP`` operator between each element of ``lhs range``
+and each element of the ``rhs range``. If the operator returns
+a ``bool``, the result is the cast to ``size_t``.
 
 ::
 
-  range operatorOP(const range& lhs, const size_t& rhs);
+  range operatorOP(const sycl::range& lhs, const size_t& rhs);
 
 Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
 ``>>``, ``&``, ``|``, ``^``, ``&&``, ``||``, ``<``, ``>``,
 ``<=``, ``>=``.
 
-Constructs and returns a new instance of the SYCL ``range`` class template
-with the same dimensionality as ``lhs range``, where each element of the new
-SYCL ``range`` instance is the result of an element-wise ``OP`` operator
-between each element of this SYCL ``range`` and the ``rhs size_t``.
-If the operator returns a ``bool``, the result is the cast to ``size_t``.
+Constructs and returns a new instance of the ``sycl::range`` class
+template with the same dimensionality as ``lhs range``, where each
+element of the new ``sycl::range`` instance is the result of an
+element-wise ``OP`` operator between each element of this ``sycl::range``
+and the ``rhs size_t``. If the operator returns a ``bool``, the
+result is the cast to ``size_t``.
 
 ::
 
-  range& operatorOP(range& lhs, const range& rhs);
+  sycl::range& operatorOP(sycl::range& lhs, const sycl::range& rhs);
 
 Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
 ``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
@@ -129,7 +130,7 @@ If the operator returns a ``bool``, the result is the cast to ``size_t``.
 
 ::
 
-  range& operatorOP(range& lhs, const size_t& rhs);
+  sycl::range& operatorOP(sycl::range& lhs, const size_t& rhs);
 
 Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
 ``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
@@ -141,46 +142,47 @@ returns a ``bool``, the result is the cast to ``size_t``.
 
 ::
 
-  range operatorOP(const size_t& lhs, const range& rhs);
+  range operatorOP(const size_t& lhs, const sycl::range& rhs);
 
 Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
 ``>>``, ``&``, ``|``, ``^``, ``&&``, ``||``, ``<``, ``>``,
 ``<=``, ``>=``.
 
-Constructs and returns a new instance of the SYCL ``range`` class template
-with the same dimensionality as the ``rhs`` SYCL ``range``, where each
-element of the new SYCL ``range`` instance is the result of an element-wise
-``OP`` operator between the ``lhs size_t`` and each element of the
-``rhs`` SYCL ``range``. If the operator returns a ``bool``,
-the result is the cast to ``size_t``.
+Constructs and returns a new instance of the ``sycl::range``
+class template with the same dimensionality as the ``rhs`` ``sycl::range``,
+where each element of the new ``sycl::range`` instance is the result
+of an element-wise ``OP`` operator between the ``lhs size_t``
+and each element of the ``rhs`` ``sycl::range``. If the operator
+returns a ``bool``, the result is the cast to ``size_t``.
 
 ::
 
-  range operatorOP(const range& rhs);
+  range operatorOP(const sycl::range& rhs);
 
 Where ``OP`` is: unary ``+``, unary ``-``.
 
-Constructs and returns a new instance of the SYCL ``range`` class template
-with the same dimensionality as the ``rhs`` SYCL ``range``, where each element
-of the new SYCL ``range`` instance is the result of an element-wise
-``OP`` operator on the ``rhs`` SYCL ``range``.
+Constructs and returns a new instance of the ``sycl::range`` class
+template with the same dimensionality as the ``rhs`` ``sycl::range``,
+where each element of the new ``sycl::range`` instance is the result
+of an element-wise ``OP`` operator on the ``rhs``
+``sycl::range``.
 
 ::
 
-  range& operatorOP(range& rhs);
+  sycl::range& operatorOP(sycl::range& rhs);
 
 Where ``OP`` is: prefix ``++``, prefix ``--``.
 
 Assigns each element of the ``rhs range`` instance with the result of an
 element-wise ``OP`` operator on each element of the ``rhs range``
-and returns this ``range``.
+and returns this ``sycl::range``.
 
 ::
 
-  range operatorOP(range& lhs, int);
+  range operatorOP(sycl::range& lhs, int);
 
 Where ``OP`` is: postfix ``++``, postfix ``--``.
 
 Make a copy of the ``lhs range``. Assigns each element of the ``lhs range``
 instance with the result of an element-wise ``OP`` operator on each element
-of the ``lhs range``. Then return the initial copy of the ``range``.
+of the ``lhs range``. Then return the initial copy of the ``sycl::range``.

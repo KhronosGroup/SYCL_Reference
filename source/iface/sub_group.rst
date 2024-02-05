@@ -12,9 +12,9 @@
 
    class sub_group;
 
-The ``sub_group`` class encapsulates all functionality required to
-represent a particular sub-group within a parallel execution.
-It is not user-constructible.
+The ``sycl::sub_group`` class encapsulates all functionality
+required to represent a particular sub-group within a
+parallel execution. It is not user-constructible.
 
 .. warning::
 
@@ -66,21 +66,22 @@ position within the sub-group.
 
 ::
 
-  range<1> get_local_range() const
+  sycl::range<1> get_local_range() const
 
-Return a ``range`` representing the size of the sub-group. This size may
-be less than the value returned by ``get_max_local_range()``,
-depending on the position of the sub-group within its parent work-group
-and the manner in which sub-groups are constructed by the implementation.
+Return a ``sycl::range`` representing the size of the sub-group.
+This size may be less than the value returned by
+``get_max_local_range()``, depending on the position of the
+sub-group within its parent work-group and the manner in which
+sub-groups are constructed by the implementation.
 
 ``get_group_range``
 ===================
 
 ::
 
-  range<1> get_group_range() const
+  sycl::range<1> get_group_range() const
 
-Return a ``range`` representing the number of
+Return a ``sycl::range`` representing the number of
 sub-groups in the work-group.
 
 ``get_max_local_range``
@@ -88,10 +89,10 @@ sub-groups in the work-group.
 
 ::
 
-  range<1> get_max_local_range() const
+  sycl::range<1> get_max_local_range() const
 
-Return a ``range`` representing the maximum number of work-items
-permitted in a sub-group for the executing kernel.
+Return a ``sycl::range`` representing the maximum number of
+work-items permitted in a sub-group for the executing kernel.
 This value may have been chosen by the programmer via an attribute,
 or chosen by the device compiler.
 

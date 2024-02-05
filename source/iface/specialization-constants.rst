@@ -17,12 +17,13 @@ a specialization constant each time a kernel is invoked, so the values
 can be tuned differently for each invocation.
 
 There are two methods for an application to use specialization constants.
-One method requires creating a ``kernel_bundle`` object and the other does
-not. The syntax for both methods is mostly the same. Both methods declare
+One method requires creating a ``sycl::kernel_bundle`` object and
+the other does not.
+The syntax for both methods is mostly the same. Both methods declare
 specialization constants in the same way, and kernels read their values
 in the same way. The main difference is whether their values are set
-via ``handler::set_specialization_constant()`` or via
-``kernel_bundle::set_specialization_constant()``.
+via ``sycl::handler::set_specialization_constant()`` or via
+``sycl::kernel_bundle::set_specialization_constant()``.
 These two methods are incompatible with one another,
 so they may not both be used by the same command group.
 
@@ -34,8 +35,8 @@ so they may not both be used by the same command group.
   some overhead associated with invoking a kernel with new values for
   its specialization constants. A typical implementation records the values
   of specialization constants set via
-  ``handler::set_specialization_constant()`` and remembers these values
-  until a kernel is invoked (e.g. via ``parallel_for()``). At this point,
+  ``sycl::handler::set_specialization_constant()`` and remembers these values
+  until a kernel is invoked (e.g. via ``sycl::parallel_for()``). At this point,
   the implementation determines the bundle that contains the invoked kernel.
   If that bundle has already been compiled for the handler’s device and compiled
   with the correct values for the specialization constants, the kernel is
@@ -127,8 +128,8 @@ Setting and getting the value of a specialization constant
 ==========================================================
 
 If the application uses specialization constants without creating a
-``kernel_bundle`` object, it can set and get their values from command
-group scope by calling member functions of the ``handler`` class.
+``sycl::kernel_bundle`` object, it can set and get their values from
+command group scope by calling member functions of the ``handler`` class.
 These member functions have a template parameter ``SpecName`` whose
 value must be a reference to a variable of type ``specialization_id``,
 which defines the type and default value of the specialization constant.
@@ -160,9 +161,9 @@ handler’s command group. Doing so has no effect on the invoked kernel.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code
+An ``exception`` with the ``sycl::errc::invalid`` error code
 if a kernel bundle has been bound to the
-``handler`` via ``use_kernel_bundle()``.
+``sycl::handler`` via ``use_kernel_bundle()``.
 
 ``sycl::get_specialization_constant``
 =====================================
@@ -180,9 +181,9 @@ Otherwise, the specialization constant’s default value is returned.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if a kernel
+An ``exception`` with the ``sycl::errc::invalid`` error code if a kernel
 bundle has been bound to the
-``handler`` via ``use_kernel_bundle()``.
+``sycl::handler`` via ``use_kernel_bundle()``.
 
 ===============================================================
 Reading the value of a specialization constant from device code
@@ -241,11 +242,11 @@ Member functions
 Returns: The value of the specialization constant whose address is
 ``SpecName``. For a kernel invoked from a command group that was
 not bound to a kernel bundle, the value is the same as what would
-have been returned if ``handler::get_specialization_constant()``
+have been returned if ``sycl::handler::get_specialization_constant()``
 was called immediately before invoking the kernel. For a kernel
 invoked from a command group that was bound to a kernel bundle,
 the value is the same as what would be returned if
-``kernel_bundle::get_specialization_constant()``
+``sycl::kernel_bundle::get_specialization_constant()``
 was called on the bound bundle.
 
 .. _specialization-constants-example:
