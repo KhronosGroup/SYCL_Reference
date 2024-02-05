@@ -13,7 +13,7 @@ Device selectors allow the SYCL runtime to choose the device.
 
 A device selector can be passed to :ref:`queue`, :ref:`platform`, and
 other constructors to control the selection of a device. A program may
-use `Built-in Device Selectors`_ or define its own device_selector for
+use `Built-in Device Selectors`_ or define its own device selector for
 full control.
 
 The interface for a device selector is any object that meets the C++ named
@@ -34,47 +34,49 @@ order, for example, outside the control of the SYCL runtime.
 
 .. _built-in-device-selectors:
 
-===========================
+=========================
 Built-in Device Selectors
-===========================
+=========================
 
 Standard device selectors included with all SYCL implementations:
 
 .. list-table::
 
-  * - ``default_selector_v``
+  * - ``sycl::default_selector_v``
     - Select a SYCL device from any supported SYCL backend based on an implementation-defined
       heuristic. Since all implementations must support at least one device, this selector must always return a device.
-  * - ``gpu_selector_v``
+  * - ``sycl::gpu_selector_v``
     - Select a SYCL device from any supported SYCL backend for which the device type is ``info::device_type::gpu``.
-  * - ``accelerator_selector_v``
+  * - ``sycl::accelerator_selector_v``
     - Select a SYCL device from any supported SYCL backend for which the device type is ``info::device_type::accelerator``.
-  * - ``cpu_selector_v``
+  * - ``sycl::cpu_selector_v``
     - Select a SYCL device from any supported SYCL backend for which the device type is ``info::device_type::cpu``.
   * - ::
 
         __unspecified_callable__
-        aspect_selector(const std::vector<aspect>& aspectList,
-                        const std::vector<aspect>& denyList = {});
+        sycl::aspect_selector(const std::vector<aspect>& aspectList,
+                              const std::vector<aspect>& denyList = {});
 
         template <typename... AspectList>
-        __unspecified_callable__ aspect_selector(AspectList... aspectList);
+        __unspecified_callable__
+        sycl::aspect_selector(AspectList... aspectList);
 
         template <aspect... AspectList>
-        __unspecified_callable__ aspect_selector();
+        __unspecified_callable__ sycl::aspect_selector();
 
-    - The free function ``aspect_selector`` has several overloads, each of which returns a selector object that selects a SYCL
+    - The free function ``sycl::aspect_selector`` has several overloads, each of which returns a selector object that selects a SYCL
       device from any supported SYCL backend which contains all the requested aspects.
-      If no aspects are passed in, the generated selector behaves like ``default_selector``.
+      If no aspects are passed in, the generated selector behaves like ``sycl::default_selector``.
 
       Required aspects can be passed in as a vector, as function arguments, or as template parameters, depending on the
       function overload. The function overload that takes ``aspectList`` as a vector takes another vector argument ``denyList``
       where the user can specify all the aspects that have to be avoided.
 
-The SYCL class constructor using ``gpu_selector_v``,
-``accelerator_selector_v``, ``cpu_selector_v``, or ``aspect_selector``
-must throw an exception with the ``errc::runtime`` error code if no
-device matching the requirement can be found.
+The SYCL class constructor using ``sycl::gpu_selector_v``,
+``sycl::accelerator_selector_v``, ``sycl::cpu_selector_v``,
+or ``sycl::aspect_selector`` must throw an exception with
+the ``sycl::errc::runtime`` error code if no device matching
+the requirement can be found.
 
 .. _device-selector-SYCL121:
 

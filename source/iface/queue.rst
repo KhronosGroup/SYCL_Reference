@@ -10,27 +10,24 @@ Queues
 
 .. _queue:
 
-.. rst-class:: api-class
-
 ===============
 ``sycl::queue``
 ===============
 
 ::
 
-   class queue;
+  class queue;
 
-The SYCL ``queue`` connect a host program to a single device.
-Programs ``submit`` tasks to a device via the ``queue`` and may
-monitor the ``queue`` for completion. A program initiates the
-task by submitting a command group to a ``queue``. The command
+The ``sycl::queue`` connect a host program to a single device.
+Programs submit tasks to a device via the ``sycl::queue`` and may
+monitor the ``sycl::queue`` for completion. A program initiates the
+task by submitting a command group to a ``sycl::queue``. The command
 group defines a kernel function, the prerequisites to execute the
 kernel function, and an invocation of the kernel function on an
 index space. After submitting the command group, a program may
-use the ``queue`` to monitor the completion of the task for
-completion and errors. A SYCL queue can wait for all command groups that
-it has submitted by calling ``wait`` or ``wait_and_throw``.
-
+use the ``sycl::queue`` to monitor the completion of the task for
+completion and errors. A ``sycl::queue`` can wait for all command
+groups that it has submitted by calling ``wait`` or ``wait_and_throw``.
 
 .. seealso:: |SYCL_SPEC_QUEUE|
 
@@ -41,57 +38,63 @@ it has submitted by calling ``wait`` or ``wait_and_throw``.
 
 ::
 
-  explicit queue(const property_list& propList = {});
+  explicit queue(const sycl::property_list& propList = {});
 
-  explicit queue(const async_handler& asyncHandler,
-               const property_list& propList = {});
-
-  template <typename DeviceSelector>
-  explicit queue(const DeviceSelector& deviceSelector,
-               const property_list& propList = {});
+  explicit queue(const sycl::async_handler& asyncHandler,
+                 const sycl::property_list& propList = {});
 
   template <typename DeviceSelector>
   explicit queue(const DeviceSelector& deviceSelector,
-               const async_handler& asyncHandler,
-               const property_list& propList = {});
-
-  explicit queue(const device& syclDevice, const property_list& propList = {});
-
-  explicit queue(const device& syclDevice, const async_handler& asyncHandler,
-               const property_list& propList = {});
+                 const sycl::property_list& propList = {});
 
   template <typename DeviceSelector>
-  explicit queue(const context& syclContext, const DeviceSelector& deviceSelector,
-               const property_list& propList = {});
+  explicit queue(const DeviceSelector& deviceSelector,
+                 const sycl::async_handler& asyncHandler,
+                 const sycl::property_list& propList = {});
+
+  explicit queue(const sycl::device& syclDevice,
+                 const sycl::property_list& propList = {});
+
+  explicit queue(const sycl::device& syclDevice,
+                 const sycl::async_handler& asyncHandler,
+                 const sycl::property_list& propList = {});
 
   template <typename DeviceSelector>
-  explicit queue(const context& syclContext, const DeviceSelector& deviceSelector,
-               const async_handler& asyncHandler,
-               const property_list& propList = {});
+  explicit queue(const sycl::context& syclContext,
+                 const DeviceSelector& deviceSelector,
+                 const sycl::property_list& propList = {});
 
-  explicit queue(const context& syclContext, const device& syclDevice,
-               const property_list& propList = {});
+  template <typename DeviceSelector>
+  explicit queue(const sycl::context& syclContext,
+                 const DeviceSelector& deviceSelector,
+                 const sycl::async_handler& asyncHandler,
+                 const sycl::property_list& propList = {});
 
-  explicit queue(const context& syclContext, const device& syclDevice,
-               const async_handler& asyncHandler,
-               const property_list& propList = {});
+  explicit queue(const sycl::context& syclContext,
+                 const sycl::device& syclDevice,
+                 const sycl::property_list& propList = {});
 
-Construct a queue.
+  explicit queue(const sycl::context& syclContext,
+                 const sycl::device& syclDevice,
+                 const sycl::async_handler& asyncHandler,
+                 const sycl::property_list& propList = {});
 
-The default constructor of the SYCL ``queue`` class will construct
-a queue based on the SYCL ``device`` returned from the
-``default_selector_v`` (see |SYCL_SPEC_DEVICE_SELECTORS|).
+Construct a ``sycl::queue``.
+
+The default constructor of the ``sycl::queue`` class will construct
+a queue based on the ``sycl::device`` returned from the
+``sycl::default_selector_v`` (see |SYCL_SPEC_DEVICE_SELECTORS|).
 All other constructors construct a queue as determined by the
-parameters provided. All constructors will implicitly construct a SYCL
-``platform``, ``device`` and ``context`` in order to
-facilitate the construction of the queue.
-Each constructor takes as the last parameter an optional SYCL ``property_list``
-to provide properties to the SYCL ``queue``.
+parameters provided. All constructors will implicitly construct a
+``sycl::platform``, ``sycl::device`` and ``sycl::context`` in order
+to facilitate the construction of the queue.
+Each constructor takes as the last parameter an optional
+``sycl::property_list`` to provide properties to the ``sycl::queue``.
 
 The SYCL runtime may execute tasks asynchronously. To catch exceptions
 from asynchronous host tasks, construct the queue with an
-``asyncHandler`` and call ``queue::wait_and_throw()``,
-``queue::throw_asynchronous()`` or ``event::wait_and_throw()``.
+``asyncHandler`` and call ``sycl::queue::wait_and_throw()``,
+``sycl::queue::throw_asynchronous()`` or ``sycl::event::wait_and_throw()``.
 
 .. rubric:: Parameters
 
@@ -111,8 +114,8 @@ from asynchronous host tasks, construct the queue with an
 
 .. rubric:: Exceptions
 
-``errc::invalid``
-  If ``syclContext`` does not encapsulate the SYCL ``device`` returned
+``sycl::errc::invalid``
+  If ``syclContext`` does not encapsulate the ``sycl::device`` returned
   by ``deviceSelector``.
 
 
@@ -125,31 +128,31 @@ Member function
 
 ::
 
-  backend get_backend() const noexcept;
+  sycl::backend get_backend() const noexcept;
 
-Returns a backend identifying the SYCL ``backend``
-associated with this ``queue``.
+Returns a backend identifying the ``sycl::backend``
+associated with this ``sycl::queue``.
 
 ``get_context``
 ===============
 
 ::
 
-  context get_context() const;
+  sycl::context get_context() const;
 
 Returns the SYCL queue’s context. The value returned must
-be equal to that returned by ``get_info<info::queue::context>()``.
+be equal to that returned by ``get_info<sycl::info::queue::context>()``.
 
 ``get_device``
 ==============
 
 ::
 
-  device get_device() const;
+  sycl::device get_device() const;
 
-Returns the SYCL device the queue is associated with.
+Returns the ``sycl::device`` the queue is associated with.
 The value returned must be equal to that returned by
-``get_info<info::queue::device>()``.
+``get_info<sycl::info::queue::device>()``.
 
 ``is_in_order``
 ===============
@@ -158,8 +161,8 @@ The value returned must be equal to that returned by
 
   bool is_in_order() const;
 
-Returns true if the SYCL ``queue`` was created with the ``in_order`` property.
-Equivalent to ``has_property<property::queue::in_order>()``.
+Returns true if the ``sycl::queue`` was created with the ``in_order`` property.
+Equivalent to ``has_property<sycl::property::queue::in_order>()``.
 
 ``wait``
 ========
@@ -182,10 +185,10 @@ Synchronous errors will be reported through SYCL exceptions.
 
 Performs a blocking wait for the completion of all enqueued tasks in the queue.
 Synchronous errors will be reported through SYCL exceptions. Any unconsumed
-asynchronous errors will be passed to the ``async_handler``
+asynchronous errors will be passed to the ``sycl::async_handler``
 associated with the queue or enclosing context. If no user defined
-``async_handler`` is associated with the queue or enclosing context,
-then an implementation-defined default ``async_handler`` is called to
+``sycl::async_handler`` is associated with the queue or enclosing context,
+then an implementation-defined default ``sycl::async_handler`` is called to
 handle any errors, as described in |SYCL_SPEC_WITHOUT_ASYC_HANDLER|.
 
 .. _queue-throw_asynchronous:
@@ -198,20 +201,22 @@ handle any errors, as described in |SYCL_SPEC_WITHOUT_ASYC_HANDLER|.
   void throw_asynchronous();
 
 Checks to see if any unconsumed asynchronous errors have been produced
-by the queue and if so reports them by passing them to the ``async_handler``
-associated with the queue or enclosing context. If no user defined
-``async_handler`` is associated with the queue or enclosing context, then
-an implementation-defined default ``async_handler`` is called to handle any
-errors, as described in |SYCL_SPEC_WITHOUT_ASYC_HANDLER|.
+by the queue and if so reports them by passing them to the
+``sycl::async_handler`` associated with the queue or enclosing context.
+If no user defined ``sycl::async_handler`` is associated with the queue
+or enclosing context, then an implementation-defined default
+``sycl::async_handler`` is called to handle any errors, as described in
+|SYCL_SPEC_WITHOUT_ASYC_HANDLER|.
 
 ``get_info``
 ============
 
 ::
 
-  template <typename Param> typename Param::return_type get_info() const;
+  template <typename Param>
+  typename Param::return_type get_info() const;
 
-Queries this SYCL ``queue`` for information requested by the template
+Queries this ``sycl::queue`` for information requested by the template
 parameter ``Param``. The type alias ``Param::return_type`` must be defined
 in accordance with the info parameters in `sycl::info::queue`_
 to facilitate returning the type associated with the ``Param`` parameter.
@@ -223,9 +228,11 @@ to facilitate returning the type associated with the ``Param`` parameter.
 
 ::
 
-  template <typename T> event submit(T cgf);
+  template <typename T>
+  sycl::event submit(T cgf);
 
-  template <typename T> event submit(T cgf, queue& secondaryQueue);
+  template <typename T>
+  sycl::event submit(T cgf, sycl::queue& secondaryQueue);
 
 Submit a command group function object to the queue, in order to be scheduled
 for execution on the device. In the context of the second overload,
@@ -270,12 +277,12 @@ See `queue-example-1`_.
   template <typename Param>
   typename Param::return_type get_backend_info() const;
 
-Queries this SYCL ``queue`` for SYCL backend-specific information requested by
-the template parameter ``Param``. The type alias ``Param::return_type``
+Queries this ``sycl::queue`` for SYCL backend-specific information requested
+by the template parameter ``Param``. The type alias ``Param::return_type``
 must defined in accordance with the SYCL backend specification. Must throw
-an ``exception`` with the ``errc::backend_mismatch`` error code if the SYCL
-backend that corresponds with ``Param`` is different from the SYCL backend
-that is associated with this ``queue``.
+an ``sycl::exception`` with the ``sycl::errc::backend_mismatch`` error code
+if the SYCL backend that corresponds with ``Param`` is different from the
+SYCL backend that is associated with this ``sycl::queue``.
 
 .. _queue_shortcut:
 
@@ -283,13 +290,13 @@ that is associated with this ``queue``.
 Shortcut functions
 ==================
 
-Queue shortcut functions are part of the queue class and simplify command
-group creation. They generate a command group with a single command,
+Queue shortcut functions are part of the ``sycl::queue`` class and simplify
+command group creation. They generate a command group with a single command,
 invoke a corresponding member function in the handler, and submit the group.
 The key distinction is that handler member functions return void,
 while queue shortcuts return an event object representing the submitted
 command group. You can specify a list of events to wait on, just like
-using ``handler::depends_on`` for the implicit command group.
+using ``sycl::handler::depends_on`` for the implicit command group.
 
 ``single_task``
 ===============
@@ -297,14 +304,15 @@ using ``handler::depends_on`` for the implicit command group.
 ::
 
   template <typename KernelName, typename KernelType>
-  event single_task(const KernelType& kernelFunc);
+  sycl::event single_task(const KernelType& kernelFunc);
 
   template <typename KernelName, typename KernelType>
-  event single_task(event depEvent, const KernelType& kernelFunc);
+  sycl::event single_task(sycl::event depEvent,
+                          const KernelType& kernelFunc);
 
   template <typename KernelName, typename KernelType>
-  event single_task(const std::vector<event>& depEvents,
-                  const KernelType& kernelFunc);
+  esycl::vent single_task(const std::vector<sycl::event>& depEvents,
+                          const KernelType& kernelFunc);
 
 .. rubric:: Example
 
@@ -316,26 +324,26 @@ See `queue-example-1`_.
 ::
 
   template <typename KernelName, int Dimensions, typename... Rest>
-  event parallel_for(range<Dimensions> numWorkItems, Rest&&... rest);
+  sycl::event parallel_for(sycl::range<Dimensions> numWorkItems, Rest&&... rest);
 
   template <typename KernelName, int Dimensions, typename... Rest>
-  event parallel_for(range<Dimensions> numWorkItems, event depEvent,
-                   Rest&&... rest);
+  sycl::event parallel_for(sycl::range<Dimensions> numWorkItems,
+                           sycl::event depEvent, Rest&&... rest);
 
   template <typename KernelName, int Dimensions, typename... Rest>
-  event parallel_for(range<Dimensions> numWorkItems,
-                   const std::vector<event>& depEvents, Rest&&... rest);
+  sycl::event parallel_for(sycl::range<Dimensions> numWorkItems,
+                           const std::vector<sycl::event>& depEvents, Rest&&... rest);
 
   template <typename KernelName, int Dimensions, typename... Rest>
-  event parallel_for(nd_range<Dimensions> executionRange, Rest&&... rest);
+  sycl::event parallel_for(sycl::nd_range<Dimensions> executionRange, Rest&&... rest);
 
   template <typename KernelName, int Dimensions, typename... Rest>
-  event parallel_for(nd_range<Dimensions> executionRange, event depEvent,
-                   Rest&&... rest);
+  sycl::event parallel_for(sycl::nd_range<Dimensions> executionRange,
+                           sycl::event depEvent, Rest&&... rest);
 
   template <typename KernelName, int Dimensions, typename... Rest>
-  event parallel_for(nd_range<Dimensions> executionRange,
-                   const std::vector<event>& depEvents, Rest&&... rest);
+  sycl::event parallel_for(sycl::nd_range<Dimensions> executionRange,
+                           const std::vector<sycl::event>& depEvents, Rest&&... rest);
 
 .. rubric:: Example
 
@@ -348,12 +356,13 @@ See `queue-example-2`_.
 
 ::
 
-  event memcpy(void* dest, const void* src, size_t numBytes);
+  sycl::event memcpy(void* dest, const void* src, size_t numBytes);
 
-  event memcpy(void* dest, const void* src, size_t numBytes, event depEvent);
+  sycl::event memcpy(void* dest, const void* src, size_t numBytes,
+                     sycl::event depEvent);
 
-  event memcpy(void* dest, const void* src, size_t numBytes,
-             const std::vector<event>& depEvents);
+  sycl::event memcpy(void* dest, const void* src, size_t numBytes,
+                     const std::vector<sycl::event>& depEvents);
 
 Set memory allocated with :ref:`usm_allocations`.
 
@@ -366,14 +375,16 @@ See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 ::
 
-  template <typename T> event copy(const T* src, T* dest, size_t count);
+  template <typename T>
+  sycl::event copy(const T* src, T* dest, size_t count);
 
   template <typename T>
-  event copy(const T* src, T* dest, size_t count, event depEvent);
+  sycl::event copy(const T* src, T* dest, size_t count,
+                   sycl::event depEvent);
 
   template <typename T>
-  event copy(const T* srct, T* dest, size_t count,
-           const std::vector<event>& depEvents);
+  sycl::event copy(const T* srct, T* dest, size_t count,
+                   const std::vector<sycl::event>& depEvents);
 
 .. _queue-memset:
 
@@ -382,12 +393,13 @@ See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 
 ::
 
-  event memset(void* ptr, int value, size_t numBytes);
+  sycl::event memset(void* ptr, int value, size_t numBytes);
 
-  event memset(void* ptr, int value, size_t numBytes, event depEvent);
+  sycl::event memset(void* ptr, int value, size_t numBytes,
+                     sycl::event depEvent);
 
-  event memset(void* ptr, int value, size_t numBytes,
-             const std::vector<event>& depEvents);
+  sycl::event memset(void* ptr, int value, size_t numBytes,
+                     const std::vector<sycl::event>& depEvents);
 
 Set memory allocated with :ref:`usm_allocations`. For usage, see
 :ref:`event-elapsed-time`.
@@ -399,14 +411,16 @@ Set memory allocated with :ref:`usm_allocations`. For usage, see
 
 ::
 
-  template <typename T> event fill(void* ptr, const T& pattern, size_t count);
+  template <typename T>
+  sycl::event fill(void* ptr, const T& pattern, size_t count);
 
   template <typename T>
-  event fill(void* ptr, const T& pattern, size_t count, event depEvent);
+  sycl::event fill(void* ptr, const T& pattern, size_t count,
+                   sycl::event depEvent);
 
   template <typename T>
-  event fill(void* ptr, const T& pattern, size_t count,
-           const std::vector<event>& depEvents);
+  sycl::event fill(void* ptr, const T& pattern, size_t count,
+                   const std::vector<sycl::event>& depEvents);
 
 Set memory allocated with :ref:`usm_allocations`.
 
@@ -415,23 +429,26 @@ Set memory allocated with :ref:`usm_allocations`.
 
 ::
 
-  event prefetch(void* ptr, size_t numBytes);
+  sycl::event prefetch(void* ptr, size_t numBytes);
 
-  event prefetch(void* ptr, size_t numBytes, event depEvent);
+  sycl::event prefetch(void* ptr, size_t numBytes,
+                       sycl::event depEvent);
 
-  event prefetch(void* ptr, size_t numBytes, const std::vector<event>& depEvents);
+  sycl::event prefetch(void* ptr, size_t numBytes,
+                       const std::vector<sycl::event>& depEvents);
 
 ``mem_advise``
 ==============
 
 ::
 
-  event mem_advise(void* ptr, size_t numBytes, int advice);
+  sycl::event mem_advise(void* ptr, size_t numBytes, int advice);
 
-  event mem_advise(void* ptr, size_t numBytes, int advice, event depEvent);
+  sycl::event mem_advise(void* ptr, size_t numBytes, int advice,
+                         sycl::event depEvent);
 
-  event mem_advise(void* ptr, size_t numBytes, int advice,
-                 const std::vector<event>& depEvents);
+  sycl::event mem_advise(void* ptr, size_t numBytes, int advice,
+                         const std::vector<sycl::event>& depEvents);
 
 
 ``copy``
@@ -439,51 +456,50 @@ Set memory allocated with :ref:`usm_allocations`.
 
 ::
 
-  template <typename SrcT, int SrcDims, access_mode SrcMode, target SrcTgt,
-          access::placeholder IsPlaceholder, typename DestT>
-  event copy(accessor<SrcT, SrcDims, SrcMode, SrcTgt, IsPlaceholder> src,
-           std::shared_ptr<DestT> dest);
+  template <typename SrcT, int SrcDims, sycl::access_mode SrcMode, sycl::target SrcTgt,
+            sycl::access::placeholder IsPlaceholder, typename DestT>
+  sycl::event copy(sycl::accessor<SrcT, SrcDims, SrcMode, SrcTgt, IsPlaceholder> src,
+                   std::shared_ptr<DestT> dest);
 
-  template <typename SrcT, typename DestT, int DestDims, access_mode DestMode,
-          target DestTgt, access::placeholder IsPlaceholder>
-  event copy(std::shared_ptr<SrcT> src,
-           accessor<DestT, DestDims, DestMode, DestTgt, IsPlaceholder> dest);
+  template <typename SrcT, typename DestT, int DestDims, sycl::access_mode DestMode,
+            sycl::target DestTgt, sycl::access::placeholder IsPlaceholder>
+  sycl::event copy(std::shared_ptr<SrcT> src,
+                   sycl::accessor<DestT, DestDims, DestMode, DestTgt, IsPlaceholder> dest);
 
-  template <typename SrcT, int SrcDims, access_mode SrcMode, target SrcTgt,
-          access::placeholder IsPlaceholder, typename DestT>
-  event copy(accessor<SrcT, SrcDims, SrcMode, SrcTgt, IsPlaceholder> src,
-           DestT* dest);
+  template <typename SrcT, int SrcDims, sycl::access_mode SrcMode, sycl::target SrcTgt,
+            sycl::access::placeholder IsPlaceholder, typename DestT>
+  sycl::event copy(sycl::accessor<SrcT, SrcDims, SrcMode, SrcTgt, IsPlaceholder> src,
+                   DestT* dest);
 
-  template <typename SrcT, typename DestT, int DestDims, access_mode DestMode,
-          target DestTgt, access::placeholder IsPlaceholder>
-  event copy(const SrcT* src,
-           accessor<DestT, DestDims, DestMode, DestTgt, IsPlaceholder> dest);
+  template <typename SrcT, typename DestT, int DestDims, sycl::access_mode DestMode,
+            sycl::target DestTgt, sycl::access::placeholder IsPlaceholder>
+  sycl::event copy(const SrcT* src,
+                   sycl::accessor<DestT, DestDims, DestMode, DestTgt, IsPlaceholder> dest);
 
-  template <typename SrcT, int SrcDims, access_mode SrcMode, target SrcTgt,
-          access::placeholder IsSrcPlaceholder, typename DestT, int DestDims,
-          access_mode DestMode, target DestTgt,
-          access::placeholder IsDestPlaceholder>
-  event copy(
-    accessor<SrcT, SrcDims, SrcMode, SrcTgt, IsSrcPlaceholder> src,
-    accessor<DestT, DestDims, DestMode, DestTgt, IsDestPlaceholder> dest);
+  template <typename SrcT, int SrcDims, sycl::access_mode SrcMode, sycl::target SrcTgt,
+            sycl::access::placeholder IsSrcPlaceholder, typename DestT, int DestDims,
+            sycl::access_mode DestMode, sycl::target DestTgt,
+            sycl::access::placeholder IsDestPlaceholder>
+  sycl::event copy(sycl::accessor<SrcT, SrcDims, SrcMode, SrcTgt, IsSrcPlaceholder> src,
+                   sycl::accessor<DestT, DestDims, DestMode, DestTgt, IsDestPlaceholder> dest);
 
 ``update_host``
 ===============
 
 ::
 
-  template <typename T, int Dims, access_mode Mode, target Tgt,
-          access::placeholder IsPlaceholder>
-  event update_host(accessor<T, Dims, Mode, Tgt, IsPlaceholder> acc);
+  template <typename T, int Dims, sycl::access_mode Mode, sycl::target Tgt,
+            sycl::access::placeholder IsPlaceholder>
+  sycl::event update_host(sycl::accessor<T, Dims, Mode, Tgt, IsPlaceholder> acc);
 
 ``fill``
 ===============
 
 ::
 
-  template <typename T, int Dims, access_mode Mode, target Tgt,
-          access::placeholder IsPlaceholder>
-  event fill(accessor<T, Dims, Mode, Tgt, IsPlaceholder> dest, const T& src);
+  template <typename T, int Dims, sycl::access_mode Mode, sycl::target Tgt,
+            sycl::access::placeholder IsPlaceholder>
+  sycl::event fill(sycl::accessor<T, Dims, Mode, Tgt, IsPlaceholder> dest, const T& src);
 
 
 =======================
@@ -512,12 +528,12 @@ information.
    * - Descriptor
      - Return type
      - Description
-   * - ``context``
-     - ``context``
-     - Returns the SYCL ``context`` associated with this SYCL ``queue``.
-   * - ``device``
-     - ``device``
-     - Returns the SYCL ``device`` associated with this SYCL ``queue``.
+   * - ``sycl::info::queue::context``
+     - ``sycl::context``
+     - Returns the ``sycl::context`` associated with this ``sycl::queue``.
+   * - ``sycl::info::queue::device``
+     - ``sycl::device``
+     - Returns the ``sycl::device`` associated with this ``sycl::queue``.
 
 .. _queue-properties:
 
@@ -525,7 +541,7 @@ information.
 Queue properties
 ================
 
-The properties that can be provided when constructing the SYCL ``queue``
+The properties that can be provided when constructing the ``sycl::queue``
 class are describe in |SYCL_SPEC_QUEUE_PROPERTIES|.
 
 .. rst-class:: api-class
@@ -536,12 +552,12 @@ class are describe in |SYCL_SPEC_QUEUE_PROPERTIES|.
 
 The ``enable_profiling`` property adds the requirement that the SYCL runtime
 must capture profiling information for the command groups that are submitted
-from this SYCL ``queue`` and provide said information via the SYCL ``event``
-class ``get_profiling_info`` member function. If the queue’s associated device
-does not have ``aspect::queue_profiling``, passing this
-property to the queue’s constructor causes the constructor to throw
-a synchronous ``exception`` with the ``errc::feature_not_supported``
-error code.
+from this ``sycl::queue`` and provide said information via the ``sycl::event``
+class ``get_profiling_info`` member function. If the queue's associated device
+does not have ``sycl::aspect::queue_profiling``, passing this
+property to the queue's constructor causes the constructor to throw
+a synchronous ``sycl::exception`` with the
+``sycl::errc::feature_not_supported`` error code.
 
 (constructors)
 --------------
@@ -562,11 +578,11 @@ See :ref:`event-elapsed-time-example<event-elapsed-time>`.
 ===================================
 
 
-The ``in_order`` property adds the requirement that a SYCL ``queue`` provides
-in-order semantics whereby commands submitted to said ``queue`` are executed
-in the order in which they are submitted.
+The ``in_order`` property adds the requirement that a ``sycl::queue`` provides
+in-order semantics whereby commands submitted to said ``sycl::queue`` are
+executed in the order in which they are submitted.
 Commands submitted in this fashion can be viewed as-if having an implicit
-dependence on the previous command submitted to that ``queue``.
+dependence on the previous command submitted to that ``sycl::queue``.
 Using the ``in_order`` property makes no guarantees about the ordering
 of commands submitted to different queues with respect to each other.
 
@@ -589,16 +605,16 @@ Queue errors come in two forms:
 
 ``Synchronous Errors`` are those that we would expect to be reported directly
 at the point of waiting on an event, and hence waiting for a
-``queue`` to complete, as well as any immediate errors reported
-by enqueuing work onto a ``queue``. Such errors are reported
+``sycl::queue`` to complete, as well as any immediate errors reported
+by enqueuing work onto a ``sycl::queue``. Such errors are reported
 through C++ exceptions.
 
 ``Asynchronous errors`` are those that are produced or detected after
 associated host API calls have returned (so can’t be thrown
 as exceptions by the API call), and that are handled by an
-``async_handler`` through which the errors are reported. Handling
-of asynchronous errors from a ``queue`` occurs at specific times, as described
-by |SYCL_SPEC_ERROR_HANDLING|.
+``sycl::async_handler`` through which the errors are reported. Handling
+of asynchronous errors from a ``sycl::queue`` occurs at specific times,
+as described by |SYCL_SPEC_ERROR_HANDLING|.
 
 
 =========
