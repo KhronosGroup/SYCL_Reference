@@ -9,7 +9,7 @@ Unsampled image accessors
 *************************
 
 There are two classes which implement accessors for unsampled images,
-``unsampled_image_accessor`` and ``host_unsampled_image_accessor``.
+``sycl::unsampled_image_accessor`` and ``sycl::host_unsampled_image_accessor``.
 The former provides access from within a SYCL kernel function or from
 within a host task. The latter provides access from host
 code that is outside of a host task.
@@ -18,18 +18,18 @@ The dimensionality of an unsampled image accessor must match the
 dimensionality of the underlying image to which it provides access.
 Both unsampled image accessor classes support the
 ``access_mode::read`` and ``access_mode::write`` access modes.
-In addition, the ``host_unsampled_image_accessor``
+In addition, the ``sycl::host_unsampled_image_accessor``
 class supports ``access_mode::read_write``.
 
 The AccessTarget template parameter dictates how the
-``unsampled_image_accessor`` can be used: ``image_target::device``
+``sycl::unsampled_image_accessor`` can be used: ``image_target::device``
 means the accessor can be used in a SYCL kernel function while
 ``image_target::host_task`` means the accessor can be used in
 a host task. Programs which specify this template parameter as
-``image_target::device`` and then use the ``unsampled_image_accessor``
+``image_target::device`` and then use the ``sycl::unsampled_image_accessor``
 from a host task are ill formed. Likewise, programs which specify this
 template parameter as ``image_target::host_task`` and then use the
-``unsampled_image_accessor`` from a SYCL kernel function are ill formed.
+``sycl::unsampled_image_accessor`` from a SYCL kernel function are ill formed.
 
 .. _unsampled_image_accessor:
 
@@ -53,8 +53,8 @@ template parameter as ``image_target::host_task`` and then use the
                            handler& commandGroupHandlerRef,
                            const property_list& propList = {})
 
-Constructs an ``unsampled_image_accessor`` for accessing an
-``unsampled_image`` within a command on the ``queue``
+Constructs an ``sycl::unsampled_image_accessor`` for accessing an
+``unsampled_image`` within a command on the :ref:`queue`
 associated with ``commandGroupHandlerRef``. The optional
 ``property_list`` provides properties
 for the constructed object.
@@ -87,7 +87,7 @@ does not have ``aspect::image``.
   host_unsampled_image_accessor(unsampled_image<Dimensions, AllocatorT>& imageRef,
                                 const property_list& propList = {})
 
-Constructs a ``host_unsampled_image_accessor`` for accessing an
+Constructs a ``sycl::host_unsampled_image_accessor`` for accessing an
 ``unsampled_image`` immediately on the host. The optional
 ``property_list`` provides properties for the constructed object.
 
@@ -124,7 +124,7 @@ coordinates specified by ``coords``. Permitted types for ``CoordT``
 are ``int`` when ``Dimensions == 1``, ``int2`` when
 ``Dimensions == 2`` and ``int4`` when ``Dimensions == 3``.
 
-For ``unsampled_image_accessor``, this function may
+For ``sycl::unsampled_image_accessor``, this function may
 only be called from within a command.
 
 ``write``
@@ -144,7 +144,7 @@ coordinates specified by ``coords``. Permitted types for ``CoordT``
 are ``int`` when ``Dimensions == 1``, ``int2`` when
 ``Dimensions == 2`` and ``int4`` when ``Dimensions == 3``.
 
-For ``unsampled_image_accessor``, this function may
+For ``sycl::unsampled_image_accessor``, this function may
 only be called from within a command.
 
 ===========================================
@@ -177,9 +177,9 @@ Interface for unsampled image accessors
 The additional common special member functions and common member
 functions are listed in |SYCL_SPEC_COMMON_REFERENCE|.
 
-Two ``unsampled_image_accessor`` objects of the same type must be
+Two ``sycl::unsampled_image_accessor`` objects of the same type must be
 equality comparable in both the host code and in SYCL kernel functions.
-Two ``host_unsampled_image_accessor`` objects of the same type must be
+Two ``sycl::host_unsampled_image_accessor`` objects of the same type must be
 equality comparable in the host code.
 
 For valid implicit conversions between unsampled

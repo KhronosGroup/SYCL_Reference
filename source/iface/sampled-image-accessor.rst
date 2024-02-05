@@ -9,7 +9,7 @@ Sampled image accessors
 ***********************
 
 There are two classes which implement accessors for sampled images,
-``sampled_image_accessor`` and ``host_sampled_image_accessor``.
+``sycl::sampled_image_accessor`` and ``sycl::host_sampled_image_accessor``.
 The former provides access from within a SYCL kernel function or from
 within a host task. The latter provides access from host
 code that is outside of a host task.
@@ -19,14 +19,14 @@ dimensionality of the underlying image to which it provides access.
 Sampled image accessors are always read-only.
 
 The ``AccessTarget`` template parameter dictates how the
-``sampled_image_accessor`` can be used: ``image_target::device``
+``sycl::sampled_image_accessor`` can be used: ``image_target::device``
 means the accessor can be used in a SYCL kernel function while
 ``image_target::host_task`` means the accessor can be used in
 a host task. Programs which specify this template parameter as
-``image_target::device`` and then use the ``sampled_image_accessor``
+``image_target::device`` and then use the ``sycl::sampled_image_accessor``
 from a host task are ill formed. Likewise, programs which specify this
 template parameter as ``image_target::host_task`` and then use the
-``sampled_image_accessor`` from a SYCL kernel function are ill formed.
+``sycl::sampled_image_accessor`` from a SYCL kernel function are ill formed.
 
 .. _sampled_image_accessor:
 
@@ -50,14 +50,14 @@ template parameter as ``image_target::host_task`` and then use the
                          handler& commandGroupHandlerRef,
                          const property_list& propList = {})
 
-Constructs a ``sampled_image_accessor`` for accessing a
-``sampled_image`` within a command on the ``queue``
+Constructs a ``sycl::sampled_image_accessor`` for accessing a
+``sampled_image`` within a command on the :ref:`queue`
 associated with ``commandGroupHandlerRef``. The optional
 ``property_list`` provides properties
 for the constructed object.
 
 If ``AccessTarget`` is ``image_target::device``,
-throws an ``exception`` with the ``errc::feature_not_supported``
+throws an ``exception`` with the ``sycl::errc::feature_not_supported``
 error code if the device associated with ``commandGroupHandlerRef``
 does not have ``aspect::image``.
 
@@ -81,7 +81,7 @@ does not have ``aspect::image``.
   host_sampled_image_accessor(sampled_image<Dimensions, AllocatorT>& imageRef,
                               const property_list& propList = {})
 
-Constructs a ``host_sampled_image_accessor`` for accessing an
+Constructs a ``sycl::host_sampled_image_accessor`` for accessing an
 ``sampled_image`` immediately on the host. The optional
 ``property_list`` provides properties for the constructed object.
 
@@ -115,7 +115,7 @@ coordinates specified by ``coords``. Permitted types for ``CoordT``
 are ``float`` when ``Dimensions == 1``, ``float2`` when
 ``Dimensions == 2`` and ``float4`` when ``Dimensions == 3``.
 
-For ``sampled_image_accessor``, this function may
+For ``sycl::sampled_image_accessor``, this function may
 only be called from within a command.
 
 =========================================
@@ -147,9 +147,9 @@ Interface for sampled image accessors
 The additional common special member functions and common member
 functions are listed in |SYCL_SPEC_COMMON_REFERENCE|.
 
-Two ``sampled_image_accessor`` objects of the same type must be
+Two ``sycl::sampled_image_accessor`` objects of the same type must be
 equality comparable in both the host code and in SYCL kernel functions.
-Two ``host_sampled_image_accessor`` objects of the same type must be
+Two ``sycl::host_sampled_image_accessor`` objects of the same type must be
 equality comparable in the host code.
 
 For valid implicit conversions between sampled

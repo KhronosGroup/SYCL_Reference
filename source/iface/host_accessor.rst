@@ -12,11 +12,12 @@
 
   class host_accessor;
 
-The ``host_accessor`` class provides access to data in a ``buffer``
-from host code that is outside of a command (i.e. do not use this
-class to access a buffer from inside device code or a host task).
+The ``sycl::host_accessor`` class provides access to data in
+a :ref:`buffer` from host code that is outside of a command
+(i.e. do not use this class to access a buffer from inside
+device code or a host task).
 
-As with ``accessor``, the dimensionality of ``host_accessor``
+As with ``sycl::accessor``, the dimensionality of ``sycl::host_accessor``
 must match the underlying buffer, however, there is a special case
 if the buffer is one-dimensional. In this case, the accessor may
 either be one-dimensional or it may be zero-dimensional.
@@ -24,7 +25,7 @@ A zero-dimensional accessor has access to just the first element of
 the buffer, whereas a one-dimensional accessor
 has access to the entire buffer.
 
-The ``host_accessor`` class supports the following access modes:
+The ``sycl::host_accessor`` class supports the following access modes:
 ``access_mode::read``,``access_mode::write``
 and ``access_mode::read_write``.
 
@@ -114,7 +115,7 @@ if the accessor is empty.
 
 ::
 
-  const host_accessor& operator=(const value_type& other) const
+  const sycl::host_accessor& operator=(const value_type& other) const
 
 Available only when ``(AccessMode != access_mode::read && Dimensions == 0)``.
 
@@ -122,7 +123,7 @@ Assignment to the single element that is accessed by this accessor.
 
 ::
 
-  const host_accessor& operator=(value_type&& other) const
+  const sycl::host_accessor& operator=(value_type&& other) const
 
 Available only when ``(AccessMode != access_mode::read && Dimensions == 0)``.
 
@@ -135,7 +136,7 @@ Assignment to the single element that is accessed by this accessor.
 Buffer host accessor tags
 =========================
 
-Some ``host_accessor`` constructors take a ``TagT`` parameter,
+Some ``sycl::host_accessor`` constructors take a ``TagT`` parameter,
 which is used to deduce template arguments.
 The permissible values for this parameter are listed in table below.
 
@@ -164,7 +165,7 @@ The permissible values for this parameter are listed in table below.
   * - ``const-qualified``
     - ``access_mode::read``
 
-These specializations of ``host_accessor`` are read-only accessors.
+These specializations of ``sycl::host_accessor`` are read-only accessors.
 There is an implicit conversion between any of these specializations,
 provided that all other template parameters are the same.
 
@@ -212,16 +213,16 @@ Equal to ``const DataT&``.
 ============
 
 Iterator that can provide ranged access. Cannot be written to if the
-``accessor`` is read-only. The underlying pointer is address space
+``sycl::accessor`` is read-only. The underlying pointer is address space
 qualified for accessor specializations with
-``target::device`` and for ``local_accessor``.
+``target::device`` and for ``sycl::local_accessor``.
 
 ``const_iterator``
 ==================
 
 Iterator that can provide ranged access. Cannot be written to.
-The underlying pointer is address space qualified for ``accessor``
-specializations with ``target::device`` and for ``local_accessor``.
+The underlying pointer is address space qualified for ``sycl::accessor``
+specializations with ``target::device`` and for ``sycl::local_accessor``.
 
 ``reverse_iterator``
 ====================
@@ -308,8 +309,9 @@ Returns ``true`` if ``(size() == 0)``.
 
 Available only when ``(Dimensions > 0)``.
 
-Returns a ``range`` object which represents the number of elements of
-``DataT`` per dimension that this accessor may access.
+Returns a ``sycl::range`` object which represents the number
+of elements of ``DataT`` per dimension that this accessor
+may access.
 
 For a buffer accessor this is the range of the underlying buffer,
 unless it is a ranged accessor in which case it is the range that
@@ -322,16 +324,16 @@ was specified when the accessor was constructed.
 
   operator reference() const
 
-For ``accessor`` available only when
+For ``sycl::accessor`` available only when
 ``(AccessMode != access_mode::atomic && Dimensions == 0)``.
 
-For ``host_accessor`` and ``local_accessor``
+For ``sycl::host_accessor`` and ``sycl::local_accessor``
 available only when ``(Dimensions == 0)``.
 
 Returns a reference to the single element that is accessed
 by this accessor.
 
-For ``accessor`` and ``local_accessor``, this function may only
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may only
 be called from within a command.
 
 ``operator[]``
@@ -341,17 +343,17 @@ be called from within a command.
 
   reference operator[](id<Dimensions> index) const
 
-For ``accessor`` available only when
+For ``sycl::accessor`` available only when
 ``(AccessMode != access_mode::atomic && Dimensions > 0)``.
 
-For ``host_accessor`` and ``local_accessor`` available only
+For ``sycl::host_accessor`` and ``sycl::local_accessor`` available only
 when ``(Dimensions > 0)``.
 
 Returns a reference to the element at the location specified by ``index``.
 If this is a ranged accessor, the element is determined by
 adding ``index`` to the accessor’s offset.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ::
@@ -371,24 +373,24 @@ class that are appropriate for the type it represents
 If this is a ranged accessor, the implicit ``id`` in the returned
 instance also includes the accessor’s offset.
 
-For ``accessor`` and ``local_accessor``, this function may only
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may only
 be called from within a command.
 
 ::
 
   reference operator[](size_t index) const
 
-For ``accessor`` available only when
+For ``sycl::accessor`` available only when
 ``(AccessMode != access_mode::atomic && Dimensions == 1)``.
 
-For ``host_accessor`` and ``local_accessor`` available
+For ``sycl::host_accessor`` and ``sycl::local_accessor`` available
 only when ``(Dimensions == 1)``.
 
 Returns a reference to the element at the location specified by ``index``.
 If this is a ranged accessor, the element is
 determined by adding ``index`` to the accessor’s offset.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``begin``
@@ -405,7 +407,7 @@ For a buffer accessor this is an iterator to the first element
 of the underlying buffer, unless this is a ranged accessor in which
 case it is an iterator to first element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``end``
@@ -423,7 +425,7 @@ the last element in the underlying buffer, unless this is a ranged
 accessor in which case it is an iterator to one element past the
 last element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``cbegin``
@@ -440,7 +442,7 @@ For a buffer accessor this is a ``const`` iterator to the first element
 of the underlying buffer, unless this is a ranged accessor in which
 case it is a ``const`` iterator to first element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``cend``
@@ -458,7 +460,7 @@ the last element in the underlying buffer, unless this is a ranged
 accessor in which case it is a ``const`` iterator to one element past the
 last element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``rbegin``
@@ -476,7 +478,7 @@ last element of the underlying buffer, unless this is a ranged
 accessor in which case it is an iterator adaptor to the last
 element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``rend``
@@ -494,7 +496,7 @@ before the first element in the underlying buffer, unless this is
 a ranged accessor in which case it is an iterator adaptor to one
 element before the first element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``crbegin``
@@ -512,7 +514,7 @@ element of the underlying buffer, unless this is a ranged accessor
 in which case it is an ``const`` iterator adaptor to last
 element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ``crend``
@@ -530,14 +532,14 @@ before the first element in the underlying buffer, unless this is
 a ranged accessor in which case it is a ``const`` iterator adaptor to one
 element before the first element within the accessor’s range.
 
-For ``accessor`` and ``local_accessor``, this function may
+For ``sycl::accessor`` and ``sycl::local_accessor``, this function may
 only be called from within a command.
 
 ===================================
 Interface for buffer host accessors
 ===================================
 
-A synopsis of the ``host_accessor`` class is provided below.
+A synopsis of the ``sycl::host_accessor`` class is provided below.
 
 ::
 
