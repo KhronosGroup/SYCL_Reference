@@ -91,12 +91,11 @@ Construct an array of element type ``DataT`` and number of elements
 ``NumElements`` by moving from another similar vector.
 
 
-================
 Member functions
 ================
 
 ``DataT``
-=========
+---------
 
 ::
 
@@ -114,7 +113,7 @@ conversion operator shall not be templated to allow standard conversion
 sequence for implicit conversion.
 
 ``size``
-========
+--------
 
 ::
 
@@ -123,7 +122,7 @@ sequence for implicit conversion.
 Returns the size of this SYCL ``sycl::marray`` in bytes.
 
 ``operator[]``
-==============
+--------------
 
 ::
 
@@ -140,7 +139,7 @@ Returns a reference to the element stored within this SYCL
 ``sycl::marray`` at the index specified by ``index``.
 
 ``operator=``
-=============
+--------------
 
 ::
 
@@ -158,7 +157,7 @@ Assign each element of the ``rhs`` scalar to each element of this SYCL
 ``sycl::marray`` and return a reference to this SYCL ``sycl::marray``.
 
 ``begin``
-=========
+---------
 
 ::
 
@@ -175,11 +174,11 @@ Returns a ``const`` iterator referring to the first element stored within the
 ``sycl::marray``.
 
 ``end``
-=======
+-------
 
 ::
 
-  iterator begin();
+  iterator end();
 
 Returns an iterator referring to the one past the last element stored
 within the ``sycl::marray``.
@@ -191,9 +190,11 @@ within the ``sycl::marray``.
 Returns a ``const`` iterator referring to the one past the last element
 stored within the ``sycl::marray``.
 
-=======================
 Hidden friend functions
 =======================
+
+``operatorOP``
+--------------
 
 ::
 

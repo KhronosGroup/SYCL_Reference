@@ -2,13 +2,11 @@
   Copyright 2020 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
-.. rst-class:: api-class
-
 .. _id:
 
-============
+************
 ``sycl::id``
-============
+************
 
 ::
 
@@ -23,6 +21,7 @@ component ``n`` as a ``size_t``.
 
 .. seealso:: |SYCL_SPEC_ID|
 
+==============
 (constructors)
 ==============
 
