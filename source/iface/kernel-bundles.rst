@@ -125,7 +125,7 @@ specification document will describe the details.
 Once a kernel bundle has been obtained there are a number of free
 functions for performing compilation, linking and joining. Once a
 bundle is compiled and linked, the application can invoke kernels
-from the bundle by calling ``handler::use_kernel_bundle()`` as
+from the bundle by calling ``sycl::handler::use_kernel_bundle()`` as
 described in |SYCL_SPEC_USING_KERNEL_BUNDLE_FUNC|.
 
 
@@ -145,47 +145,44 @@ Bundle states
 =============
 
 A kernel bundle can be in one of three different bundle states
-which are represented by an enum class called ``bundle_state``.
+which are represented by an enum class called ``sycl::bundle_state``.
 
 The states form a progression. A bundle in
-``bundle_state::input`` can be translated into
-``bundle_state::object`` by online compilation of the bundle.
-A bundle in ``bundle_state::object`` can be translated into
-``bundle_state::executable`` by online linking.
+``sycl::bundle_state::input`` can be translated into
+``sycl::bundle_state::object`` by online compilation of the bundle.
+A bundle in ``sycl::bundle_state::object`` can be translated into
+``sycl::bundle_state::executable`` by online linking.
 
 There is no requirement that an implementation must expose kernels in
-``bundle_state::input`` or ``bundle_state::object``. In fact, an
-implementation could expose some kernels in these states but not
+``sycl::bundle_state::input`` or ``sycl::bundle_state::object``. In fact,
+an implementation could expose some kernels in these states but not
 others. For example, this behavior could be controlled by
 implementation specific options to the ahead-of-time compiler.
 Kernels that are not exposed in these states cannot be
 online compiled or online linked by the application.
 
 All kernels defined in the SYCL application, however, must be
-exposed in ``bundle_state::executable`` because this is the
+exposed in ``sycl::bundle_state::executable`` because this is the
 only state that allows a kernel to be invoked on a device.
 Device built-in kernels are also exposed in
-``bundle_state::executable``.
+``sycl::bundle_state::executable``.
 
-If an application exposes a bundle in ``bundle_state::input``
+If an application exposes a bundle in ``sycl::bundle_state::input``
 for a device D, then the implementation must also provide an
 online compiler for device D. Therefore, an application need
-not explicitly test for ``aspect::online_compiler`` if it
-successfully obtains a bundle in ``bundle_state::input``
+not explicitly test for ``sycl::aspect::online_compiler`` if it
+successfully obtains a bundle in ``sycl::bundle_state::input``
 for that device. Likewise, an implementation must provide
 an online linker for device D if it exposes a bundle in
-``bundle_state::object`` for device D.
+``sycl::bundle_state::object`` for device D.
 
-=============
-Bundle States
-=============
 
-``input``
-=========
+``sycl::bundle_state::input``
+=============================
 
 ::
 
-  bundle_state::input
+  sycl::bundle_state::input
 
 The device images in the kernel bundle have a format that must
 be compiled and linked before their kernels can be invoked.
@@ -194,22 +191,22 @@ device images that are stored in an intermediate language
 format or for device images that are stored as source
 code strings.
 
-``object``
-==========
+``sycl::bundle_state::object``
+==============================
 
 ::
 
-  bundle_state::object
+  sycl::bundle_state::object
 
 The device images in the kernel bundle have a format that must
 be linked before their kernels can be invoked.
 
-``executable``
-==============
+``sycl::bundle_state::executable``
+==================================
 
 ::
 
-  bundle_state::executable
+  sycl::bundle_state::executable
 
 The device images in the kernel bundle are in a format that
 allows them to be invoked on a device. For example, an
@@ -222,10 +219,10 @@ Kernel identifiers
 ==================
 
 Some of the functions related to kernel bundles take an input parameter
-of type ``kernel_id`` which identifies a kernel.
+of type ``sycl::kernel_id`` which identifies a kernel.
 
 As with all SYCL objects that have the common reference semantics,
-kernel identifiers are equality comparable. Two ``kernel_id``
+kernel identifiers are equality comparable. Two ``sycl::kernel_id``
 objects compare equal if and only if they refer to the same
 application kernel or to the same device built-in kernel.
 
@@ -240,7 +237,7 @@ application kernel or to the same device built-in kernel.
 
 There is no public default constructor for this class.
 
-A synopsis of the ``kernel_id`` class is shown below along with a
+A synopsis of the ``sycl::kernel_id`` class is shown below along with a
 description of its member functions.
 
 ::
@@ -256,11 +253,14 @@ description of its member functions.
 
   } // namespace sycl
 
+``get_name()``
+--------------
+
 ::
 
   const char* get_name() const noexcept;
 
-Returns: An implementation-defined null-terminated string
+Returns an implementation-defined null-terminated string
 containing the name of the kernel. There is no guarantee
 that this name is unique amongst all the kernels, nor is
 there a guarantee that the name is stable from one run of
@@ -275,11 +275,15 @@ An application can obtain an identifier for a kernel that
 is defined in the application by calling one of the following
 free functions, or it may obtain an identifier for a device’s
 built-in kernels by querying the device with
-``info::device::built_in_kernel_ids``.
+``sycl::info::device::built_in_kernel_ids``.
+
+``sycl::get_kernel_id``
+=======================
 
 ::
 
-  template <typename KernelName> kernel_id get_kernel_id();
+  template <typename KernelName>
+  sycl::kernel_id get_kernel_id();
 
 Preconditions: The template parameter ``KernelName`` must be the type
 kernel name of a kernel that is defined in the SYCL application. Since
@@ -290,13 +294,16 @@ Applications which call ``get_kernel_id()`` for a ``KernelName``
 that is not defined are ill formed, and the implementation must
 issue a diagnostic in this case.
 
-Returns: The identifier of the kernel associated with ``KernelName``.
+Returns the identifier of the kernel associated with ``KernelName``.
+
+``sycl::get_kernel_ids``
+========================
 
 ::
 
-  std::vector<kernel_id> get_kernel_ids();
+  std::vector<sycl::kernel_id> get_kernel_ids();
 
-Returns: A vector with the identifiers for all kernels defined
+Returns a vector with the identifiers for all kernels defined
 in the SYCL application. This does not include identifiers for
 any device built-in kernels.
 
@@ -305,22 +312,26 @@ Obtaining a kernel bundle
 =========================
 
 A SYCL application can obtain a kernel bundle by calling one of the
-overloads of the free function ``get_kernel_bundle()``. The implementation
-may return a bundle that consists of device images that were created by
-the ahead-of-time compiler, or it may call the online compiler or linker
-to create the bundle’s device images in the requested state. A bundle may
-also contain device images that represent a device’s built-in kernels.
+overloads of the free function ``sycl::get_kernel_bundle()``. The
+implementation may return a bundle that consists of device images
+that were created by the ahead-of-time compiler, or it may call the
+online compiler or linker to create the bundle’s device images in the
+requested state. A bundle may also contain device images that
+represent a device’s built-in kernels.
 
-When ``get_kernel_bundle()`` is used to obtain a kernel bundle in
-``bundle_state::object`` or ``bundle_state::executable``, any
-specialization constants in the bundle will have their
+When ``sycl::get_kernel_bundle()`` is used to obtain a kernel bundle in
+``sycl::bundle_state::object`` or ``sycl::bundle_state::executable``,
+any specialization constants in the bundle will have their
 default values.
+
+``sycl::get_kernel_bundle``
+===========================
 
 ::
 
-  template <bundle_state State>
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt,
-                                         const std::vector<device>& devs);
+  template <sycl::bundle_state State>
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt,
+                                               const std::vector<sycl::device>& devs);
 
 Returns: A kernel bundle in state ``State`` which contains all of the kernels
 in the application which are compatible with at least one of the devices in
@@ -328,39 +339,35 @@ in the application which are compatible with at least one of the devices in
 set of associated devices is ``devs`` (with any duplicate devices removed).
 
 Since the implementation may not represent all kernels in
-``bundle_state::input`` or ``bundle_state::object``, calling this function
-with one of those states may return a bundle that is missing some of the
-application’s kernels.
+``sycl::bundle_state::input`` or ``sycl::bundle_state::object``, calling
+this function with one of those states may return a bundle that is missing
+some of the application’s kernels.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any of the
-devices in ``devs`` is not one of devices contained by the context
-``ctxt`` or is not a descendent device of some device in ``ctxt``.
-
-An ``exception`` with the ``errc::invalid`` error code if the
-``devs`` vector is empty.
-
-An ``exception`` with the ``errc::invalid`` error code if
-``Stat`` is ``bundle_state::input`` and any device in
-``devs`` does not have ``aspect::online_compiler``.
-
-An ``exception`` with the ``errc::invalid`` error code if
-``State`` is ``bundle_state::object`` and any device in
-`devs`` does not have ``aspect::online_linker``.
-
-An ``exception`` with the ``errc::build`` error code if
-``State`` is ``bundle_state::object`` or
-``bundle_state::executable``, if the implementation needs
-to perform an online compile or link, and if the online
-compile or link fails.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if any
+  of the devices in ``devs`` is not one of devices contained by the context
+  ``ctxt`` or is not a descendent device of some device in ``ctxt``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if the
+  ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  ``Stat`` is ``sycl::bundle_state::input`` and any device in
+  ``devs`` does not have ``sycl::aspect::online_compiler``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  ``State`` is ``sycl::bundle_state::object`` and any device in
+  ``devs`` does not have ``sycl::aspect::online_linker``.
+* A ``sycl::exception`` with the ``sycl::errc::build`` error code if
+  ``State`` is ``sycl::bundle_state::object`` or
+  ``sycl::bundle_state::executable``, if the implementation needs
+  to perform an online compile or link, and if the online
+  compile or link fails.
 
 ::
 
-  template <bundle_state State>
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt,
-                                         const std::vector<device>& devs,
-                                         const std::vector<kernel_id>& kernelIds);
+  template <sycl::bundle_state State>
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt,
+                                               const std::vector<sycl::device>& devs,
+                                               const std::vector<sycl::kernel_id>& kernelIds);
 
 Returns: A kernel bundle in state ``State`` which contains all of
 the device images that are compatible with at least one of the
@@ -374,46 +381,43 @@ that are requested in ``kernelIds``. The bundle’s set of associated
 devices is ``devs`` (with duplicate devices removed).
 
 Since the implementation may not represent all kernels in
-``bundle_state::input`` or ``bundle_state::object``, calling this function with
-one of those states may return a bundle that is missing some of the kernels in
-``kernelIds``. The application can test for this via
-``kernel_bundle::has_kernel()``.
+``sycl::bundle_state::input`` or ``sycl::bundle_state::object``,
+calling this function with one of those states may return a
+bundle that is missing some of the kernels in ``kernelIds``.
+The application can test for this via
+``sycl::kernel_bundle::has_kernel()``.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any of the kernels
-identified by ``kernelIds`` are incompatible with all devices in ``devs``.
-
-An ``exception`` with the ``errc::invalid`` error code if any of the devices
-in ``devs`` is not one of devices contained by the context ``ctxt`` or is not
-a descendent device of some device in ``ctxt``.
-
-An ``exception`` with the ``errc::invalid`` error code if the ``devs`` vector
-is empty.
-
-An ``exception`` with the ``errc::invalid`` error code if ``State`` is
-``bundle_state::input`` and any device in ``devs`` does not have
-``aspect::online_compiler``.
-
-An ``exception`` with the ``errc::invalid`` error code if ``State``
-is ``bundle_state::object`` and any device in ``devs`` does not
-have ``aspect::online_linker``.
-
-An ``exception`` with the ``errc::build`` error code if ``State``
-is ``bundle_state::object`` or ``bundle_state::executable``, if
-the implementation needs to perform an online compile or link, and
-if the online compile or link fails.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  any of the kernels identified by ``kernelIds`` are incompatible with
+  all devices in ``devs``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  any of the devices in ``devs`` is not one of devices contained by the
+  context ``ctxt`` or is not a descendent device of some device in ``ctxt``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  the ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  ``State`` is ``sycl::bundle_state::input`` and any device in ``devs``
+  does not have ``sycl::aspect::online_compiler``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  ``State`` is ``sycl::bundle_state::object`` and any device in ``devs``
+  does not have ``sycl::aspect::online_linker``.
+* A ``sycl::exception`` with the ``sycl::errc::build`` error code if ``State``
+  is ``sycl::bundle_state::object`` or ``sycl::bundle_state::executable``, if
+  the implementation needs to perform an online compile or link, and
+  if the online compile or link fails.
 
 ::
 
-  template <bundle_state State, typename Selector>
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt,
-                                         const std::vector<device>& devs,
-                                         Selector selector);
+  template <sycl::bundle_state State, typename Selector>
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt,
+                                               const std::vector<sycl::device>& devs,
+                                               Selector selector);
 
 Preconditions: The ``selector`` must be a unary predicate whose return
 value is convertible to ``bool`` and whose parameter is
-``const device_image<State>&``.
+``const sycl::device_image<State>&``.
 
 Effects: The predicate function ``selector`` is called once for every
 device image in the application of state ``State`` which is compatible
@@ -430,51 +434,48 @@ The bundle’s set of associated devices is ``devs``
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any of
-the devices in ``devs`` is not one of devices contained by the
-context ``ctxt`` or is not a descendent device of some device
-in ``ctxt``.
-
-An ``exception`` with the ``errc::invalid`` error code if
-the ``devs`` vector is empty.
-
-An ``exception`` with the ``errc::invalid`` error code if
-``State`` is ``bundle_state::input`` and any device in
-``devs`` does not have ``aspect::online_compiler``.
-
-An ``exception`` with the ``errc::invalid`` error code if
-``State`` is ``bundle_state::object`` and any device in
-``devs`` does not have ``aspect::online_linker``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if any of
+  the devices in ``devs`` is not one of devices contained by the
+  context ``ctxt`` or is not a descendent device of some device
+  in ``ctxt``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  the ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  ``State`` is ``sycl::bundle_state::input`` and any device in
+  ``devs`` does not have ``sycl::aspect::online_compiler``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  ``State`` is ``sycl::bundle_state::object`` and any device in
+  ``devs`` does not have ``sycl::aspect::online_linker``.
 
 ::
 
-  template <bundle_state State> // (1)
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt);
+  template <sycl::bundle_state State> // (1)
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt);
 
-  template <bundle_state State> // (2)
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt,
-                                         const std::vector<kernel_id>& kernelIds);
+  template <sycl::bundle_state State> // (2)
+  sycl::kernel_bundle<State> get_kernel_bundle(const context& ctxt,
+                                               const std::vector<kernel_id>& kernelIds);
 
-  template <bundle_state State, typename Selector> // (3)
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt, Selector selector);
+  template <sycl::bundle_state State, typename Selector> // (3)
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt, Selector selector);
 
-1.Equivalent to
-``get_kernel_bundle<State>(ctxt, ctxt.get_devices())``.
+1. Equivalent to
+   ``sycl::get_kernel_bundle<State>(ctxt, ctxt.get_devices())``.
 
-2.Equivalent to
-``get_kernel_bundle<State>(ctxt, ctxt.get_devices(), kernelIds)``.
+2. Equivalent to
+   ``sycl::get_kernel_bundle<State>(ctxt, ctxt.get_devices(), kernelIds)``.
 
-3.Equivalent to
-``get_kernel_bundle<State>(ctxt, ctxt.get_devices(), selector)``.
+3. Equivalent to
+   ``sycl::get_kernel_bundle<State>(ctxt, ctxt.get_devices(), selector)``.
 
 ::
 
-  template <typename KernelName, bundle_state State> // (1)
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt);
+  template <typename KernelName, sycl::bundle_state State> // (1)
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt);
 
-  template <typename KernelName, bundle_state State> // (2)
-  kernel_bundle<State> get_kernel_bundle(const context& ctxt,
-                                         const std::vector<device>& devs);
+  template <typename KernelName, sycl::bundle_state State> // (2)
+  sycl::kernel_bundle<State> get_kernel_bundle(const sycl::context& ctxt,
+                                               const std::vector<sycl::device>& devs);
 
 Preconditions: The template parameter ``KernelName`` must be the type
 kernel name of a kernel that is defined in the SYCL application. Since
@@ -484,98 +485,96 @@ command in order to use these functions. Applications which call
 these functions for a ``KernelName`` that is not defined are ill
 formed, and the implementation must issue a diagnostic in this case.
 
-1.Equivalent to ``get_kernel_bundle<State>(ctxt, ctxt.get_devices(),
-{get_kernel_id<KernelName>()})``.
+1. Equivalent to ``sycl::get_kernel_bundle<State>(ctxt, ctxt.get_devices(),
+   {get_kernel_id<KernelName>()})``.
 
-2.Equivalent to ``get_kernel_bundle<State>(ctxt, devs,
-{get_kernel_id<KernelName>()})``.
+2. Equivalent to ``sycl::get_kernel_bundle<State>(ctxt, devs,
+   {get_kernel_id<KernelName>()})``.
 
 ==================================
 Querying if a kernel bundle exists
 ==================================
 
-Most overloads of ``get_kernel_bundle()`` have a matching overload of
-the free function ``has_kernel_bundle()`` which checks to
+Most overloads of ``sycl::get_kernel_bundle()`` have a matching overload of
+the free function ``sycl::has_kernel_bundle()`` which checks to
 see if a kernel bundle with the requested characteristics exists.
 
+``sycl::has_kernel_bundle``
+===========================
+
 ::
 
-  template <bundle_state State>
-  bool has_kernel_bundle(const context& ctxt, const std::vector<device>& devs);
+  template <sycl::bundle_state State>
+  bool has_kernel_bundle(const sycl::context& ctxt, const std::vector<sycl::device>& devs);
 
-Returns: ``true`` only if all of the following are true:
+Returns ``true`` only if all of the following are true:
 
-The application defines at least one kernel that is compatible with at
-least one of the devices in ``devs``, and that kernel can be represented
-in a device image of state ``State``.
-
-If ``State`` is ``bundle_state::input``, all devices in
-``devs`` have ``aspect::online_compiler``.
-
-If ``State`` is ``bundle_state::object``, all devices in
-``devs`` have ``aspect::online_linker``.
+* The application defines at least one kernel that is compatible with at
+  least one of the devices in ``devs``, and that kernel can be represented
+  in a device image of state ``State``.
+* If ``State`` is ``sycl::bundle_state::input``, all devices in
+  ``devs`` have ``sycl::aspect::online_compiler``.
+* If ``State`` is ``sycl::bundle_state::object``, all devices in
+  ``devs`` have ``sycl::aspect::online_linker``.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any of
-the devices in ``devs`` is not one of devices contained by the
-context ``ctxt`` or is not a descendent device of some device in ``ctxt``.
-
-An ``exception`` with the ``errc::invalid`` error code if the
-``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if any of
+  the devices in ``devs`` is not one of devices contained by the
+  context ``ctxt`` or is not a descendent device of some device in ``ctxt``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if the
+  ``devs`` vector is empty.
 
 ::
 
-  template <bundle_state State>
-  bool has_kernel_bundle(const context& ctxt, const std::vector<device>& devs,
-                         const std::vector<kernel_id>& kernelIds);
+  template <sycl::bundle_state State>
+  bool has_kernel_bundle(const sycl::context& ctxt,
+                         const std::vector<sycl::device>& devs,
+                         const std::vector<sycl::kernel_id>& kernelIds);
 
-Returns: ``true`` only if all of the following are true:
+Returns ``true`` only if all of the following are true:
 
-Each of the kernels in ``kernelIds`` can be represented in a
-device image of state ``State``.
-
-Each of the kernels in ``kernelIds`` is compatible with at
-least one of the devices in ``devs``.
-
-If ``State`` is ``bundle_state::input``, all devices in
-``devs`` have ``aspect::online_compiler``.
-
-If ``State`` is ``bundle_state::object``, all devices in
-``devs`` have ``aspect::online_linker``.
+* Each of the kernels in ``kernelIds`` can be represented in a
+  device image of state ``State``.
+* Each of the kernels in ``kernelIds`` is compatible with at
+  least one of the devices in ``devs``.
+* If ``State`` is ``sycl::bundle_state::input``, all devices in
+  ``devs`` have ``sycl::aspect::online_compiler``.
+* If ``State`` is ``sycl::bundle_state::object``, all devices in
+  ``devs`` have ``sycl::aspect::online_linker``.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any
-of the devices in ``devs`` is not one of devices contained by
-the context ``ctxt`` or is not a descendent device of some
-device in ``ctxt``.
-
-An ``exception`` with the ``errc::invalid`` error code if
-the ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if any
+  of the devices in ``devs`` is not one of devices contained by
+  the context ``ctxt`` or is not a descendent device of some
+  device in ``ctxt``.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  the ``devs`` vector is empty.
 
 ::
 
-  template <bundle_state State> // (1)
-  bool has_kernel_bundle(const context& ctxt);
+  template <sycl::bundle_state State> // (1)
+  bool has_kernel_bundle(const sycl::context& ctxt);
 
-  template <bundle_state State> // (2)
-  bool has_kernel_bundle(const context& ctxt,
-                         const std::vector<kernel_id>& kernelIds);
+  template <sycl::bundle_state State> // (2)
+  bool has_kernel_bundle(const sycl::context& ctxt,
+                         const std::vector<sycl::kernel_id>& kernelIds);
 
-1.Equivalent to
-``has_kernel_bundle(ctxt, ctxt.get_devices())``.
+1. Equivalent to
+   ``sycl::has_kernel_bundle(ctxt, ctxt.get_devices())``.
 
-2.Equivalent to
-``has_kernel_bundle<State>(ctxt, ctxt.get_devices(), kernelIds)``.
+2. Equivalent to
+   ``sycl::has_kernel_bundle<State>(ctxt, ctxt.get_devices(), kernelIds)``.
 
 ::
 
   template <typename KernelName, bundle_state State> // (1)
-  bool has_kernel_bundle(const context& ctxt);
+  bool has_kernel_bundle(const sycl::context& ctxt);
 
-  template <typename KernelName, bundle_state State> // (2)
-  bool has_kernel_bundle(const context& ctxt, const std::vector<device>& devs);
+  template <typename KernelName, sycl::bundle_state State> // (2)
+  bool has_kernel_bundle(const sycl::context& ctxt,
+                         const std::vector<sycl::device>& devs);
 
 Preconditions: The template parameter ``KernelName`` must be the
 type kernel name of a kernel that is defined in the SYCL
@@ -586,11 +585,11 @@ to use these functions. Applications which call these functions
 for a ``KernelName`` that is not defined are ill formed, and
 the implementation must issue a diagnostic in this case.
 
-1.Equivalent to
-``has_kernel_bundle<State>(ctxt, {get_kernel_id<KernelName>()})``.
+1. Equivalent to
+   ``sycl::has_kernel_bundle<State>(ctxt, {get_kernel_id<KernelName>()})``.
 
-2.Equivalent to
-``has_kernel_bundle<State>(ctxt, devs, {get_kernel_id<KernelName>()})``.
+2. Equivalent to
+   ``sycl::has_kernel_bundle<State>(ctxt, devs, {get_kernel_id<KernelName>()})``.
 
 ================================================
 Querying if a kernel is compatible with a device
@@ -615,16 +614,21 @@ might be dependent on options passed to the compiler.
 A device built-in kernel is only compatible with the device for
 which it is built-in.
 
+``sycl::is_compatible``
+=======================
+
 ::
 
-  bool is_compatible(const std::vector<kernel_id>& kernelIds, const device& dev);
+  bool is_compatible(const std::vector<sycl::kernel_id>& kernelIds,
+                     const sycl::device& dev);
 
-Returns: ``true`` if all of the kernels identified by ``kernelIds``
+Returns ``true`` if all of the kernels identified by ``kernelIds``
 are compatible with the device ``dev``.
 
 ::
 
-  template <typename KernelName> bool is_compatible(const device& dev);
+  template <typename KernelName>
+  bool is_compatible(const sycl::device& dev);
 
 Preconditions: The template parameter ``KernelName`` must be the type
 kernel name of a kernel that is defined in the SYCL application. Since
@@ -634,7 +638,8 @@ command in order to use this function. Applications which call this
 function for a ``KernelName`` that is not defined are ill formed,
 and the implementation must issue a diagnostic in this case.
 
-Equivalent to ``is_compatible<State>({get_kernel_id<KernelName>()}, dev)``.
+Equivalent to
+``sycl::is_compatible<State>({get_kernel_id<KernelName>()}, dev)``.
 
 ======================
 Joining kernel bundles
@@ -647,21 +652,23 @@ state as its inputs. Rather, joining creates the union of all the
 devices images from the input bundles, eliminates duplicate copies
 of the same device image, and creates a new bundle from the result.
 
+``sycl::join``
+==============
+
 ::
 
-  template <bundle_state State>
-  kernel_bundle<State> join(const std::vector<kernel_bundle<State>>& bundles);
+  template <sycl::bundle_state State>
+  sycl::kernel_bundle<State> join(const std::vector<sycl::kernel_bundle<State>>& bundles);
 
 Returns: A new kernel bundle that contains a copy of all the device
 images in the input ``bundles`` with duplicates removed. The new
 bundle has the same associated context and the same set of
 associated devices as those in ``bundles``.
 
-Throws:
-
-An ``exception`` with the ``errc::invalid`` error code if the
-bundles in ``bundles`` do not all have the same associated
-context or do not all have the same set of associated devices.
+Throws a ``sycl::exception`` with the ``sycl::errc::invalid``
+error code if the bundles in ``bundles`` do not all have the
+same associated context or do not all have the same set of
+associated devices.
 
 ============================
 Online compiling and linking
@@ -669,29 +676,33 @@ Online compiling and linking
 
 If the implementation provides an online compiler or linker, a SYCL
 application can use the free functions defined in this section to
-transform a kernel bundle from ``bundle_state::input`` into a
-bundle of state ``bundle_state::object`` or to transform a bundle
-from ``bundle_state::object`` into a bundle of state
-``bundle_state::executable``.
+transform a kernel bundle from ``sycl::bundle_state::input`` into a
+bundle of state ``sycl::bundle_state::object`` or to transform a bundle
+from ``sycl::bundle_state::object`` into a bundle of state
+``sycl::bundle_state::executable``.
 
 An application can query whether the implementation provides an
 online compiler or linker by querying a device for
-``aspect::online_compiler`` or ``aspect::online_linker``.
+``sycl::aspect::online_compiler`` or ``sycl::aspect::online_linker``.
 
-All of the functions in this section accept a ``property_list``
+All of the functions in this section accept a ``sycl::property_list``
 parameter, which can affect the semantics of the compilation or
 linking operation. The core SYCL specification does not currently
 define any such properties, but vendors may specify these
 properties as an extension.
 
+``sycl::compile``
+=================
+
 ::
 
-  kernel_bundle<bundle_state::object>
-  compile(const kernel_bundle<bundle_state::input>& inputBundle,
-          const std::vector<device>& devs, const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::object>
+  compile(const sycl::kernel_bundle<sycl::bundle_state::input>& inputBundle,
+          const std::vector<sycl::device>& devs,
+          const sycl::property_list& propList = {});
 
 Effects: The device images from ``inputBundle`` are translated into
-one or more new device images of state ``bundle_state::object``,
+one or more new device images of state ``sycl::bundle_state::object``,
 and a new kernel bundle is created to contain these new device
 images. The new bundle represents all of the kernels in
 ``inputBundles`` that are compatible with at least one of the
@@ -703,26 +714,30 @@ The new bundle has the same associated context as ``inputBundle``,
 and the new bundle’s set of associated devices is ``devs`` (with
 duplicate devices removed).
 
-Returns: The new kernel bundle.
+Returns the new kernel bundle.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any of the
-devices in ``devs`` are not in the set of associated devices for
-``inputBundle`` (as defined by ``kernel_bundle::get_devices()``)
-or if the ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if
+  any of the devices in ``devs`` are not in the set of associated
+  devices for ``inputBundle`` (as defined by
+  ``sycl::kernel_bundle::get_devices()``)
+  or if the ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::build`` error code if the online
+  compile operation fails.
 
-An ``exception`` with the ``errc::build`` error code if the online
-compile operation fails.
+``sycl::link``
+==============
 
 ::
 
-  kernel_bundle<bundle_state::executable>
-  link(const std::vector<kernel_bundle<bundle_state::object>>& objectBundles,
-       const std::vector<device>& devs, const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::executable>
+  link(const std::vector<sycl::kernel_bundle<sycl::bundle_state::object>>& objectBundles,
+       const std::vector<sycl::device>& devs,
+       const sycl::property_list& propList = {});
 
 Effects: Duplicate device images from ``objectBundles`` are
-into one or more new device images of state ``bundle_state::executable``,
+into one or more new device images of state ``sycl::bundle_state::executable``,
 and a new kernel bundle is created to contain these new device images.
 The new bundle represents all of the kernels in ``objectBundles`` that
 are compatible with at least one of the devices in ``devs``. Any
@@ -733,89 +748,90 @@ The new bundle has the same associated context as those in
 ``objectBundles``, and the new bundle’s set of associated devices
 is ``devs`` (with duplicate devices removed).
 
-Returns: The new kernel bundle.
+Returns the new kernel bundle.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if the bundles
-in ``objectBundles`` do not all have the same associated context.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if the
+  bundles in ``objectBundles`` do not all have the same associated context.
+* A ``sycl::exception`` with the ``sycl::errc::invalid`` error code if any
+  of the devices in ``devs`` are not in the set of associated devices for
+  any of the bundles in ``objectBundles`` (as defined by
+  ``sycl::kernel_bundle::get_devices()``) or if the ``devs`` vector is empty.
+* A ``sycl::exception`` with the ``sycl::errc::build`` error code if the online
+  link operation fails.
 
-An ``exception`` with the ``errc::invalid`` error code if any of the
-devices in ``devs`` are not in the set of associated devices for any
-of the bundles in ``objectBundles`` (as defined by
-``kernel_bundle::get_devices()``) or if the ``devs`` vector is empty.
-
-An ``exception`` with the ``errc::build`` error code if the online
-link operation fails.
+``sycl::build``
+===============
 
 ::
 
-  kernel_bundle<bundle_state::executable>
-  build(const kernel_bundle<bundle_state::input>& inputBundle,
-        const std::vector<device>& devs, const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::executable>
+  build(const sycl::kernel_bundle<sycl::bundle_state::input>& inputBundle,
+        const std::vector<sycl::device>& devs,
+        const sycl::property_list& propList = {});
 
 Effects: This function performs both an online compile and link operation,
-translating a kernel bundle of state ``bundle_state::input`` into a bundle
-of state ``bundle_state::executable``. The device images from ``inputBundle``
-are translated into one or more new device images of state
-``bundle_state::executable``, and a new bundle is created to contain
-these new device images. The new bundle represents all of the kernels
-in ``inputBundle`` that are compatible with at least one of the devices
-in ``devs``. Any remaining kernels (those that are not compatible with
-any of the devices ``devs``) are not compiled or linked and are not
+translating a kernel bundle of state ``sycl::bundle_state::input`` into
+a bundle of state ``sycl::bundle_state::executable``. The device images
+from ``inputBundle`` are translated into one or more new device images of
+state ``sycl::bundle_state::executable``, and a new bundle is created to
+contain these new device images. The new bundle represents all of the
+kernels in ``inputBundle`` that are compatible with at least one of the
+devices in ``devs``. Any remaining kernels (those that are not compatible
+with any of the devices ``devs``) are not compiled or linked and are not
 represented in the new bundle.
 
 The new bundle has the same associated context as ``inputBundle``,
 and the new bundle’s set of associated devices is ``devs`` (with
 duplicate devices removed).
 
-Returns: The new kernel bundle.
+Returns the new kernel bundle.
 
 Throws:
 
-An ``exception`` with the ``errc::invalid`` error code if any of the
-devices in ``devs`` are not in the set of associated devices for
-``inputBundle`` (as defined by ``kernel_bundle::get_devices()``)
-or if the ``devs`` vector is empty.
+* An ``sycl::exception`` with the ``sycl::errc::invalid`` error code if any
+  of the devices in ``devs`` are not in the set of associated devices for
+  ``inputBundle`` (as defined by ``sycl::kernel_bundle::get_devices()``)
+  or if the ``devs`` vector is empty.
+* An ``sycl::exception`` with the ``sycl::errc::build`` error code if the
+  online compile or link operations fail.
 
-An ``exception`` with the ``errc::build`` error code if the online
-compile or link operations fail.
+Additional overloads
+====================
 
 ::
 
-  kernel_bundle<bundle_state::object> // (1)
-  compile(const kernel_bundle<bundle_state::input>& inputBundle,
-          const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::object> // (1)
+  compile(const sycl::kernel_bundle<sycl::bundle_state::input>& inputBundle,
+          const sycl::property_list& propList = {});
 
-  kernel_bundle<bundle_state::executable> // (2)
-  link(const kernel_bundle<bundle_state::object>& objectBundle,
-       const std::vector<device>& devs, const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::executable> // (2)
+  link(const sycl::kernel_bundle<sycl::bundle_state::object>& objectBundle,
+       const std::vector<sycl::device>& devs,
+       const sycl::property_list& propList = {});
 
-  kernel_bundle<bundle_state::executable> // (3)
-  link(const std::vector<kernel_bundle<bundle_state::object>>& objectBundles,
-       const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::executable> // (3)
+  link(const std::vector<sycl::kernel_bundle<sycl::bundle_state::object>>& objectBundles,
+       const sycl::property_list& propList = {});
 
-  kernel_bundle<bundle_state::executable> // (4)
-  link(const kernel_bundle<bundle_state::object>& objectBundle,
-       const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::executable> // (4)
+  link(const sycl::kernel_bundle<sycl::bundle_state::object>& objectBundle,
+       const sycl::property_list& propList = {});
 
-  kernel_bundle<bundle_state::executable> // (5)
-  build(const kernel_bundle<bundle_state::input>& inputBundle,
-        const property_list& propList = {});
+  sycl::kernel_bundle<sycl::bundle_state::executable> // (5)
+  build(const sycl::kernel_bundle<sycl::bundle_state::input>& inputBundle,
+        const sycl::property_list& propList = {});
 
-Equivalent to
-``compile(inputBundle, inputBundle.get_devices(), propList)``.
-
-Equivalent to
-``link({objectBundle}, devs, propList)``.
-
-Equivalent to
-``link(objectBundles, devs, propList)``, where
-``devs`` is the intersection of associated
-devices in common for all bundles in ``objectBundles``.
-
-Equivalent to
-``link({objectBundle}, objectBundle.get_devices(), propList)``.
-
-Equivalent to
-``build(inputBundle, inputBundle.get_devices(), propList)``.
+1. Equivalent to
+   ``sycl::compile(inputBundle, inputBundle.get_devices(), propList)``.
+2. Equivalent to
+   ``sycl::link({objectBundle}, devs, propList)``.
+3. Equivalent to
+   ``sycl::link(objectBundles, devs, propList)``, where
+   ``devs`` is the intersection of associated
+   devices in common for all bundles in ``objectBundles``.
+4. Equivalent to
+   ``sycl::link({objectBundle}, objectBundle.get_devices(), propList)``.
+5. Equivalent to
+   ``sycl::build(inputBundle, inputBundle.get_devices(), propList)``.

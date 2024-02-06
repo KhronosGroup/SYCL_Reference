@@ -13,7 +13,7 @@
    template <int Dimensions = 1>
    class group;
 
-The ``group`` encapsulates all functionality required to represent
+The ``sycl::group`` encapsulates all functionality required to represent
 a particular work-group within a parallel execution.
 It is not user-constructible.
 
@@ -51,17 +51,17 @@ Member functions
 
 ::
 
-  id<Dimensions> get_group_id() const
+  sycl::id<Dimensions> get_group_id() const;
 
-Return an id representing the index of the work-group within the
-global ``nd-range`` for every dimension. Since the work-items in
-a work-group have a defined position within the global ``nd-range``,
+Return a ``sycl::id`` representing the index of the work-group within the
+global ``sycl::nd_range`` for every dimension. Since the work-items in
+a work-group have a defined position within the global ``sycl::nd_range``,
 the returned group id can be used along with the local id to
-uniquely identify the work-item in the global ``nd-range``.
+uniquely identify the work-item in the global ``sycl::nd_range``.
 
 ::
 
-  size_t get_group_id(int dimension) const
+  size_t get_group_id(int dimension) const;
 
 Return the same value as ``get_group_id()[dimension]``.
 
@@ -71,9 +71,9 @@ Return the same value as ``get_group_id()[dimension]``.
 
 ::
 
-  id<Dimensions> get_local_id() const
+  sycl::id<Dimensions> get_local_id() const;
 
-Return a SYCL ``id`` representing the calling work-item’s
+Return a ``sycl::id`` representing the calling work-item’s
 position within the work-group.
 
 It is undefined behavior for this member function to be invoked
@@ -81,27 +81,27 @@ from within a ``parallel_for_work_item`` context.
 
 ::
 
-  size_t get_local_id(int dimension) const
+  size_t get_local_id(int dimension) const;
 
 Return the same value as ``get_local_id()[dimension]``.
 
 It is undefined behavior for this member function to be invoked
-from within a parallel_for_work_item context.
+from within a ``parallel_for_work_item`` context.
 
 ``get_local_range``
 ===================
 
 ::
 
-  range<Dimensions> get_local_range() const
+  sycl::range<Dimensions> get_local_range() const;
 
-Return a SYCL ``range`` representing all dimensions
+Return a ``sycl::range`` representing all dimensions
 of the local range. This local range may have been
 provided by the programmer, or chosen by the SYCL runtime.
 
 ::
 
-  size_t get_local_range(int dimension) const
+  size_t get_local_range(int dimension) const;
 
 Return the same value as ``get_local_range()[dimension]``.
 
@@ -110,14 +110,14 @@ Return the same value as ``get_local_range()[dimension]``.
 
 ::
 
-  range<Dimensions> get_group_range() const
+  sycl::range<Dimensions> get_group_range() const;
 
-Return a ``range`` representing the number of work-groups
-in the ``nd_range``.
+Return a ``sycl::range`` representing the number of work-groups
+in the ``sycl::nd_range``.
 
 ::
 
-  size_t get_group_range(int dimension) const
+  size_t get_group_range(int dimension) const;
 
 Return the same value as ``get_group_range()[dimension]``.
 
@@ -126,7 +126,7 @@ Return the same value as ``get_group_range()[dimension]``.
 
 ::
 
-  size_t operator[](int dimension) const
+  size_t operator[](int dimension) const;
 
 Return the same value as ``get_group_id(dimension)``.
 
@@ -135,17 +135,17 @@ Return the same value as ``get_group_id(dimension)``.
 
 ::
 
-  range<Dimensions> get_max_local_range() const
+  sycl::range<Dimensions> get_max_local_range() const;
 
-Return a ``range`` representing the maximum number of
-work-items in any work-group in the ``nd_range``.
+Return a ``sycl::range`` representing the maximum number of
+work-items in any work-group in the ``sycl::nd_range``.
 
 ``get_group_linear_id``
 =======================
 
 ::
 
-  size_t get_group_linear_id() const
+  size_t get_group_linear_id() const;
 
 Get a linearized version of the work-group id.
 Calculating a linear work-group id from
@@ -156,16 +156,16 @@ a multi-dimensional index follows |SYCL_SPEC_LINEARIZATION|.
 
 ::
 
-  size_t get_group_linear_range() const
+  size_t get_group_linear_range() const;
 
-Return the total number of work-groups in the ``nd_range``.
+Return the total number of work-groups in the ``sycl::nd_range``.
 
 ``get_local_linear_id``
 =======================
 
 ::
 
-  size_t get_local_linear_id() const
+  size_t get_local_linear_id() const;
 
 Get a linearized version of the calling work-item’s local id.
 Calculating a linear local id from a multi-dimensional
@@ -179,7 +179,7 @@ invoked from within a ``parallel_for_work_item`` context.
 
 ::
 
-  size_t get_local_linear_range() const
+  size_t get_local_linear_range() const;
 
 Return the total number of work-items in the work-group.
 
@@ -188,9 +188,9 @@ Return the total number of work-items in the work-group.
 
 ::
 
-  bool leader() const
+  bool leader() const;
 
-Return true for exactly one work-item in the work-group,
+Return ``true`` for exactly one work-item in the work-group,
 if the calling work-item is the leader of the work-group,
 and false for all other work-items in the work-group.
 
@@ -205,12 +205,12 @@ to be the work-item with a local id of 0.
 ::
 
   template <typename WorkItemFunctionT>
-  void parallel_for_work_item(const WorkItemFunctionT& func) const
+  void parallel_for_work_item(const WorkItemFunctionT& func) const;
 
 Launch the work-items for this work-group.
 
 ``func`` is a function object type with a public member function
-``void F::operator()(h_item<Dimensions>)``
+``void F::operator()(sycl::h_item<Dimensions>)``
 representing the work-item computation.
 
 This member function can only be invoked within a
@@ -226,8 +226,8 @@ the size of a work-group.
 ::
 
   template <typename WorkItemFunctionT>
-  void parallel_for_work_item(range<Dimensions> logicalRange,
-                              const WorkItemFunctionT& func) const
+  void parallel_for_work_item(sycl::range<Dimensions> logicalRange,
+                              const WorkItemFunctionT& func) const;
 
 Launch the work-items for this work-group using a logical local range.
 The function object ``func`` is executed as if the kernel were invoked
@@ -237,12 +237,12 @@ emulated and may not map one-to-one with the physical range.
 ``logicalRange`` is the new local range to be used. This range can be
 smaller or larger than the one used to invoke the kernel. ``func`` is
 a function object type with a public member function
-``void F::operator()(h_item<Dimensions>)``
+``void F::operator()(sycl::h_item<Dimensions>)``
 representing the work-item computation.
 
 Note that the logical range does not need to be uniform across all
 work-groups in a kernel. For example the logical range may depend on
-a work-group varying query (e.g. ``group::get_linear_id``),
+a work-group varying query (e.g. ``sycl::group::get_linear_id``),
 such that different work-groups in the same kernel invocation
 execute different logical range sizes.
 
@@ -255,47 +255,49 @@ This member function can only be invoked within a
 ::
 
   template <typename DataT>
-  device_event async_work_group_copy(local_ptr<DataT> dest,
-                                     global_ptr<DataT> src,
-                                     size_t numElements) const
+  sycl::device_event async_work_group_copy(sycl::local_ptr<DataT> dest,
+                                           sycl::global_ptr<DataT> src,
+                                           size_t numElements) const;
 
   template <typename DataT>
-  device_event async_work_group_copy(global_ptr<DataT> dest,
-                                     local_ptr<DataT> src,
-                                     size_t numElements) const
+  sycl::device_event async_work_group_copy(sycl::global_ptr<DataT> dest,
+                                           sycl::local_ptr<DataT> src,
+                                           size_t numElements) const;
 
   template <typename DataT>
-  device_event async_work_group_copy(local_ptr<DataT> dest,
-                                     global_ptr<DataT> src,
-                                     size_t numElements, size_t srcStride) const
+  sycl::device_event async_work_group_copy(sycl::local_ptr<DataT> dest,
+                                           sycl::global_ptr<DataT> src,
+                                           size_t numElements, size_t srcStride) const;
 
   template <typename DataT>
-  device_event async_work_group_copy(global_ptr<DataT> dest,
-                                     local_ptr<DataT> src,
-                                     size_t numElements, size_t destStride) const
+  sycl::device_event async_work_group_copy(sycl::global_ptr<DataT> dest,
+                                           sycl::local_ptr<DataT> src,
+                                           size_t numElements, size_t destStride) const;
 
 All four ``async_work_group_copy`` functions listed above are deprecated
-in SYCL 2020. Has the same effect as the overload taking
-``decorated_local_ptr`` and ``decorated_global_ptr``
+in SYCL 2020.
+
+Has the same effect as the overload taking
+``sycl::decorated_local_ptr`` and ``sycl::decorated_global_ptr``
 except that the ``dest`` and ``src`` parameters are
-``multi_ptr`` with ``access::decorated::legacy``.
+``sycl::multi_ptr`` with ``sycl::access::decorated::legacy``.
 
 ::
 
   template <typename DestDataT, typename SrcDataT>
-  device_event async_work_group_copy(decorated_global_ptr<DestDataT> dest,
-                                     decorated_local_ptr<SrcDataT> src,
-                                     size_t numElements) const
+  sycl::device_event async_work_group_copy(sycl::decorated_global_ptr<DestDataT> dest,
+                                           sycl::decorated_local_ptr<SrcDataT> src,
+                                           size_t numElements) const;
 
   template <typename DestDataT, typename SrcDataT>
-  device_event async_work_group_copy(decorated_local_ptr<DestDataT> dest,
-                                     decorated_global_ptr<SrcDataT> src,
-                                     size_t numElements, size_t srcStride) const
+  sycl::device_event async_work_group_copy(sycl::decorated_local_ptr<DestDataT> dest,
+                                           sycl::decorated_global_ptr<SrcDataT> src,
+                                           size_t numElements, size_t srcStride) const;
 
   template <typename DestDataT, SrcDataT>
-  device_event async_work_group_copy(decorated_global_ptr<DestDataT> dest,
-                                     decorated_local_ptr<SrcDataT> src,
-                                     size_t numElements, size_t destStride) const
+  sycl::device_event async_work_group_copy(sycl::decorated_global_ptr<DestDataT> dest,
+                                           sycl::decorated_local_ptr<SrcDataT> src,
+                                           size_t numElements, size_t destStride) const;
 
 All three functions above are available only when:
 ``(std::is_same_v<DestDataT, std::remove_const_t<SrcDataT>> == true)``
@@ -304,7 +306,7 @@ Permitted types for ``DataT`` are all scalar and vector types.
 Asynchronously copies a number of elements specified by
 ``numElements`` from the source pointer ``src`` to destination pointer
 ``dest`` with a destination stride specified by ``destStride``
-and returns a SYCL ``device_event`` which can be used to wait
+and returns a ``sycl::device_event`` which can be used to wait
 on the completion of the copy.
 
 ``wait_for``
@@ -312,8 +314,8 @@ on the completion of the copy.
 
 ::
 
-  template <typename... EventTN> void wait_for(EventTN... events) const
+  template <typename... EventTN> void wait_for(EventTN... events) const;
 
-Permitted type for ``EventTN`` is ``device_event``. Waits for the
-asynchronous operations associated with each
-``device_event`` to complete.
+Permitted type for ``EventTN`` is ``sycl::device_event``.
+Waits for the asynchronous operations associated with each
+``sycl::device_event`` to complete.
