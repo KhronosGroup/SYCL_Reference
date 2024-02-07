@@ -8,14 +8,14 @@
 Reduction Variables
 *******************
 
-All functionality related to reductions is captured by the ``reducer``
+All functionality related to reductions is captured by the ``sycl::reducer``
 class and the ``reduction`` function.
 
 The example below demonstrates how to write a reduction kernel that
 performs two reductions simultaneously on the same input values,
 computing both the sum of all values in a buffer and the maximum
 value in the buffer. For each reduction variable passed to
-``parallel_for``, a reference to a ``reducer`` object is passed
+``parallel_for``, a reference to a ``sycl::reducer`` object is passed
 as a parameter to the kernel function in the same order.
 
 ::
@@ -66,7 +66,7 @@ by the C++ core language). If the reduction operator is non-associative
 or non-commutative, the behavior of a reduction may be non-deterministic.
 If multiple reductions reference the same reduction variable, or a
 reduction variable is accessed directly during the lifetime of a reduction
-(e.g. via an ``accessor`` or USM pointer), the behavior is undefined.
+(e.g. via an ``sycl::accessor`` or USM pointer), the behavior is undefined.
 
 Some of the overloads for the ``reduction`` function take an identity
 value and some do not. An implementation is required to compute a correct
@@ -147,7 +147,7 @@ Known identities
     - ``-std::numeric_limits<AccumulatorT>::infinity()``
 
 The reduction interface is limited to reduction variables whose size can be
-determined at compile-time. As such, ``buffer`` and USM pointer arguments
+determined at compile-time. As such, :ref:`buffer` and USM pointer arguments
 are interpreted by the reduction interface as describing a single variable.
 A reduction operation associated with a ``span`` represents an array
 reduction. An array reduction of size N is functionally equivalent to
@@ -167,7 +167,7 @@ implementation-defined object of unspecified type, which is interpreted
 by parallel_for to construct an appropriate reducer type
 as detailed in |SYCL_SPEC_REDUCER_CLASS|.
 An implementation may use an unspecified number of temporary variables
-inside of any ``reducer`` objects it creates. If an identity value
+inside of any ``sycl::reducer`` objects it creates. If an identity value
 is supplied to a reduction, an implementation will use that value
 to initialize any such temporary variables.
 
@@ -222,8 +222,9 @@ Overloads of the ``reduction`` interface
 Construct an unspecified object representing a reduction of the variable(s)
 described by ``vars`` using the combination operation specified by
 ``combiner``. Zero or more properties can be provided via an instance of
-``property_list``. Throws an ``exception`` with the ``errc::invalid``
-error code if the range of the ``vars`` buffer is not 1.
+``sycl::property_list``. Throws an ``exception`` with the
+``sycl::errc::invalid`` error code if the range of the
+``vars`` buffer is not 1.
 
 ::
 
@@ -233,7 +234,7 @@ error code if the range of the ``vars`` buffer is not 1.
 Construct an unspecified object representing a reduction of the variable
 described by ``var`` using the combination operation specified
 by ``combiner``. Zero or more properties can be provided via
-an instance of ``property_list``.
+an instance of ``sycl::property_list``.
 
 ::
 
@@ -244,7 +245,7 @@ Available only when ``Extent != sycl::dynamic_extent``. Construct
 an unspecified object representing a reduction of the variable(s)
 described by ``vars`` using the combination operation specified
 by ``combiner``. Zero or more properties can be provided via an
-instance of ``property_list``.
+instance of ``sycl::property_list``.
 
 ::
 
@@ -258,8 +259,8 @@ variable(s) described by ``vars`` using the combination operation
 specified by ``combiner``. The value of ``identity`` may be used
 by the implementation to initialize an unspecified number of
 temporary accumulation variables. Zero or more properties can
-be provided via an instance of ``property_list``. Throws an
-``exception`` with the ``errc::invalid`` error code if the
+be provided via an instance of ``sycl::property_list``. Throws an
+``exception`` with the ``sycl::errc::invalid`` error code if the
 range of the ``vars`` buffer is not 1.
 
 ::
@@ -273,7 +274,7 @@ variable described by ``var`` using the combination operation
 specified by ``combiner``. The value of ``identity`` may be
 used by the implementation to initialize an unspecified number
 of temporary accumulation variables. Zero or more properties
-can be provided via an instance of ``property_list``.
+can be provided via an instance of ``sycl::property_list``.
 
 ::
 
@@ -287,7 +288,7 @@ described by ``vars`` using the combination operation specified by
 ``combiner``. The value of ``identity`` may be used by the
 implementation to initialize an unspecified number of temporary
 accumulation variables. Zero or more properties can be provided
-via an instance of ``property_list``.
+via an instance of ``sycl::property_list``.
 
 =====================
  Reduction properties
@@ -328,7 +329,7 @@ Constructs an initialize_to_identity property instance.
             /* unspecified */>
   class reducer;
 
-The ``reducer`` class defines the interface between a work-item
+The ``sycl::reducer`` class defines the interface between a work-item
 and a reduction variable during the execution of a SYCL kernel,
 restricting access to the underlying reduction variable.
 The intermediate values of a reduction variable cannot be
@@ -340,13 +341,13 @@ each reducer is combined with the original reduction variable.
 
 An implementation must guarantee that it is safe for multiple
 work-items in a kernel to call the combine function of a
-``reducer`` concurrently. An implementation is free to re-use
+``sycl::reducer`` concurrently. An implementation is free to re-use
 reducer variables (e.g. across work-groups scheduled to the
 same compute unit) if it can guarantee that it is safe to do so.
 
-===================================================
-Member types and constants of the ``reducer`` class
-===================================================
+=========================================================
+Member types and constants of the ``sycl::reducer`` class
+=========================================================
 
 ::
 
@@ -374,20 +375,20 @@ If this reducer object was created from a buffer or a USM pointer,
 the number of dimensions is ``0``. If this reducer object was
 created from a span, the number of dimensions is ``1``.
 
-=========================================
-Member functions of the ``reducer`` class
-=========================================
+===============================================
+Member functions of the ``sycl::reducer`` class
+===============================================
 
 ``combine``
 ===========
 
 ::
 
-  reducer& combine(const T& partial)
+  sycl::reducer& combine(const T& partial)
 
 Available only when: ``Dimensions == 0``. Combine the value
 of ``partial`` with the reduction variable associated with
-this ``reducer``. Returns ``*this``.
+this ``sycl::reducer``. Returns ``*this``.
 
 ``operator[]``
 ==============
@@ -397,12 +398,12 @@ this ``reducer``. Returns ``*this``.
   __unspecified__ operator[](size_t index)
 
 Available only when: ``Dimensions > 0``. Returns an instance of
-an undefined intermediate type representing a ``reducer`` of
-the same type as this ``reducer``, with the dimensionality
+an undefined intermediate type representing a ``sycl::reducer`` of
+the same type as this ``sycl::reducer``, with the dimensionality
 ``Dimensions-1`` and containing an implicit SYCL ``id``
 with index ``Dimensions`` set to ``index``. The intermediate
 type returned must provide all member functions and operators
-defined by the ``reducer`` class that are appropriate for the
+defined by the ``sycl::reducer`` class that are appropriate for the
 type it represents (including this subscript operator).
 
 ``identity``
@@ -413,7 +414,7 @@ type it represents (including this subscript operator).
   T identity() const
 
 Return the identity value of the combination operation
-associated with this ``reducer``. Only available if the
+associated with this ``sycl::reducer``. Only available if the
 identity value is known to the implementation.
 
 ============================================
@@ -425,7 +426,7 @@ Hidden friend operators of the reducer class
 
 ::
 
-  reducer& operator+=(reducer& accum, const T& partial)
+  sycl::reducer& operator+=(sycl::reducer& accum, const T& partial)
 
 Equivalent to calling ``accum.combine(partial)``. Available only when:
 ``Dimensions == 0 && (std::is_same_v<BinaryOperation, plus<>>
@@ -436,7 +437,7 @@ Equivalent to calling ``accum.combine(partial)``. Available only when:
 
 ::
 
-  reducer& operator*=(reducer& accum, const T& partial)
+  sycl::reducer& operator*=(sycl::reducer& accum, const T& partial)
 
 Equivalent to calling ``accum.combine(partial)``. Available only when:
 ``Dimensions == 0 && (std::is_same_v<BinaryOperation, multiplies<>>
@@ -447,7 +448,7 @@ Equivalent to calling ``accum.combine(partial)``. Available only when:
 
 ::
 
-  reducer& operator&=(reducer& accum, const T& partial)
+  sycl::reducer& operator&=(sycl::reducer& accum, const T& partial)
 
 Equivalent to calling ``accum.combine(partial)``. Available only when:
 ``Dimensions == 0 && is_integral_v<T> &&
@@ -459,7 +460,7 @@ std::is_same_v<BinaryOperation, bit_and<T>>)``.
 
 ::
 
-  reducer& operator|=(reducer& accum, const T& partial)
+  sycl::reducer& operator|=(sycl::reducer& accum, const T& partial)
 
 Equivalent to calling ``accum.combine(partial)``. Available only when:
 ``Dimensions == 0 && is_integral_v<T> &&
@@ -471,7 +472,7 @@ std::is_same_v<BinaryOperation, bit_or<T>>)``.
 
 ::
 
-  reducer& operator^=(reducer& accum, const T& partial)
+  sycl::reducer& operator^=(sycl::reducer& accum, const T& partial)
 
 Equivalent to calling ``accum.combine(partial)``. Available only when:
 ``Dimensions == 0 && is_integral_v<T> &&
@@ -483,7 +484,7 @@ std::is_same_v<BinaryOperation, bit_xor<T>>)``.
 
 ::
 
-  reducer& operator++(reducer& accum)
+  sycl::reducer& operator++(sycl::reducer& accum)
 
 Equivalent to calling ``accum.combine(1)``. Available only when:
 ``Dimensions == 0 && std::is_integral_v<T> &&
