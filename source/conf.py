@@ -86,6 +86,9 @@ def make_ref(ref_str, ref_view, ref_sufix):
 
 prolog_template = string.Template(
     make_ref(
+        "SYCL_SPEC_ANATOMY", "Section 3.2", "#sec:anatomy"
+    )
+    + make_ref(
         "SYCL_SPEC_HEADER_FILES", "Section 4.3", "#sec:headers-and-namespaces"
     )
     + make_ref(
