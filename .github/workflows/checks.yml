@@ -46,3 +46,38 @@ jobs:
         cmake -B build
         make -j 2 -C build
         ctest --test-dir build --label-exclude gpu
+
+  # Upload the HTML output from the build as a GitHub Pages artifact
+  # This does not publish the artifact to GitHub Pages, it just gets it ready.
+  upload-pages:
+    runs-on: ubuntu-latest
+    # Run only after checks are successful.
+    # Run only when commits are pushed to the main branch
+    # (not when a PR is opened).
+    needs: [checks, icpx]
+    if: ${{ github.event_name == 'push' }}
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: docs
+    - uses: actions/upload-pages-artifact@v3
+      with:
+        path: html
+
+  # Publish the GitHub Pages artifact on GitHub Pages
+  publish-pages:
+    runs-on: ubuntu-latest
+    needs: upload-pages
+    # These permissions are required by "actions/deploy-pages".
+    permissions:
+      pages: write
+      id-token: write
+    # Do not allow two jobs to publish simultaneously.
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - uses: actions/deploy-pages@v4
