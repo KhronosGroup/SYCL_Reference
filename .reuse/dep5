@@ -10,9 +10,9 @@ Source:
 # License: ...
 
 Files: source/_static/Khronos_Group_SYCL_logo.* source/_static/favicon.png
-Copyright: 2020 The Khronos Group Inc.
+Copyright: 2024 The Khronos Group Inc.
 License: CC-BY-4.0
 
 Files: ubuntu-packages.txt reference/headers/*
-Copyright: 2020 The Khronos Group Inc.
+Copyright: 2024 The Khronos Group Inc.
 License: Apache-2.0
