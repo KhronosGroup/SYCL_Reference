@@ -30,4 +30,3 @@ add_example(queue-parallel)
 add_example(queue-single-task)
 add_example(usm-implicit-data-movement)
 add_example(anatomy)
-

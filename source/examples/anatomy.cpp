@@ -16,12 +16,12 @@ int main() {
   // because the destructor of resultBuf will wait
   {
     // Wrap our data variable in a buffer
-    buffer<int, 1> resultBuf { data, range<1> { 1024 } };
+    buffer<int, 1> resultBuf{data, range<1>{1024}};
 
     // Create a command group to issue commands to the queue
-    myQueue.submit([&](handler& cgh) {
+    myQueue.submit([&](handler &cgh) {
       // Request write access to the buffer without initialization
-      accessor writeResult { resultBuf, cgh, write_only, no_init };
+      accessor writeResult{resultBuf, cgh, write_only, no_init};
 
       // Enqueue a parallel_for task with 1024 work-items
       cgh.parallel_for(1024, [=](id<1> idx) {
