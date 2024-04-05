@@ -23,6 +23,13 @@ you see something wrong, something that could be better, or want to
 contribute examples or descriptions, feel free to use the buttons at
 the top right to file an issue on GitHub or suggest an edit.
 
+A basic SYCL program, taken from the SYCL 2020 specification, looks like this:
+
+.. literalinclude:: /examples/anatomy.cpp
+   :lines: 5-
+   :linenos:
+.. seealso:: |SYCL_SPEC_ANATOMY|
+
 
 .. toctree::
   :maxdepth: 1
