@@ -25,10 +25,9 @@ the top right to file an issue on GitHub or suggest an edit.
 
 A basic SYCL program, taken from the SYCL 2020 specification, looks like this:
 
-[source,,linenums]
-----
-include::anatomy.cpp[lines=4..-1]
-----
+.. literalinclude:: /examples/anatomy.cpp
+   :lines: 5-
+   :linenos:
 .. seealso:: |SYCL_SPEC_ANATOMY|
 
 
