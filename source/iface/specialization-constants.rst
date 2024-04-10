@@ -265,4 +265,5 @@ specialization constants to set the values of the coefficients.
 Output:
 
 .. literalinclude:: /examples/specialization-constants.out
+   :language: none
    :lines: 5-

@@ -231,4 +231,5 @@ Output text to the console in a kernel.
 Output:
 
 .. literalinclude:: /examples/stream.out
+   :language: none
    :lines: 5-

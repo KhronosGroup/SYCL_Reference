@@ -109,4 +109,5 @@ Example 1
 Output on a system without a GPU:
 
 .. literalinclude:: /examples/gpu-selector.out
+   :language: none
    :lines: 5-
