@@ -418,7 +418,7 @@ rst_prolog = prolog_template.substitute({})
 primary_domain = "cpp"
 
 
-highlight_language = 'cpp'
+highlight_language = "cpp"
 
 # -- Options for spelling extension -------------------------------------------
 
