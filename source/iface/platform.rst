@@ -224,4 +224,5 @@ Enumerate the platforms and the devices they contain.
 Output:
 
 .. literalinclude:: /examples/get-platforms.out
+   :language: none
    :lines: 5-

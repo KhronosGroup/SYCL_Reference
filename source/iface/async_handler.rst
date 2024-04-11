@@ -78,4 +78,5 @@ function and passing it to the :ref:`queue`.
 Output:
 
 .. literalinclude:: /examples/async-handler.out
+   :language: none
    :lines: 5-

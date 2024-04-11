@@ -964,4 +964,5 @@ An example of creating sub-buffers from a parent buffer:
 Output:
 
 .. literalinclude:: /examples/creating-sub-buffers.out
+   :language: none
    :lines: 5-

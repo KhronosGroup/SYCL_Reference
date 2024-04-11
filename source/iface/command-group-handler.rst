@@ -1053,6 +1053,7 @@ described in :ref:`host_task-basic` chapter.
 Output:
 
 .. literalinclude:: /examples/host-task.out
+   :language: none
    :lines: 5-
 
 .. _handler-example2:
@@ -1075,4 +1076,5 @@ buffer on the device unchanged.
 Output:
 
 .. literalinclude:: /examples/handler-copy.out
+   :language: none
    :lines: 5-
