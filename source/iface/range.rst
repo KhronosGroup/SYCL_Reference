@@ -61,7 +61,7 @@ Member functions
 
 ::
 
-  size_t get(int dimension) const
+  size_t get(int dimension) const;
 
 Return the value of the specified dimension of the ``sycl::range``.
 
@@ -79,7 +79,7 @@ Return the l-value of the specified dimension of the ``sycl::range``.
 
 ::
 
-  size_t operator[](int dimension) const
+  size_t operator[](int dimension) const;
 
 Return the value of the specified dimension of the ``sycl::range``.
 
@@ -88,7 +88,7 @@ Return the value of the specified dimension of the ``sycl::range``.
 
 ::
 
-  size_t size() const
+  size_t size() const;
 
 Return the size of the range computed as ``dimension0*…​*dimensionN``.
 
