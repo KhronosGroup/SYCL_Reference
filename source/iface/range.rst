@@ -28,14 +28,28 @@ It can be constructed from integers.
 
   range();
 
+Construct a range with the value ``0`` for each dimension
+
+::
+
   range(size_t dim0);
+
+Construct a 1D range with value ``dim0``.
+Only available if ``Dimensions`` is equals to ``1``.
+
+::
 
   range(size_t dim0, size_t dim1);
 
+Construct a 2D range with value ``dim0`` and ``dim1``.
+Only available if ``Dimensions`` is equals to ``2``.
+
+::
+
   range(size_t dim0, size_t dim1, size_t dim2);
 
-Construct a ``SYCL`` range with the value ``0`` for each dimension
-or a 1D,2D,3D range with values dim0, dim1 and dim2.
+Construct a 3D range with value ``dim0``, ``dim1`` and ``dim2``.
+Only available if ``Dimensions`` is equals to ``3``.
 
 
 ================
@@ -94,11 +108,11 @@ Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
 ``<=``, ``>=``.
 
 Constructs and returns a new instance of the ``sycl::range`` class
-template with the same dimensionality as ``lhs range``, where each
+template with the same dimensionality as ``lhs`` range, where each
 element of the new ``sycl::range`` instance is the result of an
-element-wise ``OP`` operator between each element of ``lhs range``
-and each element of the ``rhs range``. If the operator returns
-a ``bool``, the result is the cast to ``size_t``.
+element-wise ``OP`` operator between each element of ``lhs`` range
+and each element of ``rhs`` range. If the element-wise operator
+returns a ``bool``, the element result is the cast to ``size_t``.
 
 ::
 
@@ -109,11 +123,11 @@ Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
 ``<=``, ``>=``.
 
 Constructs and returns a new instance of the ``sycl::range`` class
-template with the same dimensionality as ``lhs range``, where each
+template with the same dimensionality as ``lhs`` range, where each
 element of the new ``sycl::range`` instance is the result of an
-element-wise ``OP`` operator between each element of this ``sycl::range``
-and the ``rhs size_t``. If the operator returns a ``bool``, the
-result is the cast to ``size_t``.
+element-wise ``OP`` operator between each element of ``lhs`` range
+and ``rhs`` ``size_t``. If the element-wise operator returns a ``bool``,
+the element result is the cast to ``size_t``.
 
 ::
 
@@ -122,10 +136,11 @@ result is the cast to ``size_t``.
 Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
 ``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
 
-Assigns each element of ``lhs range`` instance with the result of an
-element-wise ``OP`` operator between each element of ``lhs range`` and
-each element of the ``rhs range`` and returns ``lhs range``.
-If the operator returns a ``bool``, the result is the cast to ``size_t``.
+Assigns each element of ``lhs`` range instance with the result of an
+element-wise ``OP`` operator between each element of ``lhs`` range and
+each element of ``rhs`` range and returns ``lhs``.
+If the element-wise operator returns a ``bool``, the element result
+is the cast to ``size_t``.
 
 ::
 
@@ -134,10 +149,10 @@ If the operator returns a ``bool``, the result is the cast to ``size_t``.
 Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
 ``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
 
-Assigns each element of ``lhs range`` instance with the result of an
-element-wise ``OP`` operator between each element of ``lhs range``
-and the ``rhs size_t`` and returns ``lhs range``. If the operator
-returns a ``bool``, the result is the cast to ``size_t``.
+Assigns each element of ``lhs`` instance with the result of an
+element-wise ``OP`` operator between each element of ``lhs`` range
+and ``rhs`` ``size_t`` and returns ``lhs``. If the element-wise operator
+returns a ``bool``, the element result is the cast to ``size_t``.
 
 ::
 
@@ -148,11 +163,11 @@ Where ``OP`` is: ``+``, ``-``, ``*``, ``/``, ``%``, ``<<``,
 ``<=``, ``>=``.
 
 Constructs and returns a new instance of the ``sycl::range``
-class template with the same dimensionality as the ``rhs`` ``sycl::range``,
+class template with the same dimensionality as the ``rhs`` range,
 where each element of the new ``sycl::range`` instance is the result
-of an element-wise ``OP`` operator between the ``lhs size_t``
-and each element of the ``rhs`` ``sycl::range``. If the operator
-returns a ``bool``, the result is the cast to ``size_t``.
+of an element-wise ``OP`` operator between the ``lhs`` ``size_t``
+and each element of the ``rhs`` range. If the element-wise operator
+returns a ``bool``, the element result is the cast to ``size_t``.
 
 ::
 
@@ -161,10 +176,10 @@ returns a ``bool``, the result is the cast to ``size_t``.
 Where ``OP`` is: unary ``+``, unary ``-``.
 
 Constructs and returns a new instance of the ``sycl::range`` class
-template with the same dimensionality as the ``rhs`` ``sycl::range``,
+template with the same dimensionality as the ``rhs`` range,
 where each element of the new ``sycl::range`` instance is the result
 of an element-wise ``OP`` operator on the ``rhs``
-``sycl::range``.
+range.
 
 ::
 
@@ -172,9 +187,9 @@ of an element-wise ``OP`` operator on the ``rhs``
 
 Where ``OP`` is: prefix ``++``, prefix ``--``.
 
-Assigns each element of the ``rhs range`` instance with the result of an
-element-wise ``OP`` operator on each element of the ``rhs range``
-and returns this ``sycl::range``.
+Assigns each element of the ``rhs`` range instance with the result of an
+element-wise ``OP`` operator on each element of the ``rhs`` range
+and returns ``rhs``.
 
 ::
 
@@ -182,6 +197,6 @@ and returns this ``sycl::range``.
 
 Where ``OP`` is: postfix ``++``, postfix ``--``.
 
-Make a copy of the ``lhs range``. Assigns each element of the ``lhs range``
+Make a copy of the ``lhs`` range. Assigns each element of the ``lhs`` range
 instance with the result of an element-wise ``OP`` operator on each element
-of the ``lhs range``. Then return the initial copy of the ``sycl::range``.
+of the ``lhs`` range. Then return the initial copy of the ``sycl::range``.
