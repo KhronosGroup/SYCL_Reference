@@ -29,22 +29,41 @@ component ``n`` as a ``size_t``.
 
   id();
 
+Construct an id with the value ``0`` for each dimension
+
+::
+
   id(size_t dim0);
+
+Construct a 1D id with value ``dim0``.
+Only available if ``Dimensions`` is equals to ``1``.
+
+::
 
   id(size_t dim0, size_t dim1);
 
+Construct a 2D id with value ``dim0`` and ``dim1``.
+Only available if ``Dimensions`` is equals to ``2``.
+
+::
+
   id(size_t dim0, size_t dim1, size_t dim2);
+
+Construct a 3D id with value ``dim0``, ``dim1`` and ``dim2``.
+Only available if ``Dimensions`` is equals to ``3``.
+
+::
 
   id(const sycl::range<Dimensions>& range);
 
+Construct an id constructed from a :ref:`range`
+using dimensions of ``range``.
+
+::
+
   id(const sycl::item<Dimensions>& item);
 
-Construct a ``sycl::id``.
-
-A ``sycl::id`` can be 1, 2, or 3 dimensions.
-A ``sycl::id`` constructed from a :ref:`range`
-uses the ``sycl::range`` values. A ``sycl::id``
-constructed from a :ref:`item` uses the ``sycl::id``
+Construct an id from a :ref:`item` using the ``sycl::id``
 contained in the ``sycl::item``.
 
 ================
@@ -67,7 +86,7 @@ Return the value of the ``sycl::id`` for dimension ``dimension``.
 
   size_t& operator[](int dimension);
 
-Return a reference to the requested dimension of the ``sycl::id`` object.
+Return a reference to the requested ``dimension`` of the ``sycl::id`` object.
 
 ``size_t operator[]``
 =====================
@@ -76,7 +95,7 @@ Return a reference to the requested dimension of the ``sycl::id`` object.
 
   size_t operator[](int dimension) const;
 
-Return the value of the requested dimension of the ``sycl::id`` object.
+Return the value of the requested ``dimension`` of the ``sycl::id`` object.
 
 ``operator size_t() const``
 ===========================
@@ -108,8 +127,8 @@ Constructs and returns a new instance of the ``sycl::id`` class template
 with the same dimensionality as ``lhs`` id, where each element of the new
 ``sycl::id`` instance is the result of an element-wise ``OP`` operator
 between each element of ``lhs`` id and each element of the
-``rhs`` id. If the operator returns a ``bool``,
-the result is the cast to ``size_t``.
+``rhs`` id. If the element-wise operator
+returns a ``bool``, the element result is the cast to ``size_t``.
 
 ::
 
@@ -123,7 +142,8 @@ Constructs and returns a new instance of the ``sycl::id`` class template
 with the same dimensionality as ``lhs`` id, where each element of the new
 ``sycl::id`` instance is the result of an element-wise ``OP`` operator
 between each element of this ``sycl::id`` and the ``rhs`` ``size_t``.
-If the operator returns a ``bool``, the result is the cast to ``size_t``.
+If the element-wise operator returns a ``bool``, the element result
+is the cast to ``size_t``.
 
 ::
 
@@ -133,9 +153,10 @@ Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
 ``<<=``, ``>>=``, ``&=``, ``|=``, ``^=``.
 
 Assigns each element of ``lhs`` id instance with the result of an
-element-wise ``OP`` operator between each element of ``lhs id`` and
+element-wise ``OP`` operator between each element of ``lhs`` id and
 each element of the ``rhs`` id and returns ``lhs`` id.
-If the operator returns a ``bool``, the result is the cast to ``size_t``.
+If the element-wise operator returns a ``bool``, the element result
+is the cast to ``size_t``.
 
 ::
 
@@ -146,8 +167,9 @@ Where ``OP`` is: ``+=``, ``-=``, ``*=``, ``/=``, ``%=``,
 
 Assigns each element of ``lhs`` id instance with the result of an
 element-wise ``OP`` operator between each element of ``lhs`` id
-and the ``rhs`` ``size_t`` and returns ``lhs`` id. If the operator
-returns a ``bool``, the result is the cast to ``size_t``.
+and the ``rhs`` ``size_t`` and returns ``lhs`` id.
+If the element-wise operator returns a ``bool``, the element result
+is the cast to ``size_t``.
 
 ::
 
@@ -161,8 +183,8 @@ Constructs and returns a new instance of the ``sycl::id`` class template
 with the same dimensionality as the ``rhs`` id, where each
 element of the new ``sycl::id`` instance is the result of an element-wise
 ``OP`` operator between the ``lhs`` ``size_t`` and each element of the
-``rhs`` ``sycl::range``. If the operator returns a ``bool``,
-the result is the cast to ``size_t``.
+``rhs`` ``sycl::range``.  If the element-wise operator
+returns a ``bool``, the element result is the cast to ``size_t``.
 
 ::
 
@@ -183,7 +205,7 @@ Where ``OP`` is: prefix ``++``, prefix ``--``.
 
 Assigns each element of the ``rhs`` id instance with the result of an
 element-wise ``OP`` operator on each element of the ``rhs`` id
-and returns this ``sycl::id``.
+and returns ``rhs``.
 
 ::
 
