@@ -8,6 +8,8 @@
 Exceptions
 **********
 
+.. _exception:
+
 ===================
 ``sycl::exception``
 ===================
