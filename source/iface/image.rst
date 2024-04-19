@@ -29,6 +29,20 @@ provide the :ref:`common-reference`.
 
 .. seealso:: |SYCL_SPEC_IMAGE|
 
+.. _image_allocator:
+
+==========================
+``sycl::image_allocator``
+==========================
+
+::
+
+  class image_allocator;
+
+The ``sycl::image_allocator`` class dfefines the default allocator that will be
+used by a ``sycl::unsampled_buffer`` or ``sycl::sampled_buffer`` when one is not
+provided by the user. The ``sycl::image_allocator`` allocates in elements of
+``std::byte``.
 
 .. _unsampled_image:
 

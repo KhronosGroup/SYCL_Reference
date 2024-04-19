@@ -8,6 +8,29 @@
 Buffers
 *******
 
+.. _buffer_allocator:
+
+==========================
+``sycl::buffer_allocator``
+==========================
+
+::
+
+  template <typename T>
+  class buffer_allocator;
+
+.. rubric:: Template parameters
+
+================  ==========
+``T``             Type of data in to be allocated.
+================  ==========
+
+The ``sycl::buffer_allocator`` class dfefines the default allocator that will be
+used by a ``sycl::buffer`` when one is not provided by the user.
+The ``sycl::buffer_allocator`` class meets the C++ named requirement Allocator.
+A ``sycl::buffer`` of data type ``const T`` will use ``sycl::buffer_allocator``
+by default.
+
 .. _buffer:
 
 ================

@@ -319,6 +319,8 @@ Constructors of the ``reduction property`` classes
 
 Constructs an initialize_to_identity property instance.
 
+.. _reducer:
+
 ``reducer class``
 =================
 
