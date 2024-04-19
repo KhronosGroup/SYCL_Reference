@@ -12,9 +12,10 @@ Each of the following SYCL runtime classes:
 :ref:`command-accessor`, :ref:`buffer`, :ref:`context`, :ref:`device`,
 :ref:`device_image`, :ref:`event`, :ref:`host_accessor`, 
 :ref:`host_sampled_image_accessor`, :ref:`host_unsampled_image_accessor`, 
-:ref:`kernel`, :ref:`kernel_id`, :ref:`sycl::kernel_bundle <iface-kernel-bundle>`, 
+:ref:`kernel`, :ref:`kernel_id`, :ref:`sycl::kernel_bundle`,
 :ref:`local_accessor`, :ref:`platform`, :ref:`queue`, :ref:`sampled_image`, 
-:ref:`sampled_image_accessor`, :ref:`unsampled_image` and :ref:`unsampled_image_accessor`
+:ref:`sampled_image_accessor`, :ref:`stream`, :ref:`unsampled_image`,
+:ref:`unsampled_image_accessor`
 must obey the following statements, where ``T`` is the runtime class type:
 
 * ``T`` must be copy constructible and copy assignable in the host application 
