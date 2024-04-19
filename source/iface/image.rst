@@ -39,7 +39,7 @@ provide the :ref:`common-reference`.
 
   class image_allocator;
 
-The ``sycl::image_allocator`` class dfefines the default allocator that will be
+The ``sycl::image_allocator`` class defines the default allocator that will be
 used by a ``sycl::unsampled_buffer`` or ``sycl::sampled_buffer`` when one is not
 provided by the user. The ``sycl::image_allocator`` allocates in elements of
 ``std::byte``.
