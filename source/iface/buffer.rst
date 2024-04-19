@@ -25,7 +25,7 @@ Buffers
 ``T``             Type of data in to be allocated.
 ================  ==========
 
-The ``sycl::buffer_allocator`` class dfefines the default allocator that will be
+The ``sycl::buffer_allocator`` class defines the default allocator that will be
 used by a ``sycl::buffer`` when one is not provided by the user.
 The ``sycl::buffer_allocator`` class meets the C++ named requirement Allocator.
 A ``sycl::buffer`` of data type ``const T`` will use ``sycl::buffer_allocator``
