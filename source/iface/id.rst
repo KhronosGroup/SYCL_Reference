@@ -56,7 +56,7 @@ Only available if ``Dimensions`` is equals to ``3``.
 
   id(const sycl::range<Dimensions>& range);
 
-Construct an id constructed from a :ref:`range`
+Construct an id from a :ref:`range`
 using dimensions of ``range``.
 
 ::
