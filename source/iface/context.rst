@@ -23,7 +23,7 @@ represents the runtime data structures and state required by a
 SYCL backend API to interact with a group of devices associated
 with a platform.
 
-The ``sycl::event`` class provides the
+The ``sycl::context`` class provides the
 :ref:`common reference semantics <common-reference>`.
 
 
