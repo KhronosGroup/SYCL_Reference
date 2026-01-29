@@ -35,10 +35,10 @@ jobs:
         CXX: icpx
     steps:
     - uses: actions/checkout@v4
-    - uses: rscohn2/setup-oneapi@v0
+    - uses: rscohn2/setup-oneapi@v0.1.0
       with:
         components: |
-          icx@2023.2.1
+          icx
     - name: Build Examples
       run: |
         source /opt/intel/oneapi/setvars.sh
