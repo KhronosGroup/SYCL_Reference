@@ -1,6 +1,5 @@
 # Copyright 2024 The Khronos Group Inc.
 # SPDX-License-Identifier: Apache-2.0
-
 import os
 import re
 import string
@@ -93,20 +92,18 @@ prolog_template = string.Template(
     )
     + make_ref("SYCL_SPEC_PLATFORM", "Section 4.6.2", "#sec:platform-class")
     + make_ref("SYCL_SPEC_DEVICE", "Section 4.6.4", "#sec:device-class")
-    + make_ref(
-        "SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:interface.context.class"
-    )
+    + make_ref("SYCL_SPEC_CONTEXT", "Section 4.6.3", "#sec:context-class")
     + make_ref(
         "SYCL_SPEC_MEMORY_ORDERING", "Section 3.8.3.1", "#sec:memory-ordering"
     )
     + make_ref(
         "SYCL_SPEC_MEMORY_SCOPE", "Section 3.8.3.2", "#sec:memory-scope"
     )
+    + make_ref("SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:queue-class")
     + make_ref(
-        "SYCL_SPEC_QUEUE", "Section 4.6.5", "#sec:interface.queue.class"
-    )
-    + make_ref(
-        "SYCL_SPEC_QUEUE_PROPERTIES", "Table 31", "#table.properties.queue"
+        "SYCL_SPEC_QUEUE_PROPERTIES",
+        "Section 4.6.5.5",
+        "#sec:queue-properties",
     )
     + make_ref("SYCL_SPEC_ERROR_HANDLING", "Section 4.13", "#error-handling")
     + make_ref(
@@ -114,7 +111,7 @@ prolog_template = string.Template(
         "Section 4.13.1.2",
         "#subsubsec:exception.nohandler",
     )
-    + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:interface.event")
+    + make_ref("SYCL_SPEC_EVENT", "Section 4.6.6", "#sec:event-class")
     + make_ref("SYCL_SPEC_USM", "Section 4.8", "#sec:usm")
     + make_ref(
         "SYCL_SPEC_USM_KINDS",
@@ -209,8 +206,8 @@ prolog_template = string.Template(
     )
     + make_ref(
         "SYCL_SYNC_PARALLEL_FOR_HIERARCHICAL",
-        "Section 4.7.5",
-        "#_parallel_for_hierarchical_invoke",
+        "Section 4.9.4.2.3",
+        "#sec:parallel-for-hierarchical",
     )
     + make_ref(
         "SYCL_SPEC_ND_RANGE", "Section 4.9.1.2", "#subsubsec:nd-range-class"
@@ -287,7 +284,7 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_PAR_FOR_HIER",
         "Section 4.9.4.2.3",
-        "#_parallel_for_hierarchical_invoke",
+        "#sec:parallel-for-hierarchical",
     )
     + make_ref(
         "SYCL_SPEC_PAR_FOR", "Section 4.9.4.2.2", "#_parallel_for_invoke"
@@ -384,7 +381,7 @@ prolog_template = string.Template(
     + make_ref(
         "SYCL_SPEC_RELATIONAL_FUNC",
         "Section 4.17.10",
-        "#_relational_functions",
+        "#sec:relational-functions",
     )
     + make_ref(
         "SYCL_SPEC_GEOM_FUNCTIONS",
@@ -392,7 +389,7 @@ prolog_template = string.Template(
         "#sec:geometric-functions",
     )
     + make_ref(
-        "SYCL_SPEC_MATH_FUNCTIONS", "Section 4.17.4", "#_math_functions"
+        "SYCL_SPEC_MATH_FUNCTIONS", "Section 4.17.4", "#sec:math-functions"
     )
     + f"""
 .. _`SYCL Specification`: {sycl_ref_url}
