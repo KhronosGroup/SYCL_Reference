@@ -160,8 +160,8 @@ object represented by ``acc``.
                     is a placeholder or not.
 ==================  ===
 
-``depend_on``
--------------
+``depends_on``
+--------------
 
 .. rubric:: Overload 1
 
