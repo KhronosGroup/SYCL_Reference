@@ -61,6 +61,7 @@ number.
 Possible output:
 
 .. literalinclude:: /examples/def_kernels_named_function_obj.out
+  :language: none
   :lines: 5-
 
 The random number is generated during the construction

@@ -369,4 +369,5 @@ event profiling info.
 Output example:
 
 .. literalinclude:: /examples/event-elapsed-time.out
+   :language: none
    :lines: 5-

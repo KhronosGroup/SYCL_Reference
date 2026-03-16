@@ -102,4 +102,5 @@ Example of usage of the ``sycl::private_memory``:
 Output example:
 
 .. literalinclude:: /examples/private_memory_example.out
+   :language: none
    :lines: 5-

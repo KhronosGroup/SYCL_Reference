@@ -682,5 +682,6 @@ Examples
    :caption: Thread-safe push/pop using atomic operations.
 
 .. literalinclude:: /examples/atomic.out
+   :language: none
    :lines: 5-
    :caption: Output.

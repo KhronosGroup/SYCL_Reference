@@ -630,6 +630,7 @@ Submission of a single task SYCL kernel function.
 Output:
 
 .. literalinclude:: /examples/queue-single-task.out
+   :language: none
    :lines: 5-
 
 .. _queue-example-2:
@@ -647,4 +648,5 @@ Submission of a parallel SYCL kernel function.
 Output:
 
 .. literalinclude:: /examples/queue-parallel.out
+   :language: none
    :lines: 5-

@@ -1627,4 +1627,5 @@ Enumerate the GPU devices.
 Output example:
 
 .. literalinclude:: /examples/get_devices.out
+   :language: none
    :lines: 5-

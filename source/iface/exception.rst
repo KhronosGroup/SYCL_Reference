@@ -381,4 +381,5 @@ Catching asynchronous exceptions for incorrect range construction.
 Output:
 
 .. literalinclude:: /examples/exception-handling.out
+   :language: none
    :lines: 5-

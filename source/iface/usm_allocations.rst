@@ -436,6 +436,7 @@ See :ref:`usm-implicit-data-movement` for usage.
 Output:
 
 .. literalinclude:: /examples/std-vector.out
+   :language: none
    :lines: 5-
 
 .. _usm-implicit-data-movement:
@@ -458,4 +459,5 @@ by the host code, all without programmer intervention.
 Output:
 
 .. literalinclude:: /examples/usm-implicit-data-movement.out
+   :language: none
    :lines: 5-

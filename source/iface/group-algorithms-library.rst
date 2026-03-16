@@ -678,5 +678,6 @@ Example
    :caption: Using the group algorithms library to perform a work-group reduce.
 
 .. literalinclude:: /examples/reduce-alg-lib.out
+   :language: none
    :lines: 5-
    :caption: Output.

@@ -301,4 +301,5 @@ Print out all the devices within a context.
 Potential Output:
 
 .. literalinclude:: /examples/context.out
+   :language: none
    :lines: 5-

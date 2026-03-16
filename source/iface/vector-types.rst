@@ -1023,7 +1023,7 @@ stored in memory sequentially and contiguously and are aligned to
 the size of the element type in bytes multiplied by the number
 of elements:
 
-::
+.. code-block:: none
 
   sizeof(DataT)⋅NumElements
 
@@ -1031,7 +1031,7 @@ The exception to this is when the number of element is three in which
 case the SYCL ``sycl::vec`` is aligned to the size of the element type in
 bytes multiplied by four:
 
-::
+.. code-block:: none
 
   sizeof(DataT)⋅4
 
