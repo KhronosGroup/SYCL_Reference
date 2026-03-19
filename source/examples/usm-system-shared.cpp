@@ -13,7 +13,7 @@ int main() {
 
   // Allocate normal system memory - let the Linux kernel do the work!
   // You can also use a std::vector, etc.
-  int *data = (int*) malloc(1024);
+  int *data = (int *) malloc(1024);
 
   myQueue.parallel_for(1024, [=](sycl::id<1> idx) {
     // Initialize each buffer element with its own rank number starting at 0
