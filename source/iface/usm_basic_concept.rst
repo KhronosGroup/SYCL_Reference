@@ -1,5 +1,5 @@
 ..
-  Copyright 2024 The Khronos Group Inc.
+  Copyright 2026 The Khronos Group Inc.
   SPDX-License-Identifier: CC-BY-4.0
 
 .. _usm_basic_concept:
@@ -170,7 +170,7 @@ supports ``sycl::aspect::usm_device_allocations``.
 
 .. rubric:: Example
 
-See `usm-example-2`_.
+See `usm-example-3`_.
 
 
 Shared allocations
@@ -239,7 +239,7 @@ shared allocations can be queried through the aspect
 
 .. rubric:: Example
 
-See `usm-example-1`_.
+See `usm-example-2`_.
 
 
 System allocations
@@ -260,10 +260,24 @@ through ``sycl::aspect::usm_system_allocations``.
   must still be allocated using their respective USM functions in order to
   guarantee their behavior.
 
+See `usm-example-1`_.
+
 .. _usm-example-1:
 
 =========
 Example 1
+=========
+
+Example of how system shared memory can be used between host and device:
+
+.. literalinclude:: /examples/usm-system-shared.cpp
+   :lines: 5-
+   :linenos:
+
+.. _usm-example-2:
+
+=========
+Example 2
 =========
 
 Example of how shared memory can be used between host and device:
@@ -272,10 +286,10 @@ Example of how shared memory can be used between host and device:
    :lines: 5-
    :linenos:
 
-.. _usm-example-2:
+.. _usm-example-3:
 
 =========
-Example 2
+Example 3
 =========
 
 Example of using less capable device memory, which requires
