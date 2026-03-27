@@ -974,7 +974,7 @@ same functionality as is available from the ND-range interface, but
 exposed differently. To execute the same sixty-four work-items in eight
 work-groups that we saw in a previous example, we execute an outer
 ``parallel_for_work_group`` call to create the groups. The member
-function ``syck::handler::parallel_for_work_group`` is parameterized
+function ``sycl::handler::parallel_for_work_group`` is parameterized
 by the number of work-groups, such that the size of each group is
 chosen by the runtime, or by the number of work-groups and number
 of work-items for users who need more control.
